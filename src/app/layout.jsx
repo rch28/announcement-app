@@ -1,8 +1,7 @@
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
+import { Toaster } from "react-hot-toast";
 
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Announcement app",
@@ -12,7 +11,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="">
-      <body className={`${inter.className} bg-[#E6FFFF] dark:bg-[#09010F]`}>
+      <body className={`bg-[#E6FFFF] dark:bg-[#09010F]`}>
+      <Toaster/>
         <Navbar/>
         <div className="max-w-6xl mx-auto ">
         {children}
