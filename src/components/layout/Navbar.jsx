@@ -3,9 +3,9 @@ import React from "react";
 
 const Navbar = () => {
   return (
-    <div>
+    <div className="">
       <nav className=" border-b  border-gray-400/50  dark:border-gray-200/25 ">
-        <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
+        <div className="flex flex-wrap justify-between items-center max-w-5xl mx-auto p-4">
           <Link
             href="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
@@ -33,7 +33,7 @@ const Navbar = () => {
         </div>
       </nav>
       <nav className=" border-b border-gray-400/50 dark:border-gray-200/25 ">
-        <div className="max-w-screen-xl px-4 py-3 mx-auto">
+        <div className="max-w-5xl  px-4 py-3 mx-auto">
           <div className="flex items-center">
             <ul className="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
               <li>

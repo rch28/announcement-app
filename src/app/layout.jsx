@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
       <body className={`bg-[#E6FFFF] dark:bg-[#09010F]`}>
       <Toaster/>
         <Navbar/>
-        <div className="max-w-6xl mx-auto ">
+        <div className="max-w-5xl mx-auto ">
         {children}
         </div>
         
