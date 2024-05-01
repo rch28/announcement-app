@@ -33,13 +33,13 @@ const Register = () => {
     console.log("Form submitted");
   };
   return (
-    <div className="p-4 mt-4">
-      <h1 className="text-4xl font-bold text-center pb-10">Register</h1>
+    <div className="p-4 mt-4 transition-all ease-linear ">
       <div className=" flex justify-between gap-4">
         <form
           className=" flex-1 mx-auto border-2 p-4 rounded-md shadow-md shadow-gray-500"
           onSubmit={handleSubmit}
         >
+      <h1 className="text-4xl font-bold text-center pb-10 text-gray-800">Register</h1>
           <div className="grid md:grid-cols-2 md:gap-6">
             <div className="relative z-0 w-full mb-5 group">
               <input
