@@ -24,7 +24,7 @@ const Navbar = () => {
               (555) 412-1234
             </Link>
             <Link
-              href="/register"
+              href="/auth/register"
               className="text-sm  text-blue-600 dark:text-blue-500 hover:underline"
             >
               Login
