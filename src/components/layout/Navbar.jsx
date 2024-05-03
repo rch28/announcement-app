@@ -13,7 +13,7 @@ const Navbar = () => {
            
             <span className="text-3xl">👩🏻‍🎤</span>
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-              Announcement
+              Team App
             </span>
           </Link>
           <div className="flex items-center space-x-6 rtl:space-x-reverse">
@@ -38,7 +38,7 @@ const Navbar = () => {
             <ul className="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
               <li>
                 <Link
-                  href="#"
+                  href="/"
                   className="text-gray-900 dark:text-white hover:underline"
                   aria-current="page"
                 >
@@ -55,7 +55,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="/team"
                   className="text-gray-900 dark:text-white hover:underline"
                 >
                   Team
@@ -63,7 +63,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="/features"
                   className="text-gray-900 dark:text-white hover:underline"
                 >
                   Features

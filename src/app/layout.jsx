@@ -1,3 +1,4 @@
+import Footer from "@/components/layout/Footer";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import { Toaster } from "react-hot-toast";
@@ -17,7 +18,7 @@ export default function RootLayout({ children }) {
         <div className="max-w-5xl mx-auto ">
         {children}
         </div>
-        
+        <Footer/>
         </body>
     </html>
   );

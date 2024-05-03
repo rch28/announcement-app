@@ -1,9 +1,22 @@
-import React from 'react'
+import Features from "@/components/layout/Features";
+import Hero from "@/components/layout/Hero";
+import Testimonial from "@/components/layout/Testimonial";
+import React from "react";
 
 const Home = () => {
   return (
-    <div>Home</div>
-  )
-}
+    <main>
+      <div className="">
+        <Hero />
+      </div>
+      <div>
+        <Features/>
+      </div>
+      <div>
+        <Testimonial/>
+      </div>
+    </main>
+  );
+};
 
-export default Home
+export default Home;
