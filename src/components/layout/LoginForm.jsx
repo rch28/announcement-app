@@ -11,7 +11,6 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
-  const [toastMsg, setToastMsg] = useState("Login successful!")
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -41,7 +40,7 @@ const LoginForm = () => {
           // set token in cookies
           Cookies.set("access_token", result.access, { expires: 7 });
           Cookies.set("refresh_token", result.refresh),  { expires: 7 };
-          setToastMsg("Login Success!");
+          toast.success("Login Success!");          
           router.push("/");
           
         }else{
@@ -64,7 +63,6 @@ const LoginForm = () => {
     });
     toast.promise(newPromise, {
       loading: "Loading...",
-      success: toastMsg  && toastMsg,
       error: "Login Failed!",
     });
     setErrorMsg("");
