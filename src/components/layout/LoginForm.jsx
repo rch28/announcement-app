@@ -46,7 +46,7 @@ const LoginForm = () => {
         }else{
           // redirect to otp verify
           toast.success("OTP Verification Sent!");
-          router.push("/auth/otp-verify");
+          router.push(`/auth/otp-verify?username=${username}`);
         }
 
         
