@@ -3,7 +3,9 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 const RegisterForm = () => {
+  const router= useRouter();
   const [fName, setFName] = useState("");
   const [lName, setLName] = useState("");
   const [username, setuserName] = useState("");
@@ -13,10 +15,12 @@ const RegisterForm = () => {
 
   const [errMsg, setErrMsg] = useState("");
   const [isError, setIsError] = useState(false);
+  const [passwordErr, setPasswordErr] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrMsg("");
     setIsError(false);
+    setPasswordErr(false);
     if (
       !fName ||
       !lName ||
@@ -28,34 +32,44 @@ const RegisterForm = () => {
       setIsError(true);
       return;
     }
-    if(password.length<6){
+    if (password.length < 6) {
+      setPasswordErr(true);
       setErrMsg("Password must be at least 6 characters long!!");
       return;
     }
     if (password !== repeatPassword) {
+      setPasswordErr(true);
       setErrMsg("Password and Confirm password didn't match!!");
       return;
     }
-   
-    const newPromise = new Promise(async (resolve, reject) => {
-      const response = await fetch("/api/register", {
-        method: "POST",
-        body: JSON.stringify({
-          first_name: fName,
-          last_name: lName,
-          username,
-          email,
-          password,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
 
+    const newPromise = new Promise(async (resolve, reject) => {
+      const response = await fetch(
+        "http://localhost:8000/api/v1/user/register/",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            first_name: fName,
+            last_name: lName,
+            username,
+            email,
+            password,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.ok) {
-        const result = await response.json();
+        router.push("/auth/login");
         resolve();
       } else {
+        const result = await response.json();
+        if (result?.errors?.length > 0) {
+          result.errors.forEach((error) => {
+            setErrMsg(error.detail)            
+          });
+        }
         reject();
       }
     });
@@ -79,6 +93,7 @@ const RegisterForm = () => {
           {errMsg}
         </p>
       )}
+     
       <div className="grid md:grid-cols-2 md:gap-6">
         <div className="relative z-0 w-full mb-5 group">
           <input
@@ -128,15 +143,15 @@ const RegisterForm = () => {
         <div className="relative z-0 w-full mb-5 group">
           <input
             type="text"
-            name="floating_last_name"
-            id="floating_last_name"
+            name="floating_username"
+            id="floating_username"
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
             value={username}
             onChange={(e) => setuserName(e.target.value)}
           />
           <label
-            htmlFor="floating_last_name"
+            htmlFor="floating_username"
             className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
             {isError && !username ? (
@@ -185,11 +200,10 @@ const RegisterForm = () => {
         >
           {isError && !password ? (
             <p className="text-red-500">Password is missing!!</p>
+          ) : errMsg && passwordErr ? (
+            <p className="text-red-600 font-bold">Password *</p>
           ) : (
-            errMsg ? <p className="text-red-600 font-bold">
-              Password *
-            </p>
-            :"Password *"
+            "Password *"
           )}
         </label>
       </div>
@@ -209,7 +223,7 @@ const RegisterForm = () => {
         >
           {isError && !repeatPassword ? (
             <p className="text-red-500">Confirm Password is missing!!</p>
-          ) : errMsg ? (
+          ) : errMsg && passwordErr ? (
             <p className="text-red-600 font-bold">"Confirm Password *"</p>
           ) : (
             "Confirm Password *"
