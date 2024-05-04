@@ -1,7 +1,9 @@
 import Link from "next/link";
 import React from "react";
+import ProfileToggleNav from "./ProfileToggleNav";
 
 const Navbar = () => {
+  const loggedIn = true;
   return (
     <div className="">
       <nav className=" border-b  border-gray-400/50  dark:border-gray-200/25 ">
@@ -23,12 +25,18 @@ const Navbar = () => {
             >
               (555) 412-1234
             </Link>
-            <Link
+            {
+              loggedIn ? (
+                <ProfileToggleNav/>
+              ):(
+                <Link
               href="/auth/register"
               className="text-sm  text-blue-600 dark:text-blue-500 hover:underline"
             >
               Login
             </Link>
+              )
+            }
           </div>
         </div>
       </nav>
