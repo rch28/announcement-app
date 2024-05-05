@@ -5,11 +5,14 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 import {  useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import { useStore } from "@/stores/store";
 const LoginForm = () => {
   const router = useRouter();
   const [username, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+
+  const setUserLoggedIn= useStore((state)=>state.setUserLoggedIn);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,7 +43,8 @@ const LoginForm = () => {
           // set token in cookies
           Cookies.set("access_token", result.access, { expires: 7 });
           Cookies.set("refresh_token", result.refresh),  { expires: 7 };
-          toast.success("Login Success!");          
+          toast.success("Login Success!");    
+          setUserLoggedIn(true);
           router.push("/");
           
         }else{

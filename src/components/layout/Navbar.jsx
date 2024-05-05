@@ -1,9 +1,18 @@
+"use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import ProfileToggleNav from "./ProfileToggleNav";
+import { useStore } from "@/stores/store";
+import Cookies from "js-cookie";
 
 const Navbar = () => {
-  const loggedIn = true;
+  const authenticated = useStore((state) => state.userAuthenticated);
+  const loggedIn = Cookies.get("access_token")?true:false;
+  const setUserLoggedIn = useStore((state)=>state.setUserLoggedIn);
+  useEffect(() => {
+    setUserLoggedIn(loggedIn);
+  
+  },[loggedIn])
   return (
     <div className="">
       <nav className=" border-b  border-gray-400/50  dark:border-gray-200/25 ">
@@ -12,7 +21,6 @@ const Navbar = () => {
             href="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-           
             <span className="text-3xl">👩🏻‍🎤</span>
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
               Team App
@@ -26,17 +34,18 @@ const Navbar = () => {
               (555) 412-1234
             </Link>
             {
-              loggedIn ? (
-                <ProfileToggleNav/>
-              ):(
-                <Link
-              href="/auth/register"
-              className="text-sm  text-blue-600 dark:text-blue-500 hover:underline"
-            >
-              Login
-            </Link>
-              )
+            authenticated ? (
+                 <ProfileToggleNav/> 
+            ) : (
+              <Link
+                href="/auth/register"
+                className="text-sm  text-blue-600 dark:text-blue-500 hover:underline"
+              >
+                Login
+              </Link>
+            )
             }
+         
           </div>
         </div>
       </nav>
