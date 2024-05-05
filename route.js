@@ -19,6 +19,9 @@ export const publicRoutes = [
 export const authRoutes = [
     "/auth/login",
     "/auth/register",
+    "/auth/forgot-password",
+    "/auth/reset-password",
+    "/auth/forgot-password/otp-verify",
     "/auth/otp-verify",
     "/auth/error",
 ];
@@ -36,4 +39,4 @@ export const apiAuthPrefix="/api/auth";
  * The default route to redirect to after a successful login
  * @type {string}
  */
-export const DEFAULT_LOGIN_REDIRECT="/  ";
+export const DEFAULT_LOGIN_REDIRECT="/";

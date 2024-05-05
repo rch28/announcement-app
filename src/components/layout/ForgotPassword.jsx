@@ -1,64 +1,52 @@
 "use client";
 
-import { useStore } from "@/stores/store";
 import Cookies from "js-cookie";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-const VerifyOtpForm = () => {
+const ForgotPassword = () => {
   const searchParams = useSearchParams();
-  const router= useRouter()
+  const router = useRouter();
   const username = searchParams.get("username");
-  const verifyFor= searchParams.get("verifyFor")
-  const [opt, setopt] = useState("");
-  const [optErr, setOptErr] = useState("");
-  
-
+  const [email, setEmail] = useState("");
+  const [errMsg, setErrMsg] = useState("");
+  const [isError, setIsError] = useState(false)
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (opt.length !== 6) {
-      setOptErr("Please enter a valid otp");
+    if (!email) {
+        setIsError(true)
+      setErrMsg("Email is Missing!!");
       return;
     }
 
-  const url=verifyFor === "forgot-password" ? "forgot/password" : verifyFor === "login" ? "login" : null;
-
-    console.log(url);
     const newPromise = new Promise(async (resolve, reject) => {
       const res = await fetch(
-        `http://localhost:8000/api/v1/user/verify/${url}/otp/`,
+        "http://127.0.0.1:8000/api/v1/user/forgot/password/",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ username: username, otp: opt }),
+          body: JSON.stringify({ email: email }),
         }
       );
       const data = await res.json();
       if (res.ok) {
-        if(verifyFor==="login"){
-
-          Cookies.set("access_token", data.access, { expires: 7 });
-          Cookies.set("refresh_token", data.refresh),  { expires: 7 };
-          useStore.setState({ userAuthenticated: true });
-          router.push("/");
-        }else if(verifyFor === "forgot-password"){
-          router.push(`/auth/reset-password?username=${username}&&verifyFor=forgot-password`);
-        }
+        router.push(`/auth/forgot-password/otp-verify?username=${username}&&verifyFor=forgot-password`)
         resolve(data);
       } else {
         reject(data);
       }
     });
     toast.promise(newPromise, {
-      loading: "Verifying otp...",
+      loading: "Loading...",
       success: (data) => {
         return data?.msg;
       },
       error: (data) => {
-        setOptErr(data.errors[0].detail);
+        setIsError(true)
+        setErrMsg(data.errors[0].detail);
         return data.errors[0].detail;
       },
     });
@@ -69,29 +57,33 @@ const VerifyOtpForm = () => {
       onSubmit={handleSubmit}
     >
       <h1 className="text-4xl font-bold text-center pb-10 text-gray-800">
-        Verify-Otp
+        Forgot Password
       </h1>
-      {optErr && (
+      {errMsg  &&(
         <p className="text-sm text-red-600 border border-red-300 px-4 py-2 rounded-xl bg-red-200 mb-6">
-          {optErr}
+          {errMsg}
         </p>
       )}
 
       <div className="relative z-0 w-full mb-5 group">
         <input
-          type="text"
-          name="floating_otp"
-          id="floating_otp"
+          type="email"
+          name="floating_email"
+          id="floating_email"
           className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           placeholder=" "
-          value={opt}
-          onChange={(e) => setopt(e.target.value)}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <label
-          htmlFor="floating_otp"
-          className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+          htmlFor="floating_email"
+          className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
         >
-          Otp
+          {isError && !email ? (
+            <p className="text-red-500">Email is missing!!</p>
+          ) : (
+            "Email address *"
+          )}
         </label>
       </div>
       <div className="flex justify-end">
@@ -99,11 +91,11 @@ const VerifyOtpForm = () => {
           type="submit"
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
-          Verify Otp
+            Submit
         </button>
       </div>
     </form>
   );
 };
 
-export default VerifyOtpForm;
+export default ForgotPassword;
