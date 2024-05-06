@@ -8,12 +8,11 @@ import toast from "react-hot-toast";
 
 const VerifyOtpForm = () => {
   const searchParams = useSearchParams();
-  const router= useRouter()
+  const router = useRouter();
   const username = searchParams.get("username");
-  const verifyFor= searchParams.get("verifyFor")
+  const verifyFor = searchParams.get("verifyFor");
   const [opt, setopt] = useState("");
   const [optErr, setOptErr] = useState("");
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +21,12 @@ const VerifyOtpForm = () => {
       return;
     }
 
-  const url=verifyFor === "forgot-password" ? "forgot/password" : verifyFor === "login" ? "login" : null;
+    const url =
+      verifyFor === "forgot-password"
+        ? "forgot/password"
+        : verifyFor === "login"
+        ? "login"
+        : null;
 
     console.log(url);
     const newPromise = new Promise(async (resolve, reject) => {
@@ -38,14 +42,15 @@ const VerifyOtpForm = () => {
       );
       const data = await res.json();
       if (res.ok) {
-        if(verifyFor==="login"){
-
+        if (verifyFor === "login") {
           Cookies.set("access_token", data.access, { expires: 7 });
-          Cookies.set("refresh_token", data.refresh),  { expires: 7 };
+          Cookies.set("refresh_token", data.refresh), { expires: 7 };
           useStore.setState({ userAuthenticated: true });
           router.push("/");
-        }else if(verifyFor === "forgot-password"){
-          router.push(`/auth/reset-password?username=${username}&&verifyFor=forgot-password`);
+        } else if (verifyFor === "forgot-password") {
+          router.push(
+            `/auth/reset-password?username=${username}&&verifyFor=forgot-password`
+          );
         }
         resolve(data);
       } else {

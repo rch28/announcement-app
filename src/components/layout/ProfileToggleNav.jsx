@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 const ProfileToggleNav = () => {
   const [toggle, setToggle] = useState(false);
   const isLoggedIn = useStore((state) => state.userAuthenticated);
+  const userData = useStore((state) => state.userData);
   const habdleLogout = async () => {
     if (isLoggedIn) {
       useStore.setState({ userAuthenticated: false });
@@ -37,26 +38,43 @@ const ProfileToggleNav = () => {
   };
   return (
     <div className="">
-      <div
-        className=" rounded-full  border-gray-500 border-2 cursor-pointer "
-        onClick={() => setToggle(!toggle)}
-      >
-        <Image
-          src={profile}
-          height={30}
-          width={30}
-          priority
-          alt="profile picture"
-          className="rounded-full"
-        />
-      </div>
+      {userData?.profilepic && (
+        <div
+          className="cursor-pointer   bg-gray-200 text-center text-gray-500 text-sm  rounded-md w-8 h-8"
+          onClick={() => setToggle(!toggle)}
+        >
+          <Image
+            className="rounded-full h-full w-full "
+            src={userData.profilepic}
+            width={500}
+            height={400}
+            alt="profile"
+            priority
+          />
+        </div>
+      )}
+      {!userData?.profilepic && (
+        <div
+          className=" rounded-full  border-gray-500 border-2 cursor-pointer "
+          onClick={() => setToggle(!toggle)}
+        >
+          <Image
+            src={profile}
+            height={30}
+            width={30}
+            priority
+            alt="profile picture"
+            className="rounded-full"
+          />
+        </div>
+      )}
 
       {toggle && (
         <nav className="relative">
           <ul className="absolute top-4 right-0 bg-white rounded-xl shadow-md border border-gray-300 w-44  shadow-gray-400">
             <li className="border-b">
               <Link
-                href="#"
+                href="/profile"
                 className="block px-4 py-3 w-full hover:bg-gray-300"
               >
                 Profile
