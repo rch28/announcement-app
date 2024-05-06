@@ -38,7 +38,7 @@ const Navbar = () => {
                  <ProfileToggleNav/> 
             ) : (
               <Link
-                href="/auth/register"
+                href="/auth/login"
                 className="text-sm  text-blue-600 dark:text-blue-500 hover:underline"
               >
                 Login

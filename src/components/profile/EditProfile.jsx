@@ -82,7 +82,7 @@ const EditProfile = () => {
   return (
     <div>
       <form
-        className="max-w-md mx-auto bg-gray-100 p-6 rounded-md shadow-md border border-gray-400 shadow-gray-500"
+        className="max-w-md mx-auto p-6 rounded-md shadow-md border border-gray-400 shadow-gray-500"
         onSubmit={habndleSubmit}
       >
         <div className="mb-4">
@@ -133,8 +133,8 @@ const EditProfile = () => {
             disabled
             name="email"
             id="email"
-            value={"th@gmail.com"}
-            className="form-input mt-1 block w-full outline-none border-b border-gray-400 text-gray-800 bg-gray-200 cursor-not-allowed"
+            value={userData?.email}
+            className="form-input mt-1 block w-full outline-none border-b border-gray-400 text-gray-800 bg-gray-300 px-2 rounded-md cursor-not-allowed"
           />
         </div>
         <div className="mb-4">

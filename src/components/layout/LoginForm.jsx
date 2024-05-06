@@ -44,18 +44,16 @@ const LoginForm = () => {
           // set token in cookies
           Cookies.set("access_token", result.access, { expires: 7 });
           Cookies.set("refresh_token", result.refresh), { expires: 7 };
-          toast.success("Login Success!");
           setUserLoggedIn(true);
           router.push("/");
         } else {
           // redirect to otp verify
-          toast.success("OTP Verification Sent!");
           router.push(
             `/auth/otp-verify?username=${username}&&verifyFor=login`
           );
         }
 
-        resolve();
+        resolve(result);
       } else {
         const result = await response.json();
         if (result.errors.length > 0) {
@@ -63,11 +61,12 @@ const LoginForm = () => {
             setErrorMsg(error.detail);
           });
         }
-        reject();
+        reject(result);
       }
     });
     toast.promise(newPromise, {
       loading: "Loading...",
+      success: (data) => data?.msg,
       error: "Login Failed!",
     });
     setErrorMsg("");

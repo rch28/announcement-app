@@ -6,34 +6,45 @@ import Link from "next/link";
 import { useStore } from "@/stores/store";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const ProfileToggleNav = () => {
+  const router = useRouter();
   const [toggle, setToggle] = useState(false);
   const isLoggedIn = useStore((state) => state.userAuthenticated);
   const userData = useStore((state) => state.userData);
+  const refresh_token = Cookies.get("refresh_token");
+  const access_token = Cookies.get("access_token");
   const habdleLogout = async () => {
     if (isLoggedIn) {
-      useStore.setState({ userAuthenticated: false });
-      Cookies.remove("access_token");
-      Cookies.remove("refresh_token");
-
-      toast.success("Logout Success!");
-      window.location.href = "/auth/login";
-
-      // implement logout api later
-
-      // const response = await fetch("http://127.0.0.1:8000/api/v1/user/logout/",{
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     "Authorization": `Bearer ${refresh_token}`
-      //   },
-      // });
-      // const result = await response.json();
-      // if(response.ok){
-      //   toast.success("Logout Success!");
-      //   window.location.href = "/auth/login";
-      // }
+      const newPromise = new Promise(async (resolve, reject) => {
+        const response = await fetch(
+          "http://127.0.0.1:8000/api/v1/user/logout/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${access_token}`,
+            },
+            body: JSON.stringify({ refresh: refresh_token }),
+          }
+        );
+        const result = await response.json();
+        if (response.ok) {
+          useStore.setState({ userAuthenticated: false });
+          Cookies.remove("access_token");
+          Cookies.remove("refresh_token");
+          router.push("/auth/login");
+          resolve(result);
+        } else {
+          reject(result);
+        }
+      });
+      toast.promise(newPromise, {
+        loading: "Logging out...",
+        success: "Logout Success",
+        error: "Logout Failed!! something went wrong",
+      });
     }
   };
   return (
@@ -72,7 +83,7 @@ const ProfileToggleNav = () => {
       {toggle && (
         <nav className="relative">
           <ul className="absolute top-4 right-0 bg-white rounded-xl shadow-md border border-gray-300 w-44  shadow-gray-400">
-            <li className="border-b">
+            <li className="border-b" onClick={() => setToggle(false)}>
               <Link
                 href="/profile"
                 className="block px-4 py-3 w-full hover:bg-gray-300"

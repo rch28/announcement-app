@@ -14,7 +14,7 @@ const EditProfileImg = () => {
     <div className=" flex  justify-center">
       <div className=" relative">
         {userData?.profilepic && (
-          <div className="cursor-pointer   bg-gray-200 text-center text-gray-500 text-sm  rounded-md h-20 w-20">
+          <div className="cursor-pointer   bg-gray-200 text-center text-gray-500 text-sm  rounded-full h-20 w-20">
             <Image
               className="rounded-full h-full w-full "
               src={userData.profilepic}
@@ -26,11 +26,11 @@ const EditProfileImg = () => {
           </div>
         )}
         {!userData?.profilepic && (
-          <div className="cursor-pointer  w-full bg-gray-200 text-center text-gray-500 text-sm p-5 rounded-md">
+          <div className="cursor-pointer   bg-gray-200 text-center text-gray-500 text-sm  rounded-full h-20 w-20">
             <Image
               src={profile}
-              height={80}
-              width={80}
+              height={200}
+              width={200}
               priority
               alt="profile picture"
               className="rounded-full"
