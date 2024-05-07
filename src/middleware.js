@@ -3,9 +3,9 @@ import { apiAuthPrefix, authRoutes, DEFAULT_LOGIN_REDIRECT, publicRoutes } from 
 export function middleware(request){
     const {nextUrl} =request;
     const isLoggedIn=request.cookies.get("access_token")?true:false;
-    
      const isApiAuthRoute= nextUrl.pathname.startsWith(apiAuthPrefix);
-     const isPublic=publicRoutes.includes(nextUrl.pathname);
+    //  const isPublic=publicRoutes.includes(nextUrl.pathname);
+     const isPublic=isPublicRoute(nextUrl.pathname)
      const isAuthRoute=authRoutes.includes(nextUrl.pathname);
      if(isApiAuthRoute){
          return;
@@ -20,6 +20,17 @@ export function middleware(request){
      if(!isLoggedIn && !isPublic){
        return Response.redirect(new URL("/auth/login", nextUrl));
      }
+
+     function isPublicRoute(url) {
+      return publicRoutes.some(route => {
+          if (typeof route === 'string') {
+            return route === url;
+          } else if (route instanceof RegExp) {
+              return route.test(url);
+          }
+          return false;
+      });
+  }
       return;
 }
 

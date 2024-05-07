@@ -133,7 +133,7 @@ const EditProfile = () => {
             disabled
             name="email"
             id="email"
-            value={userData?.email}
+            value={userData?.email || ""}
             className="form-input mt-1 block w-full outline-none border-b border-gray-400 text-gray-800 bg-gray-300 px-2 rounded-md cursor-not-allowed"
           />
         </div>

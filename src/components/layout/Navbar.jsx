@@ -4,6 +4,8 @@ import React, { useEffect } from "react";
 import ProfileToggleNav from "./ProfileToggleNav";
 import { useStore } from "@/stores/store";
 import Cookies from "js-cookie";
+import { Bell } from "lucide-react";
+import SearchBar from "./SearchBar";
 
 const Navbar = () => {
   const authenticated = useStore((state) => state.userAuthenticated);
@@ -27,6 +29,10 @@ const Navbar = () => {
             </span>
           </Link>
           <div className="flex items-center space-x-6 rtl:space-x-reverse">
+            <p className="relative cursor-pointer">
+              <Bell size={18}/>
+              <span className="absolute -top-3 -right-2 text-[#FD0303] bg-slate-100 w-4 h-4 p-2 flex justify-center items-center rounded-full shadow-sm shadow-gray-400 text-sm">9</span>
+            </p>
             <Link
               href="tel:5541251234"
               className="text-sm  text-gray-500 dark:text-white hover:underline"
@@ -51,7 +57,7 @@ const Navbar = () => {
       </nav>
       <nav className=" border-b border-gray-400/50 dark:border-gray-200/25 ">
         <div className="max-w-5xl  px-4 py-3 mx-auto">
-          <div className="flex items-center">
+          <div className="flex items-center gap-10">
             <ul className="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
               <li>
                 <Link
@@ -62,20 +68,13 @@ const Navbar = () => {
                   Home
                 </Link>
               </li>
+             
               <li>
                 <Link
-                  href="#"
+                  href="/groups"
                   className="text-gray-900 dark:text-white hover:underline"
                 >
-                  Company
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/team"
-                  className="text-gray-900 dark:text-white hover:underline"
-                >
-                  Team
+                  Groups
                 </Link>
               </li>
               <li>
@@ -86,7 +85,12 @@ const Navbar = () => {
                   Features
                 </Link>
               </li>
+           
             </ul>
+            <div>
+                <SearchBar/>
+
+            </div>
           </div>
         </div>
       </nav>

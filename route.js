@@ -4,10 +4,10 @@
  * 
  * @type {string[]}
  */
-
 export const publicRoutes = [
     "/",
-    "/team"
+    "/groups",
+    /^\/groups\/[^/]+$/,
 ];
 
 /**
