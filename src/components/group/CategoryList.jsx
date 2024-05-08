@@ -1,12 +1,16 @@
-"use client"
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import GroupList from "./GroupList";
 import Link from "next/link";
 import { useStore } from "@/stores/store";
 import toast from "react-hot-toast";
+import CreateGroup from "./CreateGroup";
+import { useRouter } from "next/navigation";
 
 const CategoryList = () => {
-  const userAuthenticated= useStore(state=>state.userAuthenticated)
+  const userAuthenticated = useStore((state) => state.userAuthenticated);
+  const [toggle, setToggle] = useState(false);
+  const router= useRouter()
   const options = [
     { value: "Any", label: "Any Category" },
     { value: "WEB", label: "WEB" },
@@ -22,6 +26,15 @@ const CategoryList = () => {
     { value: "Travel", label: "Travel" },
     { value: "Other", label: "Other" },
   ];
+
+  const handleClick = () => {
+    if (userAuthenticated) {
+      setToggle(!toggle);
+    } else {
+      toast.error("Please login to create group!");
+      router.push("/auth/login")
+    }
+  };
   return (
     <div className="p-6 ">
       <div className="flex flex-col-reverse items-start md:flex-row md:items-center gap-4 ">
@@ -44,19 +57,27 @@ const CategoryList = () => {
         </div>
 
         <div className="py-3 flex  justify-between w-full ">
-            <input
-              type="text"
-              placeholder="Search groups..."
-              className="border-2 border-gray-300 rounded-full px-4 py-1 outline-none"
-            />
-            <Link href={userAuthenticated?"/groups/create-group":"/auth/login"} className="bg-blue-500 text-white px-6 py-3  rounded-full font-bold hover:bg-blue-600">
-              Create New Group
-            </Link>
+          <input
+            type="text"
+            placeholder="Search groups..."
+            className="border-2 border-gray-300 rounded-full px-4 py-1 outline-none"
+          />
+          <button
+            onClick={handleClick}
+            className="bg-blue-500 text-white px-6 py-3  rounded-full font-bold hover:bg-blue-600"
+          >
+            Create New Group
+          </button>
         </div>
       </div>
 
       {/* Group list */}
-      <GroupList/>
+      <GroupList toggle={toggle} />
+      {toggle && (
+        <div className={` fixed top-0 left-0 flex w-screen h-screen justify-center items-center ${toggle && "bg-black/30 "}`}>
+          <CreateGroup setToggle={setToggle} />
+        </div>
+      )}
     </div>
   );
 };
