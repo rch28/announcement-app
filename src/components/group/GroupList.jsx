@@ -2,9 +2,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { User } from "lucide-react";
+import JoinGroupButton from "./JoinGroupButton";
 
-const GroupList = () => {
-  const [groupList, setGroupList] = useState();
+const GroupList = ({toggle}) => {
+  const [groupList, setGroupList] = useState({});
   // fetch group
   useEffect(() => {
     const fetchGroup = async () => {
@@ -17,7 +19,7 @@ const GroupList = () => {
     };
 
     fetchGroup();
-  }, []);
+  }, [toggle]);
   return (
     <div>
       {groupList?.count === 0 && (
@@ -26,41 +28,46 @@ const GroupList = () => {
         </h3>
       )}
       <div className="md:grid grid-cols-2 gap-3">
-        {groupList?.results.map((group) => {
+        {groupList?.results?.map((data) => {
           return (
-            <Link href={`/groups/${group.name}`} key={group.group_id} className="max-w-xl p-4 ">
-              <div className="border border-gray-300 rounded-2xl hover:scale-105 transition-all ease-linear shadow-md shadow-fuchsia-300 cursor-pointer">
-                <div className=" bg-[#5b21b6] px-4  py-2 rounded-t-2xl">
-                  <div className="flex justify-between items-center">
-                    <h1 className="text-2xl font-bold text-white">
-                      {group.name}
-                    </h1>
-
-                    <h3 className="text-white font-semibold">
-                      Members-{group.total_members}
-                    </h3>
-                  </div>
-                  <h4 className="text-md font-semibold text-white/70">
-                    {group.category}
-                  </h4>
-                </div>
-                <div className="grid grid-cols-2 p-4 ">
-                  <div className="relative w-full h-64">
+            <Link
+              href={`/groups/${data.name}?group_id=${data.group_id}&&category=${data.category}`}
+              key={data.group_id}
+              className="max-w-xl p-4 "
+            >
+              <div className="border border-gray-300 rounded-2xl hover:scale-105 transition-all ease-linear shadow-md shadow-fuchsia-300 cursor-pointer p-4">
+                <div className="grid gap-6 ">
+                  <div className="grid gap-4 ">
                     <Image
-                      src={group.image}
-                      layout="fill"
-                      objectFit="cover"
-                      alt={group.category}
-                      priority
+                      alt={data?.name || "Group Image" }
+                      className="rounded-xl object-cover w-full aspect-[3/2]"
+                      height={200}
+                      src={data?.image}
+                      width={600}
                     />
+                    <div className="grid gap-2">
+                     
+                      <h3 className="text-xl font-bold">{data?.name}</h3>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                        {data?.description} 
+                      </p>
+                      <div className="flex items-center gap-2 text-sm">
+                        <User className="w-4 h-4 text-gray-500 dark:text-gray-400"/>
+                        <span>{data?.total_members} members</span>
+                      </div>
+                    </div>
                   </div>
-                  <div className=" text-wrap text-slate-700 font-sans">
-                    <p>
-                      {group.description}
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                      Mollitia, necessitatibus doloremque. Eos dolores
-                      blanditiis cum sunt aliquid iste incidunt magni
-                    </p>
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-4">
+                        <div className="bg-gray-200 shadow-sm shadow-slate-200 rounded-full px-3 py-1 text-sm font-medium dark:bg-gray-800">
+                          {data?.category}
+                        </div>
+                       
+                      </div>
+                      
+                    </div>
+                    <JoinGroupButton/>
                   </div>
                 </div>
               </div>

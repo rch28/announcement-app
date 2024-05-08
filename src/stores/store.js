@@ -5,5 +5,10 @@ export const useStore = create((set)=>({
     setUserLoggedIn: (value)=>set({userAuthenticated: value}),
 
     userData:{},
-    setUserData:(data)=>set({userData:data})
+    setUserData:(data)=>set({userData:data}),
+
+    isGrupAdmin:false,
+    setIsGroupAdmin:(value)=>set({isGrupAdmin:value}),
+    groupAdmin:{},
+    setGroupAdmin:(data)=>set({groupAdmin:data}),
 }))

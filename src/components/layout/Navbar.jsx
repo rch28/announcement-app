@@ -11,10 +11,27 @@ const Navbar = () => {
   const authenticated = useStore((state) => state.userAuthenticated);
   const loggedIn = Cookies.get("access_token")?true:false;
   const setUserLoggedIn = useStore((state)=>state.setUserLoggedIn);
+  const setUserData = useStore((state) => state.setUserData);
+  const access_token = Cookies.get("access_token");
   useEffect(() => {
     setUserLoggedIn(loggedIn);
-  
-  },[loggedIn])
+    const fetchUserData = async () => {
+      const response = await fetch(
+        "http://127.0.0.1:8000/api/v1/user/details/",
+        {
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${access_token}`,
+          },
+        }
+      );
+      if (response.ok) {
+        const result = await response.json();
+        setUserData(result);
+      }
+    };
+    fetchUserData();
+  },[loggedIn, access_token])
   return (
     <div className="">
       <nav className=" border-b  border-gray-400/50  dark:border-gray-200/25 ">
