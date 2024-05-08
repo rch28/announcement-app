@@ -55,6 +55,9 @@ const GroupNav = () => {
               <Cog size={20} />
               <span>Setting</span>
             </div>
+            <div>
+              card
+            </div>
           </div>
         )}
       </nav>
