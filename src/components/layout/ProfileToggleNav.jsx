@@ -85,7 +85,7 @@ const ProfileToggleNav = () => {
           <ul className="absolute top-4 right-0 bg-white rounded-xl shadow-md border border-gray-300 w-44  shadow-gray-400">
             <li className="border-b" onClick={() => setToggle(false)}>
               <Link
-                href="/profile"
+                href="/user/profile"
                 className="block px-4 py-3 w-full hover:bg-gray-300"
               >
                 Profile

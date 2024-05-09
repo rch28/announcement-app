@@ -128,7 +128,7 @@ const ChangePassword = () => {
       </div>
 
       <div className="flex py-4">
-        <button className="bg-blue-700 w-full text-white hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 px-5 py-2.5 rounded-lg">
+        <button className="bg-purple-700 w-full text-white hover:bg-purple-800 dark:bg-purple-600 dark:hover:bg-purple-700 px-5 py-2.5 rounded-lg">
           Change Password
         </button>
       </div>

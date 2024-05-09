@@ -1,10 +1,11 @@
 "use client";
 import Image from "next/image";
-import { Star, User } from "lucide-react";
+import { User } from "lucide-react";
 import Avatar from "react-avatar";
 import { bgimg } from "../../../public";
 import JoinGroupButton from "./JoinGroupButton";
 import { useStore } from "@/stores/store";
+import Rating from "./Rating";
 const GroupCard = ({ data, groupAdminInfo }) => {
   const isGrupAdmin = useStore((state) => state.isGrupAdmin);
   return (
@@ -25,13 +26,8 @@ const GroupCard = ({ data, groupAdminInfo }) => {
                   <div className="bg-gray-100 rounded-full px-3 py-1 text-sm font-medium dark:bg-gray-800 text-gray-600 capitalize">
                     {data?.category}
                   </div>
-                  <div
-                    title="rating"
-                    className="flex items-center gap-1 text-sm text-gray-500 cursor-pointer dark:text-gray-400"
-                  >
-                    <Star className="w-4 h-4 text-gray-500 fill-black dark:text-gray-400" />
-                    <span>{data?.average_rating}</span>
-                  </div>
+                  <Rating rating={data?.average_rating} />
+                  
                 </div>
                 <h3 className="text-3xl font-bold">{data?.name}</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
@@ -64,7 +60,7 @@ const GroupCard = ({ data, groupAdminInfo }) => {
                 )}
                 {isGrupAdmin ? (
                   <div>
-                    <button className="px-6 py-2 bg-purple-700 rounded-full  text-white font-bold hover:bg-purple-900 text-lg md:text-sm   lg:text-lg">
+                    <button className="px-6 py-2 bg-purple-600 rounded-full  text-white font-bold hover:bg-purple-700 text-lg md:text-sm   lg:text-lg">
                       New Announcement
                     </button>
                   </div>

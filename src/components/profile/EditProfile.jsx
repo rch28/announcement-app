@@ -82,7 +82,7 @@ const EditProfile = () => {
   return (
     <div>
       <form
-        className="max-w-md mx-auto p-6 rounded-md shadow-md border border-gray-400 shadow-gray-500"
+        className="max-w-md mx-auto py-6 rounded-md "
         onSubmit={habndleSubmit}
       >
         <div className="mb-4">
@@ -154,7 +154,7 @@ const EditProfile = () => {
         <div className="flex justify-end">
           <button
             type="submit"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800"
           >
             Update
           </button>

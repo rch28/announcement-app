@@ -2,7 +2,10 @@ import { apiAuthPrefix, authRoutes, DEFAULT_LOGIN_REDIRECT, publicRoutes } from 
 
 export function middleware(request){
     const {nextUrl} =request;
-    const isLoggedIn=request.cookies.get("access_token")?true:false;
+    const accessToken=request.cookies.get("access_token")?true:false;
+    const refreshToken=request.cookies.get("refresh_token")?true:false;
+    let isLoggedIn=accessToken && refreshToken; 
+   
      const isApiAuthRoute= nextUrl.pathname.startsWith(apiAuthPrefix);
     //  const isPublic=publicRoutes.includes(nextUrl.pathname);
      const isPublic=isPublicRoute(nextUrl.pathname)

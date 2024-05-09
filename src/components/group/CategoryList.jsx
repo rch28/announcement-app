@@ -11,6 +11,8 @@ const CategoryList = () => {
   const userAuthenticated = useStore((state) => state.userAuthenticated);
   const [toggle, setToggle] = useState(false);
   const router= useRouter()
+  const toggleCreateGroup = useStore((state) => state.toggleCreateGroup);
+  const setToggleCreateGroup = useStore((state) => state.setToggleCreateGroup);
   const options = [
     { value: "Any", label: "Any Category" },
     { value: "WEB", label: "WEB" },
@@ -29,7 +31,7 @@ const CategoryList = () => {
 
   const handleClick = () => {
     if (userAuthenticated) {
-      setToggle(!toggle);
+      setToggleCreateGroup(!toggleCreateGroup);
     } else {
       toast.error("Please login to create group!");
       router.push("/auth/login")
@@ -42,7 +44,7 @@ const CategoryList = () => {
           <select
             name="category"
             options={options}
-            className="w-full px-2 py-2 rounded-lg font-bold sm:w-72 focus:outline-none bg-white text-gray-600 border border-gray-300 shadow-sm focus:border-blue-300 focus:shadow-sm "
+            className="w-full px-2 py-2 rounded-lg font-bold md:w-44 focus:outline-none bg-white text-gray-600 border border-gray-300 shadow-sm focus:border-blue-300 focus:shadow-sm "
           >
             {options.map((option) => (
               <option
@@ -64,7 +66,7 @@ const CategoryList = () => {
           />
           <button
             onClick={handleClick}
-            className="bg-blue-500 text-white px-6 py-3  rounded-full font-bold hover:bg-blue-600"
+            className="bg-purple-700 text-white px-6 py-3  rounded-full font-bold hover:bg-purple-900"
           >
             Create New Group
           </button>
@@ -73,9 +75,9 @@ const CategoryList = () => {
 
       {/* Group list */}
       <GroupList toggle={toggle} />
-      {toggle && (
-        <div className={` fixed top-0 left-0 flex w-screen h-screen justify-center items-center ${toggle && "bg-black/30 "}`}>
-          <CreateGroup setToggle={setToggle} />
+      {toggleCreateGroup && (
+        <div className={` fixed top-0 left-0 flex w-screen h-screen justify-center items-center ${toggleCreateGroup && "bg-black/30 "}`}>
+          <CreateGroup />
         </div>
       )}
     </div>

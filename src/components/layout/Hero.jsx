@@ -7,7 +7,7 @@ const Hero = () => {
     <div className="container mx-auto text-center">
         <h2 className="text-3xl text-gray-800 font-bold mb-4">Welcome to Team App</h2>
         <p className="text-lg text-gray-600 mb-8">Your all-in-one solution for team collaboration and communication.</p>
-        <Link href="/features" className="bg-blue-500 text-white px-6 py-3 rounded-full font-bold hover:bg-blue-600">Get Started</Link>
+        <Link href="/features" className="bg-purple-700 text-white px-6 py-3 rounded-full font-bold hover:bg-purple-900">Get Started</Link>
     </div>
 </section>
   )
