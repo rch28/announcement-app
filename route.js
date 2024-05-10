@@ -7,6 +7,7 @@
 export const publicRoutes = [
     "/",
     "/groups",
+    "/announcements",
     /^\/groups\/[^/]+$/,
 ];
 

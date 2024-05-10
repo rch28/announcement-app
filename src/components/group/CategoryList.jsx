@@ -1,20 +1,20 @@
 "use client";
-import React, { useState } from "react";
-import GroupList from "./GroupList";
-import Link from "next/link";
-import { useStore } from "@/stores/store";
+import React from "react";
 import toast from "react-hot-toast";
-import CreateGroup from "./CreateGroup";
 import { useRouter } from "next/navigation";
+import { useStore } from "@/stores/store";
 
 const CategoryList = () => {
   const userAuthenticated = useStore((state) => state.userAuthenticated);
-  const [toggle, setToggle] = useState(false);
   const router= useRouter()
   const toggleCreateGroup = useStore((state) => state.toggleCreateGroup);
   const setToggleCreateGroup = useStore((state) => state.setToggleCreateGroup);
+  const selectedCategory= useStore(state=>state.selectedCategory)
+  const setSelectedCategory= useStore(state=>state.setSelectedCategory)
+  const searchQuery = useStore((state)=>state.searchQuery)
+  const setSearchQuery= useStore((state)=>state.setSearchQuery)
   const options = [
-    { value: "Any", label: "Any Category" },
+    { value: "", label: "Any Category" },
     { value: "WEB", label: "WEB" },
     { value: "Network", label: "Network" },
     { value: "Cyber", label: "Cyber Security" },
@@ -43,7 +43,8 @@ const CategoryList = () => {
         <div className="flex justify-start ">
           <select
             name="category"
-            options={options}
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
             className="w-full px-2 py-2 rounded-lg font-bold md:w-44 focus:outline-none bg-white text-gray-600 border border-gray-300 shadow-sm focus:border-blue-300 focus:shadow-sm "
           >
             {options.map((option) => (
@@ -62,6 +63,8 @@ const CategoryList = () => {
           <input
             type="text"
             placeholder="Search groups..."
+            value={searchQuery}
+            onChange={(e)=>setSearchQuery(e.target.value)}
             className="border-2 border-gray-300 rounded-full px-4 py-1 outline-none"
           />
           <button
@@ -73,13 +76,7 @@ const CategoryList = () => {
         </div>
       </div>
 
-      {/* Group list */}
-      <GroupList toggle={toggle} />
-      {toggleCreateGroup && (
-        <div className={` fixed top-0 left-0 flex w-screen h-screen justify-center items-center ${toggleCreateGroup && "bg-black/30 "}`}>
-          <CreateGroup />
-        </div>
-      )}
+      
     </div>
   );
 };

@@ -1,0 +1,66 @@
+import React from 'react'
+import { announcementImg } from '../../../public';
+import Image from 'next/image';
+
+const AnnouncementCard = ({data}) => {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+    {data?.results?.map((announcement) => {
+      return (
+        <div
+          key={announcement.id}
+          className="border border-gray-300 rounded-2xl hover:scale-105 transition-all ease-linear shadow-md shadow-fuchsia-300 cursor-pointer p-4"
+        >
+          <div className="grid gap-6 ">
+            <div className="grid gap-4 ">
+              {announcement?.image && (
+                <Image
+                  alt={announcement?.title || "Announcement Image"}
+                  className="rounded-xl object-cover w-full aspect-[3/2]"
+                  height={200}
+                  src={announcement?.image}
+                  width={600}
+                />
+              )}
+              {!announcement?.image && (
+                <Image
+                  alt={"Announcement Image"}
+                  className="rounded-xl object-cover w-full aspect-[3/2]"
+                  height={200}
+                  src={announcementImg}
+                  width={600}
+                />
+              )}
+
+              <div className="grid gap-2">
+                <h3 className="text-xl font-bold">
+                  {announcement?.title}
+                </h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {announcement?.description}
+                </p>
+             
+              </div>
+            </div>
+            <div className='flex justify-end'>
+            <button className="px-4 py-2 bg-purple-700 rounded-full  text-white font-bold hover:bg-purple-900 text-xs">
+                      View Announcement
+                    </button>
+            </div>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+  )
+}
+
+
+export const Announcement = () => {
+  return (
+    <div>Announcement</div>
+  )
+}
+
+
+export default AnnouncementCard;

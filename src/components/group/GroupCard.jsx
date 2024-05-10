@@ -8,6 +8,12 @@ import { useStore } from "@/stores/store";
 import Rating from "./Rating";
 const GroupCard = ({ data, groupAdminInfo }) => {
   const isGrupAdmin = useStore((state) => state.isGrupAdmin);
+  const toggleCreateAnnouncement = useStore(
+    (state) => state.toggleCreateAnnouncement
+  );
+  const setToggleCreateAnnouncement = useStore(
+    (state) => state.setToggleCreateAnnouncement
+  );
   return (
     <>
       <div className="w-full ">
@@ -27,7 +33,6 @@ const GroupCard = ({ data, groupAdminInfo }) => {
                     {data?.category}
                   </div>
                   <Rating rating={data?.average_rating} />
-                  
                 </div>
                 <h3 className="text-3xl font-bold">{data?.name}</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
@@ -47,7 +52,6 @@ const GroupCard = ({ data, groupAdminInfo }) => {
                       size="60"
                       round={true}
                       color="rgb(126 34 206 )"
-                      
                     />
                     <div className="text-sm">
                       <p className="font-medium capitalize flex gap-2">
@@ -60,7 +64,12 @@ const GroupCard = ({ data, groupAdminInfo }) => {
                 )}
                 {isGrupAdmin ? (
                   <div>
-                    <button className="px-6 py-2 bg-purple-600 rounded-full  text-white font-bold hover:bg-purple-700 text-lg md:text-sm   lg:text-lg">
+                    <button
+                      className="px-6 py-2 bg-purple-600 rounded-full  text-white font-bold hover:bg-purple-700 text-xs md:text-sm   lg:text-lg"
+                      onClick={() =>
+                        setToggleCreateAnnouncement(!toggleCreateAnnouncement)
+                      }
+                    >
                       New Announcement
                     </button>
                   </div>

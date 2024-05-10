@@ -105,7 +105,7 @@ const JoinGroupButton = () => {
   };
   return (
     <>
-      {joined ? (
+      {joined && userAuthenticated ? (
         <div className="flex justify-center items-center gap-4 relative">
           <h3 className="px-6 py-2  rounded-full  text-white font-bold bg-purple-900">
             Joined{" "}

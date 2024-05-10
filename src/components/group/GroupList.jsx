@@ -5,31 +5,87 @@ import React, { useEffect, useState } from "react";
 import { User } from "lucide-react";
 import { useStore } from "@/stores/store";
 
+function debounce(func, delay) {
+  let timer;
+  return function (...args) {
+    const context = this;
+    clearTimeout(timer);
+    timer = setTimeout(() => func.apply(context, args), delay);
+  };
+}
 const GroupList = () => {
-  const [groupList, setGroupList] = useState({});
+  const [ZeroGroup, setZeroGroup] = useState(false)
+  const [next, setNext] = useState(false);
   const toggleCreateGroup = useStore((state) => state.toggleCreateGroup);
+  const announcementGroup = useStore((state) => state.announcementGroup);
+  const setAnnouncementGroup = useStore((state) => state.setAnnouncementGroup);
+  const selectedCategory = useStore((state) => state.selectedCategory);
+
+  const searchQuery = useStore((state) => state.searchQuery);
+  const [inputDelay, setInputDelay] = useState(200);
+  const [fetchTrigger, setFetchTrigger] = useState(0);
+
   // fetch group
-  useEffect(() => {
-    const fetchGroup = async () => {
-      const response = await fetch("http://127.0.0.1:8000/api/v1/group/list/");
 
-      if (response.ok) {
-        const result = await response.json();
-        setGroupList(result);
+  const fetchGroup = async () => {
+    const response = await fetch(
+      `http://127.0.0.1:8000/api/v1/group/list/?category=${selectedCategory}&?${
+        next && "limit=10&offset=10"
+      }`
+    );
+    if (response.ok) {
+      const result = await response.json();
+      if (searchQuery==="") {
+      setAnnouncementGroup(result);
+      return;
       }
-    };
+      const filteredResult = {
+        ...result, // Copy original metadata
+        results: result.results.filter((group) =>
+          group.name.toLowerCase().includes(searchQuery.toLowerCase()) || group.category.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      };
+      setAnnouncementGroup(filteredResult);
 
-    fetchGroup();
-  }, [toggleCreateGroup]);
+      if(filteredResult.results.length===0){
+        setZeroGroup(true)
+      }else{
+        setZeroGroup(false)
+      }
+    }
+  };
+  useEffect(() => {
+    const debouncedFetch = debounce(fetchGroup, inputDelay);
+    debouncedFetch();
+    return () => {
+      // Cleanup
+    };
+  }, [toggleCreateGroup, next, selectedCategory, fetchTrigger]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFetchTrigger((prev) => prev + 1);
+    }, inputDelay);
+    return () => clearTimeout(timer);
+  }, [searchQuery, inputDelay]);
+
+
   return (
     <div>
-      {groupList?.count === 0 && (
+      {announcementGroup?.count === 0 && (
         <h3 className="p-3 bg-green-200 rounded-xl">
           No group yet!! Create New One
         </h3>
       )}
+      {
+        ZeroGroup && (
+          <h3 className="p-3 bg-green-200 rounded-xl">
+            No group found!!
+            </h3>
+        )
+      }
       <div className="md:grid grid-cols-2 gap-3">
-        {groupList?.results?.map((data) => {
+        {announcementGroup?.results?.map((data) => {
           return (
             <Link
               href={`/groups/${data.name}?group_id=${data.group_id}&&category=${data.category}`}
@@ -76,6 +132,26 @@ const GroupList = () => {
           );
         })}
       </div>
+      {announcementGroup?.previous &&!searchQuery && (
+        <div className="flex justify-start  px-4 my-5">
+          <button
+            className="bg-purple-700 text-white px-6 py-3  rounded-full font-bold hover:bg-purple-900"
+            onClick={() => setNext(!next)}
+          >
+            Previous
+          </button>
+        </div>
+      )}
+      {announcementGroup?.next && !searchQuery && (
+        <div className="flex justify-end  px-4 my-5">
+          <button
+            className="bg-purple-700 text-white px-6 py-3  rounded-full font-bold hover:bg-purple-900"
+            onClick={() => setNext(!next)}
+          >
+            Load More
+          </button>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,10 +1,12 @@
 "use client";
 import { useStore } from "@/stores/store";
 import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const CreateGroup = ({mode,data}) => {
+  const router= useRouter()
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -12,6 +14,8 @@ const CreateGroup = ({mode,data}) => {
   const access_token = Cookies.get("access_token");
   const setToggleCreateGroup = useStore((state) => state.setToggleCreateGroup);
   const group_id = data?.group_id;
+
+  const setAnnouncementGroup = useStore((state) => state.setAnnouncementGroup);
   const handleFileChange = async (e) => {
     if (!e.target.files[0].type.startsWith("image/")) {
       return;
@@ -61,6 +65,20 @@ const CreateGroup = ({mode,data}) => {
       );
       const result = await response.json();
       if (response.ok) {
+        const res = await fetch("http://127.0.0.1:8000/api/v1/group/created-by/user/?limit=100", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        });
+
+        if (res.ok) {
+          const result = await res.json();
+          const lastCreatedGroup = result.results[result.results.length - 1];
+          const lastCreatedGroupId = lastCreatedGroup.group_id;
+          router.push(`/groups/${name}?group_id=${lastCreatedGroupId}&&category=${category}`);
+
+        }
         setToggleCreateGroup(false);
         resolve(result);
       } else {

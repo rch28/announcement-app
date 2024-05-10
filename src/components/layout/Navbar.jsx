@@ -6,6 +6,8 @@ import { useStore } from "@/stores/store";
 import Cookies from "js-cookie";
 import { Bell } from "lucide-react";
 import SearchBar from "./SearchBar";
+import Image from "next/image";
+import { logo } from "../../../public";
 
 const Navbar = () => {
   const authenticated = useStore((state) => state.userAuthenticated);
@@ -50,7 +52,9 @@ const Navbar = () => {
             href="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            <span className="text-3xl">👩🏻‍🎤</span>
+            <span className="text-3xl">
+              <Image src={logo} alt="Team App" width={40} height={40} className="rounded-full" />
+            </span>
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
               Team App
             </span>
@@ -106,10 +110,10 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  href="/features"
+                  href="/announcements"
                   className="text-gray-900 dark:text-white hover:underline"
                 >
-                  Features
+                  Announcements
                 </Link>
               </li>
            
