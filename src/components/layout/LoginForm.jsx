@@ -43,7 +43,7 @@ const LoginForm = () => {
         if (result.access && typeof result.access === "string") {
           // set token in cookies
           Cookies.set("access_token", result.access, { expires: 7 });
-          Cookies.set("refresh_token", result.refresh), { expires: 7 };
+          Cookies.set("refresh_token", result.refresh, { expires: 7 });
           setUserLoggedIn(true);
           router.push("/");
         } else {
