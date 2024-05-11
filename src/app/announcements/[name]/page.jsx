@@ -1,11 +1,13 @@
 "use client";
 
 import { AnnouncementDetails } from "@/components/announcements/announcement-details";
+import Comments from "@/components/announcements/Comments";
 import Cookies from "js-cookie";
 import { redirect, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 const AnnouncementPage = () => {
   const [announcmentData, setAnnouncmentData] = useState({});
+  const [toggle, setToggle] = useState(false)
   const searchParams = useSearchParams();
   const ann_id = searchParams.get("ann_id");
   const access_token = Cookies.get("access_token");
@@ -37,9 +39,15 @@ const AnnouncementPage = () => {
     fetchAnnouncement();
   }, []);
   return (
-    <div className="p-4">
-      <AnnouncementDetails data={announcmentData} />
-    </div>
+      <div className="w-full max-w-6xl mx-auto grid md:grid-cols-[1fr_350px] gap-6 p-4">
+      <AnnouncementDetails data={announcmentData} setToggle={setToggle} />
+
+      {/* announcement comment */}
+      <Comments/>
+
+      
+      </div>
+
   );
 };
 

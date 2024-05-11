@@ -4,7 +4,7 @@ import React from 'react'
 const layout = ({children}) => {
   return (
     <div>
-      {/* <AnnouncementNav/> */}
+      <AnnouncementNav/>
       {children}
       
       </div>
