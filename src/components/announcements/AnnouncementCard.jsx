@@ -1,13 +1,14 @@
 import React from 'react'
-import { announcementImg } from '../../../public';
+import {logo } from '../../../public';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const AnnouncementCard = ({data}) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4">
     {data?.results?.map((announcement) => {
       return (
-        <div
+        <Link href={`/announcements/${announcement.title.replace(/\s+/g, '-').toLowerCase()}/?ann_id=${announcement.id}`}
           key={announcement.id}
           className="border border-gray-300 rounded-2xl hover:scale-105 transition-all ease-linear shadow-md shadow-fuchsia-300 cursor-pointer p-4"
         >
@@ -27,7 +28,7 @@ const AnnouncementCard = ({data}) => {
                   alt={"Announcement Image"}
                   className="rounded-xl object-cover w-full aspect-[3/2]"
                   height={200}
-                  src={announcementImg}
+                  src={logo}
                   width={600}
                 />
               )}
@@ -48,19 +49,11 @@ const AnnouncementCard = ({data}) => {
                     </button>
             </div>
           </div>
-        </div>
+        </Link>
       );
     })}
   </div>
   )
 }
 
-
-export const Announcement = () => {
-  return (
-    <div>Announcement</div>
-  )
-}
-
-
-export default AnnouncementCard;
+export default AnnouncementCard

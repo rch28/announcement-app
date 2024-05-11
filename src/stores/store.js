@@ -44,4 +44,8 @@ export const useStore = create((set)=>({
     // Create new announcement toggle
     toggleCreateAnnouncement:false,
     setToggleCreateAnnouncement:(value)=>set({toggleCreateAnnouncement:value}),
+
+    // comment posted
+    commentPosted:false,
+    setCommentPosted:(value)=>set({commentPosted:value}),
 }))

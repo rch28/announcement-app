@@ -1,12 +1,13 @@
 "use client";
+import AnnouncementCard from "@/components/announcements/AnnouncementCard";
 import { AnnouncementCardForm } from "@/components/announcements/AnnouncementCardForm";
 import CreateGroup from "@/components/group/CreateGroup";
 import GroupCard from "@/components/group/GroupCard";
 import { useStore } from "@/stores/store";
 import Cookies from "js-cookie";
-import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { redirect, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import AnnouncementCard from "@/components/announcements/AnnouncementCard";
 
 const GroupPage = () => {
   const searchParams = useSearchParams();
@@ -23,65 +24,78 @@ const GroupPage = () => {
   const toggleCreateAnnouncement = useStore(
     (state) => state.toggleCreateAnnouncement
   );
+  const userAuthentiated = useStore((state) => state.userAuthenticated);
   useEffect(() => {
+    if(!group_id){
+      redirect("/groups")
+    }
     const fetchGroup = async () => {
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/v1/group/retrieve/${group_id}/`
-      );
-      if (response.ok) {
-        const result = await response.json();
-        if (result?.members?.length > 0) {
-          result.members.forEach(async (member) => {
-            const fetchMembers = await fetch(
-              `http://127.0.0.1:8000/api/v1/user/retrieve/${member}/`,
-              {
-                method: "GET",
-                headers: {
-                  Authorization: `Bearer ${access_token}`,
-                },
-              }
-            );
-            if (fetchMembers.ok) {
-              const memberData = await fetchMembers.json();
-            }
-          });
-        }
-        const res = await fetch(
-          `http://127.0.0.1:8000/api/v1/user/retrieve/${result?.admin_id}/`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${access_token}`,
-            },
-          }
+      try {
+        const response = await fetch(
+          `http://127.0.0.1:8000/api/v1/group/retrieve/${group_id}/`
         );
-        if (res.ok) {
-          const result = await res.json();
-          setGroupAdmin(result);
-          setGroupAdminInfo(result);
+        if (response.ok) {
+          const result = await response.json();
+          if (result?.members?.length > 0) {
+            result.members.forEach(async (member) => {
+              const fetchMembers = await fetch(
+                `http://127.0.0.1:8000/api/v1/user/retrieve/${member}/`,
+                {
+                  method: "GET",
+                  headers: {
+                    Authorization: `Bearer ${access_token}`,
+                  },
+                }
+              );
+              if (fetchMembers.ok) {
+                const memberData = await fetchMembers.json();
+              }
+            });
+          }
+          const res = await fetch(
+            `http://127.0.0.1:8000/api/v1/user/retrieve/${result?.admin_id}/`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${access_token}`,
+              },
+            }
+          );
+          if (res.ok) {
+            const result = await res.json();
+            setGroupAdmin(result);
+            setGroupAdminInfo(result);
+          }
+          setData(result);
         }
-        setData(result);
-      }
+      } catch (error) {
+        console.log(error);
+      } 
+      
     };
     fetchGroup();
   }, [access_token, joined, toggleRating]);
   useEffect(() => {
     const fetchAnnouncement = async () => {
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/v1/announcement/list/group/${group_id}/?limit=3`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-          },
+      try {
+        const response = await fetch(
+          `http://127.0.0.1:8000/api/v1/announcement/list/group/${group_id}/?limit=3`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Something went wrong");
         }
-      );
-      if (!response.ok) {
-        throw new Error("Something went wrong");
+        const result = await response.json();
+        setAnnouncmentData(result);
+      } catch (error) {
+        console.log(error.message);
       }
-      const result = await response.json();
-      setAnnouncmentData(result);
     };
     fetchAnnouncement();
   }, [toggleCreateAnnouncement]);
@@ -117,6 +131,9 @@ const GroupPage = () => {
       {/* Our annnouncement */}
       <div className="mt-10">
         <h1 className="text-4xl font-bold py-6">Our Recent Announcements</h1>
+        {!userAuthentiated && (
+          <Link href={"/auth/login"} className="text-red-400 hover:underline">Login to view the annoucements!!!</Link>
+        )}
         <AnnouncementCard data={announcmentData}/>
       </div>
     </div>

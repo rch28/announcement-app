@@ -88,7 +88,7 @@ const GroupList = () => {
         {announcementGroup?.results?.map((data) => {
           return (
             <Link
-              href={`/groups/${data.name}?group_id=${data.group_id}&&category=${data.category}`}
+              href={`/groups/${data.name.replace(/\s+/g, '-').toLowerCase()}?group_id=${data.group_id}&&category=${data.category}`}
               key={data.group_id}
               className="max-w-xl p-4 "
             >

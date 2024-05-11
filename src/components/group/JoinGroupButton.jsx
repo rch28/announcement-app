@@ -14,6 +14,7 @@ const JoinGroupButton = () => {
   const groupId = searchParams.get("group_id");
   const access_token = Cookies.get("access_token");
   const userAuthenticated= useStore(state=>state.userAuthenticated)
+  const [offset, setOffset] = useState(0)
   
   const joined= useStore(state=>state.Joined)
   const setJoined=useStore(state=>state.setJoined)
@@ -54,7 +55,7 @@ const JoinGroupButton = () => {
   useEffect(() => {
     const checkJoined = async () => {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/v1/group/joined-by/user/`,
+        `http://127.0.0.1:8000/api/v1/group/joined-by/user/?offset=${offset}`,
         {
           method: "GET",
           headers: {
@@ -70,12 +71,13 @@ const JoinGroupButton = () => {
         if (isUserJoind) {
           setJoined(true);
         } else {
+          setOffset(offset + 10)
           setJoined(false);
         }
       }
     };
     checkJoined();
-  }, []);
+  }, [offset]);
   const hanleLeaveGroup = async () => {
     setJoined(true);
     const newPromise = new Promise(async (resolve, reject) => {
