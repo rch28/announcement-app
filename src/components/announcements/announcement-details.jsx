@@ -19,7 +19,7 @@ export function AnnouncementDetails({ data }) {
   const time = dateTime.toLocaleTimeString();
 
   return (
-    <div className="w-full max-w-6xl mx-auto grid md:grid-cols-[1fr_300px] gap-6">
+    <div className="w-full max-w-6xl mx-auto grid md:grid-cols-[1fr_350px] gap-6">
       <Card className="shadow-md">
         <DetailsHeader group_id={data.group} date={date} />
         {data?.image && (

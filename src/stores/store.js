@@ -46,6 +46,14 @@ export const useStore = create((set)=>({
     setToggleCreateAnnouncement:(value)=>set({toggleCreateAnnouncement:value}),
 
     // comment posted
-    commentPosted:false,
-    setCommentPosted:(value)=>set({commentPosted:value}),
+    commentFetch:false,
+    setCommentFetch:(value)=>set({commentFetch:value}),
+
+    // edit coment mode
+    editCommentMode:false,
+    setEditCommentMode:(value)=>set({editCommentMode:value}),
+
+    // comment id
+    commentId:"",
+    setCommentId:(value)=>set({commentId:value}),
 }))

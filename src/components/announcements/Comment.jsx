@@ -2,12 +2,18 @@
 import React, { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { FetchUserData } from "@/index";
+import { EllipsisVertical } from "lucide-react";
+import CommentDropDown from "./CommentDropDown"
+import { useStore } from "@/stores/store";
 
 
 const Comment = ({ comment }) => {
   const [userData, setUserData] = useState({});
   const [timePassed, setTimePassed] = useState("");
-
+  const [toggleEdit, setToggleEdit] = useState(false)
+  const [validUser, setValidUser] = useState(false)
+ 
+  const loggedUser= useStore((state)=>state.userData)
 
   const dateTime = new Date(comment.created_at);
   const today = new Date();
@@ -64,7 +70,7 @@ const Comment = ({ comment }) => {
       );
     };
     calculateTimePassed();
-  }, []);
+  }, [comment]);
   useEffect(() => {
     const fetchUserData = async () => {
       const data = await FetchUserData(comment.user);
@@ -72,10 +78,17 @@ const Comment = ({ comment }) => {
     };
     fetchUserData();
   }, [comment]);
+  useEffect(()=>{
+    if(loggedUser.id === comment.user){
+      setValidUser(true)
+    }else{
+      setValidUser(false)
+    }
+  },[comment, loggedUser])
   return (
-    <div className="flex items-start gap-4">
+    <div className="flex items-start gap-4 relative">
       {userData.profilepic && (
-        <Avatar className="h-10 w-10   shadow-md shadow-gray-500">
+        <Avatar className="h-10 w-10 shadow-md shadow-gray-500">
           <AvatarImage
             alt="@shadcn"
             src={userData.profilepic}
@@ -93,7 +106,7 @@ const Comment = ({ comment }) => {
           <AvatarFallback>YS</AvatarFallback>
         </Avatar>
       )}
-      <div className="flex-1 space-y-2">
+      <div className="flex-1 space-y-2 px-2">
         <div className="flex items-center justify-between">
           <div className="font-medium capitalize">
             {userData.first_name} {userData.last_name}
@@ -101,6 +114,19 @@ const Comment = ({ comment }) => {
           <div className="text-xs text-gray-500 dark:text-gray-400">
             {timePassed}
           </div>
+          {
+            validUser &&(
+              <button className="p-2 text-gray-500 bg-white shadow-sm shadow-gray-400  rounded-full hover:bg-gray-200" onClick={()=>setToggleEdit(!toggleEdit)}>
+            <EllipsisVertical size={16}/>
+          </button>
+            )
+          }
+
+          {
+            toggleEdit && (
+              <CommentDropDown id={comment.id} setToggleEdit={setToggleEdit}/>
+            )
+          }
         </div>
         <p className="text-gray-500 dark:text-gray-400">{comment.comment}</p>
       </div>

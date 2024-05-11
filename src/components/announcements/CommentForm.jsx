@@ -1,12 +1,14 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { useSearchParams } from "next/navigation";
 import { useStore } from "@/stores/store";
+import toast from "react-hot-toast";
 
 const CommentForm = () => {
+  const inpRef = useRef(null);
   const searchParams = useSearchParams();
   const [text, setText] = useState("");
 
@@ -14,9 +16,11 @@ const CommentForm = () => {
   const user_id = userData.id;
   const ann_id = searchParams.get("ann_id");
 
-  const commentPosted = useStore((state)=>state.commentPosted)
-  const setCommentPosted= useStore((state=>state.setCommentPosted))
+  const commentFetch = useStore((state) => state.commentFetch);
+  const setCommentFetch = useStore((state) => state.setCommentFetch);
 
+  const commentId = useStore((state) => state.commentId);
+  const editCommentMode = useStore((state) => state.editCommentMode);
   const handleChange = (event) => {
     setText(event.target.value);
   };
@@ -30,6 +34,32 @@ const CommentForm = () => {
     element.style.height = `${lines * lineHeight}px`;
   };
 
+
+  useEffect(() => {
+    if (!editCommentMode || !commentId) {
+      return;
+    }
+    inpRef.current.focus();
+    const fetchComment = async () => {
+      try {
+        const response = await fetch(
+          `http://127.0.0.1:8000/api/v1/announcement/comment/retrieve/${commentId}/`
+        );
+
+        if (!response.ok) {
+          const data = await response.json();
+          console.log(data);
+          return;
+        }
+        const data = await response.json();
+        setText(data.comment);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchComment();
+  }, [editCommentMode, commentId]);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (text === "") {
@@ -38,9 +68,11 @@ const CommentForm = () => {
     const postComment = async () => {
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/api/v1/announcement/give/comment/",
+          `http://127.0.0.1:8000/api/v1/announcement/${
+            editCommentMode ? `comment/update/${commentId}/` : "give/comment/"
+          }`,
           {
-            method: "POST",
+            method: editCommentMode ? "PATCH" : "POST",
             headers: {
               "Content-Type": "application/json",
             },
@@ -58,8 +90,8 @@ const CommentForm = () => {
           return;
         }
         const data = await response.json();
-        setCommentPosted(!commentPosted)
-        console.log(data);
+        setCommentFetch(!commentFetch);
+        toast.success("Comment Posted");
         setText("");
       } catch (error) {
         console.log(error);
@@ -68,11 +100,8 @@ const CommentForm = () => {
     postComment();
   };
   return (
-    <div>
-      <form
-        className="flex flex-col md:flex-row items-center gap-4"
-        onSubmit={handleSubmit}
-      >
+    <>
+      <div className="flex  w-full items-center gap-4">
         {userData.profilepic && (
           <Avatar className="h-10 w-10   shadow-md shadow-gray-500">
             <AvatarImage
@@ -92,20 +121,26 @@ const CommentForm = () => {
             <AvatarFallback>YS</AvatarFallback>
           </Avatar>
         )}
-        <div className="flex-1">
-          <Textarea
-            className="min-h-[40px] w-full focus-visible:ring-0 border border-gray-300 dark:border-gray-800 focus:border-gray-400 rounded-xl text-wrap   overflow-hidden placeholder:text-nowrap"
-            placeholder="Write your comment..."
-            value={text}
-            onChange={handleChange}
-            onInput={(e) => calculateHeight(e.target)}
-          />
-        </div>
-        <Button className="" type="submit">
-          Post
-        </Button>
-      </form>
-    </div>
+        <form
+          onSubmit={handleSubmit}
+          className="flex items-center gap-4 w-full"
+        >
+          <div className="flex-1">
+            <Textarea
+              ref={inpRef}
+              className="min-h-[40px] md:w-full focus-visible:ring-0 border border-gray-300 dark:border-gray-800 focus:border-gray-400 rounded-xl text-wrap   overflow-hidden placeholder:text-nowrap"
+              placeholder="Write your comment..."
+              value={text}
+              onChange={handleChange}
+              onInput={(e) => calculateHeight(e.target)}
+            />
+          </div>
+          <Button className="" type="submit">
+            {editCommentMode ? "Edit" : "Post"}
+          </Button>
+        </form>
+      </div>
+    </>
   );
 };
 
