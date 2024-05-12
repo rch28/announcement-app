@@ -14,7 +14,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { XIcon } from "lucide-react";
 import { useStore } from "@/stores/store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 
@@ -22,6 +22,8 @@ export function AnnouncementCardForm({
   group_id,
   selectGroup,
   userJoinedGroup,
+  ann_data,
+  setToggle
 }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -31,7 +33,6 @@ export function AnnouncementCardForm({
   const setToggleCreateAnnouncement = useStore(
     (state) => state.setToggleCreateAnnouncement
   );
-
   const access_token = Cookies.get("access_token");
   const userData = useStore((state) => state.userData);
   const userId = userData?.id;
@@ -41,7 +42,15 @@ export function AnnouncementCardForm({
     }
     setImage(e.target.files[0]);
   };
-
+  useEffect(()=>{
+    if(ann_data){
+      setTitle(ann_data.title)
+      setDescription(ann_data.description)
+      setPaymentMethod(ann_data.payment_method)
+      setGroup(ann_data.group)
+    }
+  
+  },[ann_data])
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!title) {
@@ -65,7 +74,7 @@ export function AnnouncementCardForm({
     data.append("title", title);
     data.append("description", description);
     data.append("payment_method", paymentMethod);
-    if (!group_id && selectGroup) {
+    if (!group_id) {
       data.append("group", group);
     }else{
       data.append("group", group_id);
@@ -74,9 +83,9 @@ export function AnnouncementCardForm({
     data.append("admin", userId);
     const newPromise = new Promise(async (resolve, reject) => {
       const response = await fetch(
-        "http://127.0.0.1:8000/api/v1/announcement/create/",
+        `http://127.0.0.1:8000/api/v1/announcement/${ann_data?`update/${ann_data?.id}/`:"create/"}`,
         {
-          method: "POST",
+          method:ann_data?"PATCH":"POST",
           headers: {
             Authorization: `Bearer ${access_token}`,
           },
@@ -87,6 +96,7 @@ export function AnnouncementCardForm({
       if (response.ok) {
         const result = await response.json();
         setToggleCreateAnnouncement(false);
+        setToggle(false)
         resolve(result);
       } else {
         const result = await response.json();
@@ -94,10 +104,8 @@ export function AnnouncementCardForm({
       }
     });
     toast.promise(newPromise, {
-      loading: "Creating Announcement...",
-      success: (data) => {
-        return `Announcement created successfully`;
-      },
+      loading:ann_data?"Annoucement Updating...": "Creating Announcement...",
+      success: ann_data?"Announcement Updated.":"Announcement created successfully",
       error: (err) => {
         return err?.errors[0].detail;
       },
@@ -113,9 +121,11 @@ export function AnnouncementCardForm({
               onClick={() => setToggleCreateAnnouncement(false)}
             />
           </h1>
-          <CardTitle>New Announcement</CardTitle>
+          <CardTitle> {ann_data?"Edit":"New"} Announcement</CardTitle>
           <CardDescription>
-            Create a new announcement for this group.
+            {
+              ann_data?"Edit the announcement information":"Create a new announcement for this group."
+            }
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-6">

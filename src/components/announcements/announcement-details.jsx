@@ -16,10 +16,10 @@ import {
   GaugeIcon,
   WalletIcon,
 } from "lucide-react";
-import { getLoggedInUserData } from "@/index";
 import { useStore } from "@/stores/store";
+import AnnSettingCard from "./AnnSettingCard";
 
-export function AnnouncementDetails({ data, setToggle }) {
+export function AnnouncementDetails({ data, toggle, setToggle }) {
   const dateTime = new Date(data.created_at);
   const date = dateTime.toDateString();
   const time = dateTime.toLocaleTimeString();
@@ -47,15 +47,23 @@ export function AnnouncementDetails({ data, setToggle }) {
         />
       )}
       <CardHeader>
-        <div className="flex justify-between">
-          <CardTitle>{data?.title}</CardTitle>
+        <div className="flex justify-between items-center relative">
+          <CardTitle className="text-md md:text-xl lg:text-2xl xl:text-3xl">{data?.title}</CardTitle>
           {userData?.id === data?.admin && (
             <button
-              className="p-2 w-8 h-8 text-gray-500 bg-white shadow-sm shadow-gray-700  rounded-full hover:bg-gray-200"
-              onClick={() => setToggle((prev) => !prev)}
+              className="p-2  text-gray-500 bg-white shadow-sm shadow-gray-700  rounded-full hover:bg-gray-200"
+              onClick={() => setToggle(!toggle)}
             >
-              <EllipsisVertical size={16} />
+              <EllipsisVertical size={24} />
             </button>
+          )}
+          {/* Announcement Edit toggle */}
+          {toggle && (
+            <div
+              className={`absolute z-40 bottom-14  -right-96 bg-white border-2   border-gray-300 shadow-md shadow-purple-400 p-4 rounded-lg w-88 }`}
+            >
+              <AnnSettingCard setToggle={setToggle} />
+            </div>
           )}
         </div>
         <AdminInfo admin_id={data?.admin} />
