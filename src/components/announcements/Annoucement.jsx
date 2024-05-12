@@ -2,11 +2,14 @@ import React from "react";
 import AnnouncementWrapper from "./AnnouncementWrapper";
 import Link from "next/link";
 
-const Annoucement = ({title,link}) => {
+const Annoucement = ({title,link, name}) => {
   return (
     <div className="mt-5">
       <div className="px-4 flex justify-between items-center">
-        <h1 className="text-xl">{title}</h1>
+        <div className="flex items-center">
+        <h2 className="text-xl">{name} </h2>
+        <h1 className="text-sm">({title})</h1>
+        </div>
         <Link href={""} className="text-blue-500 font-bold hover:underline">
           View more
         </Link>
