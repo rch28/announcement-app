@@ -5,18 +5,19 @@ import DeleteConfirm from '../utils/DeleteConfirm'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Cookies from 'js-cookie'
 import { useStore } from '@/stores/store'
+import toast from 'react-hot-toast'
 
 const AnnSettingCard = ({setToggle}) => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const [deleteToggle, setDeleteToggle] = useState(false);
-    const groupId = searchParams.get("group_id");
+    const ann_id = searchParams.get("ann_id");
     const access_token = Cookies.get("access_token");
     const setToggleCreateAnnouncement = useStore((state) => state.setToggleCreateAnnouncement);
     const handleDeleteGroup = () => {
       const newPromise = new Promise(async (resolve, reject) => {
         const response = await fetch(
-          `http://127.0.0.1:8000/api/v1/group/delete/${groupId}/`,
+          `http://127.0.0.1:8000/api/v1/announcement/delete/${ann_id}/`,
           {
             method: "DELETE",
             headers: {
@@ -25,24 +26,23 @@ const AnnSettingCard = ({setToggle}) => {
           }
         );
         if (response.ok) {
-          setToggleSetting(false);
+          setToggle(false);
           router.push("/groups");
           resolve();
         } else {
           const result = await response.json();
-          setToggleSetting(false);
+          setToggle(false);
           reject(result);
         }
       });
       toast.promise(newPromise, {
-        loading: "Deleting group...",
-        success: "Group deleted successfully!",
-        error: (data) => data.errors[0].detail || "Failed to delete group",
+        loading: "Deleting announcement...",
+        success: "Announcement deleted successfully!",
+        error: (data) => data.errors[0].detail || "Failed to delete announcement",
       });
     };
     const handleEditGroup = () => {
         setToggleCreateAnnouncement(true)
-        console.log("Editing announcement");
     }
   return (
     <div className="flex flex-col p-2 pt-0 gap-6 relative">
