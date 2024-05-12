@@ -56,7 +56,7 @@ const Navbar = () => {
               <Image src={logo} alt="Team App" width={40} height={40} className="rounded-full" />
             </span>
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-              Team App
+              Announcemate
             </span>
           </Link>
           <div className="flex items-center space-x-6 rtl:space-x-reverse">
