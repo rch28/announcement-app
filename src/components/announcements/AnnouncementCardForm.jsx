@@ -18,14 +18,17 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { fetchJoinedGroup } from "@/index";
 
 export function AnnouncementCardForm({
   group_id,
   selectGroup,
-  userJoinedGroup,
   ann_data,
   setToggle,
+  setToggleEdit,
 }) {
+  const [userJoinedGroup, setUserJoinedGroup] = useState([]);
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
@@ -45,6 +48,15 @@ export function AnnouncementCardForm({
     }
     setImage(e.target.files[0]);
   };
+  useEffect(() => {
+    const fetchData = async () => {
+      const allData = await fetchJoinedGroup(
+        "http://127.0.0.1:8000/api/v1/group/joined-by/user/?limit=10&offset=0/"
+      );
+      setUserJoinedGroup(allData);
+    };
+    fetchData();
+  }, [selectGroup]);
   useEffect(() => {
     if (ann_data) {
       setTitle(ann_data.title);
@@ -134,18 +146,24 @@ export function AnnouncementCardForm({
     });
   };
   return (
-    <form action="" onSubmit={handleSubmit} encType="multipart/form-data">
-      <Card className="w-full max-w-2xl rounded-xl">
+    <form
+      action=""
+      onSubmit={handleSubmit}
+      encType="multipart/form-data"
+      className="relative"
+    >
+      <Card className="w-full max-w-2xl rounded-xl shadow-md shadow-gray-500">
+        <button
+          onClick={() => {
+            setToggleCreateAnnouncement(false);
+            // setToggle(false);
+            !selectGroup && setToggleEdit(false);
+          }}
+          className="flex justify-end absolute right-0 m-2 cursor-pointer "
+        >
+          <XIcon className="w-8 h-8 bg-white shadow-md shadow-gray-500 rounded-full text-red-500 cursor-pointer" />
+        </button>
         <CardHeader>
-          <h1 className="flex justify-end ">
-            <XIcon
-              className="w-6 h-6 cursor-pointer"
-              onClick={() => {
-                setToggleCreateAnnouncement(false);
-                // setToggle(false);
-              }}
-            />
-          </h1>
           <CardTitle> {ann_data ? "Edit" : "New"} Announcement</CardTitle>
           <CardDescription>
             {ann_data
@@ -154,26 +172,40 @@ export function AnnouncementCardForm({
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-6">
-          <div className="flex flex-col md:grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <div>
-                <Label htmlFor="title">Title</Label>
-                <Input
-                  id="title"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  placeholder="Enter announcement title"
-                  className="border border-gray-400"
-                />
+          <div className="grid grid-cols-2 gap-4">
+            <div className="">
+              <div className="grid gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="title">Title</Label>
+                  <Input
+                    id="title"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="Enter announcement title"
+                    className="border border-gray-400 focus:border-purple-500"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="description">Description</Label>
+                  <Textarea
+                    id="description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    placeholder="Enter announcement description"
+                    className="border border-gray-400 focus:border-purple-500 h-32" 
+                  />
+                </div>
               </div>
+            </div>
+            <div className="flex flex-col gap-4">
               {selectGroup && (
-                <div>
+                <div className="space-y-2">
                   <Label htmlFor="payment-method">Select Group</Label>
 
                   <select
                     name="group_name"
                     id="group_name "
-                    className="block w-full px-4 py-2 mt-2 text-gray-900 bg-white border border-gray-500 rounded-md focus:outline-none text-sm font-semibold font-sans appearance-none"
+                    className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-500  focus:border-purple-500 rounded-md focus:outline-none text-sm font-medium appearance-none  "
                     value={group}
                     onChange={(e) => setGroup(e.target.value)}
                   >
@@ -186,44 +218,32 @@ export function AnnouncementCardForm({
                   </select>
                 </div>
               )}
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="description">Description</Label>
-              <Textarea
-                id="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="Enter announcement description"
-                className="border border-gray-400"
-              />
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="image">Image</Label>
-              <Input
-                id="image"
-                type="file"
-                onChange={handleFileChange}
-                className="focus:border focus:border-purple-400 "
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="payment-method">Payment Method</Label>
+              <div className="space-y-2">
+                <Label htmlFor="payment-method">Payment Method</Label>
 
-              <select
-                name="payment_method"
-                id="payment_method "
-                className="block w-full px-4 py-2 mt-2 text-gray-900 bg-white border border-gray-500 rounded-md focus:outline-none text-sm font-semibold font-sans appearance-none "
-                value={paymentMethod}
-                onChange={(e) => setPaymentMethod(e.target.value)}
-              >
-                <option value="khalti" className="py-4 rounded-lg">
-                  Khalti
-                </option>
-                <option value="e-sewa">E-Sewa</option>
-                <option value="paypal">Fone-pay</option>
-              </select>
+                <select
+                  name="payment_method"
+                  id="payment_method "
+                  className="block w-full px-4 py-2 text-gray-900 bg-white border border-gray-500 rounded-md focus:outline-none focus:border-purple-500 text-sm font-menium font-sans appearance-none "
+                  value={paymentMethod}
+                  onChange={(e) => setPaymentMethod(e.target.value)}
+                >
+                  <option value="khalti" className="py-4 rounded-lg">
+                    Khalti
+                  </option>
+                  <option value="e-sewa">E-Sewa</option>
+                  <option value="paypal">Fone-pay</option>
+                </select>
+              </div>
+              <div className="">
+                <Label htmlFor="image">Image</Label>
+                <Input
+                  id="image"
+                  type="file"
+                  onChange={handleFileChange}
+                  className="focus:border focus:border-purple-400 "
+                />
+              </div>
             </div>
           </div>
         </CardContent>

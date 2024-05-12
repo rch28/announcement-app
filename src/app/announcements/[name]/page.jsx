@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 
 const AnnouncementPage = () => {
   const [announcmentData, setAnnouncmentData] = useState({});
+  const [toggleEdit, setToggleEdit] = useState(false)
   const [toggle, setToggle] = useState(false);
   const searchParams = useSearchParams();
   const ann_id = searchParams.get("ann_id");
@@ -51,8 +52,24 @@ const AnnouncementPage = () => {
         data={announcmentData}
         toggle={toggle}
         setToggle={setToggle}
+        setToggleEdit={setToggleEdit}
       />
 
+      {/* Edit an announcement */}
+      {toggleEdit && (
+        <div
+          className={`z-50 fixed top-0 left-0 flex w-screen h-screen justify-center items-center ${
+            toggleEdit && "bg-black/30 "
+          }`}
+        >
+          <AnnouncementCardForm
+            ann_data={announcmentData}
+            setToggle={setToggle}
+        setToggleEdit={setToggleEdit}
+
+          />
+        </div>
+      )}
       {/* Edit an announcement */}
       {toggleCreateAnnouncement && (
         <div
@@ -61,8 +78,7 @@ const AnnouncementPage = () => {
           }`}
         >
           <AnnouncementCardForm
-            ann_data={announcmentData}
-            setToggle={setToggle}
+            selectGroup={true}
           />
         </div>
       )}

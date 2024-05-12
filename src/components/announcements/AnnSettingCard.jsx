@@ -7,7 +7,7 @@ import Cookies from 'js-cookie'
 import { useStore } from '@/stores/store'
 import toast from 'react-hot-toast'
 
-const AnnSettingCard = ({setToggle}) => {
+const AnnSettingCard = ({setToggle ,setToggleEdit}) => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const [deleteToggle, setDeleteToggle] = useState(false);
@@ -42,7 +42,8 @@ const AnnSettingCard = ({setToggle}) => {
       });
     };
     const handleEditGroup = () => {
-        setToggleCreateAnnouncement(true)
+        setToggleEdit(true)
+
     }
   return (
     <div className="flex flex-col p-2 pt-0 gap-6 relative">

@@ -19,7 +19,7 @@ import {
 import { useStore } from "@/stores/store";
 import AnnSettingCard from "./AnnSettingCard";
 
-export function AnnouncementDetails({ data, toggle, setToggle }) {
+export function AnnouncementDetails({ data,toggle, setToggle ,setToggleEdit}) {
   const dateTime = new Date(data.created_at);
   const date = dateTime.toDateString();
   const time = dateTime.toLocaleTimeString();
@@ -52,7 +52,7 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
           {userData?.id === data?.admin && (
             <button
               className="p-2  text-gray-500 bg-white shadow-sm shadow-gray-700  rounded-full hover:bg-gray-200"
-              onClick={() => setToggle(!toggle)}
+              onClick={() => setToggle((prev)=>!prev)}
             >
               <EllipsisVertical size={24} />
             </button>
@@ -62,7 +62,7 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
             <div
               className={`absolute z-40 bottom-14  -right-96 bg-white border-2   border-gray-300 shadow-md shadow-purple-400 p-4 rounded-lg w-88 }`}
             >
-              <AnnSettingCard setToggle={setToggle} />
+              <AnnSettingCard setToggleEdit={setToggleEdit} setToggle={setToggle} />
             </div>
           )}
         </div>

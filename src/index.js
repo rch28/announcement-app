@@ -55,3 +55,36 @@ export async function FetchUserData(id) {
     return error;
   }
 }
+
+
+// fetch the group data joined by the user
+export const fetchJoinedGroup = async (url) => {
+  const access_token = GetAccessToken();
+  try {
+    const response = await fetch(
+      url,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }
+    );
+    if (!response.ok) {
+      console.log("something went wrong!!");
+      return;
+    }
+    const result = await response.json();
+    if (result.next) {
+      const restData = await fetchJoinedGroup(result.next)
+      const allData = [...result.results, ...restData];
+      return allData;
+    }else{
+      return result.results
+    }
+    
+  } catch (error) {
+    console.log("something went wrong");
+    return []
+  }
+};
