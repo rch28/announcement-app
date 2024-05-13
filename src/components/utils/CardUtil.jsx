@@ -9,7 +9,7 @@ const CardUtil = ({ title, icon }) => {
         {icon}
 
         </span>
-        <span className="text-gray-500 font-medium">
+        <span className="text-gray-700 font-medium text-lg ">
         {title}
 
         </span>

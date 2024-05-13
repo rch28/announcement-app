@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import CardUtil from "../utils/CardUtil";
-import { UserPlus, Users, XIcon } from "lucide-react";
+import { NotebookTabs, UserPlus, Users, XIcon } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
@@ -50,44 +50,66 @@ const SettingCard = ({ setToggleSetting }) => {
   };
   return (
     <div className="flex flex-col p-2 gap-6 relative">
-      <div className='flex justify-end absolute right-0 -top-2'>
-            <button  className="p-1 flex justify-center items-center dark:text-gray-400 cursor-pointer text-red-500 bg-white shadow-sm shadow-gray-900 rounded-full hover:bg-red-200" onClick={()=>setToggleSetting(false)}>
-
-            <XIcon size={24}/>
-            </button>
-        </div>
+      <div className="flex justify-end absolute right-0 -top-2">
+        <button
+          className="p-1 flex justify-center items-center dark:text-gray-400 cursor-pointer text-red-500 bg-white shadow-sm shadow-gray-900 rounded-full hover:bg-red-200"
+          onClick={() => setToggleSetting(false)}
+        >
+          <XIcon size={24} />
+        </button>
+      </div>
       <div>
         <h1 className="text-3xl font-bold tracking-tighter">Group Settings</h1>
         <p className="text-gray-500">Manage your group settings and members</p>
       </div>
       <div className="border-b border-gray-200">
-        <div className="cursor-pointer hover:bg-gray-100 rounded-md p-4 flex items-center">
-          <Users className="h-6 w-6 text-gray-500 dark:text-gray-400 mr-2" />
-          <span className="text-lg font-medium">View Members</span>
+        <div className="cursor-pointer hover:bg-gray-100 rounded-md p-3 ">
+          <CardUtil
+            title="View Members"
+            icon={
+              <Users className="h-6 w-6 text-gray-500 dark:text-gray-400 mr-2" />
+            }
+          />
         </div>
-        <div className="cursor-pointer hover:bg-gray-100 rounded-md p-4 flex items-center">
-          <UserPlus className="h-6 w-6 text-gray-500 dark:text-gray-400 mr-2" />
-          <span className="text-lg font-medium">Manage Members</span>
+        <div className="cursor-pointer hover:bg-gray-100 rounded-md p-3 ">
+          <CardUtil
+            title="Manage Members"
+            icon={
+              <UserPlus className="h-6 w-6 text-gray-500 dark:text-gray-400 mr-2" />
+            }
+          />
         </div>
-        <div className="cursor-pointer hover:bg-gray-100 rounded-md p-4 flex items-center">
-          <UserPlus className="h-6 w-6 text-gray-500 dark:text-gray-400 mr-2" />
-          <span className="text-lg font-medium">Manage Announcements</span>
+        <div className="cursor-pointer hover:bg-gray-100 rounded-md p-3 ">
+          <CardUtil
+            title="Manage Annoucements"
+            icon={
+              <NotebookTabs className="h-6 w-6 text-gray-500 dark:text-gray-400 mr-2" />
+            }
+          />
         </div>
       </div>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
         <div
-          className="cursor-pointer hover:bg-gray-100 rounded-md p-4 flex items-center"
+          className="cursor-pointer hover:bg-green-300 rounded-md p-3"
           onClick={handleEditGroup}
         >
-          <Users className="h-6 w-6 text-gray-500 dark:text-gray-400 mr-2" />
-          <span className="text-lg font-medium">Edit Group Info</span>
+          <CardUtil
+            title="Edit Group Info"
+            icon={
+              <Users className="h-6 w-6 text-gray-500 dark:text-gray-400 mr-2" />
+            }
+          />
         </div>
         <div
-          className="cursor-pointer hover:bg-gray-100 rounded-md p-4 flex items-center"
+          className="cursor-pointer hover:bg-red-400 rounded-md p-3 "
           onClick={() => setDeleteToggle(!deleteToggle)}
         >
-          <UserPlus className="h-6 w-6 text-gray-500 dark:text-gray-400 mr-2" />
-          <span className="text-lg font-medium">Delete Group</span>
+          <CardUtil
+            title="Delete Group"
+            icon={
+              <UserPlus className="h-6 w-6 text-gray-500 dark:text-gray-400 mr-2" />
+            }
+          />
         </div>
       </div>
       {deleteToggle && (
