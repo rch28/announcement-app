@@ -27,23 +27,28 @@ const AnnouncementPage = () => {
   }, []);
 
   return (
-    <div className="my-5">
-      <div>
-        {GroupList.results?.map((group) => (
+    <div className="m-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {GroupList?.results?.map((group) => (
           <div
             key={group.group_id}
-            className=" p-2 bg-white shadow-md shadow-gray-300 rounded-md  my-2"
+            className="bg-white shadow-md shadow-purple-200 rounded-xl my-2 p-4"
           >
-            <div className="px-4 flex flex-col md:flex-row justify-between md:items-center">
-              <div className="flex items-center">
-                <h2 className="text-2xl">{group.name} </h2>
+            <div className="flex flex-col justify-between h-full">
+              <div>
+                <h2 className="text-2xl font-semibold mb-2">{group.name}</h2>
+                <p className="text-gray-600">{group.description}</p>
               </div>
-              <Link
-                href={`/announcements/${group.name}/announcements-list?group_id=${group.group_id}`}
-                className="text-blue-500 font-bold hover:underline flex justify-end"
-              >
-                View annoucements
-              </Link>
+              <div className="mt-4 flex justify-end items-center">
+                <Link
+                  href={`/announcements/${group.name}/announcements-list?group_id=${group.group_id}`}
+                  passHref
+                  className="text-blue-500 font-bold hover:underline"
+                >
+                  View Announcements
+                </Link>
+                {/* Add additional actions/buttons here if needed */}
+              </div>
             </div>
           </div>
         ))}
