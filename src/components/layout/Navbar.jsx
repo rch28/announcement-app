@@ -52,16 +52,16 @@ const Navbar = () => {
             href="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            <span className="text-3xl">
+            <span className="text-xl">
               <Image
                 src={logo}
                 alt="Team App"
-                width={40}
-                height={40}
-                className="rounded-full"
+                width={30}
+                height={30}
+                className="rounded-full w-8 md:w-12"
               />
             </span>
-            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+            <span className="self-center text-xl md:text-2xl font-semibold whitespace-nowrap dark:text-white">
               Announcemate
             </span>
           </Link>
@@ -88,7 +88,7 @@ const Navbar = () => {
       </nav>
       <nav className="bg-white border-b border-gray-200 dark:bg-gray-900 dark:border-gray-700">
         <div className="max-w-5xl px-4 py-3 mx-auto flex justify-between items-center">
-          <ul className="flex space-x-8">
+          <ul className="flex space-x-4">
             <li>
               <Link
                 className="text-gray-900 dark:text-white hover:text-blue-500 font-medium"
@@ -117,7 +117,7 @@ const Navbar = () => {
               </Link>
             </li>
           </ul>
-          <div>
+          <div className="hidden ">
             <SearchBar />
           </div>
         </div>
