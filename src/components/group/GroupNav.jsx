@@ -46,7 +46,7 @@ const GroupNav = () => {
   }, [uId, aId]);
   return (
     <>
-      <nav className="flex flex-col md:flex-row gap-4 justify-between ">
+      <nav className="flex flex-row gap-4 justify-between ">
         <h1 className="text-xl font-semibold flex items-center gap-3">
           Category <ChevronsRight size={16} />{" "}
           <span className="capitalize text-gray-700 text-lg"> {category} </span>
