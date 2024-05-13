@@ -41,7 +41,7 @@ const AnnSettingCard = ({setToggle ,setToggleEdit}) => {
         error: (data) => data.errors[0].detail || "Failed to delete announcement",
       });
     };
-    const handleEditGroup = () => {
+    const handleEditAnn = () => {
         setToggleEdit(true)
 
     }
@@ -78,7 +78,7 @@ const AnnSettingCard = ({setToggle ,setToggleEdit}) => {
       <div className="flex flex-col gap-4">
         <div
           className="cursor-pointer hover:bg-gray-300 p-2 rounded-md"
-          onClick={handleEditGroup}
+          onClick={handleEditAnn}
         >
           <CardUtil
             title="Edit Announcement"

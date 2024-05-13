@@ -26,8 +26,8 @@ const GroupPage = () => {
   );
   const userAuthentiated = useStore((state) => state.userAuthenticated);
   useEffect(() => {
-    if(!group_id){
-      redirect("/groups")
+    if (!group_id) {
+      redirect("/groups");
     }
     const fetchGroup = async () => {
       try {
@@ -71,8 +71,7 @@ const GroupPage = () => {
         }
       } catch (error) {
         console.log(error);
-      } 
-      
+      }
     };
     fetchGroup();
   }, [access_token, joined, toggleRating]);
@@ -98,7 +97,7 @@ const GroupPage = () => {
       }
     };
     fetchAnnouncement();
-  }, [toggleCreateAnnouncement]);
+  }, [toggleCreateAnnouncement, group_id]);
   return (
     <div className="p-5">
       <GroupCard data={data} groupAdminInfo={groupAdminInfo} />
@@ -124,18 +123,23 @@ const GroupPage = () => {
             toggleCreateAnnouncement && "bg-black/30 "
           }`}
         >
-          <AnnouncementCardForm group_id={group_id} />
+          <AnnouncementCardForm group_id={group_id}  />
         </div>
       )}
 
       {/* Our annnouncement */}
-      <div className="mt-10">
-        <h1 className="text-4xl font-bold py-6">Our Recent Announcements</h1>
-        {!userAuthentiated && (
-          <Link href={"/auth/login"} className="text-red-400 hover:underline">Login to view the annoucements!!!</Link>
-        )}
-        <AnnouncementCard data={announcmentData}/>
-      </div>
+      {announcmentData.count>0 ? (
+        <div className="mt-10">
+          <h1 className="text-4xl font-bold py-6">Our Recent Announcements</h1>
+          {!userAuthentiated && (
+            <Link href={"/auth/login"} className="text-red-400 hover:underline">
+              Login to view the annoucements!!!
+            </Link>
+          )}
+          <AnnouncementCard data={announcmentData?.results} />
+        </div>
+      ):"No announcement yet!!"
+      }
     </div>
   );
 };

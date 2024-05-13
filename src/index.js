@@ -55,10 +55,34 @@ export async function FetchUserData(id) {
     return error;
   }
 }
+// Fetch group data from the API
+export async function fetchGroup(id) {
+  const access_token = GetAccessToken();
+  try {
+    const response = await fetch(
+      `http://127.0.0.1:8000/api/v1/group/retrieve/${id}/
+        `,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }
+    );
+    if (!response.ok) {
+      console.log("something went wrong");
+      return;
+    }
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    return error;
+  }
+}
 
 
 // fetch the group data joined by the user
-export const fetchJoinedGroup = async (url) => {
+export const fetchAllData = async (url) => {
   const access_token = GetAccessToken();
   try {
     const response = await fetch(
@@ -76,7 +100,7 @@ export const fetchJoinedGroup = async (url) => {
     }
     const result = await response.json();
     if (result.next) {
-      const restData = await fetchJoinedGroup(result.next)
+      const restData = await fetchAllData(result.next)
       const allData = [...result.results, ...restData];
       return allData;
     }else{

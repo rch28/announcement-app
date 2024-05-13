@@ -6,7 +6,10 @@ import Annoucement from "./Annoucement";
 
 const GroupAnnouncement = ({ id, name }) => {
   const access_token = Cookies.get("access_token");
-  const [announcementList, setAnnouncementList] = useState({});
+  const [announcementList, setAnnouncementList] = useState(null);
+  const [recentAnn, setRecentAnn] = useState([]);
+  const [pastAnn, setPastAnn] = useState([]);
+
   useEffect(() => {
     const fetchAnnouncement = async () => {
       try {
@@ -28,15 +31,36 @@ const GroupAnnouncement = ({ id, name }) => {
     };
     fetchAnnouncement();
   }, [id]);
-  if (!announcementList) return null;
-  if (announcementList.count === 0) {
-    return ;
-  }
+
+  useEffect(() => {
+    if (announcementList) {
+      const recent = [];
+      const past = [];
+      announcementList.results.forEach((item) => {
+        // get date
+        const date = new Date();
+        const millisecondsInDay = 1000 * 60 * 60 * 24;
+        const dateTime = new Date(item.created_at);
+        const dateDiff = Math.floor((date - dateTime) / millisecondsInDay);
+        if (dateDiff < 1) {
+          recent.push(item);
+        } else {
+          past.push(item);
+        }
+      });
+      if (recent.length > 0) {
+        setRecentAnn(recent);
+      }
+      if (past.length > 0) {
+        setPastAnn(past);
+      }
+    }
+  }, [announcementList]);
+ 
 
   return (
     <div>
-      <Annoucement title={"Latest"} name={name} />
-      <Annoucement title={"Past"} name={name} />
+      <Annoucement title={"Latest"} name={name} data={recentAnn} />
     </div>
   );
 };

@@ -65,6 +65,7 @@ const AnnouncementPage = () => {
           <AnnouncementCardForm
             ann_data={announcmentData}
             setToggle={setToggle}
+            mode="edit"
         setToggleEdit={setToggleEdit}
 
           />

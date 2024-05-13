@@ -6,7 +6,7 @@ import Link from 'next/link';
 const AnnouncementCard = ({data}) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-    {data?.results?.map((announcement) => {
+    {data?.map((announcement) => {
       return (
         <Link href={`/announcements/${announcement.title.replace(/\s+/g, '-').toLowerCase()}/?ann_id=${announcement.id}`}
           key={announcement.id}

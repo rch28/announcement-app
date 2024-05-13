@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { fetchJoinedGroup } from "@/index";
+import { fetchAllData } from "@/index";
 
 export function AnnouncementCardForm({
   group_id,
@@ -26,6 +26,7 @@ export function AnnouncementCardForm({
   ann_data,
   setToggle,
   setToggleEdit,
+  mode
 }) {
   const [userJoinedGroup, setUserJoinedGroup] = useState([]);
 
@@ -50,7 +51,7 @@ export function AnnouncementCardForm({
   };
   useEffect(() => {
     const fetchData = async () => {
-      const allData = await fetchJoinedGroup(
+      const allData = await fetchAllData(
         "http://127.0.0.1:8000/api/v1/group/joined-by/user/?limit=10&offset=0/"
       );
       setUserJoinedGroup(allData);
@@ -157,7 +158,7 @@ export function AnnouncementCardForm({
           onClick={() => {
             setToggleCreateAnnouncement(false);
             // setToggle(false);
-            !selectGroup && setToggleEdit(false);
+            mode==="edit" && setToggleEdit(false);
           }}
           className="flex justify-end absolute right-0 m-2 cursor-pointer "
         >
