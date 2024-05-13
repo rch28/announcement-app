@@ -48,10 +48,10 @@ const AnnSettingCard = ({setToggle ,setToggleEdit}) => {
   return (
     <div className="flex flex-col p-2 pt-0 gap-6 relative">
       <div>
-        <div className='flex justify-end absolute -right-7 -top-7'>
+        <div className='flex justify-end absolute right-0 -top-2'>
             <button  className="p-1 flex justify-center items-center dark:text-gray-400 cursor-pointer text-red-500 bg-white shadow-sm shadow-gray-900 rounded-full hover:bg-red-200" onClick={()=>setToggle(false)}>
 
-            <XIcon size={36}/>
+            <XIcon size={24}/>
             </button>
         </div>
         <h1 className="text-3xl font-bold tracking-tighter">Announcement Setting</h1>
