@@ -52,7 +52,7 @@ const GroupNav = () => {
           <span className="capitalize text-gray-700 text-lg"> {category} </span>
         </h1>
 
-        {isGrupAdmin && (
+        {isGrupAdmin &&userAuthenticated && (
           <div className="flex gap-4 justify-end items-center px-4 text-xs md:text-base relative">
             <div className="flex items-center gap-2 px-4 text-sm py-2 bg-purple-600 rounded-full  text-white font-bold hover:bg-purple-700 cursor-pointer shadow-sm shadow-purple-500" onClick={()=>setToggleSetting(!toggleSetting)} >
               {toggleSetting?<X size={20} />:<Cog size={20} />}
