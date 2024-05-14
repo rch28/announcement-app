@@ -67,7 +67,7 @@ const SettingCard = ({ setToggleSetting }) => {
           <CardUtil
             title="View Members"
             icon={
-              <Users className="h-6 w-6 text-gray-500 dark:text-gray-400 mr-2" />
+              <Users className=" h-4 w-4  sm:h-6 sm:w-6 text-gray-500 dark:text-gray-400 mr-2" />
             }
           />
         </div>
@@ -75,7 +75,7 @@ const SettingCard = ({ setToggleSetting }) => {
           <CardUtil
             title="Manage Members"
             icon={
-              <UserPlus className="h-6 w-6 text-gray-500 dark:text-gray-400 mr-2" />
+              <UserPlus className=" h-4 w-4  sm:h-6 sm:w-6 text-gray-500 dark:text-gray-400 mr-2" />
             }
           />
         </div>
@@ -83,7 +83,7 @@ const SettingCard = ({ setToggleSetting }) => {
           <CardUtil
             title="Manage Annoucements"
             icon={
-              <NotebookTabs className="h-6 w-6 text-gray-500 dark:text-gray-400 mr-2" />
+              <NotebookTabs className=" h-4 w-4  sm:h-6 sm:w-6 text-gray-500 dark:text-gray-400 mr-2" />
             }
           />
         </div>
@@ -96,7 +96,7 @@ const SettingCard = ({ setToggleSetting }) => {
           <CardUtil
             title="Edit Group Info"
             icon={
-              <Users className="h-6 w-6 text-gray-500 dark:text-gray-400 mr-2" />
+              <Users className=" h-4 w-4  sm:h-6 sm:w-6 text-gray-500 dark:text-gray-400 mr-2" />
             }
           />
         </div>
@@ -107,7 +107,7 @@ const SettingCard = ({ setToggleSetting }) => {
           <CardUtil
             title="Delete Group"
             icon={
-              <UserPlus className="h-6 w-6 text-gray-500 dark:text-gray-400 mr-2" />
+              <UserPlus className=" h-4 w-4  sm:h-6 sm:w-6 text-gray-500 dark:text-gray-400 mr-2" />
             }
           />
         </div>
