@@ -10,7 +10,7 @@ const AnnouncementCard = ({data}) => {
       return (
         <Link href={`/announcements/${announcement.title.replace(/\s+/g, '-').toLowerCase()}/?ann_id=${announcement.id}`}
           key={announcement.id}
-          className="border border-gray-300 rounded-2xl hover:scale-105 transition-all ease-linear shadow-md shadow-fuchsia-300 cursor-pointer p-4"
+          className="border border-gray-300 rounded-2xl hover:scale-105 transition-all ease-linear shadow-md shadow-gray-400 cursor-pointer p-4 bg-white"
         >
           <div className="grid gap-6 ">
             <div className="grid gap-4 ">

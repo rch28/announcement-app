@@ -102,7 +102,7 @@ const GroupPage = () => {
     <div className="p-5">
       <GroupCard data={data} groupAdminInfo={groupAdminInfo} />
       <div className="mt-10">
-        <h1 className="text-4xl">What we're about?</h1>
+        <h1 className="text-2xl font-bold md:text-4xl">What we're about?</h1>
         <p className="py-4">{data?.description}</p>
       </div>
 
@@ -134,9 +134,12 @@ const GroupPage = () => {
         </Link>
       ) : announcmentData.count > 0 ? (
         <div className="mt-10">
-          <h1 className="text-4xl font-bold py-6">Our Recent Announcements</h1>
+          <h1 className="text-3xl md:text-4xl font-bold py-6">Our Recent Announcements</h1>
 
           <AnnouncementCard data={announcmentData?.results} />
+          <div className="flex justify-end items-center">
+          <Link href={`/announcements/${data?.name}/announcements-list?group_id=${data?.group_id}&&category=${data?.category}`} className="inline-flex h-10 items-center justify-center rounded-full bg-purple-700 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-purple-800 focus-visible:outline-none  disabled:pointer-events-none disabled:opacity-50 dark:bg-[#805AD5] dark:text-gray-900 dark:hover:bg-purple-800/90 dark:focus-visible:ring-[#805AD5] my-5">View all</Link>
+          </div>
         </div>
       ) : (
         "No announcement yet!!"
