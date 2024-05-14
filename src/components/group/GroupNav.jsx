@@ -55,12 +55,12 @@ const GroupNav = () => {
         {isGrupAdmin &&userAuthenticated && (
           <div className="flex gap-4 justify-end items-center px-4 text-xs md:text-base relative">
             <div className="flex items-center gap-2 px-4 text-sm py-2 bg-purple-600 rounded-full  text-white font-bold hover:bg-purple-700 cursor-pointer shadow-sm shadow-purple-500" onClick={()=>setToggleSetting(!toggleSetting)} >
-              {toggleSetting?<X size={20} />:<Cog size={20} />}
+              <Cog size={20} />
               <span>Setting</span>
             </div>
             {
               toggleSetting && (
-                <div className="absolute z-10 top-10 w-96 bg-white border-2   border-gray-300 shadow-md shadow-purple-200 p-4 rounded-xl">
+                <div className="absolute z-10 right-0 sm:right-2 md:right-auto  top-10 w-72 md:w-96 bg-white border-2   border-gray-300 shadow-md shadow-purple-200 p-4 rounded-xl">
                  <SettingCard setToggleSetting={setToggleSetting} />
                 </div>
               )
