@@ -108,8 +108,8 @@ const JoinGroupButton = () => {
   return (
     <>
       {joined && userAuthenticated ? (
-        <div className="flex justify-center items-center gap-4 relative">
-          <h3 className="px-6 py-2  rounded-full  text-white font-bold bg-purple-900">
+        <div className="flex justify-center items-center gap-1 md:gap-4 relative">
+          <h3 className="px-2 py-1 text-xs  rounded-full  text-black font-bold bg-slate-400">
             Joined{" "}
           </h3>
           <button
@@ -119,7 +119,7 @@ const JoinGroupButton = () => {
             <Cog className="h-5 w-5 text-gray-800 dark:text-gray-400" />
           </button>
           {toggle && (
-            <div className="absolute  bottom-14 right-0 bg-white border border-gray-300 p-4 w-52 rounded-lg shadow shadow-purple-300">
+            <div className="absolute  bottom-14 right-0 bg-white border border-gray-300 p-4 w-72 rounded-lg shadow shadow-purple-300">
               <div className="flex flex-col gap-3">
                 <div className="cursor-pointer hover:bg-gray-300 p-2 rounded-md">
                   <CardUtil
