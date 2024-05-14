@@ -211,7 +211,7 @@ export function AnnouncementCardForm({
                     onChange={(e) => setGroup(e.target.value)}
                   >
                     <option value="">Select group</option>
-                    {userJoinedGroup.map((group) => (
+                    {userJoinedGroup?.map((group) => (
                       <option key={group.group_id} value={group.group_id}>
                         {group.name}
                       </option>
