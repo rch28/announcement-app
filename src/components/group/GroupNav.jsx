@@ -46,10 +46,10 @@ const GroupNav = () => {
   }, [uId, aId]);
   return (
     <>
-      <nav className="flex flex-row gap-4 justify-between ">
-        <h1 className="text-xl font-semibold flex items-center gap-3">
+      <nav className="flex flex-row md:gap-4 justify-between ">
+        <h1 className="tmd:ext-xl font-semibold flex items-center md:gap-3">
           Category <ChevronsRight size={16} />{" "}
-          <span className="capitalize text-gray-700 text-lg"> {category} </span>
+          <span className="capitalize text-gray-700 text:xs md:text-lg"> {category} </span>
         </h1>
 
         {isGrupAdmin &&userAuthenticated && (
@@ -68,10 +68,10 @@ const GroupNav = () => {
           </div>
         )}
         {!isGrupAdmin  &&joined && userAuthenticated && (
-          <div className="flex gap-4 justify-end items-center px-4 text-xs md:text-base">
+          <div className="flex  justify-end items-center px-4 text-xs md:text-base">
             <button
             
-              className="px-4 text-sm py-2 bg-purple-600 shadow-sm shadow-purple-500 rounded-full  text-white font-bold hover:bg-purple-700"
+              className="px-3 md:px-6 text-sx md:text-sm py-2 bg-purple-600 shadow-sm shadow-purple-500 rounded-full  text-white font-bold hover:bg-purple-700"
               onClick={() =>
                 setToggleCreateAnnouncement(!toggleCreateAnnouncement)
               }
