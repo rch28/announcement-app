@@ -39,12 +39,12 @@ const DetailsHeader = ({ date, group_id }) => {
 
   return (
     <div className="bg-gray-100 dark:bg-gray-800 px-4 py-4 rounded-t-lg ">
-      <div className="flex flex-col md:flex-row items-center justify-between">
-        <div className="flex items-center gap-3 text-xl text-gray-700 dark:text-gray-400">
+      <div className="">
+        <div className="flex items-center gap-3 text-2xl font-medium text-gray-700 dark:text-gray-400">
           <Users2Icon className="h-5 w-5" />
           <span>{groupInfo.name}</span>
         </div>
-        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+        <div className=" items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hidden">
           <CalendarDaysIcon className="h-4 w-4" />
           <span className="text-nowrap">{date} </span>
         </div>

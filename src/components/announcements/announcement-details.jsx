@@ -19,7 +19,12 @@ import {
 import { useStore } from "@/stores/store";
 import AnnSettingCard from "./AnnSettingCard";
 
-export function AnnouncementDetails({ data,toggle, setToggle ,setToggleEdit}) {
+export function AnnouncementDetails({
+  data,
+  toggle,
+  setToggle,
+  setToggleEdit,
+}) {
   const dateTime = new Date(data.created_at);
   const date = dateTime.toDateString();
   const time = dateTime.toLocaleTimeString();
@@ -28,31 +33,35 @@ export function AnnouncementDetails({ data,toggle, setToggle ,setToggleEdit}) {
   return (
     <Card className="shadow-md">
       <DetailsHeader group_id={data.group} date={date} />
-      {data?.image && (
-        <Image
-          alt={data?.title || "Announcement Image"}
-          className="aspect-[4/3] w-full rounded-t-lg object-cover"
-          height="240"
-          src={data?.image}
-          width="400"
-        />
-      )}
-      {!data?.image && (
-        <Image
-          alt={data?.title || "Announcement Image"}
-          className="aspect-[4/3] w-full rounded-t-lg object-cover"
-          height="240"
-          src={logo}
-          width="400"
-        />
-      )}
+      <div className="px-4">
+        {data?.image && (
+          <Image
+            alt={data?.title || "Announcement Image"}
+            className="aspect-[4/3] w-full rounded-t-lg object-cover"
+            height="240"
+            src={data?.image}
+            width="400"
+          />
+        )}
+        {!data?.image && (
+          <Image
+            alt={data?.title || "Announcement Image"}
+            className="aspect-[4/3] w-full rounded-t-lg object-cover"
+            height="240"
+            src={logo}
+            width="400"
+          />
+        )}
+      </div>
       <CardHeader>
         <div className="flex justify-between items-center relative">
-          <CardTitle className="text-md md:text-xl lg:text-2xl xl:text-3xl">{data?.title}</CardTitle>
+          <CardTitle className="text-md md:text-xl lg:text-2xl xl:text-3xl">
+            {data?.title}
+          </CardTitle>
           {userData?.id === data?.admin && (
             <button
               className="p-2  text-gray-500 bg-white shadow-sm shadow-gray-700  rounded-full hover:bg-gray-200"
-              onClick={() => setToggle((prev)=>!prev)}
+              onClick={() => setToggle((prev) => !prev)}
             >
               <EllipsisVertical size={24} />
             </button>
@@ -60,9 +69,12 @@ export function AnnouncementDetails({ data,toggle, setToggle ,setToggleEdit}) {
           {/* Announcement Edit toggle */}
           {toggle && (
             <div
-              className={`absolute z-40 bottom-14  -right-96 bg-white border-2   border-gray-300 shadow-md shadow-purple-400 p-4 rounded-lg w-88 }`}
+              className={`absolute z-40 bottom-14 right-0  md:-right-96 bg-white border-2   border-gray-300 shadow-md shadow-purple-400 p-4 rounded-lg w-88 }`}
             >
-              <AnnSettingCard setToggleEdit={setToggleEdit} setToggle={setToggle} />
+              <AnnSettingCard
+                setToggleEdit={setToggleEdit}
+                setToggle={setToggle}
+              />
             </div>
           )}
         </div>
