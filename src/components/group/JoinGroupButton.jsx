@@ -114,12 +114,12 @@ const JoinGroupButton = () => {
           </h3>
           <button
             onClick={() => setToggle(!toggle)}
-            className="p-2 border border-gray-400 bg-slate-200 rounded-full cursor-pointer"
+            className="p-1 border border-gray-400 bg-slate-200 rounded-full cursor-pointer"
           >
             <Cog className="h-5 w-5 text-gray-800 dark:text-gray-400" />
           </button>
           {toggle && (
-            <div className="absolute  bottom-14 right-0 bg-white border border-gray-300 p-4 w-72 rounded-lg shadow shadow-purple-300">
+            <div className="absolute  bottom-14 right-0 bg-white border border-gray-300 p-4 w-64 md:w-72 rounded-lg shadow shadow-gray-500">
               <div className="flex flex-col gap-3">
                 <div className="cursor-pointer hover:bg-gray-300 p-2 rounded-md">
                   <CardUtil
@@ -129,7 +129,7 @@ const JoinGroupButton = () => {
                     }
                   />
                 </div>
-                <div className="cursor-pointer hover:bg-gray-300 p-2 rounded-md" onClick={hanleLeaveGroup} >
+                <div className="cursor-pointer hover:bg-red-300 p-2 rounded-md" onClick={hanleLeaveGroup} >
                   <CardUtil
                     title={"Leave Group"}
                     icon={
