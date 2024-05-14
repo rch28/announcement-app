@@ -71,7 +71,7 @@ const GroupList = () => {
 
 
   return (
-    <div>
+    <div className="px-6 md:px-0">
       {announcementGroup?.count === 0 && (
         <h3 className="p-3 bg-green-200 rounded-xl">
           No group yet!! Create New One
@@ -92,7 +92,7 @@ const GroupList = () => {
               key={data.group_id}
               className="max-w-xl p-4 "
             >
-              <div className="border border-gray-300 rounded-2xl hover:scale-105 transition-all ease-linear shadow-md shadow-fuchsia-300 cursor-pointer p-4">
+              <div className="border bg-white border-gray-300 rounded-2xl md:hover:scale-105 transition-all ease-linear shadow-xl shadow-gray-400 cursor-pointer p-4">
                 <div className="grid gap-6 ">
                   <div className="grid gap-4 ">
                     <Image

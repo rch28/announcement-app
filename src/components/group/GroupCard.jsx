@@ -27,7 +27,7 @@ const GroupCard = ({ data, groupAdminInfo }) => {
               width={600}
               alt="Group Image"
             />
-            <div className="flex flex-col gap-4 justify-between border border-gray-300 p-2 sm:p-4 rounded-xl">
+            <div className="flex bg-white flex-col gap-4 justify-between border border-gray-300 p-2 sm:p-4 rounded-xl shadow-lg shdow-gray-500">
               <div className="flex flex-col gap-2 max-w-96 ">
                 <div className="flex items-center gap-4">
                   <div className="bg-gray-100 rounded-full px-3 py-1 text-sm font-medium dark:bg-gray-800 text-gray-600 capitalize">
