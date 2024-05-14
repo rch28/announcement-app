@@ -123,23 +123,24 @@ const GroupPage = () => {
             toggleCreateAnnouncement && "bg-black/30 "
           }`}
         >
-          <AnnouncementCardForm group_id={group_id}  />
+          <AnnouncementCardForm group_id={group_id} />
         </div>
       )}
 
       {/* Our annnouncement */}
-      {announcmentData.count>0 ? (
+      {!userAuthentiated ? (
+        <Link href={"/auth/login"} className="inline-flex h-10 items-center justify-center rounded-full bg-purple-700 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-purple-800 focus-visible:outline-none  disabled:pointer-events-none disabled:opacity-50 dark:bg-[#805AD5] dark:text-gray-900 dark:hover:bg-purple-800/90 dark:focus-visible:ring-[#805AD5]">
+          Login to view the annoucements!!!
+        </Link>
+      ) : announcmentData.count > 0 ? (
         <div className="mt-10">
           <h1 className="text-4xl font-bold py-6">Our Recent Announcements</h1>
-          {!userAuthentiated && (
-            <Link href={"/auth/login"} className="text-red-400 hover:underline">
-              Login to view the annoucements!!!
-            </Link>
-          )}
+
           <AnnouncementCard data={announcmentData?.results} />
         </div>
-      ):"No announcement yet!!"
-      }
+      ) : (
+        "No announcement yet!!"
+      )}
     </div>
   );
 };

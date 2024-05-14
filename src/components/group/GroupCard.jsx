@@ -7,7 +7,7 @@ import JoinGroupButton from "./JoinGroupButton";
 import { useStore } from "@/stores/store";
 import Rating from "./Rating";
 const GroupCard = ({ data, groupAdminInfo }) => {
-  const userAuthenticated= useStore((state)=>state.userAuthenticated)
+  const userAuthenticated = useStore((state) => state.userAuthenticated);
   const isGrupAdmin = useStore((state) => state.isGrupAdmin);
   const toggleCreateAnnouncement = useStore(
     (state) => state.toggleCreateAnnouncement
@@ -47,13 +47,21 @@ const GroupCard = ({ data, groupAdminInfo }) => {
               </div>
               <div className="flex justify-between items-center pr-1 lg:pr-4">
                 {groupAdminInfo !== undefined && (
-                  <div className="flex items-center gap-4 ">
-                    <Avatar
-                      name={`${groupAdminInfo?.first_name} ${groupAdminInfo?.last_name}`}
-                      size="60"
-                      round={true}
-                      color="rgb(126 34 206 )"
-                    />
+                  <div className="flex items-center gap-2">
+                    {groupAdminInfo?.image ? (
+                      <Image
+                        src={groupAdminInfo?.image}
+                        width={50}
+                        height={50}
+                      />
+                    ) : (
+                      <Avatar
+                        name={`${groupAdminInfo?.first_name} ${groupAdminInfo?.last_name}`}
+                        size="50"
+                        round={true}
+                        color="rgb(126 34 206 )"
+                      />
+                    )}
                     <div className="text-sm">
                       <p className="font-medium capitalize flex gap-2">
                         <span>{groupAdminInfo?.first_name}</span>
@@ -66,7 +74,7 @@ const GroupCard = ({ data, groupAdminInfo }) => {
                 {isGrupAdmin && userAuthenticated ? (
                   <div>
                     <button
-                      className="px-6 py-2 bg-purple-600 rounded-full  text-white font-bold hover:bg-purple-700 text-xs md:text-sm   lg:text-lg"
+                      className="px-4 py-2 bg-purple-600 rounded-full  text-white font-bold hover:bg-purple-700 text-xs md:text-sm   "
                       onClick={() =>
                         setToggleCreateAnnouncement(!toggleCreateAnnouncement)
                       }
