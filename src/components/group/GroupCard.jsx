@@ -7,6 +7,7 @@ import JoinGroupButton from "./JoinGroupButton";
 import { useStore } from "@/stores/store";
 import Rating from "./Rating";
 const GroupCard = ({ data, groupAdminInfo }) => {
+  const userAuthenticated= useStore((state)=>state.userAuthenticated)
   const isGrupAdmin = useStore((state) => state.isGrupAdmin);
   const toggleCreateAnnouncement = useStore(
     (state) => state.toggleCreateAnnouncement
@@ -62,7 +63,7 @@ const GroupCard = ({ data, groupAdminInfo }) => {
                     </div>
                   </div>
                 )}
-                {isGrupAdmin ? (
+                {isGrupAdmin && userAuthenticated ? (
                   <div>
                     <button
                       className="px-6 py-2 bg-purple-600 rounded-full  text-white font-bold hover:bg-purple-700 text-xs md:text-sm   lg:text-lg"
