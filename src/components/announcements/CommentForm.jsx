@@ -141,7 +141,7 @@ const CommentForm = () => {
               onInput={(e) => calculateHeight(e.target)}
             />
           </div>
-          <Button className="bg-purple-700 " type="submit">
+          <Button className="bg-purple-600 hover:bg-purple-700" type="submit">
             {editCommentMode ? "Edit" : "Post"}
           </Button>
         </form>
