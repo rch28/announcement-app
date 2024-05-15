@@ -131,16 +131,17 @@ const CommentForm = () => {
           className="flex items-center gap-4 w-full"
         >
           <div className="flex-1">
-            <Textarea
+            <input 
+            type="text"
               ref={inpRef}
-              className="min-h-[40px] md:w-full focus-visible:ring-0 border border-gray-300 dark:border-gray-800 focus:border-gray-400 rounded-xl text-wrap   overflow-hidden placeholder:text-nowrap"
+              className="w-full focus:border-none  focus-visible:ring-0   dark:border-gray-800 focus:outline-none outline-none rounded-xl  p-4   "
               placeholder="Write your comment..."
               value={text}
               onChange={handleChange}
               onInput={(e) => calculateHeight(e.target)}
             />
           </div>
-          <Button className="" type="submit">
+          <Button className="bg-purple-700 " type="submit">
             {editCommentMode ? "Edit" : "Post"}
           </Button>
         </form>

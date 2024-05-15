@@ -3,17 +3,16 @@ import React, { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { FetchUserData } from "@/index";
 import { EllipsisVertical } from "lucide-react";
-import CommentDropDown from "./CommentDropDown"
+import CommentDropDown from "./CommentDropDown";
 import { useStore } from "@/stores/store";
-
 
 const Comment = ({ comment }) => {
   const [userData, setUserData] = useState({});
   const [timePassed, setTimePassed] = useState("");
-  const [toggleEdit, setToggleEdit] = useState(false)
-  const [validUser, setValidUser] = useState(false)
- 
-  const loggedUser= useStore((state)=>state.userData)
+  const [toggleEdit, setToggleEdit] = useState(false);
+  const [validUser, setValidUser] = useState(false);
+
+  const loggedUser = useStore((state) => state.userData);
 
   const dateTime = new Date(comment.created_at);
   const today = new Date();
@@ -41,13 +40,12 @@ const Comment = ({ comment }) => {
         );
         return;
       }
-        if (differenceInMs > millisecondsInWeek) {
-            setTimePassed(
-                `${Math.floor(differenceInMs / millisecondsInWeek)}w ago`
-            );
-            return;
-        }
-            
+      if (differenceInMs > millisecondsInWeek) {
+        setTimePassed(
+          `${Math.floor(differenceInMs / millisecondsInWeek)}w ago`
+        );
+        return;
+      }
 
       if (differenceInMs > millisecondsInDay) {
         setTimePassed(`${Math.floor(differenceInMs / millisecondsInDay)}d ago`);
@@ -65,9 +63,7 @@ const Comment = ({ comment }) => {
         );
         return;
       }
-      setTimePassed(
-        `Just now`
-      );
+      setTimePassed(`Just now`);
     };
     calculateTimePassed();
   }, [comment]);
@@ -78,15 +74,15 @@ const Comment = ({ comment }) => {
     };
     fetchUserData();
   }, [comment]);
-  useEffect(()=>{
-    if(loggedUser.id === comment.user){
-      setValidUser(true)
-    }else{
-      setValidUser(false)
+  useEffect(() => {
+    if (loggedUser.id === comment.user) {
+      setValidUser(true);
+    } else {
+      setValidUser(false);
     }
-  },[comment, loggedUser])
+  }, [comment, loggedUser]);
   return (
-    <div className="flex items-start gap-4 relative">
+    <div className="flex items-start gap-2 relative ">
       {userData.profilepic && (
         <Avatar className="h-10 w-10 shadow-md shadow-gray-500">
           <AvatarImage
@@ -106,29 +102,29 @@ const Comment = ({ comment }) => {
           <AvatarFallback>YS</AvatarFallback>
         </Avatar>
       )}
-      <div className="flex-1 space-y-2 px-2">
+      <div className="flex-1  px-2 bg-slate-100 shadow shadow-gray-400 rounded-md py-2 pb-4">
         <div className="flex items-center justify-between">
           <div className="font-medium capitalize">
             {userData.first_name} {userData.last_name}
           </div>
-          <div className="text-xs text-gray-500 dark:text-gray-400">
-            {timePassed}
+          <div className="flex items-center ">
+            <div className="text-xs text-gray-900 dark:text-gray-400 p-1 rounded-full mr-4 bg-white">
+              {timePassed}
+            </div>
+            {validUser && (
+              <button
+                className="p-1 text-gray-500 bg-white shadow-sm shadow-gray-400  rounded-full hover:bg-gray-200"
+                onClick={() => setToggleEdit(!toggleEdit)}
+              >
+                <EllipsisVertical size={16} />
+              </button>
+            )}
           </div>
-          {
-            validUser &&(
-              <button className="p-2 text-gray-500 bg-white shadow-sm shadow-gray-400  rounded-full hover:bg-gray-200" onClick={()=>setToggleEdit(!toggleEdit)}>
-            <EllipsisVertical size={16}/>
-          </button>
-            )
-          }
-
-          {
-            toggleEdit && (
-              <CommentDropDown id={comment.id} setToggleEdit={setToggleEdit}/>
-            )
-          }
+          {toggleEdit && (
+            <CommentDropDown id={comment.id} setToggleEdit={setToggleEdit} />
+          )}
         </div>
-        <p className="text-gray-500 dark:text-gray-400">{comment.comment}</p>
+        <p className="text-gray-700 dark:text-gray-600">{comment.comment}</p>
       </div>
     </div>
   );
