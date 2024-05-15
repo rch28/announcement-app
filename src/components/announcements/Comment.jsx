@@ -113,7 +113,7 @@ const Comment = ({ comment }) => {
             </div>
             {validUser && (
               <button
-                className="p-1 text-gray-500 bg-white shadow-sm shadow-gray-400  rounded-full hover:bg-gray-200"
+                className="p-1 text-gray-500 bg-white shadow-sm shadow-gray-400  rounded-full hover:bg-gray-400 hover:text-white"
                 onClick={() => setToggleEdit(!toggleEdit)}
               >
                 <EllipsisVertical size={16} />
