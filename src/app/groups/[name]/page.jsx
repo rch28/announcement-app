@@ -132,7 +132,7 @@ const GroupPage = () => {
         <Link href={"/auth/login"} className="inline-flex h-10 items-center justify-center rounded-full bg-purple-700 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-purple-800 focus-visible:outline-none  disabled:pointer-events-none disabled:opacity-50 dark:bg-[#805AD5] dark:text-gray-900 dark:hover:bg-purple-800/90 dark:focus-visible:ring-[#805AD5]">
           Login to view the annoucements!!!
         </Link>
-      ) : announcmentData.count > 0 ? (
+      ) : announcmentData.count > 0 && joined ? (
         <div className="mt-10">
           <h1 className="text-3xl md:text-4xl font-bold py-6">Our Recent Announcements</h1>
 
@@ -142,7 +142,10 @@ const GroupPage = () => {
           </div>
         </div>
       ) : (
-        "No announcement yet!!"
+        <p className="py-4 bg-white px-6 font-semibold">
+          No announcement here!! or your are not joined in group   
+        </p>
+
       )}
     </div>
   );
