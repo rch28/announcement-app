@@ -32,12 +32,12 @@ const AnnouncementPage = () => {
         {GroupList?.results?.map((group) => (
           <div
             key={group.group_id}
-            className="bg-white shadow-md shadow-purple-200 rounded-xl my-2 p-4"
+            className="bg-white shadow-md shadow-gray-600 rounded-xl my-2 p-4"
           >
             <div className="flex flex-col justify-between h-full">
               <div>
                 <h2 className="text-2xl font-semibold mb-2">{group.name}</h2>
-                <p className="text-gray-600">{group.description}</p>
+                <p className="text-gray-600 line-clamp-4">{group.description}</p>
               </div>
               <div className="mt-4 flex justify-end items-center">
                 <Link
