@@ -21,6 +21,7 @@ const CommentForm = () => {
 
   const commentId = useStore((state) => state.commentId);
   const editCommentMode = useStore((state) => state.editCommentMode);
+  const setEditCommentMode=useStore((state)=>state.setEditCommentMode)
   const handleChange = (event) => {
     setText(event.target.value);
   };
@@ -52,7 +53,9 @@ const CommentForm = () => {
           return;
         }
         const data = await response.json();
-        setText(data.comment);
+        if(ann_id===data.announcement){
+          setText(data.comment);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -91,6 +94,8 @@ const CommentForm = () => {
         }
         const data = await response.json();
         setCommentFetch(!commentFetch);
+        setEditCommentMode(false)
+
         toast.success("Comment Posted");
         setText("");
       } catch (error) {
