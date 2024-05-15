@@ -26,7 +26,7 @@ export function AnnouncementCardForm({
   ann_data,
   setToggle,
   setToggleEdit,
-  mode
+  mode,
 }) {
   const [userJoinedGroup, setUserJoinedGroup] = useState([]);
 
@@ -151,14 +151,14 @@ export function AnnouncementCardForm({
       action=""
       onSubmit={handleSubmit}
       encType="multipart/form-data"
-      className="relative"
+      className="relative m-4 w-[90%] sm:w-auto "
     >
       <Card className="w-full max-w-2xl rounded-xl shadow-md shadow-gray-500">
         <button
           onClick={() => {
             setToggleCreateAnnouncement(false);
             // setToggle(false);
-            mode==="edit" && setToggleEdit(false);
+            mode === "edit" && setToggleEdit(false);
           }}
           className="flex justify-end absolute right-0 m-2 cursor-pointer "
         >
@@ -172,11 +172,10 @@ export function AnnouncementCardForm({
               : "Create a new announcement for this group."}
           </CardDescription>
         </CardHeader>
-        <CardContent className="grid gap-6">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="">
-              <div className="grid gap-4">
-                <div className="space-y-2">
+        <CardContent className="grid">
+          <div className="grid sm:grid-cols-2 sm:gap-4">
+              <div className="grid gap-4 ">
+                <div className="md:space-y-2">
                   <Label htmlFor="title">Title</Label>
                   <Input
                     id="title"
@@ -186,21 +185,20 @@ export function AnnouncementCardForm({
                     className="border border-gray-400 focus:border-purple-500"
                   />
                 </div>
-                <div className="space-y-2">
+                <div className="md:space-y-2">
                   <Label htmlFor="description">Description</Label>
                   <Textarea
                     id="description"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="Enter announcement description"
-                    className="border border-gray-400 focus:border-purple-500 h-32" 
+                    className="border border-gray-400 focus:border-purple-500  sm:h-full"
                   />
                 </div>
               </div>
-            </div>
             <div className="flex flex-col gap-4">
               {selectGroup && (
-                <div className="space-y-2">
+                <div className="md:space-y-2">
                   <Label htmlFor="payment-method">Select Group</Label>
 
                   <select
@@ -212,14 +210,14 @@ export function AnnouncementCardForm({
                   >
                     <option value="">Select group</option>
                     {userJoinedGroup?.map((group) => (
-                      <option key={group.group_id} value={group.group_id}>
+                      <option key={group.group_id} value={group.group_id} className="text-blcak ">
                         {group.name}
                       </option>
                     ))}
                   </select>
                 </div>
               )}
-              <div className="space-y-2">
+              <div className="md:space-y-2">
                 <Label htmlFor="payment-method">Payment Method</Label>
 
                 <select
@@ -252,7 +250,7 @@ export function AnnouncementCardForm({
           <Button
             type="submit"
             className={
-              "px-6 py-2 bg-purple-600 rounded-full focus-visible:ring-0 focus-visible:ring-offset-0 text-white font-bold hover:bg-purple-700 text-lg md:text-sm   lg:text-lg"
+              "px-6 py-2 bg-purple-600 rounded-full focus-visible:ring-0 focus-visible:ring-offset-0 text-white font-bold hover:bg-purple-700 text-sm md:text-sm   lg:text-lg"
             }
           >
             Post Announcement
