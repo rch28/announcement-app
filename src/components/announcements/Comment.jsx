@@ -82,7 +82,7 @@ const Comment = ({ comment }) => {
     }
   }, [comment, loggedUser]);
   return (
-    <div className="flex items-start gap-2 relative ">
+    <div className="flex items-start gap-2 relative pt-2">
       {userData.profilepic && (
         <Avatar className="h-10 w-10 shadow-md shadow-gray-500">
           <AvatarImage

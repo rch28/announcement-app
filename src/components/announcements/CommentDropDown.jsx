@@ -33,21 +33,21 @@ const CommentDropDown = ({ id, setToggleEdit }) => {
     }
   };
   return (
-    <div className="absolute -top-1 right-12 bg-white rounded-xl border border-gray-300  shadow-md shadow-purple-300 w-24 z-50">
-      <div className="flex flex-col gap-2 items-start">
+    <div className="absolute top-0 right-12 bg-white rounded-md border border-gray-300  shadow-md shadow-gray-500 w-24 z-50">
+      <div className="flex flex-col  items-start">
         <button
           onClick={() => {
             setEditCommentMode(true);
             setToggleEdit(false);
             setCommentId(id);
           }}
-          className={`hover:bg-green-500 hover:text-white  rounded-t-xl w-full pt-2`}
+          className={`hover:bg-green-500 hover:text-white  rounded-t-lg w-full p-2 border-b border-gray-300`}
         >
           Edit
         </button>
         <button
           onClick={() => setDeleteToggle(!deleteToggle)}
-          className="hover:bg-red-500 hover:text-white rounded-b-xl w-full pb-2"
+          className="hover:bg-red-500 hover:text-white rounded-b-md w-full p-2"
         >
           Delete
         </button>
