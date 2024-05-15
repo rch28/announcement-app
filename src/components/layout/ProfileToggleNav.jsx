@@ -82,20 +82,20 @@ const ProfileToggleNav = () => {
 
       {toggle && (
         <nav className="relative">
-          <ul className="absolute top-4 right-0 bg-white rounded-xl shadow-md border border-gray-300 w-44  shadow-gray-400">
-            <li className="border-b" onClick={() => setToggle(false)}>
+          <ul className="absolute top-4 right-0 bg-white rounded-xl shadow-md border border-gray-400 w-44  shadow-gray-600">
+            <li className="border-b p-0.5 border-gray-400" onClick={() => setToggle(false)}>
               <Link
                 href="/user/profile"
-                className="block px-4 py-3 w-full hover:bg-gray-300"
+                className="block px-4 py-3 w-full rounded-t-md hover:bg-gray-300"
               >
                 Profile
               </Link>
             </li>
 
-            <li>
+            <li className="p-0.5">
               <button
                 onClick={habdleLogout}
-                className="block px-4 py-3 w-full hover:bg-gray-300 text-left"
+                className="block px-4 py-3 w-full rounded-b-md hover:bg-gray-300 text-left"
               >
                 Logout
               </button>
