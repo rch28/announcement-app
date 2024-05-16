@@ -50,7 +50,7 @@ const ResetPasswordFrom = () => {
         const result = await response.json();
 
         Cookies.set("access_token", result.access, { expires: 7 });
-        Cookies.set("refresh_token", result.refresh), { expires: 7 };
+        Cookies.set("refresh_token", result.refresh, { expires: 7 });
         setUserLoggedIn(true);
         router.push("/");
 
