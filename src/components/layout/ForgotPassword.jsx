@@ -33,7 +33,7 @@ const ForgotPassword = () => {
       );
       const data = await res.json();
       if (res.ok) {
-        router.push(`/auth/forgot-password/otp-verify?username=${username}`)
+        router.push(`/auth/forgot-password/otp-verify?username=${username}&&verifyFor=forgot-password`)
         resolve(data);
       } else {
         reject(data);
