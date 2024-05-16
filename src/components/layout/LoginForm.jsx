@@ -82,7 +82,7 @@ const LoginForm = () => {
   };
   return (
     <form
-      className="  border-2 p-4 rounded-md shadow-md shadow-gray-500 w-[400px]"
+      className="  border-2 p-4 rounded-xl shadow-lg shadow-gray-500 w-[400px] bg-white"
       onSubmit={handleSubmit}
     >
       <h1 className="text-4xl font-bold text-center pb-10 text-gray-700">
