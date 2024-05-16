@@ -53,7 +53,7 @@ const ForgotPassword = () => {
   };
   return (
     <form
-      className=" flex-1 mx-auto border-2 p-4 rounded-md shadow-md shadow-gray-500"
+      className=" flex-1 mx-auto border-2 px-4 py-8 rounded-xl shadow-lg shadow-gray-600 bg-white"
       onSubmit={handleSubmit}
     >
       <h1 className="text-4xl font-bold text-center pb-10 text-gray-800">
@@ -70,7 +70,7 @@ const ForgotPassword = () => {
           type="email"
           name="floating_email"
           id="floating_email"
-          className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+          className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-400/80 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           placeholder=" "
           value={email}
           onChange={(e) => setEmail(e.target.value)}

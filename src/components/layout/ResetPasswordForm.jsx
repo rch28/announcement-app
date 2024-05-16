@@ -75,7 +75,7 @@ const ResetPasswordFrom = () => {
 
   return (
     <form
-      className="  border-2 p-4 rounded-md shadow-md shadow-gray-500 w-[400px]"
+      className="px-4   py-12 rounded-xl shadow-lg shadow-gray-600 bg-white w-[400px]"
       onSubmit={handleSubmit}
     >
       <h1 className="text-4xl font-bold text-center pb-10 text-gray-700">
@@ -92,7 +92,7 @@ const ResetPasswordFrom = () => {
           type="password"
           name="new_password"
           id="new_password"
-          className={`block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
+          className={`block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-400/80 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
             errorMsg && !password && "focus:border-red-500 border-red-500/55"
           } `}
           placeholder=" "
@@ -112,7 +112,7 @@ const ResetPasswordFrom = () => {
           type="password"
           name="confirm_password"
           id="confirm_password"
-          className={`block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
+          className={`block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-400/80 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
             errorMsg &&
             !confirmPssword &&
             "focus:border-red-500 border-red-500/55"

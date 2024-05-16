@@ -82,7 +82,7 @@ const RegisterForm = () => {
   };
   return (
     <form
-      className=" flex-1 mx-auto p-4 rounded-xl shadow-lg shadow-gray-500 bg-white"
+      className=" flex-1 mx-auto p-4 rounded-xl shadow-lg shadow-gray-600 bg-white"
       onSubmit={handleSubmit}
     >
       <h1 className="text-4xl font-bold text-center pb-10 text-gray-800">

@@ -82,7 +82,7 @@ const LoginForm = () => {
   };
   return (
     <form
-      className="  border-2 p-4 rounded-xl shadow-lg shadow-gray-500 w-[400px] bg-white"
+      className=" p-4 rounded-xl shadow-lg shadow-gray-600 w-[400px] bg-white"
       onSubmit={handleSubmit}
     >
       <h1 className="text-4xl font-bold text-center pb-10 text-gray-700">
@@ -104,7 +104,7 @@ const LoginForm = () => {
           type="text"
           name="floating_username"
           id="floating_username"
-          className={`block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 ${
+          className={`block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-400/80 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 ${
             errorMsg && !username && "focus:border-red-500 border-red-500/55"
           } focus:border-blue-600 peer`}
           placeholder=" "
@@ -124,7 +124,7 @@ const LoginForm = () => {
           type="password"
           name="floating_password"
           id="floating_password"
-          className={`block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
+          className={`block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-400/80 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
             errorMsg && !password && "focus:border-red-500 border-red-500/55"
           } `}
           placeholder=" "
