@@ -48,10 +48,10 @@ const ProfileToggleNav = () => {
     }
   };
   return (
-    <div className="">
+    <div className="rounded-full">
       {userData?.profilepic && (
         <div
-          className="cursor-pointer   bg-gray-200 text-center text-gray-500 text-sm  rounded-md w-8 h-8"
+          className="cursor-pointer   text-center text-gray-500 text-sm  rounded-md w-8 h-8"
           onClick={() => setToggle(!toggle)}
         >
           <Image
@@ -66,7 +66,7 @@ const ProfileToggleNav = () => {
       )}
       {!userData?.profilepic && (
         <div
-          className=" rounded-full  border-gray-500 border-2 cursor-pointer "
+          className=" rounded-full  border-purple-500 border-2 cursor-pointer "
           onClick={() => setToggle(!toggle)}
         >
           <Image
