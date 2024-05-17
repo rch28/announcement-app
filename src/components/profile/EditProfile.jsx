@@ -3,6 +3,7 @@ import { useStore } from "@/stores/store";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { Input } from "../ui/input";
 
 const EditProfile = () => {
   const userData = useStore((state) => state.userData);
@@ -80,61 +81,61 @@ const EditProfile = () => {
   };
 
   return (
-    <div className="md:pr-16 ">
+    <div className="">
       <form className="" onSubmit={habndleSubmit}>
         <div className="mb-4 flex flex-col  gap-6">
           <div className="">
-            <label htmlFor="first_name" className="block text-gray-700 text-sm">
+            <label htmlFor="first_name" className="block text-black font-medium text-sm">
               First Name:
             </label>
-            <input
+            <Input
               type="text"
               name="first_name"
               id="first_name"
               value={first_name}
               onChange={(e) => setfirst_name(e.target.value)}
-              className="form-input mt-1 py-1 px-2 rounded-md bg-white/35 block w-full outline-none border border-gray-400 text-gray-800"
+              className="border border-gray-400 focus:border-purple-500"
             />
           </div>
           <div>
-            <label htmlFor="last_name" className="block text-gray-700 text-sm">
+            <label htmlFor="last_name" className="block text-black font-medium text-sm">
               Last Name:
             </label>
-            <input
+            <Input
               type="text"
               name="last_name"
               id="last_name"
               value={last_name}
               onChange={(e) => setlast_name(e.target.value)}
-              className="form-input mt-1 py-1 px-2 rounded-md bg-white/35 block w-full outline-none border border-gray-400 text-gray-800"
+              className="border border-gray-400 focus:border-purple-500"
             />
           </div>
         </div>
         <div className="mb-4 flex gap-6 flex-col">
           <div className="">
-            <label htmlFor="username" className="block text-gray-700 text-sm">
+            <label htmlFor="username" className="block text-black font-medium text-sm">
               Username:
             </label>
-            <input
+            <Input
               type="text"
               name="username"
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="form-input mt-1 py-1 px-2 rounded-md bg-white/35 block w-full outline-none border border-gray-400 text-gray-800"
+              className="border border-gray-400 focus:border-purple-500"
             />
           </div>
           <div>
-            <label htmlFor="phone_no" className="block text-gray-700 text-sm">
+            <label htmlFor="phone_no" className="block text-black font-medium text-sm">
               Phone No:
             </label>
-            <input
+            <Input
               type="text"
               name="phone_no"
               id="phone_no"
               value={phone_no}
               onChange={(e) => setPhone_no(e.target.value)}
-              className="form-input mt-1 py-1 px-2 rounded-md bg-white/35 block w-full outline-none border border-gray-400 text-gray-800"
+              className="border border-gray-400 focus:border-purple-500"
             />
           </div>
         </div>
