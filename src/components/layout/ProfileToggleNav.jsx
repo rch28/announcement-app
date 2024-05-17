@@ -81,7 +81,7 @@ const ProfileToggleNav = () => {
       )}
 
       {toggle && (
-        <nav className="relative">
+        <nav className="relative z-50">
           <ul className="absolute top-4 right-0 bg-white rounded-xl shadow-md border border-gray-400 w-44  shadow-gray-600">
             <li className="border-b p-0.5 border-gray-400" onClick={() => setToggle(false)}>
               <Link
