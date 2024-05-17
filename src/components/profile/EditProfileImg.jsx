@@ -5,6 +5,7 @@ import { profile } from "../../../public";
 import { Plus } from "lucide-react";
 import EditProfileForm from "./EditProfileImgForm";
 import { useStore } from "@/stores/store";
+import PopUpWrapper from "../PopUpWrapper";
 
 const EditProfileImg = () => {
   const [toggle, setToggle] = useState(false);
@@ -14,7 +15,7 @@ const EditProfileImg = () => {
     <div className=" flex  justify-center">
       <div className=" relative">
         {userData?.profilepic && (
-          <div className="cursor-pointer   bg-gray-200 text-center text-gray-500 text-sm  rounded-full h-20 w-20">
+          <div className="cursor-pointer   bg-gray-200 text-center text-gray-500 text-sm  rounded-full h-42 w-42">
             <Image
               className="rounded-full h-full w-full "
               src={userData.profilepic}
@@ -26,7 +27,7 @@ const EditProfileImg = () => {
           </div>
         )}
         {!userData?.profilepic && (
-          <div className="cursor-pointer   bg-gray-200 text-center text-gray-500 text-sm  rounded-full h-20 w-20">
+          <div className="cursor-pointer   bg-gray-200 text-center text-gray-500 text-sm  rounded-full h-42 w-42">
             <Image
               src={profile}
               height={200}
@@ -40,13 +41,16 @@ const EditProfileImg = () => {
 
         <span
           onClick={() => setToggle(!toggle)}
-          className=" bg-green-500 text-white flex justify-center items-center w-8 h-8 rounded-full absolute left-12 bottom-0 cursor-pointer"
+          className=" bg-green-500 text-white flex justify-center items-center w-6 md:w-8 h-6 md:h-8 rounded-full absolute left-3/4 bottom-3 cursor-pointer"
         >
-          <Plus size={24} />
+          <Plus className="" />
         </span>
       </div>
-
-      {toggle && <EditProfileForm setToggle={setToggle} />}
+      {toggle && (
+        <PopUpWrapper>
+          <EditProfileForm setToggle={setToggle} />
+        </PopUpWrapper>
+      )}
     </div>
   );
 };

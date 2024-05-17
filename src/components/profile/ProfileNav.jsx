@@ -1,32 +1,38 @@
-"use client"
+"use client";
+import Image from "next/image";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import UserName from "../utils/UserName";
+import { profile } from "../../../public";
 
 const ProfileNav = () => {
-  const pathname= usePathname()
+  const pathname = usePathname();
   return (
-    <div className="w-full flex justify-center items-center sm:w-96 mx-auto p-2 my-4">
-      <nav className="">
-        <ul className="flex gap-1 items-center  text-xs sm:text-base sm:gap-2">
-          <li className={`${pathname==="/user/profile" ?"bg-purple-600 text-white" :"hover:bg-slate-300" }  py-2 px-4 rounded-full cursor-pointer`}>
-            <a href="/user/profile">Profile</a>
-          </li>
-
-        {/* for admin only */}
-
-          <li className={` ${pathname==="/user/group" ?"bg-purple-600 hover:bg-purple-700 text-white":"hover:bg-slate-300" }  border border-gray-300  cursor-pointer py-2 px-4 rounded-full text-nowrap`}>
-            <a href="/user/group">My Groups</a>
-          </li>
-          <li className={` border border-gray-300 hover:bg-slate-300 cursor-pointer py-2 px-4 rounded-full`}>
-            <a href="#">item1</a>
-          </li>
-          <li className={`border border-gray-300 hover:bg-slate-300 cursor-pointer py-2 px-4 rounded-full`}>
-            <a href="#">item1</a>
-          </li>
-       
-        </ul>
+    <div className="w-full  ">
+      <nav className="flex justify-start items-start gap-2">
+        <Image
+          src={profile}
+          height={200}
+          width={200}
+          priority
+          alt="profile picture"
+          className="rounded-full w-12 h-12"
+        />
+        <div className="">
+          <Link
+            href={"/user/profile/setting"}
+            className="cursor-pointer  flex items-center  "
+          >
+            <p>
+              <span>Raju </span>
+              <span>Chhetry</span>
+            </p>
+            (username)
+          </Link>
+          <p className="text-sm text-gray-700"> rajuchhetry11@gmail.com</p>
+        </div>
       </nav>
-      
     </div>
   );
 };

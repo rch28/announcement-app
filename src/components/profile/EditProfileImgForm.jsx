@@ -1,6 +1,6 @@
 import { useStore } from "@/stores/store";
 import Cookies from "js-cookie";
-import { XCircle } from "lucide-react";
+import { XCircle, XIcon } from "lucide-react";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -50,17 +50,17 @@ const EditProfileForm = ({ setToggle }) => {
   };
   return (
     <div className="relative">
-      <div className="w-96 rounded-xl mx-auto bg-gray-300 absolute top-1/3 left-1/2 border border-gray-400 shadow-md shadow-gray-500">
-        <div className="flex justify-end p-4 ">
+      <div className="w-96 rounded-xl mx-auto bg-gray-300  border border-gray-400 shadow-md shadow-gray-600">
+        <div className="flex justify-end p-2 ">
           <span
-            className="text-red-500 cursor-pointer "
+            className="text-red-500 hover:bg-red-200 cursor-pointer p-1 rounded-full bg-white shadow-md shadow-gray-600"
             onClick={() => setToggle(false)}
           >
-            <XCircle />
+            <XIcon/>
           </span>
         </div>
         <form
-          className="flex px-4  my-2"
+          className="flex p-4  my-2"
           onSubmit={handleSubmit}
           encType="multipart/form-data"
         >
