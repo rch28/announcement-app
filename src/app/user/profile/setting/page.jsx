@@ -4,7 +4,7 @@ import React from 'react'
 
 const Setting = () => {
   return (
-    <div className='p-2 w-full '>
+    <div className='p-4 w-full bg-white rounded-xl shadow-xl shadow-gray-500'>
       <h1 className='border-b border-gray-400 py-2 w-full text-xl tracking-tighter font-medium text-black/80 '>Manage Profile</h1>
 
       <div className="flex gap-4 md:gap-2 mt-4">
