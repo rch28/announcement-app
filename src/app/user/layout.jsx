@@ -4,7 +4,7 @@ import React from "react";
 const layout = ({ children }) => {
   return (
     <div>
-      <ProfileNav />
+      {/* <ProfileNav /> */}
 
       {children}
     </div>

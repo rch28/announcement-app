@@ -3,7 +3,7 @@ import React from 'react'
 
 const ChangePasswordPage = () => {
   return (
-    <div>
+    <div className='max-w-2xl m-4'>
         <ChangePassword/>
     </div>
   )
