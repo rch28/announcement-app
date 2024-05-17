@@ -32,10 +32,12 @@ const ProfilePage = () => {
               <Plus size={24} />
             </span>
           </Link>
-          <UserName />
+          <p className="px-4">
+            <UserName />
+          </p>
           <div className="flex justify-center items-center w-full my-4 ">
             <button
-              className="mx-2 py-2  border border-purple-400 w-full text-gray-800 font-medium  rounded-md bg-white/40 cursor-pointer"
+              className="mx-2 py-2  border border-purple-400 w-full text-gray-800 font-medium  rounded-md bg-white/40 cursor-pointer text-left px-4"
               onClick={() => setToggle(!toggle)}
             >
               Edit profile
@@ -56,12 +58,11 @@ const ProfilePage = () => {
             <h1 className="border-b border-gray-400 py-2 w-full text-xl tracking-tighter font-medium text-black/80 my-4">
               Update Your Info
             </h1>
-            <EditProfile />
+            <EditProfile setToggle={setToggle} />
           </div>
         </PopUpWrapper>
       )}
       <section className="p-4  w-full flex-1">content</section>
-    
     </div>
   );
 };

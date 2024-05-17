@@ -4,8 +4,10 @@ import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Input } from "../ui/input";
+import { useRouter } from "next/navigation";
 
-const EditProfile = () => {
+const EditProfile = ({setToggle}) => {
+  const router= useRouter()
   const userData = useStore((state) => state.userData);
   const [first_name, setfirst_name] = useState(userData.first_name || "");
   const [last_name, setlast_name] = useState(userData.last_name || "");
@@ -68,6 +70,10 @@ const EditProfile = () => {
       const result = await respone.json();
       if (respone.ok) {
         setUserData(result);
+        router.push('/user/profile')
+        if(setToggle){
+          setToggle(false)
+        }
         resolve();
       } else {
         reject(result);
