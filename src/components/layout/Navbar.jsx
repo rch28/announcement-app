@@ -8,6 +8,7 @@ import { Bell } from "lucide-react";
 import SearchBar from "./SearchBar";
 import Image from "next/image";
 import { logo } from "../../../public";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const authenticated = useStore((state) => state.userAuthenticated);
@@ -15,6 +16,7 @@ const Navbar = () => {
   const setUserData = useStore((state) => state.setUserData);
   const access_token = Cookies.get("access_token");
   const refreshToken = Cookies.get("refresh_token");
+  const pathname= usePathname()
   useEffect(() => {
     if (!access_token || !refreshToken) {
       setUserLoggedIn(false);
@@ -45,12 +47,12 @@ const Navbar = () => {
     fetchUserData();
   }, [refreshToken, access_token]);
   return (
-    <div className="">
+    <div className=" bg-blue-200  top-0 z-50 ">
       <nav className=" border-b  border-gray-400/50  dark:border-gray-200/25 ">
-        <div className="flex flex-wrap justify-between items-center max-w-5xl mx-auto p-4">
+        <div className="flex  justify-between items-center max-w-5xl mx-auto p-4">
           <Link
             href="/"
-            className="flex items-center space-x-3 rtl:space-x-reverse"
+            className="flex items-center space-x-1 md:space-x-3 rtl:space-x-reverse"
           >
             <span className="text-xl">
               <Image
@@ -58,16 +60,45 @@ const Navbar = () => {
                 alt="Team App"
                 width={30}
                 height={30}
-                className="rounded-full w-8 md:w-12"
+                className="rounded-full w-6 md:w-12"
               />
             </span>
-            <span className="self-center text-xl md:text-2xl font-semibold whitespace-nowrap dark:text-white">
+            <span className="self-center text-xs md:text-2xl font-semibold whitespace-nowrap dark:text-white">
               Announcemate
             </span>
           </Link>
-          <div className="flex items-center space-x-10 rtl:space-x-reverse">
+          <div className="hidden">
+            <SearchBar />
+          </div>
+
+          <div className="flex items-center space-x-3 md:space-x-10 rtl:space-x-reverse">
+            <ul className="flex  items-center space-x-2 md:space-x-4">
+              <li>
+                <Link
+                  className={`text-gray-900 dark:text-white hover:text-purple-700 text-xs md:text-lg font-medium ${pathname==="/"?"text-purple-700":""}`}
+                  href="/"
+                  passHref
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className={ `text-gray-900 dark:text-white hover:text-putple-700 text-xs md:text-lg font-medium  ${pathname.startsWith("/groups")?"text-purple-700":""}`}
+                  href="/groups"
+                  passHref
+                >
+                  Groups
+                </Link>
+              </li>
+            </ul>
             <p className="relative cursor-pointer">
-              <Bell size={18} />
+              <span className="sm:hidden">
+                <Bell size={12} />
+              </span>
+              <span className="hidden sm:flex"> 
+                <Bell size={16} />
+              </span>
               <span className="absolute -top-2 -right-2 text-[#FD0303] w-4 h-4 p-2 flex justify-center items-center rounded-full  text-sm">
                 9
               </span>
@@ -78,47 +109,11 @@ const Navbar = () => {
             ) : (
               <Link
                 href="/auth/login"
-                className="text-md font-bold tracking-wider  text-blue-600 dark:text-blue-500 hover:underline"
+                className="text-sm sm:text-lg font-bold tracking-wider  text-blue-600 dark:text-blue-500 hover:underline"
               >
                 Login
               </Link>
             )}
-          </div>
-        </div>
-      </nav>
-      <nav className="bg-white border-b border-gray-200 dark:bg-gray-900 dark:border-gray-700">
-        <div className="max-w-5xl px-4 py-3 mx-auto flex justify-between items-center">
-          <ul className="flex space-x-4">
-            <li>
-              <Link
-                className="text-gray-900 dark:text-white hover:text-blue-500 font-medium"
-                href="/"
-                passHref
-              >
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="text-gray-900 dark:text-white hover:text-blue-500 font-medium"
-                href="/groups"
-                passHref
-              >
-                Groups
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="text-gray-900 dark:text-white hover:text-blue-500 font-medium"
-                href="/announcements"
-                passHref
-              >
-                Announcements
-              </Link>
-            </li>
-          </ul>
-          <div className="hidden ">
-            <SearchBar />
           </div>
         </div>
       </nav>
