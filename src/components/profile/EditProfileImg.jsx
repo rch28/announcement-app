@@ -12,7 +12,7 @@ const EditProfileImg = () => {
   const userData = useStore((state) => state.userData);
 
   return (
-    <div className=" flex  justify-center">
+    <div className=" flex  justify-center border p-2">
       <div className=" relative">
         {userData?.profilepic && (
           <div className="cursor-pointer   bg-gray-200 text-center text-gray-500 text-sm  rounded-full h-42 w-42">

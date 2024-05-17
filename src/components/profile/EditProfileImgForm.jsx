@@ -50,7 +50,7 @@ const EditProfileForm = ({ setToggle }) => {
   };
   return (
     <div className="relative">
-      <div className="w-96 rounded-xl mx-auto bg-gray-300  border border-gray-400 shadow-md shadow-gray-600">
+      <div className="w-96 rounded-xl mx-auto bg-white  border border-gray-400 shadow-md shadow-gray-600">
         <div className="flex justify-end p-2 ">
           <span
             className="text-red-500 hover:bg-red-200 cursor-pointer p-1 rounded-full bg-white shadow-md shadow-gray-600"
@@ -81,7 +81,7 @@ const EditProfileForm = ({ setToggle }) => {
           <input
             type="submit"
             value="Upload"
-            className="bg-blue-500 text-white px-6 py-2 rounded-full font-bold hover:bg-blue-600"
+            className="bg-purple-500 text-white px-6 py-1 rounded-full font-bold hover:bg-purple-600"
           />
         </form>
       </div>
