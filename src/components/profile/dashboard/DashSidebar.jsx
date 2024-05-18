@@ -9,9 +9,9 @@ const DashSidebar = () => {
   return (
     <div className="grid gap-2">
       <Link
-        href={"/user/profile/dashboard/manage-groups"}
+        href={"/user/profile/dashboard"}
         className={` px-4  py-3 rounded-xl flex gap-2 hover:bg-white/50 ${
-          pathname === "/user/profile/dashboard/manage-groups" ? "bg-white shadow-xl" : ""
+          pathname === "/user/profile/dashboard" ? "bg-white shadow-xl" : ""
         }`}
       >
         <Group size={20} />
