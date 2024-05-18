@@ -49,53 +49,39 @@ const ProfileToggleNav = () => {
   };
   return (
     <div className="rounded-full">
-      {userData?.profilepic && (
-        <div
-          className="cursor-pointer   text-center text-gray-500 text-sm  rounded-md w-8 h-8"
-          onClick={() => setToggle(!toggle)}
-        >
-          <Image
-            className="rounded-full h-full w-full "
-            src={userData.profilepic}
-            width={500}
-            height={400}
-            alt="profile"
-            priority
-          />
-        </div>
-      )}
-      {!userData?.profilepic && (
-        <div
-          className=" rounded-full  border-purple-500 border-2 cursor-pointer "
-          onClick={() => setToggle(!toggle)}
-        >
-          <Image
-            src={profile}
-            height={30}
-            width={30}
-            priority
-            alt="profile picture"
-            className="rounded-full"
-          />
-        </div>
-      )}
+      <div
+        className="cursor-pointer   text-center text-gray-500 text-sm  rounded-md "
+        onClick={() => setToggle(!toggle)}
+      >
+        <Image
+          className="rounded-full w-6 md:w-10  h-6 md:h-10 "
+          src={userData.profilepic ? userData.profilepic : profile}
+          width={500}
+          height={500}
+          alt="profile"
+          priority
+        />
+      </div>
 
       {toggle && (
         <nav className="relative z-50">
           <ul className="absolute top-4 right-0 bg-white rounded-xl shadow-md border border-gray-400 w-44  shadow-gray-600">
-            <li className="border-b p-0.5 border-gray-400" onClick={() => setToggle(false)}>
+            <li
+              className="border-b  border-gray-400"
+              onClick={() => setToggle(false)}
+            >
               <Link
                 href="/user/profile"
-                className="block px-4 py-3 w-full rounded-t-md hover:bg-gray-300"
+                className="block px-4 py-3 w-full rounded-t-xl  font-medium hover:bg-purple-300"
               >
                 Profile
               </Link>
             </li>
 
-            <li className="p-0.5">
+            <li className="">
               <button
                 onClick={habdleLogout}
-                className="block px-4 py-3 w-full rounded-b-md hover:bg-gray-300 text-left"
+                className="block px-4 py-3 w-full rounded-b-xl  font-medium hover:bg-purple-300 text-left"
               >
                 Logout
               </button>
