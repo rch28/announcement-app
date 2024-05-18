@@ -8,6 +8,7 @@ import UserName from "@/components/utils/UserName";
 import { useStore } from "@/stores/store";
 import EditProfile from "@/components/profile/EditProfile";
 import PopUpWrapper from "@/components/PopUpWrapper";
+import SettingLink from "@/components/profile/SettingLink";
 const ProfilePage = () => {
   const [toggle, setToggle] = useState(false);
   const userData = useStore((state) => state.userData);
@@ -32,9 +33,9 @@ const ProfilePage = () => {
               <Plus size={24} />
             </span>
           </Link>
-          <p className="px-4">
+          <div className="px-4">
             <UserName />
-          </p>
+          </div>
           <div className="flex justify-center items-center w-full my-4 ">
             <button
               className="mx-2 py-2  border border-purple-400 w-full text-gray-800 font-medium  rounded-md bg-white/40 cursor-pointer text-left px-4"
@@ -62,7 +63,33 @@ const ProfilePage = () => {
           </div>
         </PopUpWrapper>
       )}
-      <section className="p-4  w-full flex-1">content</section>
+      <section className="p-12  w-full flex-1 ">
+        <div className="mt-16 p-4 bg-white p-6 rounded-xl shadow-md shadow-gray-500">
+          <h1 className="py-4 text-xl font-medium">Dashboard</h1>
+          <div className="grid grid-cols-2 gap-4 ">
+            <SettingLink
+              title="Manage Groups"
+              link={"/user/profile/dashboard"}
+              desc="Lorem ipsum dolor sit, amet consectetur adipisicing elit."
+            />
+            <SettingLink
+              title="Manage Groups Members"
+              link={"/user/profile/dashboard/manage-members"}
+              desc="Lorem ipsum dolor sit, amet consectetur adipisicing elit."
+            />
+            <SettingLink
+              title="Manage Announcements"
+              link={"/user/profile/dashboard"}
+              desc="Lorem ipsum dolor sit, amet consectetur adipisicing elit."
+            />
+            <SettingLink
+              title="Manage Accounts"
+              link={"/user/profile/dashboard"}
+              desc="Lorem ipsum dolor sit, amet consectetur adipisicing elit."
+            />
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
