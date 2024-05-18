@@ -3,9 +3,9 @@ import React from "react";
 
 const SettingLink = ({title, desc, link}) => {
   return (
-    <div className="border border-purple-400 rounded-xl p-4">
-      <h1 className="text-xl font-medium">{title}</h1>
-      <p>
+    <div className=" bg-white shadow-xl hover:shadow-lg shadow-gray-400 hover:shadow-gray-500 border hover:bg-purple-200 hover:border-purple-600 rounded-xl hover:scale-105 transition-all ease-linear p-4">
+      <h1 className="text-xl font-medium tracking-tighter">{title}</h1>
+      <p className="text-black/90 font-light text-sm"> 
         {desc}
       </p>
       <Link href={link} className="flex justify-end my-2">
