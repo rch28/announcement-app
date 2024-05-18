@@ -73,7 +73,7 @@ const ProfilePage = () => {
           <div className="grid md:grid-cols-2 gap-4 ">
             <SettingLink
               title="Manage Groups"
-              link={"/user/profile/dashboard/manage-groups"}
+              link={"/user/profile/dashboard"}
               desc="Create and edit user groups."
             />
             <SettingLink
