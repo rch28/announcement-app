@@ -1,8 +1,10 @@
 "use client";
+import CreateGroup from "@/components/group/CreateGroup";
 import PopUpWrapper from "@/components/PopUpWrapper";
 import GroupCard from "@/components/profile/dashboard/GroupCard";
 import DeleteConfirm from "@/components/utils/DeleteConfirm";
 import { fetchAllData, GetAccessToken } from "@/index";
+import { useStore } from "@/stores/store";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -10,8 +12,9 @@ const Dashboard = () => {
   const [switchGroup, setSwitchGroup] = useState(true);
   const [data, setData] = useState(null);
   const [deleteToggle, setDeleteToggle] = useState(false);
-  const [groupId, setGroupId] = useState("")
+  const [groupData, SetGroupData] = useState(null)
   const access_token= GetAccessToken()
+  const toggleCreateGroup = useStore((state)=>state.toggleCreateGroup)
   useEffect(() => {
     const fetchGroup = async () => {
       const allData = await fetchAllData(
@@ -22,9 +25,10 @@ const Dashboard = () => {
     fetchGroup();
   }, [deleteToggle]);
   const handleDeleteGroup = () => {
+    if(groupData===null) return
     const newPromise = new Promise(async (resolve, reject) => {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/v1/group/delete/${groupId}/`,
+        `http://127.0.0.1:8000/api/v1/group/delete/${groupData?.group_id}/`,
         {
           method: "DELETE",
           headers: {
@@ -79,7 +83,7 @@ const Dashboard = () => {
                 group={group}
                 key={group.group_id}
                 setDeleteToggle={setDeleteToggle}
-                setGroupId={setGroupId}
+                SetGroupData={SetGroupData}
               />
             ))}
           </div>
@@ -108,6 +112,11 @@ const Dashboard = () => {
           </DeleteConfirm>
         </PopUpWrapper>
       )}
+      {
+        toggleCreateGroup && <PopUpWrapper>
+          <CreateGroup mode={"edit"} data={groupData}  />
+        </PopUpWrapper>
+      }
     </div>
   );
 };

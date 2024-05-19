@@ -1,7 +1,11 @@
+"use client";
 import { Cog } from "lucide-react";
 import SettingHover from "./SettingHover";
+import { useStore } from "@/stores/store";
 
-const GroupCard = ({ group, setDeleteToggle, setGroupId }) => {
+const GroupCard = ({ group, setDeleteToggle, SetGroupData }) => {
+  const setToggleCreateGroup = useStore((state) => state.setToggleCreateGroup);
+
   return (
     <div className="bg-white shadow-lg shadow-gray-400  rounded-xl p-6  hover:scale-105 transition-all ease-linear duration-200 ">
       <div className="grid gap-4">
@@ -11,13 +15,19 @@ const GroupCard = ({ group, setDeleteToggle, setGroupId }) => {
             <button
               onClick={() => {
                 setDeleteToggle((prev) => !prev);
-                setGroupId(group.group_id);
+                SetGroupData(group);
               }}
               className="bg-red-500 text-white px-4 py-1 rounded-lg hover:bg-red-600 transition duration-300 text-sm"
             >
               Delete
             </button>
-            <button className="bg-blue-500 text-white px-4 py-1 rounded-lg hover:bg-blue-600 transition duration-300">
+            <button
+              onClick={() => {
+                setToggleCreateGroup(true);
+                SetGroupData(group);
+              }}
+              className="bg-blue-500 text-white px-4 py-1 rounded-lg hover:bg-blue-600 transition duration-300"
+            >
               Edit
             </button>
           </div>
