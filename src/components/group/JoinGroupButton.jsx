@@ -13,20 +13,20 @@ const JoinGroupButton = () => {
   const [toggle, setToggle] = useState(false);
   const groupId = searchParams.get("group_id");
   const access_token = Cookies.get("access_token");
-  const userAuthenticated= useStore(state=>state.userAuthenticated)
-  const [offset, setOffset] = useState(0)
-  
-  const joined= useStore(state=>state.Joined)
-  const setJoined=useStore(state=>state.setJoined)
+  const userAuthenticated = useStore((state) => state.userAuthenticated);
+  const [offset, setOffset] = useState(0);
+
+  const joined = useStore((state) => state.Joined);
+  const setJoined = useStore((state) => state.setJoined);
+  console.log(joined, userAuthenticated);
   const handleClick = async () => {
+    if (!userAuthenticated) {
+      toast.error("You need to login to join the group");
+      router.push("/auth/login");
+      return;
+    }
     setJoined(false);
     setToggle(false);
-    if(!userAuthenticated){
-      toast.error("You need to login to join the group")
-      router.push("/auth/login")
-      return;
-      
-    }
     const newPromise = new Promise(async (resolve, reject) => {
       const response = await fetch(`http://127.0.0.1:8000/api/v1/group/join/`, {
         method: "POST",
@@ -48,7 +48,7 @@ const JoinGroupButton = () => {
     });
     toast.promise(newPromise, {
       loading: "Joining group...",
-      success:(data) => data?.msg || "Group joined successfully",
+      success: (data) => data?.msg || "Group joined successfully",
       error: (data) => data?.errors[0]?.detail || "Failed to join group",
     });
   };
@@ -71,24 +71,27 @@ const JoinGroupButton = () => {
         if (isUserJoind) {
           setJoined(true);
         } else {
-          setOffset(offset + 10)
+          setOffset(offset + 10);
           setJoined(false);
         }
       }
     };
     checkJoined();
-  }, [offset]);
+  }, []);
   const hanleLeaveGroup = async () => {
     setJoined(true);
     const newPromise = new Promise(async (resolve, reject) => {
-      const response = await fetch(`http://127.0.0.1:8000/api/v1/group/leave/`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ group_id: groupId }),
-      });
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/v1/group/leave/`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ group_id: groupId }),
+        }
+      );
 
       if (response.ok) {
         const result = await response.json();
@@ -101,7 +104,7 @@ const JoinGroupButton = () => {
     });
     toast.promise(newPromise, {
       loading: "Leaving group...",
-      success: (data)=>data?.msg || "Group left successfully",
+      success: (data) => data?.msg || "Group left successfully",
       error: (data) => data.errors[0].detail || "Failed to leave group",
     });
   };
@@ -129,7 +132,10 @@ const JoinGroupButton = () => {
                     }
                   />
                 </div>
-                <div className="cursor-pointer hover:bg-red-300 p-2 rounded-md" onClick={hanleLeaveGroup} >
+                <div
+                  className="cursor-pointer hover:bg-red-300 p-2 rounded-md"
+                  onClick={hanleLeaveGroup}
+                >
                   <CardUtil
                     title={"Leave Group"}
                     icon={
