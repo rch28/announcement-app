@@ -1,8 +1,7 @@
 import { Cog } from "lucide-react";
 import SettingHover from "./SettingHover";
 
-const GroupCard = ({ group ,setDeleteToggle}) => {
-
+const GroupCard = ({ group, setDeleteToggle, setGroupId }) => {
   return (
     <div className="bg-white shadow-lg shadow-gray-400  rounded-xl p-6  hover:scale-105 transition-all ease-linear duration-200 ">
       <div className="grid gap-4">
@@ -10,7 +9,10 @@ const GroupCard = ({ group ,setDeleteToggle}) => {
         <div className="flex justify-between ">
           <div className="flex space-x-2">
             <button
-              onClick={()=>setDeleteToggle((prev)=>!prev)}
+              onClick={() => {
+                setDeleteToggle((prev) => !prev);
+                setGroupId(group.group_id);
+              }}
               className="bg-red-500 text-white px-4 py-1 rounded-lg hover:bg-red-600 transition duration-300 text-sm"
             >
               Delete
@@ -27,7 +29,6 @@ const GroupCard = ({ group ,setDeleteToggle}) => {
           </div>
         </div>
       </div>
-     
     </div>
   );
 };

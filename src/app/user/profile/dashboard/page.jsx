@@ -2,13 +2,16 @@
 import PopUpWrapper from "@/components/PopUpWrapper";
 import GroupCard from "@/components/profile/dashboard/GroupCard";
 import DeleteConfirm from "@/components/utils/DeleteConfirm";
-import { fetchAllData } from "@/index";
+import { fetchAllData, GetAccessToken } from "@/index";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const Dashboard = () => {
   const [switchGroup, setSwitchGroup] = useState(true);
   const [data, setData] = useState(null);
   const [deleteToggle, setDeleteToggle] = useState(false);
+  const [groupId, setGroupId] = useState("")
+  const access_token= GetAccessToken()
   useEffect(() => {
     const fetchGroup = async () => {
       const allData = await fetchAllData(
@@ -17,18 +20,41 @@ const Dashboard = () => {
       setData(allData);
     };
     fetchGroup();
-  }, []);
-  const handleDeleteGroup = ()=>{
-    console.log("delete");
-  }
+  }, [deleteToggle]);
+  const handleDeleteGroup = () => {
+    const newPromise = new Promise(async (resolve, reject) => {
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/v1/group/delete/${groupId}/`,
+        {
+          method: "DELETE",
+          headers: {
+            authorization: `Bearer ${access_token}`,
+          },
+        }
+      );
+      if (response.ok) {
+        setDeleteToggle(false)
+        resolve();
+      } else {
+        setDeleteToggle(false)
+        const result = await response.json();
+        reject(result);
+      }
+    });
+    toast.promise(newPromise, {
+      loading: "Deleting group...",
+      success: "Group deleted successfully!",
+      error: (data) => data.errors[0].detail || "Failed to delete group",
+    });
+  };
   return (
     <div>
       <nav className="flex justify-between items-center bg-gray-300 shadow-xl rounded-xl ">
         <button
           onClick={() => setSwitchGroup(true)}
-          className={`bg-white  p-3 text-center cursor-pointer transition-all ease-linear duration-100  ${
+          className={`  p-3 text-center cursor-pointer transition-all ease-linear duration-100  ${
             switchGroup
-              ? "flex-1 rounded-xl"
+              ? "flex-1 rounded-xl bg-white"
               : "md:flex-[.4] bg-gray-300 rounded-l-xl"
           }`}
         >
@@ -53,6 +79,7 @@ const Dashboard = () => {
                 group={group}
                 key={group.group_id}
                 setDeleteToggle={setDeleteToggle}
+                setGroupId={setGroupId}
               />
             ))}
           </div>
