@@ -1,21 +1,35 @@
+"use client";
 import CardUtil from "@/components/utils/CardUtil";
-import { UserPlus, Users } from "lucide-react";
+import { useStore } from "@/stores/store";
+import { NotebookTabs, UserPlus } from "lucide-react";
 import React from "react";
 
-const SettingHover = ({id}) => {
+const SettingHover = ({ group,SetGroupData }) => {
+  const setToggleCreateAnnouncement = useStore(
+    (state) => state.setToggleCreateAnnouncement
+  );
+
   return (
     <div className="flex flex-col gap-2 w-full">
-      <div className="cursor-pointer hover:bg-gray-300 p-2 rounded-md" >
+      <button
+        onClick={() => {
+          setToggleCreateAnnouncement(true);
+          SetGroupData(group);
+        }}
+        className="cursor-pointer hover:bg-gray-300 p-2 rounded-md"
+      >
         <CardUtil
-          title="View Members"
-          icon={<Users className="h-5 w-5 text-gray-500 dark:text-gray-400" />}
+          title="Create Announcement"
+          icon={
+            <NotebookTabs className="h-4 w-4 text-purple-700 dark:text-gray-400" />
+          }
         />
-      </div>
+      </button>
       <div className="cursor-pointer hover:bg-gray-300 p-2 rounded-md">
         <CardUtil
           title="Manage Members"
           icon={
-            <UserPlus className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+            <UserPlus className="h-4 w-4 text-purple-700 dark:text-gray-400" />
           }
         />
       </div>

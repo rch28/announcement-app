@@ -1,4 +1,5 @@
 "use client";
+import { AnnouncementCardForm } from "@/components/announcements/AnnouncementCardForm";
 import CreateGroup from "@/components/group/CreateGroup";
 import PopUpWrapper from "@/components/PopUpWrapper";
 import GroupCard from "@/components/profile/dashboard/GroupCard";
@@ -9,12 +10,13 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const Dashboard = () => {
-  const [switchGroup, setSwitchGroup] = useState(true);
+  const [switchGroup, setSwitchGroup] = useState(false);
   const [data, setData] = useState(null);
   const [deleteToggle, setDeleteToggle] = useState(false);
   const [groupData, SetGroupData] = useState(null)
   const access_token= GetAccessToken()
   const toggleCreateGroup = useStore((state)=>state.toggleCreateGroup)
+  const toggleCreateAnnouncement= useStore ((state)=>state.toggleCreateAnnouncement)
   useEffect(() => {
     const fetchGroup = async () => {
       const allData = await fetchAllData(
@@ -54,6 +56,16 @@ const Dashboard = () => {
   return (
     <div>
       <nav className="flex justify-between items-center bg-gray-300 shadow-xl rounded-xl ">
+      <button
+          onClick={() => setSwitchGroup(false)}
+          className={`  p-3 text-center cursor-pointer  transition-all ease-linear duration-100  ${
+            switchGroup
+              ? "md:flex-[.4] bg-gray-300  rounded-r-xl"
+              : "flex-1 bg-white  rounded-xl "
+          }`}
+        >
+          <h1 className="font-medium text-sm">Joined Groups</h1>
+        </button>
         <button
           onClick={() => setSwitchGroup(true)}
           className={`  p-3 text-center cursor-pointer transition-all ease-linear duration-100  ${
@@ -64,20 +76,11 @@ const Dashboard = () => {
         >
           <h1 className="font-medium text-sm">My Groups</h1>
         </button>
-        <button
-          onClick={() => setSwitchGroup(false)}
-          className={`  p-3 text-center cursor-pointer  transition-all ease-linear duration-100  ${
-            switchGroup
-              ? "md:flex-[.4] bg-gray-300  rounded-r-xl"
-              : "flex-1 bg-white  rounded-xl "
-          }`}
-        >
-          <h1 className="font-medium text-sm">Joined Groups</h1>
-        </button>
+        
       </nav>
       <div className="flex-1  min-h-80 rounded-xl mt-4 ">
         {switchGroup ? (
-          <div className="  grid md:grid-cols-2 gap-6 ">
+          <div className="  flex flex-wrap justify-center md:grid md:grid-cols-2 gap-6 ">
             {data?.map((group) => (
               <GroupCard
                 group={group}
@@ -115,6 +118,11 @@ const Dashboard = () => {
       {
         toggleCreateGroup && <PopUpWrapper>
           <CreateGroup mode={"edit"} data={groupData}  />
+        </PopUpWrapper>
+      }
+      {
+        toggleCreateAnnouncement && <PopUpWrapper>
+          <AnnouncementCardForm group_id={groupData?.group_id}  />
         </PopUpWrapper>
       }
     </div>

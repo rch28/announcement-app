@@ -2,14 +2,16 @@
 import { Cog } from "lucide-react";
 import SettingHover from "./SettingHover";
 import { useStore } from "@/stores/store";
+import { useState } from "react";
+import Link from "next/link";
 
 const GroupCard = ({ group, setDeleteToggle, SetGroupData }) => {
+  const [toggle, setToggle] = useState(false)
   const setToggleCreateGroup = useStore((state) => state.setToggleCreateGroup);
-
   return (
-    <div className="bg-white shadow-lg shadow-gray-400  rounded-xl p-6  hover:scale-105 transition-all ease-linear duration-200 ">
+    <div  className="bg-white shadow-lg shadow-gray-400  rounded-xl p-6  md:hover:scale-105 transition-all ease-linear duration-200 w-64 md:w-full">
       <div className="grid gap-4">
-        <h1 className="text-xl font-bold text-gray-800">{group.name}</h1>
+        <Link href={`/groups/${group?.name}?group_id=${group.group_id}&&category=${group.category}`} className="text-xl font-bold text-gray-800 hover:underline">{group.name}</Link>
         <div className="flex justify-between ">
           <div className="flex space-x-2">
             <button
@@ -30,11 +32,12 @@ const GroupCard = ({ group, setDeleteToggle, SetGroupData }) => {
             >
               Edit
             </button>
+            
           </div>
           <div className="bg-gray-300 shadow-xl shadow-gray-500 rounded-full p-1 group relative ">
-            <Cog className="text-gray-800 hover:text-gray-900 group-hover:rotate-45 cursor-pointer transition duration-300 " />
-            <div className="absolute right-0 bottom-6 hidden p-4 rounded-xl shadow-md shadow-gray-500 group-hover:flex  bg-white w-72">
-              <SettingHover id={group.group_id} />
+            <Cog className="text-gray-800 hover:text-gray-900 group-hover:rotate-45 cursor-pointer transition duration-300 " onClick={()=>setToggle(!toggle)} />
+            <div className={`absolute right-0 bottom-10 md:bottom-5 md:hidden p-4 rounded-xl shadow-md shadow-gray-500 md:group-hover:flex  bg-white w-64 md:w-72 ${toggle?"flex md:hidden":"hidden"}`}>
+              <SettingHover group={group} SetGroupData={SetGroupData} />
             </div>
           </div>
         </div>
