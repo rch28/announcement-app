@@ -17,6 +17,9 @@ const GroupCard = ({ group, setDeleteToggle, SetGroupData, setLeaveToggle, mode 
         >
           {group.name}
         </Link>
+        <p className="line-clamp-2 text-sm font-medium  indent-4 text-black/80">
+          {group.description}
+        </p>
         {mode === "mygroup" && (
           <div className="flex justify-between ">
             <div className="flex space-x-2">
@@ -49,7 +52,7 @@ const GroupCard = ({ group, setDeleteToggle, SetGroupData, setLeaveToggle, mode 
                   toggle ? "flex md:hidden" : "hidden"
                 }`}
               >
-                <SettingHover group={group} SetGroupData={SetGroupData} />
+                <SettingHover group={group} SetGroupData={SetGroupData} mode="mygroup" />
               </div>
             </div>
           </div>
@@ -66,15 +69,6 @@ const GroupCard = ({ group, setDeleteToggle, SetGroupData, setLeaveToggle, mode 
               >
                 Leave Group
               </button>
-              <button
-                onClick={() => {
-                  setToggleCreateGroup(true);
-                  SetGroupData(group);
-                }}
-                className="bg-blue-500 text-white px-4 py-1 rounded-lg hover:bg-blue-600 transition duration-300 font-medium"
-              >
-                Edit
-              </button>
             </div>
             <div className="bg-gray-300 shadow-xl shadow-gray-500 rounded-full p-1 group relative ">
               <Cog
@@ -86,7 +80,7 @@ const GroupCard = ({ group, setDeleteToggle, SetGroupData, setLeaveToggle, mode 
                   toggle ? "flex md:hidden" : "hidden"
                 }`}
               >
-                <SettingHover group={group} SetGroupData={SetGroupData} />
+                <SettingHover group={group} SetGroupData={SetGroupData}  mode="joinedgroup" />
               </div>
             </div>
           </div>
