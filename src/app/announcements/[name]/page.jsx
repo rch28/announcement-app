@@ -4,6 +4,7 @@ import { AnnouncementDetails } from "@/components/announcements/announcement-det
 import { AnnouncementCardForm } from "@/components/announcements/AnnouncementCardForm";
 import AnnSettingCard from "@/components/announcements/AnnSettingCard";
 import Comments from "@/components/announcements/Comments";
+import PopUpWrapper from "@/components/PopUpWrapper";
 import { useStore } from "@/stores/store";
 import Cookies from "js-cookie";
 import { redirect, useSearchParams } from "next/navigation";
@@ -73,15 +74,10 @@ const AnnouncementPage = () => {
       )}
       {/* Edit an announcement */}
       {toggleCreateAnnouncement && (
-        <div
-          className={`z-50 fixed top-0 left-0 flex w-screen h-screen justify-center items-center ${
-            toggleCreateAnnouncement && "bg-black/30 "
-          }`}
-        >
-          <AnnouncementCardForm
-            selectGroup={true}
-          />
-        </div>
+        <PopUpWrapper>
+          <AnnouncementCardForm selectGroup={true} />
+
+        </PopUpWrapper>
       )}
 
       {/* announcement comment */}

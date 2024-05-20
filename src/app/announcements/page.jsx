@@ -1,6 +1,7 @@
 "use client";
 import { AnnouncementCardForm } from "@/components/announcements/AnnouncementCardForm";
 import GroupAnnouncement from "@/components/announcements/GroupAnnouncement";
+import PopUpWrapper from "@/components/PopUpWrapper";
 import { useStore } from "@/stores/store";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -54,13 +55,10 @@ const AnnouncementPage = () => {
         ))}
       </div>
       {toggleCreateAnnouncement && (
-        <div
-          className={` fixed top-0 left-0 flex w-screen h-screen justify-center items-center ${
-            toggleCreateAnnouncement && "bg-black/30 "
-          }`}
-        >
+        <PopUpWrapper>
           <AnnouncementCardForm selectGroup={true} />
-        </div>
+
+        </PopUpWrapper>
       )}
     </div>
   );

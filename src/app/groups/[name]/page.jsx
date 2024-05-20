@@ -3,6 +3,7 @@ import AnnouncementCard from "@/components/announcements/AnnouncementCard";
 import { AnnouncementCardForm } from "@/components/announcements/AnnouncementCardForm";
 import CreateGroup from "@/components/group/CreateGroup";
 import GroupCard from "@/components/group/GroupCard";
+import PopUpWrapper from "@/components/PopUpWrapper";
 import { useStore } from "@/stores/store";
 import Cookies from "js-cookie";
 import Link from "next/link";
@@ -108,44 +109,45 @@ const GroupPage = () => {
 
       {/* Edit the group information */}
       {toggleCreateGroup && (
-        <div
-          className={` fixed top-0 left-0 z-20 flex w-screen h-screen justify-center items-center ${
-            toggleCreateGroup && "bg-black/30 "
-          }`}
-        >
+        <PopUpWrapper>
           <CreateGroup mode="edit" data={data} />
-        </div>
+        </PopUpWrapper>
       )}
       {/* Create an announcement */}
       {toggleCreateAnnouncement && (
-        <div
-          className={` fixed top-0 left-0 flex w-screen h-screen justify-center items-center ${
-            toggleCreateAnnouncement && "bg-black/30 "
-          }`}
-        >
+        <PopUpWrapper>
           <AnnouncementCardForm group_id={group_id} />
-        </div>
+        </PopUpWrapper>
       )}
 
       {/* Our annnouncement */}
       {!userAuthentiated ? (
-        <Link href={"/auth/login"} className="inline-flex h-10 items-center justify-center rounded-full bg-purple-700 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-purple-800 focus-visible:outline-none  disabled:pointer-events-none disabled:opacity-50 dark:bg-[#805AD5] dark:text-gray-900 dark:hover:bg-purple-800/90 dark:focus-visible:ring-[#805AD5]">
+        <Link
+          href={"/auth/login"}
+          className="inline-flex h-10 items-center justify-center rounded-full bg-purple-700 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-purple-800 focus-visible:outline-none  disabled:pointer-events-none disabled:opacity-50 dark:bg-[#805AD5] dark:text-gray-900 dark:hover:bg-purple-800/90 dark:focus-visible:ring-[#805AD5]"
+        >
           Login to view the annoucements!!!
         </Link>
       ) : announcmentData.count > 0 && joined ? (
         <div className="mt-10">
-          <h1 className="text-3xl md:text-4xl font-bold py-6">Our Recent Announcements</h1>
+          <h1 className="text-3xl md:text-4xl font-bold py-6">
+            Our Recent Announcements
+          </h1>
 
           <AnnouncementCard data={announcmentData?.results} />
           <div className="flex justify-end items-center">
-          <Link href={`/announcements/${data?.name}/announcements-list?group_id=${data?.group_id}&&category=${data?.category}`} className="inline-flex h-10 items-center justify-center rounded-full bg-purple-700 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-purple-800 focus-visible:outline-none  disabled:pointer-events-none disabled:opacity-50 dark:bg-[#805AD5] dark:text-gray-900 dark:hover:bg-purple-800/90 dark:focus-visible:ring-[#805AD5] my-5">View all</Link>
+            <Link
+              href={`/announcements/${data?.name}/announcements-list?group_id=${data?.group_id}&&category=${data?.category}`}
+              className="inline-flex h-10 items-center justify-center rounded-full bg-purple-700 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-purple-800 focus-visible:outline-none  disabled:pointer-events-none disabled:opacity-50 dark:bg-[#805AD5] dark:text-gray-900 dark:hover:bg-purple-800/90 dark:focus-visible:ring-[#805AD5] my-5"
+            >
+              View all
+            </Link>
           </div>
         </div>
       ) : (
         <p className="py-4 bg-white px-6 font-semibold">
-          No announcement here!! or your are not joined in group   
+          No announcement here!! or your are not joined in group
         </p>
-
       )}
     </div>
   );

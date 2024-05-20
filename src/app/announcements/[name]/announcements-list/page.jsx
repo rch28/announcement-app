@@ -1,6 +1,7 @@
 "use client";
 import AnnouncementCard from "@/components/announcements/AnnouncementCard";
 import { AnnouncementCardForm } from "@/components/announcements/AnnouncementCardForm";
+import PopUpWrapper from "@/components/PopUpWrapper";
 import { fetchAllData, fetchGroup } from "@/index";
 import { useStore } from "@/stores/store";
 import { useSearchParams } from "next/navigation";
@@ -34,13 +35,10 @@ const AnnouncementListOfGroup = () => {
       <AnnouncementCard data={annoucementData} />
 
       {toggleCreateAnnouncement && (
-        <div
-          className={` fixed top-0 left-0 flex w-screen h-screen justify-center items-center ${
-            toggleCreateAnnouncement && "bg-black/30 "
-          }`}
-        >
+        <PopUpWrapper>
           <AnnouncementCardForm selectGroup={true} />
-        </div>
+
+        </PopUpWrapper>
       )}
     </div>
   );
