@@ -88,7 +88,7 @@ const ProfilePage = () => {
             />
             <SettingLink
               title="Manage Accounts"
-              link={"/user/profile/dashboard"}
+              link={"/user/profile/setting"}
               desc="Update account settings and preferences."
             />
           </div>
