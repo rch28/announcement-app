@@ -3,14 +3,17 @@
 import GroupMember from "@/components/profile/dashboard/GroupMember";
 import { Label } from "@/components/ui/label";
 import { fetchAllData, fetchGroup } from "@/index";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const ManageMembers = () => {
+  const searchParams = useSearchParams();
   const [groupId, setGroupId] = useState("");
   const [usersGroup, setUsersGroup] = useState(null);
   const [groupMember, setGroupMember] = useState(null);
-  const [admin_id, setAdmin_id] = useState("")  
+  const [admin_id, setAdmin_id] = useState("");
 
+  const gid = searchParams.get("group_id");
 
   useEffect(() => {
     const fetchGroup = async () => {
@@ -18,6 +21,11 @@ const ManageMembers = () => {
         "http://127.0.0.1:8000/api/v1/group/joined-by/user/"
       );
       setUsersGroup(allData);
+      if (gid) {
+        setGroupId(gid);
+      } else {
+        setGroupId(allData[0].group_id);
+      }
     };
     fetchGroup();
   }, []);
@@ -25,7 +33,7 @@ const ManageMembers = () => {
     if (groupId) {
       const GroupData = async () => {
         const groupInfo = await fetchGroup(groupId);
-        if(groupInfo.total_members === 0) return;
+        if (groupInfo.total_members === 0) return;
         setAdmin_id(groupInfo.admin_id);
         setGroupMember(groupInfo.members);
       };
@@ -61,18 +69,14 @@ const ManageMembers = () => {
         {!groupMember && (
           <h1 className="text-sm font-medium">No members in this group</h1>
         )}
-        {
-          groupMember && (
-            <div>
-              <h1 className="text-sm font-medium">Groups Members</h1>
-                {
-                  groupMember.map((member)=>(
-                    <GroupMember key={member} id={member} admin_id={admin_id}  />
-                  ))
-                }
-            </div>
-          )
-        }
+        {groupMember && (
+          <div>
+            <h1 className="text-sm font-medium">Groups Members</h1>
+            {groupMember.map((member) => (
+              <GroupMember key={member} id={member} admin_id={admin_id} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
