@@ -1,5 +1,5 @@
 "use client";
-import { Group, NotebookTabs, Users2 } from "lucide-react";
+import { Cog, Group, NotebookTabs, Users2 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -38,6 +38,13 @@ const DashSidebar = () => {
       >
         <NotebookTabs size={20} />
         <span className="font-medium text-sm">Manage Announcements</span>
+      </Link>
+      <Link
+        href={"user/profile/setting"}
+        className={` px-4  py-3 rounded-xl flex gap-2 hover:bg-white/50 `}
+      >
+        <Cog size={20} />
+        <span className="font-medium text-sm">Manage Accounts</span>
       </Link>
     </div>
   );
