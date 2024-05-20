@@ -40,7 +40,7 @@ const DashSidebar = () => {
         <span className="font-medium text-sm">Manage Announcements</span>
       </Link>
       <Link
-        href={"user/profile/setting"}
+        href={"/user/profile/setting"}
         className={` px-4  py-3 rounded-xl flex gap-2 hover:bg-white/50 `}
       >
         <Cog size={20} />
