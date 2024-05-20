@@ -39,14 +39,14 @@ const SettingHover = ({ group, SetGroupData, mode }) => {
               }
             />
           </Link>
-          <div className="cursor-pointer hover:bg-gray-300 p-2 rounded-md">
+          <Link href={`/user/profile/dashboard/manage-members/?group_id=${group.group_id}`} className="cursor-pointer hover:bg-gray-300 p-2 rounded-md">
             <CardUtil
               title="Manage Members"
               icon={
                 <UserPlus className="h-4 w-4 text-purple-700 dark:text-gray-400" />
               }
             />
-          </div>
+          </Link>
         </div>
       )}
       {/* later check for the role of the user */}
