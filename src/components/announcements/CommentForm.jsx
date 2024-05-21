@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 import { useSearchParams } from "next/navigation";
 import { useStore } from "@/stores/store";
 import toast from "react-hot-toast";
+import { GetAccessToken } from "@/index";
 
 const CommentForm = () => {
   const inpRef = useRef(null);
@@ -35,7 +36,7 @@ const CommentForm = () => {
     element.style.height = `${lines * lineHeight}px`;
   };
 
-
+  const access_token= GetAccessToken()
   useEffect(() => {
     if (!editCommentMode || !commentId) {
       return;
@@ -78,6 +79,8 @@ const CommentForm = () => {
             method: editCommentMode ? "PATCH" : "POST",
             headers: {
               "Content-Type": "application/json",
+              Authorization: `Bearer ${access_token}`,
+
             },
             body: JSON.stringify({
               announcement: ann_id,
