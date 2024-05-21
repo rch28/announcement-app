@@ -63,29 +63,26 @@ const SettingCard = ({ setToggleSetting }) => {
         <p className="text-gray-500">Manage your group settings and members</p>
       </div>
       <div className="border-b border-gray-200">
+
         <div className="cursor-pointer hover:bg-gray-100 rounded-md p-3 ">
-          <CardUtil
-            title="View Members"
-            icon={
-              <Users className=" h-4 w-4  sm:h-6 sm:w-6 text-gray-500 dark:text-gray-400 mr-2" />
-            }
-          />
+          <Link href={`/user/profile/dashboard/manage-members?group_id=${groupId}`}>
+            <CardUtil
+              title="Manage Members"
+              icon={
+                <UserPlus className="  text-gray-500 dark:text-gray-400 mr-2" size={18} />
+              }
+            />
+          </Link>
         </div>
-        <div className="cursor-pointer hover:bg-gray-100 rounded-md p-3 ">
-          <CardUtil
-            title="Manage Members"
-            icon={
-              <UserPlus className=" h-4 w-4  sm:h-6 sm:w-6 text-gray-500 dark:text-gray-400 mr-2" />
-            }
-          />
-        </div>
-        <div className="cursor-pointer hover:bg-gray-100 rounded-md p-3 ">
-          <CardUtil
-            title="Manage Annoucements"
-            icon={
-              <NotebookTabs className=" h-4 w-4  sm:h-6 sm:w-6 text-gray-500 dark:text-gray-400 mr-2" />
-            }
-          />
+        <div className="cursor-pointer hover:bg-gray-300 rounded-md p-3 ">
+          <Link href={"/user/profile/dashboard/manage-announcements"}>
+            <CardUtil
+              title="Manage Annoucements"
+              icon={
+                <NotebookTabs className=" text-gray-500 dark:text-gray-400 mr-2" size={16} />
+              }
+            />
+          </Link>
         </div>
       </div>
       <div className="flex flex-col gap-2">
@@ -96,7 +93,7 @@ const SettingCard = ({ setToggleSetting }) => {
           <CardUtil
             title="Edit Group Info"
             icon={
-              <Users className=" h-4 w-4  sm:h-6 sm:w-6 text-gray-500 dark:text-gray-400 mr-2" />
+              <Users className=" h-5 w-5  text-gray-500 dark:text-gray-400 mr-2" />
             }
           />
         </div>
@@ -107,7 +104,7 @@ const SettingCard = ({ setToggleSetting }) => {
           <CardUtil
             title="Delete Group"
             icon={
-              <UserPlus className=" h-4 w-4  sm:h-6 sm:w-6 text-gray-500 dark:text-gray-400 mr-2" />
+              <UserPlus className=" h-5 w-5  text-gray-500 dark:text-gray-400 mr-2" />
             }
           />
         </div>
