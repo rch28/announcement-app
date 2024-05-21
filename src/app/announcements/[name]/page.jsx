@@ -2,7 +2,6 @@
 
 import { AnnouncementDetails } from "@/components/announcements/announcement-details";
 import { AnnouncementCardForm } from "@/components/announcements/AnnouncementCardForm";
-import AnnSettingCard from "@/components/announcements/AnnSettingCard";
 import Comments from "@/components/announcements/Comments";
 import PopUpWrapper from "@/components/PopUpWrapper";
 import { useStore } from "@/stores/store";
@@ -12,7 +11,7 @@ import { useEffect, useState } from "react";
 
 const AnnouncementPage = () => {
   const [announcmentData, setAnnouncmentData] = useState({});
-  const [toggleEdit, setToggleEdit] = useState(false)
+  const [toggleEdit, setToggleEdit] = useState(false);
   const [toggle, setToggle] = useState(false);
   const searchParams = useSearchParams();
   const ann_id = searchParams.get("ann_id");
@@ -57,26 +56,17 @@ const AnnouncementPage = () => {
       />
 
       {/* Edit an announcement */}
-      {toggleEdit && (
-        <div
-          className={`z-50 fixed top-0 left-0 flex w-screen h-screen justify-center items-center ${
-            toggleEdit && "bg-black/30 "
-          }`}
-        >
+      {toggleCreateAnnouncement && toggleEdit && (
+        <PopUpWrapper>
           <AnnouncementCardForm
             ann_data={announcmentData}
-            setToggle={setToggle}
-            mode="edit"
-        setToggleEdit={setToggleEdit}
-
           />
-        </div>
+        </PopUpWrapper>
       )}
-      {/* Edit an announcement */}
-      {toggleCreateAnnouncement && (
+      {/* Create an announcement */}
+      {toggleCreateAnnouncement && !toggleEdit && (
         <PopUpWrapper>
           <AnnouncementCardForm selectGroup={true} />
-
         </PopUpWrapper>
       )}
 
