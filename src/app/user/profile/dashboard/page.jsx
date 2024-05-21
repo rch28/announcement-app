@@ -115,7 +115,7 @@ const Dashboard = () => {
     });
   };
   return (
-    <div>
+    <div className="min-h-[26rem]">
       <nav className="flex justify-between items-center bg-gray-300 shadow-xl rounded-xl ">
         <button
           onClick={() => setSwitchGroup(false)}

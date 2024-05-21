@@ -13,7 +13,7 @@ const ProfilePage = () => {
   const [toggle, setToggle] = useState(false);
   const userData = useStore((state) => state.userData);
   return (
-    <div className="  min-h-screen flex flex-col md:flex-row z-10">
+    <div className="  min-h-[26rem] flex flex-col md:flex-row z-10">
       <section className="flex-[0.2]  py-4">
         <div className={"flex p-6 md:block"}>
           <Link

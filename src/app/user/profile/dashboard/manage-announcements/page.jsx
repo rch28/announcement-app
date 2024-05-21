@@ -123,7 +123,7 @@ const ManageAnnouncements = () => {
     });
   };
   return (
-    <div>
+    <div className="min-h-[26rem]">
       <div className="md:space-y-2">
         <Label htmlFor="payment-method">Select Group</Label>
 
