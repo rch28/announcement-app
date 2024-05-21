@@ -75,7 +75,7 @@ const SettingCard = ({ setToggleSetting }) => {
           </Link>
         </div>
         <div className="cursor-pointer hover:bg-gray-300 rounded-md p-3 ">
-          <Link href={"/user/profile/dashboard/manage-announcements"}>
+          <Link href={`/user/profile/dashboard/manage-announcements?group_id=${groupId}`}>
             <CardUtil
               title="Manage Annoucements"
               icon={
