@@ -6,6 +6,8 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import CardUtil from "../utils/CardUtil";
 import { useStore } from "@/stores/store";
+import PopUpWrapper from "../PopUpWrapper";
+import LeaveConfirm from "../utils/LeaveConfirm";
 
 const JoinGroupButton = () => {
   const router = useRouter();
@@ -18,7 +20,7 @@ const JoinGroupButton = () => {
 
   const joined = useStore((state) => state.Joined);
   const setJoined = useStore((state) => state.setJoined);
-  console.log(joined, userAuthenticated);
+  const [leaveGroupToggle, setLeaveGroupToggle] = useState(false)
   const handleClick = async () => {
     if (!userAuthenticated) {
       toast.error("You need to login to join the group");
@@ -78,7 +80,7 @@ const JoinGroupButton = () => {
     };
     checkJoined();
   }, []);
-  const hanleLeaveGroup = async () => {
+  const handleLeaveGroup = async () => {
     setJoined(true);
     const newPromise = new Promise(async (resolve, reject) => {
       const response = await fetch(
@@ -96,6 +98,7 @@ const JoinGroupButton = () => {
       if (response.ok) {
         const result = await response.json();
         setJoined(false);
+        setLeaveGroupToggle(false)
         resolve(result);
       } else {
         const result = await response.json();
@@ -134,7 +137,7 @@ const JoinGroupButton = () => {
                 </div>
                 <div
                   className="cursor-pointer hover:bg-red-300 p-2 rounded-md"
-                  onClick={hanleLeaveGroup}
+                  onClick={()=>setLeaveGroupToggle(true)}
                 >
                   <CardUtil
                     title={"Leave Group"}
@@ -155,6 +158,29 @@ const JoinGroupButton = () => {
           Join Group
         </button>
       )}
+
+      {
+        leaveGroupToggle && (
+          <PopUpWrapper>
+            <LeaveConfirm title={"leave Group"} >
+            <div className="flex gap-4">
+              <button
+                onClick={() => setLeaveGroupToggle(!leaveGroupToggle)}
+                className="px-6 py-2 bg-purple-600 rounded-full text-white font-bold hover:bg-purple-700"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleLeaveGroup}
+                className="px-6 py-2 bg-red-600 rounded-full text-white font-bold hover:bg-red-700"
+              >
+                Leave
+              </button>
+            </div>
+            </LeaveConfirm>
+          </PopUpWrapper>
+        )
+      }
     </>
   );
 };
