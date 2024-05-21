@@ -24,9 +24,8 @@ export function AnnouncementCardForm({
   group_id,
   selectGroup,
   ann_data,
-  setToggle,
-  setToggleEdit,
-  mode,
+  redirect
+
 }) {
   const [userJoinedGroup, setUserJoinedGroup] = useState([]);
 
@@ -36,6 +35,8 @@ export function AnnouncementCardForm({
   const [paymentMethod, setPaymentMethod] = useState("khalti");
   const [group, setGroup] = useState("");
   const [selected_group, setSelected_group] = useState({});
+
+  const [imageChanged, setImageChanged] = useState(false);
   const setToggleCreateAnnouncement = useStore(
     (state) => state.setToggleCreateAnnouncement
   );
@@ -48,6 +49,7 @@ export function AnnouncementCardForm({
       return;
     }
     setImage(e.target.files[0]);
+    setImageChanged(true);
   };
   useEffect(() => {
     const fetchData = async () => {
@@ -64,6 +66,8 @@ export function AnnouncementCardForm({
       setDescription(ann_data.description);
       setPaymentMethod(ann_data.payment_method);
       setGroup(ann_data.group);
+      setImage(ann_data.image);
+      setImageChanged(false);
     }
     if (group_id) {
       setGroup(group_id);
@@ -96,7 +100,9 @@ export function AnnouncementCardForm({
       return;
     }
     const data = new FormData();
-    data.append("image", image);
+    if (imageChanged) {
+      data.append("image", image);
+    }
     data.append("title", title);
     data.append("description", description);
     data.append("payment_method", paymentMethod);
@@ -119,8 +125,8 @@ export function AnnouncementCardForm({
       if (response.ok) {
         const result = await response.json();
         setToggleCreateAnnouncement(false);
-        if (ann_data) {
-          setToggle(false);
+        
+        if (ann_data && redirect) {
           router.push(`/announcements/${title}?ann_id=${ann_data.id}`);
         }
         if (selectGroup) {
@@ -157,8 +163,6 @@ export function AnnouncementCardForm({
         <button
           onClick={() => {
             setToggleCreateAnnouncement(false);
-            // setToggle(false);
-            mode === "edit" && setToggleEdit(false);
           }}
           className="flex justify-end absolute right-0 m-2 cursor-pointer "
         >
@@ -174,28 +178,28 @@ export function AnnouncementCardForm({
         </CardHeader>
         <CardContent className="grid">
           <div className="grid sm:grid-cols-2 sm:gap-4">
-              <div className="grid gap-4 ">
-                <div className="md:space-y-2">
-                  <Label htmlFor="title">Title</Label>
-                  <Input
-                    id="title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    placeholder="Enter announcement title"
-                    className="border border-gray-400 focus:border-purple-500"
-                  />
-                </div>
-                <div className="md:space-y-2">
-                  <Label htmlFor="description">Description</Label>
-                  <Textarea
-                    id="description"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    placeholder="Enter announcement description"
-                    className="border border-gray-400 focus:border-purple-500  sm:h-full"
-                  />
-                </div>
+            <div className="grid gap-4 ">
+              <div className="md:space-y-2">
+                <Label htmlFor="title">Title</Label>
+                <Input
+                  id="title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder="Enter announcement title"
+                  className="border border-gray-400 focus:border-purple-500"
+                />
               </div>
+              <div className="md:space-y-2">
+                <Label htmlFor="description">Description</Label>
+                <Textarea
+                  id="description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  placeholder="Enter announcement description"
+                  className="border border-gray-400 focus:border-purple-500  sm:h-full"
+                />
+              </div>
+            </div>
             <div className="flex flex-col gap-4">
               {selectGroup && (
                 <div className="md:space-y-2">
@@ -210,7 +214,11 @@ export function AnnouncementCardForm({
                   >
                     <option value="">Select group</option>
                     {userJoinedGroup?.map((group) => (
-                      <option key={group.group_id} value={group.group_id} className="text-blcak ">
+                      <option
+                        key={group.group_id}
+                        value={group.group_id}
+                        className="text-blcak "
+                      >
                         {group.name}
                       </option>
                     ))}

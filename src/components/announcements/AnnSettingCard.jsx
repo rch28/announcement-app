@@ -43,6 +43,7 @@ const AnnSettingCard = ({setToggle ,setToggleEdit}) => {
     };
     const handleEditAnn = () => {
         setToggleEdit(true)
+        setToggleCreateAnnouncement(true)
 
     }
   return (
