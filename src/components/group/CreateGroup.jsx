@@ -1,12 +1,17 @@
 "use client";
 import { useStore } from "@/stores/store";
 import Cookies from "js-cookie";
+import { XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { CardDescription } from "../ui/card";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
 
-const CreateGroup = ({mode,data}) => {
-  const router= useRouter()
+const CreateGroup = ({ mode, data }) => {
+  const router = useRouter();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -22,13 +27,13 @@ const CreateGroup = ({mode,data}) => {
     }
     setImage(e.target.files[0]);
   };
-  useEffect(()=>{
-    if(mode==="edit"){
-      setName(data?.name)
-      setDescription(data?.description)
-      setCategory(data?.category)
+  useEffect(() => {
+    if (mode === "edit") {
+      setName(data?.name);
+      setDescription(data?.description);
+      setCategory(data?.category);
     }
-  },[mode])
+  }, [mode]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!name) {
@@ -43,7 +48,7 @@ const CreateGroup = ({mode,data}) => {
       toast.error("Please select a category");
       return;
     }
-    if (!image && mode!=="edit") {
+    if (!image && mode !== "edit") {
       toast.error("Group image is required");
       return;
     }
@@ -54,9 +59,11 @@ const CreateGroup = ({mode,data}) => {
     data.append("category", category);
     const newPromise = new Promise(async (resolve, reject) => {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/v1/group/${mode==="edit"?`update/${group_id}/`:"create/"}`,
+        `http://127.0.0.1:8000/api/v1/group/${
+          mode === "edit" ? `update/${group_id}/` : "create/"
+        }`,
         {
-          method: mode==="edit"?"PATCH":"POST",
+          method: mode === "edit" ? "PATCH" : "POST",
           headers: {
             authorization: `Bearer ${access_token}`,
           },
@@ -65,19 +72,23 @@ const CreateGroup = ({mode,data}) => {
       );
       const result = await response.json();
       if (response.ok) {
-        const res = await fetch("http://127.0.0.1:8000/api/v1/group/created-by/user/?limit=100", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-          },
-        });
+        const res = await fetch(
+          "http://127.0.0.1:8000/api/v1/group/created-by/user/?limit=100",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+          }
+        );
 
         if (res.ok) {
           const result = await res.json();
           const lastCreatedGroup = result.results[result.results.length - 1];
           const lastCreatedGroupId = lastCreatedGroup.group_id;
-          router.push(`/groups/${name}?group_id=${lastCreatedGroupId}&&category=${category}`);
-
+          router.push(
+            `/groups/${name}?group_id=${lastCreatedGroupId}&&category=${category}`
+          );
         }
         setToggleCreateGroup(false);
         resolve(result);
@@ -86,8 +97,11 @@ const CreateGroup = ({mode,data}) => {
       }
     });
     toast.promise(newPromise, {
-      loading: mode==="edit"?"Updating group...":"Creating group...",
-      success: mode==="edit"?"Group updated successfully!":(data) => data?.msg || "Group created successfully!",
+      loading: mode === "edit" ? "Updating group..." : "Creating group...",
+      success:
+        mode === "edit"
+          ? "Group updated successfully!"
+          : (data) => data?.msg || "Group created successfully!",
       error: (result) => result.errors[0].detail || "An error occurred",
     });
   };
@@ -109,14 +123,22 @@ const CreateGroup = ({mode,data}) => {
     { value: "other", label: "Other" },
   ];
   return (
-    <div className="bg-white mx-4 w-96 rounded-xl border-2  shadow-lg shadow-gray-500 ">
-      <div className="flex justify-end items-center pt-4 px-4">
+    <div className="bg-white mx-4  rounded-xl border-2  w-[90%] md:w-auto shadow-lg shadow-gray-500 relative z-20 p-4">
+      <div className="flex justify-end items-center  absolute right-4 top-2 ">
         <button
           onClick={() => setToggleCreateGroup(false)}
-          className="px-2 py-1 bg-violet-500 hover:bg-violet-600 text-white rounded-md"
+          className="p-1 bg-white text-red-500 hover:bg-red-200 rounded-full shadow-md shadow-gray-500"
         >
-          Cancel
+          <XIcon />
         </button>
+      </div>
+      <div className="p-4">
+        <h1 className=" text-2xl  font-bold tracking-widest">
+          {mode === "edit" ? "Edit Your group" : "Create New Group"}
+        </h1>
+        <CardDescription className="text-sm text-gray-700">
+          {mode === "edit" ? "Edit your Group." : "Create a new group."}
+        </CardDescription>
       </div>
       <div className="">
         <form
@@ -125,75 +147,70 @@ const CreateGroup = ({mode,data}) => {
           onSubmit={handleSubmit}
           encType="multipart/form-data"
         >
-          <h1 className="text-center text-2xl py-4 font-bold tracking-widest">
-            {mode==="edit"?"Edit Your group":"Create New Group"}
-          </h1>
+          <div className="grid md:grid-cols-2 md:gap-4">
+            <div className="grid gap-4">
+              <div className=" md:space-y-2">
+                <Label htmlFor="group_name">Group name</Label>
+                <Input
+                  type="text"
+                  name="group_name"
+                  id="group_name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Enter group name"
+                  className="border border-gray-400 focus:border-purple-500"
+                />
+              </div>
+              <div className="  md:space-y-2">
+                <Label htmlFor="group_description">Description</Label>
+                <Textarea
+                  type="text"
+                  name="group_description"
+                  id="group_description"
+                  className="border border-gray-400 focus:border-purple-500  sm:h-full"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  placeholder="Enter Group Description "
+                />
+              </div>
+            </div>
+            <div className="flex flex-col gap-4">
+              <div className=" group md:space-y-2">
+                <Label htmlFor="category">Select Category</Label>
 
-          <div className="relative z-0 w-full mb-5 group">
-            <input
-              type="text"
-              name="group_name"
-              id="group_name"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-purple-500 focus:outline-none focus:ring-0 focus:border-purple-600 peer"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder=" "
-            />
-            <label
-              htmlFor="group_name"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-purple-600 peer-focus:dark:text-purple-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >
-              Group name
-            </label>
-          </div>
-          <div className="relative z-0 w-full mb-5 group">
-            <textarea
-              type="text"
-              name="group_description"
-              id="group_description"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-purple-500 focus:outline-none focus:ring-0 focus:border-purple-600 peer"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder=" "
-            />
-            <label
-              htmlFor="group_description"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-purple-600 peer-focus:dark:text-purple-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >
-              Description
-            </label>
-          </div>
-          <div className="relative z-0 w-full mb-5 group">
-            <select
-              name="category"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className="w-full px-2 py-2 rounded-lg font-bold sm:w-72 focus:outline-none bg-white text-gray-600 border border-gray-300 shadow-sm focus:border-purple-300 focus:shadow-sm "
-            >
-              {options.map((option) => (
-                <option
-                  className="w-fit py-2 px-4"
-                  key={option.value}
-                  value={ option.value}
+                <select
+                  name="category"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-500  focus:border-purple-500 rounded-md focus:outline-none text-sm font-medium appearance-none "
                 >
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="relative z-0 w-full mb-5 group">
-            <input
-              type="file"
-              name="group_image"
-              id="group_image"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-purple-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer file:mr-4 file:py-2 file:px-4
+                  {options.map((option) => (
+                    <option
+                      className="w-fit py-2 px-4 text-black"
+                      key={option.value}
+                      value={option.value}
+                    >
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="">
+                <Label htmlFor="group_image ">Image</Label>
+                <input
+                  type="file"
+                  name="group_image"
+                  id="group_image"
+                  className="block  px-1 w-full text-sm text-gray-900 bg-transparent border-0  appearance-none dark:text-white dark:border-gray-600 dark:focus:border-purple-500 focus:outline-none focus:ring-0  peer file:mr-4 file:py-2 file:px-4
             file:rounded-full file:border-0
-            file:text-sm file:font-semibold
+            file:text-sm file:font-semibold rounded-md
             file:bg-violet-100 file:text-violet-700
-            hover:file:bg-violet-400 shadow-sm shadow-gray-100"
-              onChange={handleFileChange}
-              placeholder=" "
-            />
+            hover:file:bg-violet-400 shadow-sm shadow-gray-100 focus:border focus:border-purple-400"
+                  onChange={handleFileChange}
+                  placeholder=" "
+                />
+              </div>
+            </div>
           </div>
           <div>
             <div className="flex justify-end">
@@ -201,9 +218,7 @@ const CreateGroup = ({mode,data}) => {
                 type="submit"
                 className="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300  font-bold rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800"
               >
-                {
-                  mode==="edit"?"Update Group":"Create Group"
-                }
+                {mode === "edit" ? "Update Group" : "Create Group"}
               </button>
             </div>
           </div>

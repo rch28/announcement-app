@@ -203,7 +203,7 @@ export function AnnouncementCardForm({
             <div className="flex flex-col gap-4">
               {selectGroup && (
                 <div className="md:space-y-2">
-                  <Label htmlFor="payment-method">Select Group</Label>
+                  <Label htmlFor="group-name">Select Group</Label>
 
                   <select
                     name="group_name"
@@ -217,7 +217,7 @@ export function AnnouncementCardForm({
                       <option
                         key={group.group_id}
                         value={group.group_id}
-                        className="text-blcak "
+                        className="text-black "
                       >
                         {group.name}
                       </option>
@@ -258,7 +258,7 @@ export function AnnouncementCardForm({
           <Button
             type="submit"
             className={
-              "px-6 py-2 bg-purple-600 rounded-full focus-visible:ring-0 focus-visible:ring-offset-0 text-white font-bold hover:bg-purple-700 text-sm md:text-sm   lg:text-lg"
+              "text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300  font-bold rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800"
             }
           >
             Post Announcement
