@@ -107,11 +107,11 @@ const AnnSettingCard = ({setToggle ,setToggleEdit}) => {
             deleteToggle && "bg-black/30 "
           }`}
         >
-          <DeleteConfirm title={"Delete Group"}>
+          <DeleteConfirm title={"Delete announcement"}>
             <div className="flex gap-4 ">
               <button
                 onClick={() => setDeleteToggle(!deleteToggle)}
-                className="px-6 py-2 bg-gray-600 rounded-full  text-white font-bold hover:bg-gray-700"
+                className="px-6 py-2 bg-purple-600 rounded-full  text-white font-bold hover:bg-purple-700"
               >
                 Cancel
               </button>
