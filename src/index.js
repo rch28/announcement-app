@@ -112,3 +112,14 @@ export const fetchAllData = async (url) => {
     return []
   }
 };
+
+
+
+// fetch all comments
+export const fetchComments = async (ann_id) => {
+  const response = await fetch(`/api/comments?ann_id=${ann_id}`,{ cache: 'no-store' });
+  if (!response.ok) {
+    throw new Error('Failed to fetch comments');
+  }
+  return response.json();
+};

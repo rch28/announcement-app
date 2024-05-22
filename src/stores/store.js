@@ -56,4 +56,9 @@ export const useStore = create((set)=>({
     // comment id
     commentId:"",
     setCommentId:(value)=>set({commentId:value}),
+
+
+    // View all comments reply
+    viewAllCommentsReply:true,
+    setViewAllCommentsReply:(value)=>set({viewAllCommentsReply:value}),
 }))

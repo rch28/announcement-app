@@ -2,130 +2,98 @@
 import React, { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { FetchUserData } from "@/index";
-import { EllipsisVertical } from "lucide-react";
+import { EllipsisVertical, Reply } from "lucide-react";
 import CommentDropDown from "./CommentDropDown";
 import { useStore } from "@/stores/store";
+import ReplyForm from "./ReplyForm";
+import UserComment from "./UserComment";
+import UserCommentProfile from "./UserCommentProfile";
 
-const Comment = ({ comment }) => {
+const Comment = ({ comment, replyMode}) => {
   const [userData, setUserData] = useState({});
-  const [timePassed, setTimePassed] = useState("");
-  const [toggleEdit, setToggleEdit] = useState(false);
-  const [validUser, setValidUser] = useState(false);
+  const [latestReply, setLatestReply] = useState(null);
+  const [repliedUser, setRepliedUser] = useState({});
+  const [replyCount, setReplyCount] = useState(0);
 
-  const loggedUser = useStore((state) => state.userData);
-
-  const dateTime = new Date(comment.created_at);
-  const today = new Date();
-  const millisecondsInSecond = 1000;
-  const millisecondsInMinute = millisecondsInSecond * 60;
-  const millisecondsInHour = millisecondsInMinute * 60;
-  const millisecondsInDay = millisecondsInHour * 24;
-  const millisecondsInWeek = millisecondsInDay * 7;
-  const millisecondsInMonth = millisecondsInDay * 30;
-  const millisecondsInYear = millisecondsInDay * 365;
-  const differenceInMs = today - dateTime;
 
   useEffect(() => {
-    const calculateTimePassed = () => {
-      if (differenceInMs > millisecondsInYear) {
-        setTimePassed(
-          `${Math.floor(differenceInMs / millisecondsInYear)}y ago`
-        );
-        return;
-      }
-
-      if (differenceInMs > millisecondsInMonth) {
-        setTimePassed(
-          `${Math.floor(differenceInMs / millisecondsInMonth)}mo ago`
-        );
-        return;
-      }
-      if (differenceInMs > millisecondsInWeek) {
-        setTimePassed(
-          `${Math.floor(differenceInMs / millisecondsInWeek)}w ago`
-        );
-        return;
-      }
-
-      if (differenceInMs > millisecondsInDay) {
-        setTimePassed(`${Math.floor(differenceInMs / millisecondsInDay)}d ago`);
-        return;
-      }
-      if (differenceInMs > millisecondsInHour) {
-        setTimePassed(
-          `${Math.floor(differenceInMs / millisecondsInHour)}h ago`
-        );
-        return;
-      }
-      if (differenceInMs > millisecondsInMinute) {
-        setTimePassed(
-          `${Math.floor(differenceInMs / millisecondsInMinute)}m ago`
-        );
-        return;
-      }
-      setTimePassed(`Just now`);
-    };
-    calculateTimePassed();
-  }, [comment]);
-  useEffect(() => {
+    if (comment.children.length > 0) {
+      setReplyCount(comment.children.length);
+      setLatestReply(comment.children[0]);
+    }
     const fetchUserData = async () => {
+      if (comment.children.length > 0) {
+        const data = await FetchUserData(comment.children[0].user);
+        setRepliedUser(data);
+      }
       const data = await FetchUserData(comment.user);
       setUserData(data);
     };
     fetchUserData();
   }, [comment]);
-  useEffect(() => {
-    if (loggedUser.id === comment.user) {
-      setValidUser(true);
-    } else {
-      setValidUser(false);
-    }
-  }, [comment, loggedUser]);
+
+
   return (
-    <div className="flex items-start gap-2 relative pt-2">
-      {userData.profilepic && (
-        <Avatar className="h-10 w-10 shadow-md shadow-gray-500">
-          <AvatarImage
-            alt="@shadcn"
-            src={userData.profilepic}
-            className="rounded-full"
-          />
-          <AvatarFallback>
-            {userData.first_name[0]}
-            {userData.last_name[0]}
-          </AvatarFallback>
-        </Avatar>
-      )}
-      {!userData.profilepic && (
-        <Avatar className="h-10 w-10 shadow-md shadow-gray-500">
-          <AvatarImage alt="@shadcn" src="/placeholder-user.jpg" />
-          <AvatarFallback>YS</AvatarFallback>
-        </Avatar>
-      )}
-      <div className="flex-1  px-2 bg-slate-100 shadow shadow-gray-400 rounded-md py-2 pb-4">
-        <div className="flex items-center justify-between">
-          <div className="font-medium capitalize">
-            {userData.first_name} {userData.last_name}
-          </div>
-          <div className="flex items-center ">
-            <div className="text-xs text-gray-900 dark:text-gray-400 p-1 rounded-full mr-4 bg-white">
-              {timePassed}
-            </div>
-            {validUser && (
-              <button
-                className="p-1 text-gray-500 bg-white shadow-sm shadow-gray-400  rounded-full hover:bg-gray-400 hover:text-white"
-                onClick={() => setToggleEdit(!toggleEdit)}
-              >
-                <EllipsisVertical size={16} />
-              </button>
+    <div className="flex items-start gap-2 relative mr-2">
+      <UserCommentProfile userData={userData} replyMode={replyMode} />
+      <div className="w-full">
+        <UserComment
+          userData={userData}
+          comment={comment}
+        />
+        <div className="flex flex-col px-2 py-3 gap-2">
+          <div className="flex justify-between">
+            {latestReply && (
+              <p className="text-xs font-medium cursor-pointer  ">
+                View all replies({replyCount})
+              </p>
             )}
+
+            <div className="px-4 w-full flex-1 flex justify-end">
+              <button className="flex justify-end items-center gap-1">
+                <Reply size={12} />
+                <span className="text-xs font-medium  cursor-pointer text-gray-800">
+                  reply
+                </span>
+              </button>
+            </div>
           </div>
-          {toggleEdit && (
-            <CommentDropDown id={comment.id} setToggleEdit={setToggleEdit} />
+
+          {latestReply && (
+            <div className="flex gap-2 items-center">
+              {repliedUser.profilepic && (
+                <Avatar className="h-5 w-5 shadow-md shadow-gray-500 p-0.5">
+                  <AvatarImage
+                    alt="@shadcn"
+                    src={repliedUser.profilepic}
+                    className="rounded-full"
+                  />
+                  <AvatarFallback>
+                    {repliedUser.first_name[0]}
+                    {repliedUser.last_name[0]}
+                  </AvatarFallback>
+                </Avatar>
+              )}
+              {!repliedUser.profilepic && (
+                <Avatar className="h-5 w-5 shadow-md shadow-gray-500">
+                  <AvatarImage alt="@shadcn" src="/placeholder-user.jpg" />
+                  <AvatarFallback>YS</AvatarFallback>
+                </Avatar>
+              )}
+              <p className="font-medium text-xs capitalize flex gap-1 items-center">
+                <span>{repliedUser.first_name}</span>
+                <span>{repliedUser.last_name}</span>
+                <span className="text-gray-700 line-clamp-1">
+                  {latestReply?.comment}
+                </span>
+              </p>
+            </div>
           )}
         </div>
-        <p className="text-gray-700 dark:text-gray-600">{comment.comment}</p>
       </div>
+      {/* <div>
+            <ReplyForm commentId={comment.id}/>
+          </div> */}
     </div>
   );
 };
