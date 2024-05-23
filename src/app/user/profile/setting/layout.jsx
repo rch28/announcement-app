@@ -15,21 +15,21 @@ const layout = ({ children }) => {
           <div className="grid gap-2 ">
             <Link
               href={"/user/profile/setting"}
-              className={`px-4  py-3 rounded-xl flex gap-2 hover:bg-white/50 ${pathname=== "/user/profile/setting" ? "   bg-white shadow-xl" : "text-gray-900"}`}
+              className={`px-4  py-3 rounded-xl flex gap-2 hover:bg-white/50 hover:shadow-md hover:shadow-gray-400${pathname=== "/user/profile/setting" ? "   bg-white shadow-md shadow-gray-500" : "text-gray-900"}`}
             >
               <User size={18} color="purple" />
               <span className="font-medium text-sm">User profile</span>
             </Link>
             <Link
               href="/user/profile/setting/change-password"
-              className={`px-4  py-3 rounded-xl flex gap-2 hover:bg-white/50  ${pathname=== "/user/profile/setting/change-password" ? " bg-white shadow-xl" : "text-gray-900"}`}
+              className={`px-4  py-3 rounded-xl flex gap-2 hover:bg-white/50 hover:shadow-md hover:shadow-gray-400 ${pathname=== "/user/profile/setting/change-password" ? " bg-white shadow-md shadow-gray-500" : "text-gray-900"}`}
             >
               <Lock size={16} color="purple" />
               <span  className="font-medium text-sm">Change password</span>
             </Link>
             <Link
               href="/user/profile/dashboard"
-              className={`px-4  py-3 rounded-xl flex gap-2 hover:bg-white/50  `}
+              className={`px-4  py-3 rounded-xl flex gap-2 hover:bg-white/50 hover:shadow-md hover:shadow-gray-400 `}
             >
               <Lock size={16} color="purple" />
               <span  className="font-medium text-sm">Manage Groups</span>

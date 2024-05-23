@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { profile } from "../../../../public";
 import Image from "next/image";
 import Link from "next/link";
-import { Plus, XIcon } from "lucide-react";
+import { Edit, Plus, XIcon } from "lucide-react";
 import UserName from "@/components/utils/UserName";
 import { useStore } from "@/stores/store";
 import EditProfile from "@/components/profile/EditProfile";
@@ -30,7 +30,7 @@ const ProfilePage = () => {
             />
 
             <span className=" bg-green-500 text-white flex justify-center items-center md:w-12 md:h-12 rounded-full absolute right-1   bottom-1  cursor-pointer">
-              <Plus  />
+              <Plus />
             </span>
           </Link>
           <div>
@@ -39,10 +39,11 @@ const ProfilePage = () => {
             </div>
             <div className="flex justify-center items-center w-full my-4 ">
               <button
-                className="mx-2 py-2  border hover:border-purple-400 transition-all ease-linear w-full shadow-md hover:bg-purple-200 shadow-gray-400 text-gray-800 font-medium  rounded-md bg-white/40 cursor-pointer text-left px-4"
+                className="mx-2 py-3  border hover:border-purple-400 transition-all ease-linear w-full shadow-md  shadow-gray-500 text-gray-800 font-medium  rounded-lg bg-white/40 cursor-pointer text-left px-4 flex gap-2 items-center"
                 onClick={() => setToggle(!toggle)}
               >
-                Edit profile
+                <Edit size={14} color="purple" />
+                <span className="text-sm font-medium">Edit profile</span>
               </button>
             </div>
           </div>
