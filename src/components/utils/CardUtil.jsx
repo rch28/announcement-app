@@ -9,12 +9,12 @@ const CardUtil = ({ title, icon }) => {
         {icon}
 
         </span>
-        <span className="text-gray-700 font-medium text-sm ">
+        <span className=" font-medium text-sm ">
         {title}
 
         </span>
       </p>
-      <ChevronRight className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+      <ChevronRight className="h-4 w-4" />
     </div>
   );
 };

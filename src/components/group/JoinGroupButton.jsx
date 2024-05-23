@@ -8,6 +8,7 @@ import CardUtil from "../utils/CardUtil";
 import { useStore } from "@/stores/store";
 import PopUpWrapper from "../PopUpWrapper";
 import LeaveConfirm from "../utils/LeaveConfirm";
+import Link from "next/link";
 
 const JoinGroupButton = () => {
   const router = useRouter();
@@ -115,7 +116,7 @@ const JoinGroupButton = () => {
     <>
       {joined && userAuthenticated ? (
         <div className="flex justify-center items-center gap-1 md:gap-4 relative">
-          <h3 className="px-2 py-1 text-xs  rounded-full  text-black font-bold bg-slate-400">
+          <h3 className="px-2 py-1 text-xs  rounded-full  font-bold bg-purple-600 text-white">
             Joined{" "}
           </h3>
           <button
@@ -125,24 +126,24 @@ const JoinGroupButton = () => {
             <Cog className="h-5 w-5 text-gray-800 dark:text-gray-400" />
           </button>
           {toggle && (
-            <div className="absolute  bottom-14 right-0 bg-white border border-gray-300 p-4 w-64 md:w-72 rounded-lg shadow shadow-gray-500">
+            <div className="absolute  bottom-14 right-0 bg-white border border-gray-300 py-6 px-4 w-64 md:w-72 rounded-lg shadow-md shadow-gray-500">
               <div className="flex flex-col gap-3">
-                <div className="cursor-pointer hover:bg-gray-300 p-2 rounded-md">
+                <Link href={""} className="cursor-pointer bg-slate-200 hover:bg-purple-600 hover:text-white p-3 rounded-md ">
                   <CardUtil
                     title="View Members"
                     icon={
-                      <Users className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+                      <Users className="h-5 w-5 " />
                     }
                   />
-                </div>
+                </Link>
                 <div
-                  className="cursor-pointer hover:bg-red-300 p-2 rounded-md"
+                  className="cursor-pointer bg-slate-200 hover:bg-red-600 p-3 rounded-md hover:text-white"
                   onClick={()=>setLeaveGroupToggle(true)}
                 >
                   <CardUtil
                     title={"Leave Group"}
                     icon={
-                      <LogOut className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+                      <LogOut className="h-5 w-5 " />
                     }
                   />
                 </div>
