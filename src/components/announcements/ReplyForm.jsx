@@ -89,7 +89,7 @@ const ReplyForm = ({ parentId, setReplyToggle, replyToggle }) => {
       }
       setReplyMode(true);
       setEditCommentMode(false);
-      toast.success("Comment Posted");
+      toast.success("Comment Replied");
       setReply("");
     } catch (error) {
       console.log(error);
