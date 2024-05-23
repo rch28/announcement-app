@@ -49,7 +49,7 @@ const AnnSettingCard = ({ setToggle, setToggleEdit }) => {
     setToggleCreateAnnouncement(true);
   };
   return (
-    <div className="flex flex-col p-2 pt-0 gap-6 relative">
+    <div className="flex flex-col p-3 pt-0 gap-6 relative">
       <div>
         <div className="flex justify-end absolute right-0 -top-2">
           <button
@@ -67,44 +67,44 @@ const AnnSettingCard = ({ setToggle, setToggleEdit }) => {
         </p>
       </div>
       <div className="flex flex-col gap-2 border-b pb-4">
-        <div className="cursor-pointer hover:bg-gray-300 p-2 rounded-md">
+        <div className="cursor-pointer hover:bg-purple-600 hover:text-white p-3 rounded-md">
           <CardUtil
             title="View Members"
             icon={
-              <Users className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+              <Users className="h-5 w-5 " />
             }
           />
         </div>
-        <div className="cursor-pointer hover:bg-gray-300 p-2 rounded-md">
+        <div className="cursor-pointer hover:bg-purple-600 hover:text-white p-3 rounded-md">
           <CardUtil
             title="Manage Members"
             icon={
-              <UserPlus className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+              <UserPlus className="h-5 w-5 " />
             }
           />
         </div>
       </div>
       <div className="flex flex-col gap-4">
         <div
-          className="cursor-pointer hover:bg-gray-300 p-2 rounded-md"
+          className="cursor-pointer hover:bg-green-600 hover:text-white p-3 rounded-md"
           onClick={handleEditAnn}
         >
           <CardUtil
             title="Edit Announcement"
             icon={
-              <Edit className="h-5 w-5 text-green-500 dark:text-gray-400" />
+              <Edit className="h-5 w-5 " />
             }
           />
         </div>
 
         <div
-          className="cursor-pointer hover:bg-gray-300 p-2 rounded-md"
+          className="cursor-pointer hover:bg-red-600 hover:text-white p-3 rounded-md"
           onClick={() => setDeleteToggle(!deleteToggle)}
         >
           <CardUtil
             title="Delete Announcement"
             icon={
-              <Delete className="h-5 w-5 text-red-500 dark:text-gray-400" />
+              <Delete className="h-5 w-5 " />
             }
           />
         </div>
