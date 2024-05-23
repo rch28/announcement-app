@@ -30,19 +30,23 @@ const GroupCard = ({ data, groupAdminInfo }) => {
             <div className="flex bg-white flex-col gap-4 justify-between border border-gray-300 p-2 sm:p-4 rounded-xl shadow-lg shdow-gray-500">
               <div className="flex flex-col gap-2 max-w-96 ">
                 <div className="flex items-center gap-4">
-                  <div className="bg-gray-100 rounded-full px-3 py-1 text-sm font-medium dark:bg-gray-800 text-gray-600 capitalize">
+                  <div className="bg-purple-600 rounded-full px-3 py-1 text-sm font-medium dark:bg-gray-800 text-white capitalize">
                     {data?.category}
                   </div>
                   <Rating rating={data?.average_rating} />
                 </div>
-                <h3 className=" text-2xl xs:text-3xl font-bold">{data?.name}</h3>
+                <h3 className=" text-2xl xs:text-3xl font-bold">
+                  {data?.name}
+                </h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
                   {data?.description}
                 </p>
-                <div className="flex items-center gap-2 text-sm">
-                  <User className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+                <div className="flex items-center text-sm ">
+                  <div className=" p-2 px-4 bg-purple-300 flex gap-2 rounded-full">
+                    <User className="w-4 h-4 text-purple-700 dark:text-gray-400" />
 
-                  <span>{data?.total_members} members</span>
+                    <span>{data?.total_members} members</span>
+                  </div>
                 </div>
               </div>
               <div className="flex justify-between items-center  lg:pr-4">
@@ -66,7 +70,9 @@ const GroupCard = ({ data, groupAdminInfo }) => {
                     <div className="text-xs md:text-sm">
                       <p className="font-medium capitalize flex gap-2">
                         <span>{groupAdminInfo?.first_name}</span>
-                        <span className="hidden md:flex">{groupAdminInfo?.last_name}</span>
+                        <span className="hidden md:flex">
+                          {groupAdminInfo?.last_name}
+                        </span>
                       </p>
                       <p className="text-gray-500 dark:text-gray-400">Admin</p>
                     </div>
