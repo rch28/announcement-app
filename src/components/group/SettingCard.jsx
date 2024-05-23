@@ -64,22 +64,22 @@ const SettingCard = ({ setToggleSetting }) => {
       </div>
       <div className="border-b border-gray-200">
 
-        <div className="cursor-pointer hover:bg-gray-100 rounded-md p-3 ">
+        <div className="cursor-pointer hover:bg-purple-600 hover:text-white rounded-md p-3 ">
           <Link href={`/user/profile/dashboard/manage-members?group_id=${groupId}`}>
             <CardUtil
               title="Manage Members"
               icon={
-                <UserPlus className="  text-gray-500 dark:text-gray-400 mr-2" size={18} />
+                <UserPlus className="   mr-2" size={18} />
               }
             />
           </Link>
         </div>
-        <div className="cursor-pointer hover:bg-gray-300 rounded-md p-3 ">
+        <div className="cursor-pointer hover:bg-purple-600 hover:text-white rounded-md p-3 ">
           <Link href={`/user/profile/dashboard/manage-announcements?group_id=${groupId}`}>
             <CardUtil
               title="Manage Annoucements"
               icon={
-                <NotebookTabs className=" text-gray-500 dark:text-gray-400 mr-2" size={16} />
+                <NotebookTabs className="  mr-2" size={16} />
               }
             />
           </Link>
@@ -87,24 +87,24 @@ const SettingCard = ({ setToggleSetting }) => {
       </div>
       <div className="flex flex-col gap-2">
         <div
-          className="cursor-pointer hover:bg-green-300 rounded-md p-3"
+          className="cursor-pointer hover:bg-green-600 hover:text-white rounded-md p-3"
           onClick={handleEditGroup}
         >
           <CardUtil
             title="Edit Group Info"
             icon={
-              <Users className=" h-5 w-5  text-gray-500 dark:text-gray-400 mr-2" />
+              <Users className=" h-5 w-5   mr-2" />
             }
           />
         </div>
         <div
-          className="cursor-pointer hover:bg-red-400 rounded-md p-3 "
+          className="cursor-pointer hover:bg-red-600 rounded-md p-3 hover:text-white "
           onClick={() => setDeleteToggle(!deleteToggle)}
         >
           <CardUtil
             title="Delete Group"
             icon={
-              <UserPlus className=" h-5 w-5  text-gray-500 dark:text-gray-400 mr-2" />
+              <UserPlus className=" h-5 w-5  mr-2" />
             }
           />
         </div>
