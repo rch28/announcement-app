@@ -27,21 +27,13 @@ const CommentForm = () => {
     setText(event.target.value);
   };
 
-  const calculateHeight = (element) => {
-    const lineHeight = parseInt(window.getComputedStyle(element).lineHeight);
-    const paddingY =
-      parseInt(window.getComputedStyle(element).paddingTop) +
-      parseInt(window.getComputedStyle(element).paddingBottom);
-    const lines = Math.ceil((element.scrollHeight - paddingY) / lineHeight);
-    element.style.height = `${lines * lineHeight}px`;
-  };
 
   const access_token= GetAccessToken()
   useEffect(() => {
+    inpRef.current.focus();
     if (!editCommentMode || !commentId) {
       return;
     }
-    inpRef.current.focus();
     const fetchComment = async () => {
       try {
         const response = await fetch(
@@ -134,15 +126,17 @@ const CommentForm = () => {
           className="flex items-center gap-4 w-full"
         >
           <div className="flex-1">
-            <input 
+           <div>
+           <textarea 
             type="text"
               ref={inpRef}
-              className="w-full focus:border-none  focus-visible:ring-0   dark:border-gray-800 focus:outline-none outline-none rounded-xl  p-4   "
+              className="w-full focus:border-none  focus-visible:ring-0   dark:border-gray-800 focus:outline-none outline-none rounded-xl  px-2 py-4 resize-none placeholder:text-base text-xs behavior:smooth transition-all duration-300 ease-in-out  "
               placeholder="Write your comment..."
               value={text}
               onChange={handleChange}
-              onInput={(e) => calculateHeight(e.target)}
+              
             />
+           </div>
           </div>
           <Button className="bg-purple-600 hover:bg-purple-700" type="submit">
             {editCommentMode ? "Edit" : "Post"}

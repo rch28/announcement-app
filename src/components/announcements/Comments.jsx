@@ -8,14 +8,17 @@ import { useStore } from "@/stores/store";
 import { fetchComments } from "@/index";
 import Replies from "./Replies";
 import { XIcon } from "lucide-react";
+import ReplyForm from "./ReplyForm";
+import UserCommentProfile from "./UserCommentProfile";
 
 const Comments = () => {
   const [comments, setComments] = useState([]);
   const commentFetch = useStore((state) => state.commentFetch);
+  const userData= useStore((state)=>state.userData)
   const searchParams = useSearchParams();
   const ann_id = searchParams.get("ann_id");
   const [loadMore, setLoadMore] = useState(false);
-  const [limit, setLimit] = useState(3)
+  const [limit, setLimit] = useState(3);
 
   const [comment, setComment] = useState({});
   const [commentId, setCommentId] = useState("");
@@ -24,7 +27,7 @@ const Comments = () => {
   useEffect(() => {
     if (ann_id) {
       const loadComment = async () => {
-        setLoadMore(false)
+        setLoadMore(false);
         try {
           const commentData = await fetchComments(ann_id, limit);
           if (commentData.next) {
@@ -40,7 +43,6 @@ const Comments = () => {
     }
   }, [ann_id, commentFetch, limit]);
 
-  
   useEffect(() => {
     if (!commentId) {
       return;
@@ -84,7 +86,10 @@ const Comments = () => {
           </div>
           {loadMore && (
             <div className="flex justify-end items-center px-6">
-              <button onClick={()=>setLimit(limit+3)} className="text-purple-800 font-bold text-sm tracking-tighter hover:underline">
+              <button
+                onClick={() => setLimit(limit + 3)}
+                className="text-purple-800 font-bold text-sm tracking-tighter hover:underline"
+              >
                 Load More..
               </button>
             </div>
@@ -106,11 +111,11 @@ const Comments = () => {
             </button>
           </div>
           <div className="mt-4 space-y-4 max-h-96 flex flex-col overflow-auto">
-            <Replies
-              comment={comment}
-              comments={comments}
-              setCommentId={setCommentId}
-            />
+            <Replies comment={comment} setCommentId={setCommentId} />
+          </div>
+          <div className="mt-6 border-t border-gray-200 pt-4 dark:border-gray-800 flex items-center gap-2">
+            <UserCommentProfile userData={userData} replyMode={false} />
+            <ReplyForm parentId={commentId} replyMode={false} />
           </div>
         </div>
       )}

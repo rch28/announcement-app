@@ -6,12 +6,16 @@ import { useStore } from "@/stores/store";
 import UserComment from "./UserComment";
 import UserCommentProfile from "./UserCommentProfile";
 import { Reply } from "lucide-react";
+import ReplyForm from "./ReplyForm";
 
-const Comment = ({ comment, replyMode, setCommentId , level=0}) => {
+const Comment = ({ comment, replyMode, setCommentId }) => {
   const [userData, setUserData] = useState({});
   const [latestReply, setLatestReply] = useState(null);
   const [repliedUser, setRepliedUser] = useState({});
   const [replyCount, setReplyCount] = useState(0);
+
+  const [replyToggle, setReplyToggle] = useState(false);
+
   const setReplyMode = useStore((state) => state.setReplyMode);
   useEffect(() => {
     if (comment.replies && comment.replies.length > 0) {
@@ -36,29 +40,51 @@ const Comment = ({ comment, replyMode, setCommentId , level=0}) => {
         <UserComment userData={userData} comment={comment} />
         <div className="flex flex-col px-2 py-3 gap-2">
           <div className="flex justify-between">
-            {latestReply && (
-              <button
-                className="text-xs font-medium cursor-pointer"
-                onClick={() => {
-                  setReplyMode(true);
-                  setCommentId(comment.id);
-                }}
-              >
-                View all replies({replyCount})
-              </button>
-            )}
+            <div>
+              {replyToggle && (
+                <div className="flex items-center gap-2">
+                  <UserCommentProfile
+                    userData={userData}
+                    replyMode={true}
+                  />
 
-            <div className="px-4 w-full flex-1 flex justify-end">
-              <button className="flex justify-end items-center gap-1">
-                <Reply size={12} />
-                <span className="text-xs font-medium  cursor-pointer text-gray-800">
-                  reply
-                </span>
-              </button>
+                  <ReplyForm
+                    parentId={comment.id}
+                    setReplyToggle={setReplyToggle}
+                    setCommentId={setCommentId}
+                    replyToggle={replyToggle}
+                  />
+                </div>
+              )}
+
+              {latestReply && (
+                <button
+                  className="text-xs font-medium cursor-pointer  hover:bg-gray-300 p-1 rounded-md"
+                  onClick={() => {
+                    setReplyMode(true);
+                    setCommentId(comment.id);
+                  }}
+                >
+                  View all replies({replyCount})
+                </button>
+              )}
             </div>
+            {!replyToggle && (
+              <div className="px-4 w-full flex-1 flex justify-end">
+                <button
+                  className="flex justify-end items-center gap-1  hover:bg-gray-300 p-1 rounded-md"
+                  onClick={() => setReplyToggle(true)}
+                >
+                  <Reply size={12} />
+                  <span className="text-xs font-medium  cursor-pointer text-gray-800">
+                    reply
+                  </span>
+                </button>
+              </div>
+            )}
           </div>
 
-          {latestReply  && (
+          {latestReply && (
             <div className="flex gap-2 items-center">
               {repliedUser.profilepic && (
                 <Avatar className="h-5 w-5 shadow-md shadow-gray-500 p-0.5">
@@ -90,9 +116,6 @@ const Comment = ({ comment, replyMode, setCommentId , level=0}) => {
           )}
         </div>
       </div>
-      {/* <div>
-            <ReplyForm commentId={comment.id}/>
-          </div> */}
     </div>
   );
 };
