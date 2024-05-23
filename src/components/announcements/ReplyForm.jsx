@@ -6,9 +6,8 @@ import { XIcon } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import { Button } from "../ui/button";
 
-const ReplyForm = ({ parentId, setReplyToggle, setCommentId, replyToggle }) => {
+const ReplyForm = ({ parentId, setReplyToggle, replyToggle }) => {
   const inpRef = useRef(null);
   const searchParams = useSearchParams();
   const [reply, setReply] = useState("");
@@ -21,6 +20,7 @@ const ReplyForm = ({ parentId, setReplyToggle, setCommentId, replyToggle }) => {
   const setCommentFetch = useStore((state) => state.setCommentFetch);
   const commentFetch = useStore((state) => state.commentFetch);
   const setReplyMode = useStore((state) => state.setReplyMode);
+  const setCommentId = useStore((state)=>state.setCommentId)
 
   const editCommentMode = useStore((state) => state.editCommentMode);
   const setEditCommentMode = useStore((state) => state.setEditCommentMode);
@@ -76,7 +76,6 @@ const ReplyForm = ({ parentId, setReplyToggle, setCommentId, replyToggle }) => {
           }),
         }
       );
-      console.log(response);
       if (!response.ok) {
         const data = await response.json();
         console.log(data);
@@ -97,10 +96,10 @@ const ReplyForm = ({ parentId, setReplyToggle, setCommentId, replyToggle }) => {
     }
   };
   return (
-    <div className="flex gap-2 items-center">
+    <div className="flex gap-2 items-center w-full">
       <form
         onSubmit={handleCommentSubmit}
-        className="flex gap-1 relative  items-center"
+        className="flex gap-1 relative  items-center w-full"
       >
         <input
           type="text"
@@ -110,7 +109,7 @@ const ReplyForm = ({ parentId, setReplyToggle, setCommentId, replyToggle }) => {
           onChange={(e) => setReply(e.target.value)}
           className={`block ${
             replyToggle
-              ? " pl-2 pr-6 py-1 outline-none w-full  rounded-md  shadow-md shadow-gray-400 bg-gray-200 text-xs border border-gray-400 focus:border-purple-500 "
+              ? " pl-2 pr-6 py-2 md:py-1 outline-none w-full  rounded-md  shadow-md shadow-gray-400 bg-gray-200 text-xs border border-gray-400 focus:border-purple-500 "
               : "w-full focus:border-none  focus-visible:ring-0   dark:border-gray-800 focus:outline-none outline-none rounded-xl  p-4 text-xs "
           }`}
         />

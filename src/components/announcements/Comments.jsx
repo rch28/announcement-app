@@ -21,9 +21,10 @@ const Comments = () => {
   const [limit, setLimit] = useState(3);
 
   const [comment, setComment] = useState({});
-  const [commentId, setCommentId] = useState("");
   const replyMode = useStore((state) => state.replyMode);
   const setReplyMode = useStore((state) => state.setReplyMode);
+  const commentId = useStore((state)=>state.commentId)
+
   useEffect(() => {
     if (ann_id) {
       const loadComment = async () => {
@@ -80,7 +81,6 @@ const Comments = () => {
                   key={comm.id}
                   comment={comm}
                   replyMode={replyMode}
-                  setCommentId={setCommentId}
                 />
               ))}
           </div>
@@ -111,7 +111,7 @@ const Comments = () => {
             </button>
           </div>
           <div className="mt-4 space-y-4 max-h-96 flex flex-col overflow-auto">
-            <Replies comment={comment} setCommentId={setCommentId} />
+            <Replies comment={comment} />
           </div>
           <div className="mt-6 border-t border-gray-200 pt-4 dark:border-gray-800 flex items-center gap-2">
             <UserCommentProfile userData={userData} replyMode={false} />

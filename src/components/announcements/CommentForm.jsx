@@ -1,12 +1,12 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { useSearchParams } from "next/navigation";
 import { useStore } from "@/stores/store";
 import toast from "react-hot-toast";
 import { GetAccessToken } from "@/index";
+import { XIcon } from "lucide-react";
 
 const CommentForm = () => {
   const inpRef = useRef(null);
@@ -138,6 +138,18 @@ const CommentForm = () => {
             />
            </div>
           </div>
+          {
+            editCommentMode && (
+              <button className="p-0.5 bb-white shadow-md shadow-gray-500 rounded-full">
+                <XIcon
+                  onClick={() => {
+                    setText("");
+                    setEditCommentMode(false);
+                  }}
+                />
+              </button>
+            )
+          }
           <Button className="bg-purple-600 hover:bg-purple-700" type="submit">
             {editCommentMode ? "Edit" : "Post"}
           </Button>

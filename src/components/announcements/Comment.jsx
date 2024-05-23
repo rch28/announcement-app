@@ -8,14 +8,14 @@ import UserCommentProfile from "./UserCommentProfile";
 import { Reply } from "lucide-react";
 import ReplyForm from "./ReplyForm";
 
-const Comment = ({ comment, replyMode, setCommentId }) => {
+const Comment = ({ comment, replyMode }) => {
   const [userData, setUserData] = useState({});
   const [latestReply, setLatestReply] = useState(null);
   const [repliedUser, setRepliedUser] = useState({});
   const [replyCount, setReplyCount] = useState(0);
-
   const [replyToggle, setReplyToggle] = useState(false);
 
+  const setCommentId = useStore((state) => state.setCommentId);
   const setReplyMode = useStore((state) => state.setReplyMode);
   useEffect(() => {
     if (comment.replies && comment.replies.length > 0) {
@@ -39,19 +39,15 @@ const Comment = ({ comment, replyMode, setCommentId }) => {
       <div className="w-full">
         <UserComment userData={userData} comment={comment} />
         <div className="flex flex-col px-2 py-3 gap-2">
-          <div className="flex justify-between">
-            <div>
+          <div className="flex justify-between w-full">
+            <div className="w-full ">
               {replyToggle && (
                 <div className="flex items-center gap-2">
-                  <UserCommentProfile
-                    userData={userData}
-                    replyMode={true}
-                  />
+                  <UserCommentProfile userData={userData} replyMode={true} />
 
                   <ReplyForm
                     parentId={comment.id}
                     setReplyToggle={setReplyToggle}
-                    setCommentId={setCommentId}
                     replyToggle={replyToggle}
                   />
                 </div>

@@ -6,7 +6,7 @@ import UserComment from "./UserComment";
 import UserCommentProfile from "./UserCommentProfile";
 import Comment from "./Comment";
 
-const Replies = ({ comment, setCommentId }) => {
+const Replies = ({ comment }) => {
   const [userData, setUserData] = useState({});
   useEffect(() => {
     const fetchUserData = async () => {
@@ -25,7 +25,7 @@ const Replies = ({ comment, setCommentId }) => {
         {comment?.replies &&
           comment?.replies.length > 0 &&
           comment?.replies.map((child) => (
-            <Comment key={child.id} comment={child} replyMode={true} setCommentId={setCommentId}/>
+            <Comment key={child.id} comment={child} replyMode={true}/>
           ))}
       </div>
     </>
