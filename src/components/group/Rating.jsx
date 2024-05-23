@@ -70,15 +70,15 @@ const Rating = ({ rating }) => {
       </div>
 
       {toggleRating && (
-        <div className="flex items-center gap-1 w-52 rounded-md bg-white border border-gray-300 shadow-md shadow-gray-500 text-sm text-gray-500 dark:text-gray-400 absolute top-0 ">
-          <div className="p-4">
-            <p className="flex justify-end items-center">
+        <div className="flex items-center gap-1 rounded-lg bg-white border border-gray-300 shadow-md shadow-gray-500 text-sm text-gray-500 dark:text-gray-400 absolute top-0 ">
+          <div className="p-3 px-4 relative">
+            <p className="flex justify-end items-center absolute right-2 top-2">
               <XIcon
-                className="w-4 h-4 text-gray-700 fill-black dark:text-gray-400 cursor-pointer"
+                className="p-1 text-gray-700 fill-black dark:text-gray-400 cursor-pointer rounded-full bg-white shadow-md shadow-gray-500"
                 onClick={() => setToggleRating(!toggleRating)}
               />
             </p>
-            <div className="text-2xl text-gray-800 font-bold tracking-tighter pb-3">
+            <div className="text-xl text-gray-800 font-bold tracking-tighter pb-3">
               Rate Us
               <p className="flex">
                 <Star className="w-4 h-4 text-gray-500 fill-black dark:text-gray-400" />
@@ -98,12 +98,12 @@ const Rating = ({ rating }) => {
                 max="5"
                 value={giveRating}
                 onChange={(e) => setGiveRating(e.target.value)}
-                className="outline-none border border-gray-300 rounded-md p-2 w-full justify-between"
+                className="outline-none border border-gray-300  rounded-md p-1 justify-between"
               />
               <input
                 type="submit"
                 value="Submit"
-                className="px-6 py-2 bg-purple-600 rounded-full  text-white font-bold hover:bg-purple-700 text-lg md:text-sm   lg:text-lg cursor-pointer"
+                className="px-3 py-0.5 bg-purple-600 rounded-full  text-white font-bold hover:bg-purple-700 text-xs   cursor-pointer"
               />
             </form>
           </div>
