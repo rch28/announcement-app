@@ -3,13 +3,15 @@ import { useStore } from "@/stores/store";
 import React, { useState } from "react";
 import DeleteConfirm from "../utils/DeleteConfirm";
 import { GetAccessToken } from "@/index";
+import { Edit2, ReplyIcon, Trash } from "lucide-react";
 
 const CommentDropDown = ({ id, setToggleEdit }) => {
   const [deleteToggle, setDeleteToggle] = useState(false);
   const setCommentId = useStore((state) => state.setCommentId);
   const setEditCommentMode = useStore((state) => state.setEditCommentMode);
+  const setReplyMode = useStore((state)=>state.setReplyMode)
   const setCommentFetch = useStore((state) => state.setCommentFetch);
-  const access_token = GetAccessToken()
+  const access_token = GetAccessToken();
   const handleDeleteComment = async () => {
     try {
       const response = await fetch(
@@ -33,24 +35,44 @@ const CommentDropDown = ({ id, setToggleEdit }) => {
     }
   };
   return (
-    <div className="absolute top-0 right-12 bg-white rounded-md border border-gray-300  shadow-md shadow-gray-500 w-24 z-50">
-      <div className="flex flex-col  items-start">
-        <button
-          onClick={() => {
-            setEditCommentMode(true);
-            setToggleEdit(false);
-            setCommentId(id);
-          }}
-          className={`hover:bg-green-500 hover:text-white  rounded-t-lg w-full p-2 border-b border-gray-300`}
-        >
-          Edit
-        </button>
-        <button
-          onClick={() => setDeleteToggle(!deleteToggle)}
-          className="hover:bg-red-500 hover:text-white rounded-b-md w-full p-2"
-        >
-          Delete
-        </button>
+    <div className="absolute top-0 right-10 bg-white rounded-md border border-gray-300  shadow-md shadow-gray-500  z-50">
+      <div className="flex flex-col ">
+        <div className="px-4 py-2 border-b border-gray-400">
+          <button
+            onClick={() => {
+              setReplyMode(true);
+              setToggleEdit(false);
+              setCommentId(id);
+            }}
+            className="flex justify-start gap-2 p-2 text-sm hover:bg-purple-600 items-center w-full rounded-md hover:text-white"
+          >
+            <ReplyIcon size={14} />
+            <span className={`font-medium`}>Reply</span>
+          </button>
+        </div>
+        <div className="px-4 py-2 border-b border-gray-400">
+          <button
+            onClick={() => {
+              setEditCommentMode(true);
+              setToggleEdit(false);
+              setCommentId(id);
+            }}
+            className={`flex justify-start gap-2 p-2 text-sm hover:bg-green-600 items-center w-full rounded-md hover:text-white`}
+          >
+            <Edit2 size={14} />
+
+            <span className="font-medium">Edit</span>
+          </button>
+        </div>
+        <div className="px-4 py-2 ">
+          <button
+            onClick={() => setDeleteToggle(!deleteToggle)}
+            className="flex justify-between gap-2 p-2 text-sm hover:bg-red-600 items-center w-full rounded-md hover:text-white"
+          >
+            <Trash size={14}/>
+            <span className="font-medium">Delete</span>
+          </button>
+        </div>
       </div>
       {deleteToggle && (
         <div

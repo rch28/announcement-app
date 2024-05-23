@@ -1,16 +1,15 @@
-"use client"
-import { FetchUserData } from '@/index'
-import CommentDropDown from './CommentDropDown'
-import { EllipsisVertical } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import { useStore } from '@/stores/store'
+"use client";
+import { FetchUserData } from "@/index";
+import CommentDropDown from "./CommentDropDown";
+import { EllipsisVertical, XIcon } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useStore } from "@/stores/store";
 
-const UserComment = ({userData, comment, replyMode}) => {
+const UserComment = ({ userData, comment, replyMode }) => {
   const [timePassed, setTimePassed] = useState("");
   const [toggleEdit, setToggleEdit] = useState(false);
   const [validUser, setValidUser] = useState(false);
   const loggedUser = useStore((state) => state.userData);
-
 
   useEffect(() => {
     if (loggedUser.id === comment?.user) {
@@ -31,7 +30,6 @@ const UserComment = ({userData, comment, replyMode}) => {
   const millisecondsInYear = millisecondsInDay * 365;
   const differenceInMs = today - dateTime;
 
-  
   useEffect(() => {
     const calculateTimePassed = () => {
       if (differenceInMs > millisecondsInYear) {
@@ -76,35 +74,38 @@ const UserComment = ({userData, comment, replyMode}) => {
   }, [comment]);
   return (
     <>
-    
-      <div className={`flex-1  px-2 shadow shadow-gray-400 rounded-md py-2 ${replyMode?"bg-slate-300":"bg-slate-100"} `}>
-          <div className="flex items-center justify-between">
-            <div className="font-medium capitalize">
-              {userData?.first_name} {userData?.last_name}
+      <div
+        className={`flex-1  px-2 shadow shadow-gray-400 rounded-md py-2 ${
+          replyMode ? "bg-slate-300" : "bg-slate-100"
+        } `}
+      >
+        <div className="flex items-center justify-between">
+          <div className="font-medium capitalize">
+            {userData?.first_name} {userData?.last_name}
+          </div>
+          <div className="flex items-center ">
+            <div className="text-xs text-gray-900 dark:text-gray-400 px-2 rounded-full mr-4 bg-white">
+              {timePassed}
             </div>
-            <div className="flex items-center ">
-              <div className="text-xs text-gray-900 dark:text-gray-400 px-2 rounded-full mr-4 bg-white">
-                {timePassed}
-              </div>
-              {validUser && (
-                <button
-                  className="p-1 text-gray-500 bg-white shadow-sm shadow-gray-400  rounded-full hover:bg-gray-400 hover:text-white"
-                  onClick={() => setToggleEdit(!toggleEdit)}
-                >
-                  <EllipsisVertical size={16} />
-                </button>
-              )}
-            </div>
-            {toggleEdit && (
-              <CommentDropDown id={comment.id} setToggleEdit={setToggleEdit} />
+            {validUser && (
+              <button
+                className={`p-1 text-gray-500  shadow-sm shadow-gray-400  rounded-full hover:bg-purple-600 hover:text-white ${toggleEdit ?"bg-red-500 text-white":"bg-white "}`}
+                onClick={() => setToggleEdit(!toggleEdit)}
+              >
+                {toggleEdit ? <XIcon size={16} /> : <EllipsisVertical size={16} />}
+              </button>
             )}
           </div>
-          <p className="text-gray-700 dark:text-gray-600 text-wrap text-sm">
-            {comment?.comment}
-          </p>
+          {toggleEdit && (
+            <CommentDropDown id={comment.id} setToggleEdit={setToggleEdit} />
+          )}
         </div>
+        <p className="text-gray-700 dark:text-gray-600 text-wrap text-sm">
+          {comment?.comment}
+        </p>
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default UserComment
+export default UserComment;
