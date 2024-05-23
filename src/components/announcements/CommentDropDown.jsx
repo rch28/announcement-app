@@ -4,12 +4,13 @@ import React, { useState } from "react";
 import DeleteConfirm from "../utils/DeleteConfirm";
 import { GetAccessToken } from "@/index";
 import { Edit2, ReplyIcon, Trash } from "lucide-react";
+import PopUpWrapper from "../PopUpWrapper";
 
 const CommentDropDown = ({ id, setToggleEdit }) => {
   const [deleteToggle, setDeleteToggle] = useState(false);
   const setCommentId = useStore((state) => state.setCommentId);
   const setEditCommentMode = useStore((state) => state.setEditCommentMode);
-  const setReplyMode = useStore((state)=>state.setReplyMode)
+  const setReplyMode = useStore((state) => state.setReplyMode);
   const setCommentFetch = useStore((state) => state.setCommentFetch);
   const access_token = GetAccessToken();
   const handleDeleteComment = async () => {
@@ -69,18 +70,14 @@ const CommentDropDown = ({ id, setToggleEdit }) => {
             onClick={() => setDeleteToggle(!deleteToggle)}
             className="flex justify-between gap-2 p-2 text-sm hover:bg-red-600 items-center w-full rounded-md hover:text-white"
           >
-            <Trash size={14}/>
+            <Trash size={14} />
             <span className="font-medium">Delete</span>
           </button>
         </div>
       </div>
       {deleteToggle && (
-        <div
-          className={` fixed top-0 left-0 flex w-screen h-screen justify-center items-center ${
-            deleteToggle && "bg-black/30 "
-          }`}
-        >
-          <DeleteConfirm title={"Delete Group"}>
+        <PopUpWrapper>
+          <DeleteConfirm title={"Delete Comment"}>
             <div className="flex gap-4 ">
               <button
                 onClick={() => setDeleteToggle(!deleteToggle)}
@@ -96,7 +93,7 @@ const CommentDropDown = ({ id, setToggleEdit }) => {
               </button>
             </div>
           </DeleteConfirm>
-        </div>
+        </PopUpWrapper>
       )}
     </div>
   );
