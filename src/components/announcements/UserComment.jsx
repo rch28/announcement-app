@@ -83,7 +83,7 @@ const UserComment = ({userData, comment, replyMode}) => {
               {userData?.first_name} {userData?.last_name}
             </div>
             <div className="flex items-center ">
-              <div className="text-xs text-gray-900 dark:text-gray-400 px-  2 rounded-full mr-4 bg-white">
+              <div className="text-xs text-gray-900 dark:text-gray-400 px-2 rounded-full mr-4 bg-white">
                 {timePassed}
               </div>
               {validUser && (
