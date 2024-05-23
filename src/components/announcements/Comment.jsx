@@ -2,28 +2,25 @@
 import React, { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { FetchUserData } from "@/index";
-import { EllipsisVertical, Reply } from "lucide-react";
-import CommentDropDown from "./CommentDropDown";
 import { useStore } from "@/stores/store";
-import ReplyForm from "./ReplyForm";
 import UserComment from "./UserComment";
 import UserCommentProfile from "./UserCommentProfile";
+import { Reply } from "lucide-react";
 
-const Comment = ({ comment, replyMode}) => {
+const Comment = ({ comment, replyMode, setCommentId , level=0}) => {
   const [userData, setUserData] = useState({});
   const [latestReply, setLatestReply] = useState(null);
   const [repliedUser, setRepliedUser] = useState({});
   const [replyCount, setReplyCount] = useState(0);
-
-
+  const setReplyMode = useStore((state) => state.setReplyMode);
   useEffect(() => {
-    if (comment.children.length > 0) {
-      setReplyCount(comment.children.length);
-      setLatestReply(comment.children[0]);
+    if (comment.replies && comment.replies.length > 0) {
+      setReplyCount(comment.replies.length);
+      setLatestReply(comment.replies[0]);
     }
     const fetchUserData = async () => {
-      if (comment.children.length > 0) {
-        const data = await FetchUserData(comment.children[0].user);
+      if (comment.replies.length > 0) {
+        const data = await FetchUserData(comment.replies[0].user);
         setRepliedUser(data);
       }
       const data = await FetchUserData(comment.user);
@@ -32,21 +29,23 @@ const Comment = ({ comment, replyMode}) => {
     fetchUserData();
   }, [comment]);
 
-
   return (
     <div className="flex items-start gap-2 relative mr-2">
       <UserCommentProfile userData={userData} replyMode={replyMode} />
       <div className="w-full">
-        <UserComment
-          userData={userData}
-          comment={comment}
-        />
+        <UserComment userData={userData} comment={comment} />
         <div className="flex flex-col px-2 py-3 gap-2">
           <div className="flex justify-between">
             {latestReply && (
-              <p className="text-xs font-medium cursor-pointer  ">
+              <button
+                className="text-xs font-medium cursor-pointer"
+                onClick={() => {
+                  setReplyMode(true);
+                  setCommentId(comment.id);
+                }}
+              >
                 View all replies({replyCount})
-              </p>
+              </button>
             )}
 
             <div className="px-4 w-full flex-1 flex justify-end">
@@ -59,7 +58,7 @@ const Comment = ({ comment, replyMode}) => {
             </div>
           </div>
 
-          {latestReply && (
+          {latestReply  && (
             <div className="flex gap-2 items-center">
               {repliedUser.profilepic && (
                 <Avatar className="h-5 w-5 shadow-md shadow-gray-500 p-0.5">

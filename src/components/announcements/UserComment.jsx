@@ -5,7 +5,7 @@ import { EllipsisVertical } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useStore } from '@/stores/store'
 
-const UserComment = ({userData, comment}) => {
+const UserComment = ({userData, comment, replyMode}) => {
   const [timePassed, setTimePassed] = useState("");
   const [toggleEdit, setToggleEdit] = useState(false);
   const [validUser, setValidUser] = useState(false);
@@ -77,13 +77,13 @@ const UserComment = ({userData, comment}) => {
   return (
     <>
     
-      <div className="flex-1  px-2 bg-slate-100 shadow shadow-gray-400 rounded-md py-2 ">
+      <div className={`flex-1  px-2 shadow shadow-gray-400 rounded-md py-2 ${replyMode?"bg-slate-300":"bg-slate-100"} `}>
           <div className="flex items-center justify-between">
             <div className="font-medium capitalize">
               {userData?.first_name} {userData?.last_name}
             </div>
             <div className="flex items-center ">
-              <div className="text-xs text-gray-900 dark:text-gray-400 p-1 rounded-full mr-4 bg-white">
+              <div className="text-xs text-gray-900 dark:text-gray-400 px-  2 rounded-full mr-4 bg-white">
                 {timePassed}
               </div>
               {validUser && (

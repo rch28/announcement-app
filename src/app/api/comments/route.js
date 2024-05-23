@@ -11,38 +11,39 @@ async function fetchAllComments(url) {
   return comments;
 }
 
-function buildCommentHierarchy(comments) {
-  const commentDict = comments.reduce((acc, comment) => {
-    acc[comment.id] = comment;
-    comment.children = [];
-    return acc;
-  }, {});
+// function buildCommentHierarchy(comments) {
+//   const commentDict = comments.reduce((acc, comment) => {
+//     acc[comment.id] = comment;
+//     comment.children = [];
+//     return acc;
+//   }, {});
 
-  const topLevelComments = [];
+//   const topLevelComments = [];
 
-  comments.forEach((comment) => {
-    if (comment.parent) {
-      const parentComment = commentDict[comment.parent];
-      if (parentComment) {
-        parentComment.children.push(comment);
-      }
-    } else {
-      topLevelComments.push(comment);
-    }
-  });
+//   comments.forEach((comment) => {
+//     if (comment.parent) {
+//       const parentComment = commentDict[comment.parent];
+//       if (parentComment) {
+//         parentComment.children.push(comment);
+//       }
+//     } else {
+//       topLevelComments.push(comment);
+//     }
+//   });
 
-  return topLevelComments;
-}
+//   return topLevelComments;
+// }
 
 export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const ann_id = searchParams.get("ann_id");
-  const API_URL = `${API_URL_BASE}/${ann_id}/comment/list/`;
-
+  const limit= searchParams.get("limit")
+  const API_URL = `${API_URL_BASE}/${ann_id}/comment/list/?limit=${limit}`;
+  console.log(limit);
   try {
-    const comments = await fetchAllComments(API_URL);
-    const commentHierarchy = buildCommentHierarchy(comments);
-    return new Response(JSON.stringify(commentHierarchy), {
+    const response = await fetch(API_URL, { cache: 'no-store' })
+    const comments = await response.json();
+    return new Response(JSON.stringify(comments), {
       status: 200,
       headers: {
         "Content-Type": "application/json",

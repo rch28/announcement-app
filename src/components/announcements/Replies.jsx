@@ -6,9 +6,8 @@ import UserComment from "./UserComment";
 import UserCommentProfile from "./UserCommentProfile";
 import Comment from "./Comment";
 
-const Replies = ({ comment, comments }) => {
+const Replies = ({ comment, setCommentId }) => {
   const [userData, setUserData] = useState({});
-  const [filterComment] = comments.filter((item) => item.id === comment.id);
   useEffect(() => {
     const fetchUserData = async () => {
       const data = await FetchUserData(comment?.user);
@@ -20,13 +19,13 @@ const Replies = ({ comment, comments }) => {
     <>
       <div className="flex items-start gap-2 relative mr-2 ">
         <UserCommentProfile userData={userData} />
-        <UserComment userData={userData} comment={comment} />
+        <UserComment userData={userData} comment={comment} replyMode={true} />
       </div>
       <div className="ml-6">
-        {filterComment?.children &&
-          filterComment?.children.length > 0 &&
-          filterComment?.children.map((child) => (
-            <Comment key={child.id} comment={child} replyMode={true} />
+        {comment?.replies &&
+          comment?.replies.length > 0 &&
+          comment?.replies.map((child) => (
+            <Comment key={child.id} comment={child} replyMode={true} setCommentId={setCommentId}/>
           ))}
       </div>
     </>

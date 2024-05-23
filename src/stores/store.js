@@ -59,6 +59,6 @@ export const useStore = create((set)=>({
 
 
     // View all comments reply
-    viewAllCommentsReply:true,
-    setViewAllCommentsReply:(value)=>set({viewAllCommentsReply:value}),
+    replyMode:false,
+    setReplyMode:(value)=>set({replyMode:value}),
 }))
