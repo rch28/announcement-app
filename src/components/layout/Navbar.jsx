@@ -47,7 +47,7 @@ const Navbar = () => {
     fetchUserData();
   }, [refreshToken, access_token]);
   return (
-    <div className=" bg-blue-100 relative  top-0 z-50 ">
+    <div className=" bg-white/80 relative  top-0 z-50 ">
       <nav className=" border-b  border-gray-400/50  dark:border-gray-200/25 ">
         <div className="flex  justify-between items-center max-w-5xl mx-auto p-2">
           <Link

@@ -109,7 +109,7 @@ const ReplyForm = ({ parentId, setReplyToggle, replyToggle }) => {
           onChange={(e) => setReply(e.target.value)}
           className={`block ${
             replyToggle
-              ? " pl-2 pr-6 py-2 md:py-1 outline-none w-full  rounded-md  shadow-md shadow-gray-400 bg-gray-200 text-xs border border-gray-400 focus:border-purple-500 "
+              ? " pl-2 pr-6 py-2 md:py-1 outline-none w-full  rounded-md  shadow-md shadow-gray-400  text-xs border border-gray-400 focus:border-purple-500 "
               : "w-full focus:border-none  focus-visible:ring-0   dark:border-gray-800 focus:outline-none outline-none rounded-xl  p-4 text-xs "
           }`}
         />

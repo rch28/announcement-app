@@ -60,7 +60,7 @@ export function AnnouncementDetails({
           </CardTitle>
           {userData?.id === data?.admin && (
             <button
-              className="p-2  text-gray-500 bg-white shadow-sm shadow-gray-700  rounded-full hover:bg-gray-200"
+              className="p-2  text-gray-500 bg-white shadow-md shadow-gray-700  rounded-full hover:bg-gray-200"
               onClick={() => setToggle((prev) => !prev)}
             >
               <EllipsisVertical size={24} />
@@ -69,7 +69,7 @@ export function AnnouncementDetails({
           {/* Announcement Edit toggle */}
           {toggle && (
             <div
-              className={`absolute z-40 bottom-14 right-0  md:-right-96 bg-white border-2   border-gray-300 shadow-md shadow-purple-400 p-4 rounded-lg w-88 }`}
+              className={`absolute z-40 bottom-14 right-0  md:-right-96 bg-white shadow-md shadow-gray-600 p-4 rounded-lg w-88 }`}
             >
               <AnnSettingCard
                 setToggleEdit={setToggleEdit}
