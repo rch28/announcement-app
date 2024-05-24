@@ -24,45 +24,45 @@ const SettingHover = ({ group, SetGroupData, mode }) => {
               setToggleCreateAnnouncement(true);
               SetGroupData(group);
             }}
-            className="cursor-pointer hover:bg-gray-300 p-2 rounded-md"
+            className="cursor-pointer hover:bg-purple-700 group text-black hover:text-white p-2 rounded-md"
           >
             <CardUtil
               title="Create Announcement"
               icon={
-                <NotebookPenIcon className="h-4 w-4 text-purple-700" />
+                <NotebookPenIcon className="h-4 w-4 " />
               }
             />
           </button>
           <Link
             href={`/announcements/${group.name}/announcements-list?group_id=${group.group_id}`}
-            className="cursor-pointer hover:bg-gray-300 p-2 rounded-md"
+            className="cursor-pointer hover:bg-purple-700 group text-black hover:text-white p-2 rounded-md"
           >
             <CardUtil
               title="View Announcements"
               icon={
-                <NotebookTextIcon className="h-4 w-4 text-purple-700" />
+                <NotebookTextIcon className="h-4 w-4  " />
               }
             />
           </Link>
           <Link
             href={`dashboard/manage-announcements?group_id=${group.group_id}`}
-            className="cursor-pointer hover:bg-gray-300 p-2 rounded-md"
+            className="cursor-pointer hover:bg-purple-700 group text-black hover:text-white p-2 rounded-md"
           >
             <CardUtil
               title="Manage Announcements"
               icon={
-                <NotebookTextIcon className="h-4 w-4 text-purple-700" />
+                <NotebookTextIcon className="h-4 w-4 " />
               }
             />
           </Link>
           <Link
             href={`/user/profile/dashboard/manage-members/?group_id=${group.group_id}`}
-            className="cursor-pointer hover:bg-gray-300 p-2 rounded-md"
+            className="cursor-pointer hover:bg-purple-700 group text-black hover:text-white p-2 rounded-md"
           >
             <CardUtil
               title="Manage Members"
               icon={
-                <UserPlus className="h-4 w-4 text-purple-700" />
+                <UserPlus className="h-4 w-4  " />
               }
             />
           </Link>
@@ -73,20 +73,20 @@ const SettingHover = ({ group, SetGroupData, mode }) => {
         <div className="flex flex-col gap-2 w-full">
           <Link
             href={`/announcements/${group.name}/announcements-list?group_id=${group.group_id}`}
-            className="cursor-pointer hover:bg-gray-300 p-2 rounded-md"
+            className="cursor-pointer hover:bg-purple-700 text-black hover:text-white p-2 rounded-md"
           >
             <CardUtil
               title="View Announcements"
               icon={
-                <NotebookTextIcon className="h-4 w-4 text-purple-700" />
+                <NotebookTextIcon className="h-4 w-4 " />
               }
             />
           </Link>
-          <div className="cursor-pointer hover:bg-gray-300 p-2 rounded-md">
+          <div className="cursor-pointer hover:bg-purple-700 text-black hover:text-white p-2 rounded-md">
             <CardUtil
               title="View Members"
               icon={
-                <Users2 className="h-4 w-4 text-purple-700" />
+                <Users2 className="h-4 w-4 " />
               }
             />
           </div>
