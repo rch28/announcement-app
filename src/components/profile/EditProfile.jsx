@@ -89,7 +89,7 @@ const EditProfile = ({setToggle}) => {
   return (
     <div className="">
       <form className="" onSubmit={habndleSubmit}>
-        <div className="mb-4 flex flex-col  gap-6">
+        <div className="mb-4 flex flex-col  gap-2">
           <div className="">
             <label htmlFor="first_name" className="block text-black font-medium text-sm">
               First Name:
@@ -117,7 +117,7 @@ const EditProfile = ({setToggle}) => {
             />
           </div>
         </div>
-        <div className="mb-4 flex gap-6 flex-col">
+        <div className="mb-4 flex gap-2 flex-col">
           <div className="">
             <label htmlFor="username" className="block text-black font-medium text-sm">
               Username:

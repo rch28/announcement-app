@@ -127,16 +127,16 @@ const CreateGroup = ({ mode, data }) => {
       <div className="flex justify-end items-center  absolute right-4 top-2 ">
         <button
           onClick={() => setToggleCreateGroup(false)}
-          className="p-1 bg-white text-red-500 hover:bg-red-200 rounded-full shadow-md shadow-gray-500"
+          className="p-1 bg-white text-red-500 hover:bg-red-200 rounded-full border  shadow-md shadow-gray-500"
         >
           <XIcon />
         </button>
       </div>
       <div className="p-4">
-        <h1 className=" text-2xl  font-bold tracking-widest">
+        <h1 className=" text-2xl  font-bold tracking-widest text-black">
           {mode === "edit" ? "Edit Your group" : "Create New Group"}
         </h1>
-        <CardDescription className="text-sm text-gray-700">
+        <CardDescription className="text-sm text-gray-900">
           {mode === "edit" ? "Edit your Group." : "Create a new group."}
         </CardDescription>
       </div>
@@ -158,7 +158,7 @@ const CreateGroup = ({ mode, data }) => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Enter group name"
-                  className="border border-gray-400 focus:border-purple-500"
+                  className="border border-gray-600 focus:border-purple-500 bg-white"
                 />
               </div>
               <div className="  md:space-y-2">
@@ -167,7 +167,7 @@ const CreateGroup = ({ mode, data }) => {
                   type="text"
                   name="group_description"
                   id="group_description"
-                  className="border border-gray-400 focus:border-purple-500  sm:h-full"
+                  className="border border-gray-600 focus:border-purple-500  sm:h-full"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Enter Group Description "
@@ -182,7 +182,7 @@ const CreateGroup = ({ mode, data }) => {
                   name="category"
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-500  focus:border-purple-500 rounded-md focus:outline-none text-sm font-medium appearance-none "
+                  className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-500 rounded-md focus:outline-none text-sm font-medium appearance-none "
                 >
                   {options.map((option) => (
                     <option
@@ -201,7 +201,7 @@ const CreateGroup = ({ mode, data }) => {
                   type="file"
                   name="group_image"
                   id="group_image"
-                  className="block  px-1 w-full text-sm text-gray-900 bg-transparent border-0  appearance-none dark:text-white dark:border-gray-600 dark:focus:border-purple-500 focus:outline-none focus:ring-0  peer file:mr-4 file:py-2 file:px-4
+                  className="block  px-1 w-full text-sm text-gray-900 bg-transparent border-0  appearance-none  focus:outline-none focus:ring-0  peer file:mr-4 file:py-2 file:px-4
             file:rounded-full file:border-0
             file:text-sm file:font-semibold rounded-md
             file:bg-violet-100 file:text-violet-700
@@ -216,7 +216,7 @@ const CreateGroup = ({ mode, data }) => {
             <div className="flex justify-end">
               <button
                 type="submit"
-                className="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300  font-bold rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800"
+                className="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300  font-bold rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center  "
               >
                 {mode === "edit" ? "Update Group" : "Create Group"}
               </button>

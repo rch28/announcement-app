@@ -186,7 +186,7 @@ export function AnnouncementCardForm({
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="Enter announcement title"
-                  className="border border-gray-400 focus:border-purple-500"
+                  className="border border-gray-600 focus:border-purple-500"
                 />
               </div>
               <div className="md:space-y-2">
@@ -196,7 +196,7 @@ export function AnnouncementCardForm({
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Enter announcement description"
-                  className="border border-gray-400 focus:border-purple-500  sm:h-full"
+                  className="border border-gray-600 focus:border-purple-500  sm:h-full"
                 />
               </div>
             </div>
@@ -208,7 +208,7 @@ export function AnnouncementCardForm({
                   <select
                     name="group_name"
                     id="group_name "
-                    className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-500  focus:border-purple-500 rounded-md focus:outline-none text-sm font-medium appearance-none  "
+                    className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-500 rounded-md focus:outline-none text-sm font-medium appearance-none  "
                     value={group}
                     onChange={(e) => setGroup(e.target.value)}
                   >
@@ -231,7 +231,7 @@ export function AnnouncementCardForm({
                 <select
                   name="payment_method"
                   id="payment_method "
-                  className="block w-full px-4 py-2 text-gray-900 bg-white border border-gray-500 rounded-md focus:outline-none focus:border-purple-500 text-sm font-menium font-sans appearance-none "
+                  className="block w-full px-4 py-2 text-gray-900 bg-white border border-gray-600 rounded-md focus:outline-none focus:border-purple-500 text-sm font-menium font-sans appearance-none "
                   value={paymentMethod}
                   onChange={(e) => setPaymentMethod(e.target.value)}
                 >
@@ -258,7 +258,7 @@ export function AnnouncementCardForm({
           <Button
             type="submit"
             className={
-              "text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300  font-bold rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800"
+              "text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300  font-bold rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:text-white dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800"
             }
           >
             Post Announcement

@@ -3,7 +3,7 @@ import React from "react";
 
 const CardUtil = ({ title, icon }) => {
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center text-black">
       <p className="flex justify-start items-center gap-2">
         <span>
         {icon}

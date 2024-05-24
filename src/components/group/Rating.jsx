@@ -70,11 +70,11 @@ const Rating = ({ rating }) => {
       </div>
 
       {toggleRating && (
-        <div className="flex items-center gap-1 rounded-lg bg-white border border-gray-300 shadow-md shadow-gray-500 text-sm text-gray-500 dark:text-gray-400 absolute top-0 ">
+        <div className="flex items-center gap-1 rounded-lg bg-white border border-gray-300 dark:border-none dark:shadow-none shadow-md shadow-gray-500 text-sm text-gray-500 dark:text-gray-400 absolute top-0 ">
           <div className="p-3 px-4 relative">
             <p className="flex justify-end items-center absolute right-2 top-2">
               <XIcon
-                className="p-1 text-gray-700 fill-black dark:text-gray-400 cursor-pointer rounded-full bg-white shadow-md shadow-gray-500"
+                className="p-1  fill-black text-black cursor-pointer rounded-full bg-white shadow-md shadow-gray-500"
                 onClick={() => setToggleRating(!toggleRating)}
               />
             </p>
@@ -98,7 +98,7 @@ const Rating = ({ rating }) => {
                 max="5"
                 value={giveRating}
                 onChange={(e) => setGiveRating(e.target.value)}
-                className="outline-none border border-gray-300  rounded-md p-1 justify-between"
+                className="outline-none border border-gray-300 text-black  rounded-md p-1 justify-between"
               />
               <input
                 type="submit"

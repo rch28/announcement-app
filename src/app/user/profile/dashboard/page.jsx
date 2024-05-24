@@ -119,19 +119,19 @@ const Dashboard = () => {
       <nav className="flex justify-between items-center bg-gray-300 shadow-xl rounded-xl ">
         <button
           onClick={() => setSwitchGroup(false)}
-          className={`  p-3 text-center cursor-pointer  transition-all ease-linear duration-100  ${
+          className={`text-black  p-3 text-center cursor-pointer  transition-all ease-linear duration-100  ${
             switchGroup
               ? "md:flex-[.4] bg-gray-300  rounded-r-xl"
-              : "flex-1 bg-white  rounded-xl "
+              : "flex-1 bg-white  rounded-xl  "
           }`}
         >
           <h1 className="font-medium text-sm">Joined Groups</h1>
         </button>
         <button
           onClick={() => setSwitchGroup(true)}
-          className={`  p-3 text-center cursor-pointer transition-all ease-linear duration-100  ${
+          className={`text-black  p-3 text-center cursor-pointer transition-all ease-linear duration-100  ${
             switchGroup
-              ? "flex-1 rounded-xl bg-white"
+              ? "flex-1 rounded-xl bg-white "
               : "md:flex-[.4] bg-gray-300 rounded-l-xl"
           }`}
         >
@@ -142,7 +142,7 @@ const Dashboard = () => {
         {switchGroup ? (
           <>
             {data?.length === 0 && (
-              <div className="flex justify-between items-center bg-white shadow-xl rounded-xl p-4">
+              <div className="flex justify-between items-center bg-white text-black shadow-xl rounded-xl p-4">
                 <h1>You don't have Group!! Create One </h1>
                 <button
                   onClick={() => setToggleCreateGroup(true)}

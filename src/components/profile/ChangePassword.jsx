@@ -76,7 +76,7 @@ const ChangePassword = () => {
 
   return (
     <form
-      className=" px-4 py-8 rounded-xl shadow-lg shadow-gray-600 bg-white"
+      className=" px-4 py-8 rounded-xl shadow-lg shadow-gray-600 bg-white dark:shadow-none"
       onSubmit={handleSubmit}
     >
       <h1 className="text-4xl font-bold text-center pb-10 text-gray-700">

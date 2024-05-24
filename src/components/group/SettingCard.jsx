@@ -52,7 +52,7 @@ const SettingCard = ({ setToggleSetting }) => {
     <div className="flex flex-col p-2 gap-6 relative">
       <div className="flex justify-end absolute right-0 -top-2">
         <button
-          className="p-1 flex justify-center items-center dark:text-gray-400 cursor-pointer text-red-500 bg-white shadow-sm shadow-gray-900 rounded-full hover:bg-red-200"
+          className="p-1 flex justify-center items-center dark:text-gray-900 cursor-pointer text-red-500 bg-white shadow-sm shadow-gray-900 rounded-full hover:bg-red-200"
           onClick={() => setToggleSetting(false)}
         >
           <XIcon size={24} />
@@ -62,7 +62,7 @@ const SettingCard = ({ setToggleSetting }) => {
         <h1 className="text-3xl font-bold tracking-tighter">Group Settings</h1>
         <p className="text-gray-500">Manage your group settings and members</p>
       </div>
-      <div className="border-b border-gray-200">
+      <div className="border-b dark:border-none border-gray-200 my-2">
 
         <div className="cursor-pointer hover:bg-purple-600 hover:text-white rounded-md p-3 ">
           <Link href={`/user/profile/dashboard/manage-members?group_id=${groupId}`}>

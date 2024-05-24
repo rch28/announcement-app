@@ -9,7 +9,7 @@ const GroupCard = ({ group, setDeleteToggle, SetGroupData, setLeaveToggle, mode 
   const [toggle, setToggle] = useState(false);
   const setToggleCreateGroup = useStore((state) => state.setToggleCreateGroup);
   return (
-    <div className="bg-white shadow-lg shadow-gray-400  rounded-xl p-6  md:hover:scale-105 transition-all ease-linear duration-200 w-64 md:w-full">
+    <div className="bg-white dark:shadow-md dark:shadow-gray-500 shadow-lg shadow-gray-400  rounded-xl p-6  md:hover:scale-105 transition-all ease-linear duration-200 w-64 md:w-full">
       <div className="grid gap-4">
         <Link
           href={`/groups/${group?.name}?group_id=${group.group_id}&&category=${group.category}`}
@@ -48,7 +48,7 @@ const GroupCard = ({ group, setDeleteToggle, SetGroupData, setLeaveToggle, mode 
                 onClick={() => setToggle(!toggle)}
               />
               <div
-                className={`absolute right-0 bottom-10 md:bottom-5 md:hidden p-4 rounded-xl shadow-md shadow-gray-500 md:group-hover:flex  bg-white w-64 md:w-72 ${
+                className={`absolute right-0 bottom-10 md:bottom-5 md:hidden p-4 rounded-xl shadow-md shadow-gray-500 md:group-hover:flex  bg-white  w-64 md:w-72 ${
                   toggle ? "flex md:hidden" : "hidden"
                 }`}
               >

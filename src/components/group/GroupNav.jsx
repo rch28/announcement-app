@@ -60,7 +60,7 @@ const GroupNav = () => {
             </div>
             {
               toggleSetting && (
-                <div className="absolute z-10 right-0 sm:right-2 md:right-auto  top-10 w-72 md:w-96 bg-white  shadow-lg shadow-gray-500 p-4 rounded-xl">
+                <div className="absolute z-10 right-0 sm:right-2 md:right-auto  top-10 w-72 md:w-96 bg-white  dark:bg-gray-950 shadow-lg shadow-gray-500 dark:shadow-gray-700 dark:border-gray-600 dark:border p-4 rounded-xl">
                  <SettingCard setToggleSetting={setToggleSetting} />
                 </div>
               )

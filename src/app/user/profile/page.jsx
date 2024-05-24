@@ -39,7 +39,7 @@ const ProfilePage = () => {
             </div>
             <div className="flex justify-center items-center w-full my-4 ">
               <button
-                className="mx-2 py-3  border hover:border-purple-400 transition-all ease-linear w-full shadow-md  shadow-gray-500 text-gray-800 font-medium  rounded-lg bg-white/40 cursor-pointer text-left px-4 flex gap-2 items-center"
+                className="mx-2 py-3  border hover:border-purple-400 transition-all ease-linear w-full shadow-md  shadow-gray-500 dark:shadow-sm dark:shadow-gray-700 text-gray-800 font-medium  rounded-lg bg-white/40 dark:bg-white cursor-pointer text-left px-4 flex gap-2 items-center"
                 onClick={() => setToggle(!toggle)}
               >
                 <Edit size={14} color="purple" />
@@ -51,7 +51,7 @@ const ProfilePage = () => {
       </section>
       {toggle && (
         <PopUpWrapper>
-          <div className="md:p-8 p-4 w-full mx-2 md:w-[45%] bg-white rounded-xl shadow-xl shadow-gray-500 relative">
+          <div className="md:p-8 p-4 w-full mx-2 md:w-[45%] bg-white rounded-xl dark:shadow-none shadow-xl shadow-gray-500 relative">
             <button
               className="absolute right-2 top-2 text-red-600 hover:bg-red-200 bg-white shadow-md shadow-gray-500 rounded-full p-1 "
               onClick={() => setToggle(!toggle)}
@@ -68,7 +68,7 @@ const ProfilePage = () => {
       )}
       <section className="lg:p-12  w-full flex-1 ">
         <div className="md:mt-4  p-6 rounded-xl ">
-          <h1 className="p-3 text-xl font-medium bg-white my-4 flex  rounded-xl shadow-md shadow-gray-400">
+          <h1 className="p-3 text-xl font-medium bg-white my-4 flex  rounded-xl shadow-md shadow-gray-400 text-black">
             Dashboard
           </h1>
           <div className="grid md:grid-cols-2 gap-4 ">

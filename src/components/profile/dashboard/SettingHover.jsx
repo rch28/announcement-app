@@ -29,7 +29,7 @@ const SettingHover = ({ group, SetGroupData, mode }) => {
             <CardUtil
               title="Create Announcement"
               icon={
-                <NotebookPenIcon className="h-4 w-4 text-purple-700 dark:text-gray-400" />
+                <NotebookPenIcon className="h-4 w-4 text-purple-700" />
               }
             />
           </button>
@@ -40,7 +40,7 @@ const SettingHover = ({ group, SetGroupData, mode }) => {
             <CardUtil
               title="View Announcements"
               icon={
-                <NotebookTextIcon className="h-4 w-4 text-purple-700 dark:text-gray-400" />
+                <NotebookTextIcon className="h-4 w-4 text-purple-700" />
               }
             />
           </Link>
@@ -51,7 +51,7 @@ const SettingHover = ({ group, SetGroupData, mode }) => {
             <CardUtil
               title="Manage Announcements"
               icon={
-                <NotebookTextIcon className="h-4 w-4 text-purple-700 dark:text-gray-400" />
+                <NotebookTextIcon className="h-4 w-4 text-purple-700" />
               }
             />
           </Link>
@@ -62,7 +62,7 @@ const SettingHover = ({ group, SetGroupData, mode }) => {
             <CardUtil
               title="Manage Members"
               icon={
-                <UserPlus className="h-4 w-4 text-purple-700 dark:text-gray-400" />
+                <UserPlus className="h-4 w-4 text-purple-700" />
               }
             />
           </Link>
@@ -78,7 +78,7 @@ const SettingHover = ({ group, SetGroupData, mode }) => {
             <CardUtil
               title="View Announcements"
               icon={
-                <NotebookTextIcon className="h-4 w-4 text-purple-700 dark:text-gray-400" />
+                <NotebookTextIcon className="h-4 w-4 text-purple-700" />
               }
             />
           </Link>
@@ -86,7 +86,7 @@ const SettingHover = ({ group, SetGroupData, mode }) => {
             <CardUtil
               title="View Members"
               icon={
-                <Users2 className="h-4 w-4 text-purple-700 dark:text-gray-400" />
+                <Users2 className="h-4 w-4 text-purple-700" />
               }
             />
           </div>
