@@ -32,7 +32,7 @@ export default function Hero() {
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
                   <Link
-                    className="inline-flex h-10 items-center justify-center rounded-full bg-purple-700 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-purple-800 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#805AD5] disabled:pointer-events-none disabled:opacity-50 dark:bg-[#805AD5] dark:text-gray-900 dark:hover:bg-purple-800/90 dark:focus-visible:ring-[#805AD5]"
+                    className="inline-flex h-10 items-center justify-center rounded-full bg-purple-700 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-purple-800 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#805AD5] disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:hover:bg-purple-800/90 dark:focus-visible:ring-[#805AD5]"
                     href="/groups"
                   >
                     Join a Group
@@ -48,7 +48,7 @@ export default function Hero() {
             </div>
           </div>
         </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-slate-200">
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-slate-200 dark:bg-gray-800">
           <div className="container grid items-center gap-6 px-4 md:px-6 lg:grid-cols-2 lg:gap-10">
             <div className="space-y-2">
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
@@ -61,13 +61,13 @@ export default function Hero() {
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row lg:justify-end">
               <Link
-                className="inline-flex h-10 items-center justify-center rounded-full bg-purple-700 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-purple-800 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#805AD5] disabled:pointer-events-none disabled:opacity-50 dark:bg-[#805AD5] dark:text-gray-900 dark:hover:bg-purple-800/90 dark:focus-visible:ring-[#805AD5]"
+                className="inline-flex h-10 items-center justify-center rounded-full bg-purple-700 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-purple-800 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#805AD5] disabled:pointer-events-none disabled:opacity-50  dark:text-white dark:hover:bg-purple-800/90 dark:focus-visible:ring-[#805AD5]"
                 href="/user/profile/dashboard/manage-announcements"
               >
                 Manage Announcements
               </Link>
               <Link
-                className="inline-flex h-10 items-center justify-center rounded-md border border-gray-200  bg-white px-8 text-sm font-medium shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:border-gray-800  dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus-visible:ring-gray-300"
+                className="inline-flex h-10 items-center justify-center rounded-md border border-gray-200  bg-white px-8 text-sm font-medium shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:border-gray-800  dark:bg-gray-950 dark:hover:bg-gray-900 dark:hover:text-gray-50 dark:focus-visible:ring-gray-300"
                 href="#"
               >
                 Manage Notifications
@@ -75,7 +75,7 @@ export default function Hero() {
             </div>
           </div>
         </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 border-t">
+        <section className="w-full py-12 md:py-24 lg:py-32 border-t dark:border-none">
           <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
             <div className="space-y-3">
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Join the Community</h2>
@@ -87,7 +87,7 @@ export default function Hero() {
             <div className="mx-auto w-full max-w-sm space-y-2">
               <div className="flex space-x-2 justify-center items-center">
                 <Link href={"/auth/register"}
-                  className="inline-flex h-10 items-center justify-center rounded-full bg-purple-700 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-purple-800 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#805AD5] disabled:pointer-events-none disabled:opacity-50 dark:bg-[#805AD5] dark:text-gray-900 dark:hover:bg-purple-800/90 dark:focus-visible:ring-[#805AD5]"
+                  className="inline-flex h-10 items-center justify-center rounded-full bg-purple-700 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-purple-800 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#805AD5] disabled:pointer-events-none disabled:opacity-50 dark:bg-[#805AD5] dark:text-white dark:hover:bg-purple-800/90 dark:focus-visible:ring-[#805AD5]"
                 >
                   Join Now
                 </Link>

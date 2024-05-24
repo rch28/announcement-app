@@ -49,7 +49,7 @@ const GroupNav = () => {
       <nav className="flex flex-row md:gap-4 justify-between ">
         <h1 className="tmd:ext-xl font-semibold flex items-center md:gap-3">
           Category <ChevronsRight size={16} />{" "}
-          <span className="capitalize text-gray-700 text:xs md:text-lg"> {category} </span>
+          <span className="capitalize text-gray-700 dark:text-white/70 text:xs md:text-lg"> {category} </span>
         </h1>
 
         {isGrupAdmin &&userAuthenticated && (

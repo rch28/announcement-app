@@ -27,7 +27,7 @@ const GroupCard = ({ data, groupAdminInfo }) => {
               width={600}
               alt="Group Image"
             />
-            <div className="flex bg-white flex-col gap-4 justify-between border border-gray-300 p-2 sm:p-4 rounded-xl shadow-lg shadow-gray-500">
+            <div className="flex bg-white dark:bg-gray-950 flex-col gap-4 justify-between border border-gray-300  dark:border-none  p-2 sm:p-4 rounded-xl shadow-lg dark:shadow-md shadow-gray-500 dark:shadow-gray-900">
               <div className="flex flex-col gap-2 max-w-96 ">
                 <div className="flex items-center gap-4">
                   <div className="bg-purple-600 rounded-full px-3 py-1 text-sm font-medium dark:bg-gray-800 text-white capitalize">
@@ -42,7 +42,7 @@ const GroupCard = ({ data, groupAdminInfo }) => {
                   {data?.description}
                 </p>
                 <div className="flex items-center text-sm ">
-                  <div className=" p-2 px-4 bg-purple-300 flex gap-2 rounded-full">
+                  <div className=" p-2 px-4 bg-purple-300 dark:bg-gray-800 flex gap-2 rounded-full">
                     <User className="w-4 h-4 text-purple-700 dark:text-gray-400" />
 
                     <span>{data?.total_members} members</span>

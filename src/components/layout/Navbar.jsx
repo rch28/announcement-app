@@ -47,7 +47,7 @@ const Navbar = () => {
     fetchUserData();
   }, [refreshToken, access_token]);
   return (
-    <div className=" bg-white/80  sticky  top-0 z-50 ">
+    <div className=" bg-white/80 dark:bg-black/90  sticky  top-0 z-50 ">
       <nav className=" border-b  border-gray-400/50  dark:border-gray-200/25 ">
         <div className="flex  justify-between items-center max-w-5xl mx-auto p-2">
           <Link
@@ -75,7 +75,7 @@ const Navbar = () => {
             <ul className="flex  items-center space-x-2 md:space-x-4">
               <li>
                 <Link
-                  className={`text-gray-900 dark:text-white hover:text-purple-700 text-xs md:text-lg font-medium ${pathname==="/"?"text-purple-700":""}`}
+                  className={`text-gray-900 dark:text-white hover:text-purple-700 text-xs md:text-lg font-medium ${pathname==="/"?"text-purple-700 dark:text-purple-700":""}`}
                   href="/"
                   passHref
                 >
@@ -84,7 +84,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  className={ `text-gray-900 dark:text-white hover:text-putple-700 text-xs md:text-lg font-medium  ${pathname.startsWith("/groups")?"text-purple-700":""}`}
+                  className={ `text-gray-900 dark:text-white hover:text-putple-700 text-xs md:text-lg font-medium  ${pathname.startsWith("/groups")?"text-purple-700 dark:text-purple-700":""}`}
                   href="/groups"
                   passHref
                 >

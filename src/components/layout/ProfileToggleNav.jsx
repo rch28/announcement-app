@@ -50,7 +50,7 @@ const ProfileToggleNav = () => {
   return (
     <div className="rounded-full">
       <div
-        className="cursor-pointer   text-center text-gray-500 text-sm  rounded-md "
+        className="cursor-pointer   text-center  text-gray-500 text-sm  rounded-md "
         onClick={() => setToggle(!toggle)}
       >
         <Image
@@ -65,14 +65,14 @@ const ProfileToggleNav = () => {
 
       {toggle && (
         <nav className="relative z-50">
-          <ul className="absolute top-4 right-0 bg-white rounded-xl shadow-md border border-gray-400 w-44  shadow-gray-600">
+          <ul className="absolute top-4 right-0 bg-white rounded-xl shadow-md border border-gray-400 w-32 shadow-gray-600 dark:shadow-md  dark:border-none dark:shadow-white">
             <li
               className="border-b  border-gray-400"
               onClick={() => setToggle(false)}
             >
               <Link
                 href="/user/profile"
-                className="block px-4 py-3 w-full rounded-t-xl  font-medium hover:bg-purple-300"
+                className="block px-4 py-3 w-full text-black text-center rounded-t-xl  font-medium hover:bg-gray-300"
               >
                 Profile
               </Link>
@@ -81,7 +81,7 @@ const ProfileToggleNav = () => {
             <li className="">
               <button
                 onClick={habdleLogout}
-                className="block px-4 py-3 w-full rounded-b-xl  font-medium hover:bg-purple-300 text-left"
+                className="block px-4 py-3 w-full rounded-b-xl  text-black text-center font-medium hover:bg-gray-300 "
               >
                 Logout
               </button>

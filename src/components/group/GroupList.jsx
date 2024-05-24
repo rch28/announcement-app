@@ -14,7 +14,7 @@ function debounce(func, delay) {
   };
 }
 const GroupList = () => {
-  const [ZeroGroup, setZeroGroup] = useState(false)
+  const [ZeroGroup, setZeroGroup] = useState(false);
   const [next, setNext] = useState(false);
   const toggleCreateGroup = useStore((state) => state.toggleCreateGroup);
   const announcementGroup = useStore((state) => state.announcementGroup);
@@ -35,22 +35,24 @@ const GroupList = () => {
     );
     if (response.ok) {
       const result = await response.json();
-      if (searchQuery==="") {
-      setAnnouncementGroup(result);
-      return;
+      if (searchQuery === "") {
+        setAnnouncementGroup(result);
+        return;
       }
       const filteredResult = {
         ...result, // Copy original metadata
-        results: result.results.filter((group) =>
-          group.name.toLowerCase().includes(searchQuery.toLowerCase()) || group.category.toLowerCase().includes(searchQuery.toLowerCase())
-        )
+        results: result.results.filter(
+          (group) =>
+            group.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            group.category.toLowerCase().includes(searchQuery.toLowerCase())
+        ),
       };
       setAnnouncementGroup(filteredResult);
 
-      if(filteredResult.results.length===0){
-        setZeroGroup(true)
-      }else{
-        setZeroGroup(false)
+      if (filteredResult.results.length === 0) {
+        setZeroGroup(true);
+      } else {
+        setZeroGroup(false);
       }
     }
   };
@@ -69,30 +71,31 @@ const GroupList = () => {
     return () => clearTimeout(timer);
   }, [searchQuery, inputDelay]);
 
-
   return (
-    <div className="px-6 md:px-0">
+    <div className="px-6 md:px-0 min-h-96">
       {announcementGroup?.count === 0 && (
-        <h3 className="p-3 bg-green-200 rounded-xl">
+        <h3 className="p-3 bg-green-200 rounded-xl  dark:text-black dark:bg-green-100">
           No group yet!! Create New One
         </h3>
       )}
-      {
-        ZeroGroup && (
-          <h3 className="p-3 bg-green-200 rounded-xl">
-            No group found!!
-            </h3>
-        )
-      }
+      {ZeroGroup && (
+        <h3 className="p-3 bg-green-200 rounded-xl dark:text-black dark:bg-green-100">
+          No group found!!
+        </h3>
+      )}
       <div className="md:grid grid-cols-2 gap-3">
         {announcementGroup?.results?.map((data) => {
           return (
             <Link
-              href={`/groups/${data.name.replace(/\s+/g, '-').toLowerCase()}?group_id=${data.group_id}&&category=${data.category}`}
+              href={`/groups/${data.name
+                .replace(/\s+/g, "-")
+                .toLowerCase()}?group_id=${data.group_id}&&category=${
+                data.category
+              }`}
               key={data.group_id}
               className="max-w-xl p-4 "
             >
-              <div className="border bg-white border-gray-300 rounded-2xl md:hover:scale-105 transition-all ease-linear shadow-xl shadow-gray-400 cursor-pointer p-4">
+              <div className="border bg-white dark:bg-gray-950 border-gray-300 dark:border-none rounded-2xl md:hover:scale-105 transition-all ease-linear shadow-xl shadow-gray-400 dark:shadow-sm dark:shadow-gray-800   cursor-pointer p-4">
                 <div className="grid gap-6 ">
                   <div className="grid gap-4 ">
                     <Image
@@ -104,19 +107,21 @@ const GroupList = () => {
                     />
                     <div className="grid gap-2">
                       <h3 className="text-xl font-bold">{data?.name}</h3>
-                      <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-4">
+                      <p className="text-sm text-gray-500 dark:text-gray-200 line-clamp-3">
                         {data?.description}
                       </p>
-                      <div className="flex items-center gap-2 text-sm">
-                        <User className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-                        <span>{data?.total_members} members</span>
+                      <div className="flex  text-sm">
+                        <div className="flex items-center gap-2 p-2 px-3 font-medium bg-gray-500 dark:bg-gray-700 text-black dark:text-white rounded-full">
+                          <User className="w-4 h-4 " />
+                          <span>{data?.total_members} members</span>
+                        </div>
                       </div>
                     </div>
                   </div>
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2">
                       <div className="flex items-center gap-4">
-                        <div className="bg-purple-300 shadow-sm shadow-slate-200 rounded-full px-3 py-1 text-sm font-medium dark:bg-gray-800">
+                        <div className="bg-purple-300 shadow-sm shadow-slate-200 dark:shadow-none rounded-full px-3 py-1 text-sm font-medium dark:bg-gray-800">
                           {data?.category}
                         </div>
                       </div>
@@ -132,7 +137,7 @@ const GroupList = () => {
           );
         })}
       </div>
-      {announcementGroup?.previous &&!searchQuery && (
+      {announcementGroup?.previous && !searchQuery && (
         <div className="flex justify-start  px-4 my-5">
           <button
             className="bg-purple-700 text-white px-6 py-3  rounded-full font-bold hover:bg-purple-900"
