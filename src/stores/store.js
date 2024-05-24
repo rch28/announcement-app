@@ -61,4 +61,8 @@ export const useStore = create((set)=>({
     // View all comments reply
     replyMode:false,
     setReplyMode:(value)=>set({replyMode:value}),
+
+    // theme
+    theme:"",
+    setTheme:(value)=>set({theme:value}),
 }))

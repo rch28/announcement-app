@@ -3,7 +3,9 @@ import Cookies from "js-cookie";
 export function GetAccessToken() {
   return Cookies.get("access_token");
 }
-
+export function GetTheme(){
+  return Cookies.get("theme");
+}
 // Fetch logged in user data from the API
 export async function getLoggedInUserData() {
   const access_token = GetAccessToken();

@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import ProfileToggleNav from "./ProfileToggleNav";
 import { useStore } from "@/stores/store";
 import Cookies from "js-cookie";
-import { Bell } from "lucide-react";
+import { Bell, Moon, Sun } from "lucide-react";
 import SearchBar from "./SearchBar";
 import Image from "next/image";
 import { logo } from "../../../public";
@@ -16,7 +16,18 @@ const Navbar = () => {
   const setUserData = useStore((state) => state.setUserData);
   const access_token = Cookies.get("access_token");
   const refreshToken = Cookies.get("refresh_token");
-  const pathname= usePathname()
+  const pathname = usePathname();
+  const theme = useStore((state) => state.theme);
+  const setTheme = useStore((state) => state.setTheme);
+  useEffect(() => {
+    const theme = Cookies.get("theme");
+    if (!theme) {
+      Cookies.set("theme", "dark");
+      setTheme("dark");
+    } else {
+      setTheme(theme);
+    }
+  }, [theme]);
   useEffect(() => {
     if (!access_token || !refreshToken) {
       setUserLoggedIn(false);
@@ -75,7 +86,11 @@ const Navbar = () => {
             <ul className="flex  items-center space-x-2 md:space-x-4">
               <li>
                 <Link
-                  className={`text-gray-900 dark:text-white hover:text-purple-700 text-xs md:text-lg font-medium ${pathname==="/"?"text-purple-700 dark:text-purple-700":""}`}
+                  className={`text-gray-900 dark:text-white hover:text-purple-700 text-xs md:text-lg font-medium ${
+                    pathname === "/"
+                      ? "text-purple-700 dark:text-purple-700"
+                      : ""
+                  }`}
                   href="/"
                   passHref
                 >
@@ -84,7 +99,11 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  className={ `text-gray-900 dark:text-white hover:text-putple-700 text-xs md:text-lg font-medium  ${pathname.startsWith("/groups")?"text-purple-700 dark:text-purple-700":""}`}
+                  className={`text-gray-900 dark:text-white hover:text-putple-700 text-xs md:text-lg font-medium  ${
+                    pathname.startsWith("/groups")
+                      ? "text-purple-700 dark:text-purple-700"
+                      : ""
+                  }`}
                   href="/groups"
                   passHref
                 >
@@ -92,11 +111,32 @@ const Navbar = () => {
                 </Link>
               </li>
             </ul>
+            <div>
+              {theme === "dark" ? (
+                <Sun
+                  size={16}
+                  color="white"
+                  onClick={() => {
+                    Cookies.set("theme", "light");
+                    setTheme("light");
+                  }}
+                />
+              ) : (
+                <Moon
+                  size={16}
+                  color="black"
+                  onClick={() => {
+                    Cookies.set("theme", "dark");
+                    setTheme("dark");
+                  }}
+                />
+              )}
+            </div>
             <p className="relative cursor-pointer">
               <span className="sm:hidden">
                 <Bell size={12} />
               </span>
-              <span className="hidden sm:flex"> 
+              <span className="hidden sm:flex">
                 <Bell size={16} />
               </span>
               <span className="absolute -top-2 -right-2 text-[#FD0303] w-4 h-4 p-2 flex justify-center items-center rounded-full  text-sm">
