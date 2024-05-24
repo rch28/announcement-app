@@ -121,14 +121,14 @@ const JoinGroupButton = () => {
           </h3>
           <button
             onClick={() => setToggle(!toggle)}
-            className="p-1 border border-gray-400 bg-slate-200 rounded-full cursor-pointer"
+            className="p-1 border border-gray-400 bg-slate-200 dark:bg-white rounded-full cursor-pointer"
           >
-            <Cog className="h-5 w-5 text-gray-800 dark:text-gray-400" />
+            <Cog className="h-5 w-5 text-gray-800  dark:text-black" />
           </button>
           {toggle && (
-            <div className="absolute  bottom-14 right-0 bg-white border border-gray-300 py-6 px-4 w-64 md:w-72 rounded-lg shadow-md shadow-gray-500">
+            <div className="absolute  bottom-14 right-0 bg-white  border  border-gray-300 py-6 px-4 w-64 md:w-72 rounded-lg shadow-md shadow-gray-500  dark:bg-gray-950 ">
               <div className="flex flex-col gap-3">
-                <Link href={""} className="cursor-pointer bg-slate-200 hover:bg-purple-600 hover:text-white p-3 rounded-md ">
+                <Link href={""} className="cursor-pointer bg-slate-200 dark:bg-slate-700 hover:bg-purple-600 dark:hover:bg-purple-600 hover:text-white p-3 rounded-md ">
                   <CardUtil
                     title="View Members"
                     icon={
@@ -137,7 +137,7 @@ const JoinGroupButton = () => {
                   />
                 </Link>
                 <div
-                  className="cursor-pointer bg-slate-200 hover:bg-red-600 p-3 rounded-md hover:text-white"
+                  className="cursor-pointer bg-slate-200 dark:bg-slate-700 dark:hover:bg-red-600 hover:bg-red-600 p-3  rounded-md hover:text-white"
                   onClick={()=>setLeaveGroupToggle(true)}
                 >
                   <CardUtil
