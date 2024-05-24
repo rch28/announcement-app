@@ -166,7 +166,7 @@ const ManageAnnouncements = () => {
             <h1 className="text-sm font-medium">Group Annoucements</h1>
             {announcementList?.map((ann) => (
               <div key={ann.id}>
-                <div className="flex items-center justify-between p-3 bg-white shadow-md shadow-gray-400 my-3 rounded-lg border hover:border hover:border-purple-700">
+                <div className="flex items-center justify-between p-3 bg-white shadow-md shadow-gray-400 my-3 rounded-lg border dark:shadow-none hover:border hover:border-purple-700">
                   <Link
                     href={`/announcements/${ann.title
                       .replace(/\s+/g, "-")

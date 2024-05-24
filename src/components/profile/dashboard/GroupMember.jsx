@@ -23,7 +23,7 @@ const GroupMember = ({ id, admin_id }) => {
 
   return (
     <div className="relative">
-      <div className="flex items-center justify-between p-3 bg-white shadow-md shadow-gray-400 my-3 rounded-lg border hover:border hover:border-purple-700">
+      <div className="flex items-center justify-between p-3 bg-white dark:shadow-none shadow-md shadow-gray-400 my-3 rounded-lg border hover:border hover:border-purple-700">
         <Link
           href={`/user/profile/id=${id}`}
           className="flex gap-1 hover:underline"
@@ -41,7 +41,7 @@ const GroupMember = ({ id, admin_id }) => {
         {isAdmin && !role && (
           <div className="group">
             <button
-              className="bg-white shadow-md shadow-gray-500 p-1 cursor-pointer rounded-full "
+              className="bg-white shadow-md text-black shadow-gray-500 p-1 cursor-pointer rounded-full "
               onClick={() => setToggle((prev) => !prev)}
             >
               <DotsVerticalIcon />
