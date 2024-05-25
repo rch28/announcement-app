@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { useStore } from "@/stores/store";
 import DeleteConfirm from "../utils/DeleteConfirm";
+import PopUpWrapper from "../PopUpWrapper";
 
 const SettingCard = ({ setToggleSetting }) => {
   const router = useRouter();
@@ -110,12 +111,12 @@ const SettingCard = ({ setToggleSetting }) => {
         </div>
       </div>
       {deleteToggle && (
-        <div className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-black/30">
+        <PopUpWrapper>
           <DeleteConfirm title="Delete Group">
             <div className="flex gap-4">
               <button
                 onClick={() => setDeleteToggle(!deleteToggle)}
-                className="px-6 py-2 bg-gray-600 rounded-full text-white font-bold hover:bg-gray-700"
+                className="px-6 py-2 bg-purple-600 rounded-full text-white font-bold hover:bg-purple-700"
               >
                 Cancel
               </button>
@@ -127,7 +128,7 @@ const SettingCard = ({ setToggleSetting }) => {
               </button>
             </div>
           </DeleteConfirm>
-        </div>
+        </PopUpWrapper>
       )}
     </div>
   );

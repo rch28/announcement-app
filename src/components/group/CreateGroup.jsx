@@ -123,7 +123,7 @@ const CreateGroup = ({ mode, data }) => {
     { value: "other", label: "Other" },
   ];
   return (
-    <div className="bg-white mx-4  rounded-xl border-2  w-[90%] md:w-auto shadow-lg shadow-gray-500 relative z-20 p-4">
+    <div className="bg-white mx-4  rounded-xl border-2  w-[90%] md:w-auto shadow-lg shadow-gray-500 relative z-20 p-4 dark:shadow-none">
       <div className="flex justify-end items-center  absolute right-4 top-2 ">
         <button
           onClick={() => setToggleCreateGroup(false)}
