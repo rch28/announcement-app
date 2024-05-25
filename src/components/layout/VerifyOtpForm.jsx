@@ -1,7 +1,6 @@
 "use client";
 
 import { useStore } from "@/stores/store";
-import Cookies from "js-cookie";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -47,13 +46,9 @@ const VerifyOtpForm = () => {
         }
       );
       const data = await res.json();
-      console.log(data);
       if (res.ok) {
         if (verifyFor === "login") {
-          Cookies.set("access_token", data.access, { expires: 7 });
-          Cookies.set("refresh_token", data.refresh), { expires: 7 };
-          useStore.setState({ userAuthenticated: true });
-          router.push("/");
+            router.push("/auth/login")
         } else if (verifyFor === "forgot-password") {
           router.push(
             `/auth/reset-password`

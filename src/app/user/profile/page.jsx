@@ -21,7 +21,7 @@ const ProfilePage = () => {
             className="cursor-pointer   bg-gray-200 text-center text-gray-500 text-sm  rounded-full   h-20 w-20 md:h-40 md:w-40 relative"
           >
             <Image
-              className="rounded-full h-20 w-20 md:h-40 md:w-40 "
+              className="rounded-full  "
               src={userData?.profilepic ? userData.profilepic : profile}
               width={600}
               height={600}
@@ -43,7 +43,7 @@ const ProfilePage = () => {
                 onClick={() => setToggle(!toggle)}
               >
                 <Edit size={14} color="purple" />
-                <span className="text-sm font-medium">Edit profile</span>
+                <span className="text-sm font-medium text-nowrap">Edit profile</span>
               </button>
             </div>
           </div>

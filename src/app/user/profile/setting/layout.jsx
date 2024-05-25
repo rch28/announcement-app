@@ -15,7 +15,7 @@ const layout = ({ children }) => {
           <div className="grid gap-2 ">
             <Link
               href={"/user/profile/setting"}
-              className={`px-4 dark:text-white py-3 rounded-xl flex gap-2 ${pathname=== "/user/profile/setting" ? " dark:text-black  bg-white shadow-md dark:shadow-gray-600 shadow-gray-500" : "text-gray-900 dark:text-white  hover:shadow-md hover:shadow-gray-400 dark:hover:shadow-none dark:hover:bg-white hover:bg-white/50 hover:dark:text-black  " }`}
+              className={`px-4  py-3 rounded-xl flex gap-2 ${pathname=== "/user/profile/setting" ? " dark:text-black  bg-white shadow-md dark:shadow-gray-600 shadow-gray-500" : "text-gray-900 dark:text-white  hover:shadow-md hover:shadow-gray-400 dark:hover:shadow-none dark:hover:bg-white hover:bg-white/50 hover:dark:text-black  " }`}
             >
               <User size={18} color="purple" />
               <span className="font-medium text-sm">User profile</span>

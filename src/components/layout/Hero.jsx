@@ -48,7 +48,7 @@ export default function Hero() {
             </div>
           </div>
         </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-slate-200 dark:bg-gray-800">
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-slate-300 dark:bg-gray-800">
           <div className="container grid items-center gap-6 px-4 md:px-6 lg:grid-cols-2 lg:gap-10">
             <div className="space-y-2">
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">

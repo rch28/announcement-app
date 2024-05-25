@@ -70,8 +70,4 @@ export const useStore = create((set)=>({
     email:"",
     setEmail:(value)=>set({email:value}),
 
-    // user username
-    username:"",
-    setUserName:((value)=>set({username:value}))
-
 }))

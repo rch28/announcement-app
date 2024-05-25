@@ -95,7 +95,7 @@ const GroupList = () => {
               key={data.group_id}
               className="max-w-xl p-4 "
             >
-              <div className="border bg-white dark:bg-gray-950 border-gray-300 dark:border-none rounded-2xl md:hover:scale-105 transition-all ease-linear shadow-xl shadow-gray-400 dark:shadow-sm dark:shadow-gray-800   cursor-pointer p-4">
+              <div className="border bg-white dark:bg-gray-950 border-gray-300 dark:border-none rounded-2xl md:hover:scale-105 shadow-xl shadow-gray-400 dark:shadow-sm dark:shadow-gray-800   cursor-pointer p-4">
                 <div className="grid gap-6 ">
                   <div className="grid gap-4 ">
                     <Image
@@ -111,7 +111,7 @@ const GroupList = () => {
                         {data?.description}
                       </p>
                       <div className="flex  text-sm">
-                        <div className="flex items-center gap-2 p-2 px-3 font-medium bg-gray-500 dark:bg-gray-700 text-black dark:text-white rounded-full">
+                        <div className="flex items-center gap-2 p-2 px-3 font-medium bg-gray-300 dark:bg-gray-700 text-black dark:text-white rounded-full">
                           <User className="w-4 h-4 " />
                           <span>{data?.total_members} members</span>
                         </div>

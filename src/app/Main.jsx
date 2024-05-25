@@ -17,7 +17,7 @@ const Main = ({ children }) => {
 
   return (
     <html lang="en" className={theme}>
-      <body className={` bg-white dark:bg-[#000000] dark:text-white`}>
+      <body className={` bg-gray-200 dark:bg-[#000000] dark:text-white  `}>
         <Toaster />
         <Navbar />
         <div className="max-w-5xl mx-auto ">{children}</div>
