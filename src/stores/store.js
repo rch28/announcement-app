@@ -63,6 +63,6 @@ export const useStore = create((set)=>({
     setReplyMode:(value)=>set({replyMode:value}),
 
     // theme
-    theme:"",
+    theme:"dark",
     setTheme:(value)=>set({theme:value}),
 }))

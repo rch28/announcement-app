@@ -11,14 +11,9 @@ const Main = ({ children }) => {
   const theme = useStore((state) => state.theme);
   const setTheme = useStore((state) => state.setTheme);
   useEffect(() => {
-    const theme = Cookies.get("theme");
-    if (!theme) {
-      Cookies.set("theme", "dark");
-      setTheme("dark");
-    } else {
-      setTheme(theme);
-    }
-  }, [theme]);
+    const theme = Cookies.get("theme") || "dark" ;
+    setTheme(theme);
+  }, []);
 
   return (
     <html lang="en" className={theme}>

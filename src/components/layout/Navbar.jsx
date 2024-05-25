@@ -19,15 +19,7 @@ const Navbar = () => {
   const pathname = usePathname();
   const theme = useStore((state) => state.theme);
   const setTheme = useStore((state) => state.setTheme);
-  useEffect(() => {
-    const theme = Cookies.get("theme");
-    if (!theme) {
-      Cookies.set("theme", "dark");
-      setTheme("dark");
-    } else {
-      setTheme(theme);
-    }
-  }, [theme]);
+
   useEffect(() => {
     if (!access_token || !refreshToken) {
       setUserLoggedIn(false);
@@ -86,10 +78,10 @@ const Navbar = () => {
             <ul className="flex  items-center space-x-2 md:space-x-4">
               <li>
                 <Link
-                  className={`text-gray-900 dark:text-white hover:text-purple-700 text-xs md:text-lg font-medium ${
+                  className={`text-gray-900  hover:text-purple-700 text-xs md:text-lg font-medium ${
                     pathname === "/"
                       ? "text-purple-700 dark:text-purple-700"
-                      : ""
+                      : "dark:text-white"
                   }`}
                   href="/"
                   passHref
@@ -99,10 +91,10 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  className={`text-gray-900 dark:text-white hover:text-putple-700 text-xs md:text-lg font-medium  ${
+                  className={`text-gray-900  hover:text-putple-700 text-xs md:text-lg font-medium  ${
                     pathname.startsWith("/groups")
                       ? "text-purple-700 dark:text-purple-700"
-                      : ""
+                      : "dark:text-white"
                   }`}
                   href="/groups"
                   passHref
