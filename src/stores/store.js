@@ -65,4 +65,13 @@ export const useStore = create((set)=>({
     // theme
     theme:"dark",
     setTheme:(value)=>set({theme:value}),
+
+    // user email
+    email:"",
+    setEmail:(value)=>set({email:value}),
+
+    // user username
+    username:"",
+    setUserName:((value)=>set({username:value}))
+
 }))

@@ -11,12 +11,18 @@ const VerifyOtpForm = () => {
   const router = useRouter();
   const username = searchParams.get("username");
   const verifyFor = searchParams.get("verifyFor");
-  const [opt, setopt] = useState("");
+  const [otp, setOtp] = useState("");
   const [optErr, setOptErr] = useState("");
-
+  const email= useStore((state)=>state.email)
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (opt.length !== 6) {
+    
+    if(!email && verifyFor==="forget-password"){
+      toast("Email is required")
+      router.push("/auth/forgot-password")
+      return;
+    }
+    if (otp.length !== 6) {
       setOptErr("Please enter a valid otp");
       return;
     }
@@ -37,10 +43,11 @@ const VerifyOtpForm = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ username: username, otp: opt }),
+          body: JSON.stringify( verifyFor==="login"?{username: username, otp: otp }:verifyFor==="forgot-password"&&{email:email,otp:otp}),
         }
       );
       const data = await res.json();
+      console.log(data);
       if (res.ok) {
         if (verifyFor === "login") {
           Cookies.set("access_token", data.access, { expires: 7 });
@@ -49,7 +56,7 @@ const VerifyOtpForm = () => {
           router.push("/");
         } else if (verifyFor === "forgot-password") {
           router.push(
-            `/auth/reset-password?username=${username}&&verifyFor=forgot-password`
+            `/auth/reset-password`
           );
         }
         resolve(data);
@@ -70,10 +77,10 @@ const VerifyOtpForm = () => {
   };
   return (
     <form
-      className=" flex-1 mx-auto border-2 p-4 rounded-lg shadow-lg shadow-gray-600 bg-white"
+      className=" flex-1 mx-auto border-2 p-4 rounded-lg shadow-lg shadow-gray-600 bg-white dark:shadow-md dark:bg-gray-950 dark:text-white dark:border dark:border-gray-500 dark:shadow-gray-700"
       onSubmit={handleSubmit}
     >
-      <h1 className="text-4xl font-bold text-center pb-10 text-gray-800">
+      <h1 className="text-4xl font-bold text-center pb-10 text-gray-800 dark:text-white">
         Verify-Otp
       </h1>
       {optErr && (
@@ -89,8 +96,8 @@ const VerifyOtpForm = () => {
           id="floating_otp"
           className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-400 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           placeholder=" "
-          value={opt}
-          onChange={(e) => setopt(e.target.value)}
+          value={otp}
+          onChange={(e) => setOtp(e.target.value)}
         />
         <label
           htmlFor="floating_otp"

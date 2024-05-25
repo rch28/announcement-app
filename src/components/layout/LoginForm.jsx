@@ -71,21 +71,13 @@ const LoginForm = () => {
     });
     setErrorMsg("");
   };
-  const handleClickForgotPassword = (e) => {
-    e.preventDefault();
-    if (!username) {
-      setuNameErr("Enter username!");
-      return;
-    }
 
-    router.push(`/auth/forgot-password?username=${username}`);
-  };
   return (
     <form
-      className=" p-4 rounded-xl shadow-lg shadow-gray-600 w-[400px] bg-white"
+      className=" p-4 rounded-xl shadow-lg shadow-gray-600 w-[400px] bg-white dark:shadow-md dark:bg-gray-950 dark:text-white dark:border dark:border-gray-500 dark:shadow-gray-700"
       onSubmit={handleSubmit}
     >
-      <h1 className="text-4xl font-bold text-center pb-10 text-gray-700">
+      <h1 className="text-4xl font-bold text-center pb-10 text-gray-700 dark:text-white">
         Login
       </h1>
       {errorMsg && (
@@ -145,12 +137,11 @@ const LoginForm = () => {
         </button>
       </div>
       <div className="mt-4 py-4 flex justify-end px-4">
-        <button
-          onClick={handleClickForgotPassword}
+        <Link href={"/auth/forgot-password"}
           className="text-sm text-blue-600 dark:text-blue-500 hover:underline font-bold"
         >
           Forgot Password?
-        </button>
+        </Link>
       </div>
       <div className=" text-gray-700 flex gap-2 items-center">
         <h1>Don't have an account?</h1>

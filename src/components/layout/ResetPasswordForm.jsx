@@ -2,25 +2,28 @@
 
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useRouter, useSearchParams } from "next/navigation";
-import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
+
 import { useStore } from "@/stores/store";
 const ResetPasswordFrom = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const username = searchParams.get("username");
 
   const [password, setPassword] = useState("");
   const [confirmPssword, setconfirmPssword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
-  const setUserLoggedIn = useStore((state) => state.setUserLoggedIn);
+
+  const email=useStore((state)=>state.email)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     setErrorMsg("");
-
+    if(!email){
+      toast("Enter yout email!!")
+      router.push("/auth/forgot-password?fornewpassowrd=true")
+      return;
+    }
     if (!password || !confirmPssword) {
       setErrorMsg("Password is Missing!!");
       return;
@@ -39,7 +42,7 @@ const ResetPasswordFrom = () => {
         `http://127.0.0.1:8000/api/v1/user/change/forgot/password/`,
         {
           method: "POST",
-          body: JSON.stringify({ username, new_password: password }),
+          body: JSON.stringify({ email, new_password: password }),
           headers: {
             "Content-Type": "application/json",
           },
@@ -48,11 +51,7 @@ const ResetPasswordFrom = () => {
 
       if (response.ok) {
         const result = await response.json();
-
-        Cookies.set("access_token", result.access, { expires: 7 });
-        Cookies.set("refresh_token", result.refresh, { expires: 7 });
-        setUserLoggedIn(true);
-        router.push("/");
+        router.push("/auth/login");
 
         resolve(result);
       } else {
@@ -75,10 +74,10 @@ const ResetPasswordFrom = () => {
 
   return (
     <form
-      className="px-4   py-12 rounded-xl shadow-lg shadow-gray-600 bg-white w-[400px]"
+      className="px-4   py-12 rounded-xl shadow-lg shadow-gray-600 bg-white w-[400px] dark:shadow-md dark:bg-gray-950 dark:text-white dark:border dark:border-gray-500 dark:shadow-gray-700"
       onSubmit={handleSubmit}
     >
-      <h1 className="text-4xl font-bold text-center pb-10 text-gray-700">
+      <h1 className="text-4xl font-bold text-center pb-10 text-gray-700 dark:text-white">
         Change Password
       </h1>
       {errorMsg && (

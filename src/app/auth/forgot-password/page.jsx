@@ -5,7 +5,7 @@ import ForgotPassword from '@/components/layout/ForgotPassword'
 
 const ForgotPasswordPage = () => {
   return (
-    <div className="p-4 mt-4 transition-all ease-linear max-w-3xl  mx-auto h-[434px]">
+    <div className="p-4 mt-4 transition-all ease-linear max-w-3xl  mx-auto min-h-[500px]">
     <div className=" flex justify-between gap-4">
       <div>
 

@@ -1,17 +1,18 @@
 "use client";
 
-import Cookies from "js-cookie";
+import { useStore } from "@/stores/store";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
 const ForgotPassword = () => {
-  const searchParams = useSearchParams();
   const router = useRouter();
-  const username = searchParams.get("username");
+  const searchParams= useSearchParams()
+  const fornewpassowrd=searchParams.get("fornewpassowrd")
   const [email, setEmail] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [isError, setIsError] = useState(false)
+  const setUserEmail= useStore((state)=>state.setEmail)
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email) {
@@ -19,7 +20,12 @@ const ForgotPassword = () => {
       setErrMsg("Email is Missing!!");
       return;
     }
-
+    setUserEmail(email)
+    if(fornewpassowrd){
+      router.push(`/auth/reset-password/`)
+      toast("Enter your new password!!")
+      return
+    }
     const newPromise = new Promise(async (resolve, reject) => {
       const res = await fetch(
         "http://127.0.0.1:8000/api/v1/user/forgot/password/",
@@ -33,7 +39,7 @@ const ForgotPassword = () => {
       );
       const data = await res.json();
       if (res.ok) {
-        router.push(`/auth/forgot-password/otp-verify?username=${username}&&verifyFor=forgot-password`)
+        router.push(`/auth/forgot-password/otp-verify?verifyFor=forgot-password`)
         resolve(data);
       } else {
         reject(data);
@@ -53,10 +59,10 @@ const ForgotPassword = () => {
   };
   return (
     <form
-      className=" flex-1 mx-auto border-2 px-4 py-8 rounded-xl shadow-lg shadow-gray-600 bg-white"
+      className=" flex-1 mx-auto border-2 px-4 py-8 rounded-xl shadow-lg shadow-gray-600 bg-white dark:shadow-md dark:bg-gray-950 dark:text-white dark:border dark:border-gray-500 dark:shadow-gray-700"
       onSubmit={handleSubmit}
     >
-      <h1 className="text-4xl font-bold text-center pb-10 text-gray-800">
+      <h1 className="text-4xl font-bold text-center pb-10 text-gray-800 dark:text-white">
         Forgot Password
       </h1>
       {errMsg  &&(
