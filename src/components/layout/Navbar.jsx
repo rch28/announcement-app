@@ -9,6 +9,7 @@ import SearchBar from "./SearchBar";
 import Image from "next/image";
 import { logo } from "../../../public";
 import { usePathname } from "next/navigation";
+import DarkModeToggle from "./DarkModeToggle";
 
 const Navbar = () => {
   const authenticated = useStore((state) => state.userAuthenticated);
@@ -17,8 +18,7 @@ const Navbar = () => {
   const access_token = Cookies.get("access_token");
   const refreshToken = Cookies.get("refresh_token");
   const pathname = usePathname();
-  const theme = useStore((state) => state.theme);
-  const setTheme = useStore((state) => state.setTheme);
+
 
   useEffect(() => {
     if (!access_token || !refreshToken) {
@@ -104,25 +104,7 @@ const Navbar = () => {
               </li>
             </ul>
             <div>
-              {theme === "dark" ? (
-                <Sun
-                  size={16}
-                  color="white"
-                  onClick={() => {
-                    Cookies.set("theme", "light");
-                    setTheme("light");
-                  }}
-                />
-              ) : (
-                <Moon
-                  size={16}
-                  color="black"
-                  onClick={() => {
-                    Cookies.set("theme", "dark");
-                    setTheme("dark");
-                  }}
-                />
-              )}
+              <DarkModeToggle/>
             </div>
             <p className="relative cursor-pointer">
               <span className="sm:hidden">
