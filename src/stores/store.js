@@ -62,10 +62,7 @@ export const useStore = create((set)=>({
     replyMode:false,
     setReplyMode:(value)=>set({replyMode:value}),
 
-    // theme
-    theme:"dark",
-    setTheme:(value)=>set({theme:value}),
-
+   
     // user email
     email:"",
     setEmail:(value)=>set({email:value}),
