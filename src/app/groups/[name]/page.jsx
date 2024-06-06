@@ -37,24 +37,9 @@ const GroupPage = () => {
         );
         if (response.ok) {
           const result = await response.json();
-          if (result?.members?.length > 0) {
-            result.members.forEach(async (member) => {
-              const fetchMembers = await fetch(
-                `http://127.0.0.1:8000/api/v1/user/retrieve/${member}/`,
-                {
-                  method: "GET",
-                  headers: {
-                    Authorization: `Bearer ${access_token}`,
-                  },
-                }
-              );
-              if (fetchMembers.ok) {
-                const memberData = await fetchMembers.json();
-              }
-            });
-          }
+          
           const res = await fetch(
-            `http://127.0.0.1:8000/api/v1/user/retrieve/${result?.admin_id}/`,
+            `http://127.0.0.1:8000/api/v1/user/retrieve/${result?.admin}/`,
             {
               method: "GET",
               headers: {

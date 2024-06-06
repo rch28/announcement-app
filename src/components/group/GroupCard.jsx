@@ -79,7 +79,7 @@ const GroupCard = ({ data, groupAdminInfo }) => {
                   </div>
                 )}
                 {isGrupAdmin && userAuthenticated ? (
-                  <div>
+                  <div className="flex justify-end w-full">
                     <button
                       className="px-2 sm:px-4 py-2 bg-purple-600 rounded-full  text-white font-bold hover:bg-purple-700 text-xs md:text-sm   "
                       onClick={() =>
