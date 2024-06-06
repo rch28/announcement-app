@@ -37,7 +37,7 @@ const JoinGroupButton = () => {
           Authorization: `Bearer ${access_token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ group_id: groupId }),
+        body: JSON.stringify({ group: groupId ,role:"member"}),
       });
 
       if (response.ok) {
