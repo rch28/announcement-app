@@ -95,7 +95,7 @@ const GroupList = () => {
               key={data.group_id}
               className="max-w-xl p-4 "
             >
-              <div className="border bg-white dark:bg-gray-950 border-gray-300 dark:border-none rounded-2xl md:hover:scale-105 shadow-xl shadow-gray-400 dark:shadow-sm dark:shadow-gray-800   cursor-pointer p-4">
+              <div className="border bg-white dark:bg-gray-950 border-gray-300 dark:border-none rounded-2xl md:hover:scale-105 transition-all ease-linear shadow-xl shadow-gray-400 dark:shadow-sm dark:shadow-gray-800   cursor-pointer p-4">
                 <div className="grid gap-6 ">
                   <div className="grid gap-4 ">
                     <Image
