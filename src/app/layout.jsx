@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
   return (
     <>
     <html lang="en">
-      <body className={` bg-gray-200 dark:bg-[#000000] dark:text-white  `}>
+      <body className={` bg-primary  dark:bg-dark-primary dark:text-white  `}>
       <script
           dangerouslySetInnerHTML={{
             __html: `
