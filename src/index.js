@@ -119,7 +119,7 @@ export const fetchAllData = async (url) => {
 
 // fetch all comments
 export const fetchComments = async (ann_id, limit) => {
-  const response = await fetch(`/api/comments?ann_id=${ann_id}&&limit=${limit}`,{ cache: 'no-store' });
+  const response = await fetch(`/api/comments?ann_id=${ann_id}&&limit=${limit}`,{ cache: 'no-store', headers: { 'Authorization': `Bearer ${GetAccessToken()}` }});
   if (!response.ok) {
     throw new Error('Failed to fetch comments');
   }
