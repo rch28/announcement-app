@@ -67,16 +67,16 @@ const Comments = () => {
   return (
     <div className="border-t md:mt-12 border-gray-200 dark:border-gray-800 pt-6 md:border-t-0 ">
       {!replyMode && (
-        <div className="bg-white p-4 rounded-md shadow shadow-gray-400">
-          <h3 className="text-lg font-semibold">Comments</h3>
+        <div className="bg-white dark:bg-primary p-4 rounded-md shadow dark:shadow-sm shadow-gray-400">
+          <h3 className="text-lg font-semibold text-black">Comments</h3>
           <div className="mt-4 space-y-4 max-h-96 flex flex-col overflow-auto">
-            {comments.length === 0 && (
+            {comments?.length === 0 && (
               <div className="text-gray-500 dark:text-gray-400">
                 No comments yet
               </div>
             )}
-            {comments.length > 0 &&
-              comments.map((comm) => (
+            {comments?.length > 0 &&
+              comments?.map((comm) => (
                 <Comment
                   key={comm.id}
                   comment={comm}
