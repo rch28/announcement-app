@@ -101,7 +101,7 @@ const CommentForm = () => {
   };
   return (
     <>
-      <div className="flex  w-full items-center gap-4">
+      <div className="flex  w-full items-center gap-4 text-black">
         {userData.profilepic && (
           <Avatar className="h-10 w-10   shadow-md shadow-gray-500">
             <AvatarImage
@@ -150,7 +150,7 @@ const CommentForm = () => {
               </button>
             )
           }
-          <Button className="bg-purple-600 hover:bg-purple-700" type="submit">
+          <Button className="bg-purple-600 hover:bg-purple-700 dark:bg-purple-600 dark:hover:bg-purple-700 dark:text-white"  type="submit">
             {editCommentMode ? "Edit" : "Post"}
           </Button>
         </form>

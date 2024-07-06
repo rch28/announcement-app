@@ -89,7 +89,7 @@ const UserComment = ({ userData, comment, replyMode }) => {
             </div>
             {validUser && (
               <button
-                className={`p-1 text-gray-500  shadow-sm shadow-gray-400  rounded-full hover:bg-purple-600 hover:text-white ${toggleEdit ?"bg-red-500 text-white":"bg-white "}`}
+                className={`p-1 text-gray-500  shadow-sm shadow-gray-400  rounded-full  hover:bg-purple-600 hover:text-white ${toggleEdit ?"bg-red-500 text-white":"bg-purple-500 text-white "}`}
                 onClick={() => setToggleEdit(!toggleEdit)}
               >
                 {toggleEdit ? <XIcon size={16} /> : <EllipsisVertical size={16} />}
