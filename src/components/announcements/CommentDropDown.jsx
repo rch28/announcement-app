@@ -36,7 +36,7 @@ const CommentDropDown = ({ id, setToggleEdit }) => {
     }
   };
   return (
-    <div className="absolute top-0 right-10 bg-white rounded-md border border-gray-300  shadow-md shadow-gray-500  z-50">
+    <div className="absolute top-0 right-10 bg-white text-black rounded-md border border-gray-300  shadow-md shadow-gray-500  z-50">
       <div className="flex flex-col ">
         <div className="px-4 py-2 border-b border-gray-400">
           <button
