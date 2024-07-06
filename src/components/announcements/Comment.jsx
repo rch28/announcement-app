@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { FetchUserData } from "@/index";
+import { FetchUserData, getLoggedInUserData } from "@/index";
 import { useStore } from "@/stores/store";
 import UserComment from "./UserComment";
 import UserCommentProfile from "./UserCommentProfile";
@@ -14,7 +14,7 @@ const Comment = ({ comment, replyMode }) => {
   const [repliedUser, setRepliedUser] = useState({});
   const [replyCount, setReplyCount] = useState(0);
   const [replyToggle, setReplyToggle] = useState(false);
-
+  const [loggedUser, setLoggedUser] = useState(null)
   const setCommentId = useStore((state) => state.setCommentId);
   const setReplyMode = useStore((state) => state.setReplyMode);
   useEffect(() => {
@@ -22,11 +22,14 @@ const Comment = ({ comment, replyMode }) => {
       setReplyCount(comment.replies.length);
       setLatestReply(comment.replies[0]);
     }
+    
     const fetchUserData = async () => {
       if (comment.replies.length > 0) {
         const data = await FetchUserData(comment.replies[0].user);
         setRepliedUser(data);
       }
+      const loggedUserData= await getLoggedInUserData();
+      setLoggedUser(loggedUserData)
       const data = await FetchUserData(comment.user);
       setUserData(data);
     };
@@ -43,7 +46,7 @@ const Comment = ({ comment, replyMode }) => {
             <div className="w-full ">
               {replyToggle && (
                 <div className="flex items-center gap-2">
-                  <UserCommentProfile userData={userData} replyMode={true} />
+                  <UserCommentProfile userData={loggedUser} replyMode={true} />
 
                   <ReplyForm
                     parentId={comment.id}
@@ -55,7 +58,7 @@ const Comment = ({ comment, replyMode }) => {
 
               {latestReply && (
                 <button
-                  className="text-xs font-medium cursor-pointer  hover:bg-gray-300 p-1 rounded-md"
+                  className="text-xs font-medium cursor-pointer text-gray-700  hover:bg-gray-300 p-1 rounded-md"
                   onClick={() => {
                     setReplyMode(true);
                     setCommentId(comment.id);
@@ -101,7 +104,7 @@ const Comment = ({ comment, replyMode }) => {
                   <AvatarFallback>YS</AvatarFallback>
                 </Avatar>
               )}
-              <p className="font-medium text-xs capitalize flex gap-1 items-center">
+              <p className="font-medium text-xs capitalize flex gap-1 items-center text-gray-900">
                 <span>{repliedUser.first_name}</span>
                 <span>{repliedUser.last_name}</span>
                 <span className="text-gray-700 line-clamp-1">
