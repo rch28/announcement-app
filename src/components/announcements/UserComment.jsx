@@ -75,7 +75,7 @@ const UserComment = ({ userData, comment, replyMode }) => {
   return (
     <>
       <div
-        className={`flex-1  px-2 shadow shadow-gray-400 rounded-md border-2 py-2 ${
+        className={`flex-1  px-2 shadow shadow-gray-400 rounded-md  py-2 ${
           replyMode ? "bg-slate-300" : "bg-slate-100"
         } `}
       >
