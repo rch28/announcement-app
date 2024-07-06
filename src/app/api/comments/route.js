@@ -41,7 +41,7 @@ export async function GET(req) {
   const API_URL = `${API_URL_BASE}/${ann_id}/comment/list/?limit=${limit}`;
   console.log(limit);
   try {
-    const response = await fetch(API_URL, { cache: 'no-store' })
+    const response = await fetch(API_URL, { cache: 'no-store', headers: { 'Authorization': `${req.headers.get('Authorization')}` } });
     const comments = await response.json();
     return new Response(JSON.stringify(comments), {
       status: 200,
