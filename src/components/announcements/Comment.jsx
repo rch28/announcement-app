@@ -68,7 +68,7 @@ const Comment = ({ comment, replyMode }) => {
             {!replyToggle && (
               <div className="px-4 w-full flex-1 flex justify-end">
                 <button
-                  className="flex justify-end items-center gap-1  hover:bg-gray-300 p-1 rounded-md"
+                  className="flex justify-end items-center gap-1  hover:bg-gray-300 p-1 rounded-md text-gray-800"
                   onClick={() => setReplyToggle(true)}
                 >
                   <Reply size={12} />
