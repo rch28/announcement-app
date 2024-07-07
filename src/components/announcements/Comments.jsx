@@ -5,7 +5,7 @@ import CommentForm from "./CommentForm";
 import Comment from "./Comment";
 import { useSearchParams } from "next/navigation";
 import { useStore } from "@/stores/store";
-import { fetchComments } from "@/index";
+import { fetchComments, GetAccessToken } from "@/index";
 import Replies from "./Replies";
 import { XIcon } from "lucide-react";
 import ReplyForm from "./ReplyForm";
@@ -24,7 +24,8 @@ const Comments = () => {
   const replyMode = useStore((state) => state.replyMode);
   const setReplyMode = useStore((state) => state.setReplyMode);
   const commentId = useStore((state)=>state.commentId)
-
+  const access_token = GetAccessToken()
+  console.log(access_token);
   useEffect(() => {
     if (ann_id) {
       const loadComment = async () => {
@@ -51,7 +52,11 @@ const Comments = () => {
     const fetchComment = async () => {
       try {
         const data = await fetch(
-          `http://127.0.0.1:8000/api/v1/announcement/comment/retrieve/${commentId}/`
+          `http://127.0.0.1:8000/api/v1/announcement/comment/retrieve/${commentId}/`,{
+            headers:{
+              Authorization: `Bearer ${access_token}`
+            }
+          }
         );
         if (!data.ok) {
           throw new Error("Failed to fetch comments");
@@ -102,12 +107,12 @@ const Comments = () => {
       {replyMode && (
         <div className="bg-white p-4 rounded-md shadow shadow-gray-400">
           <div className="flex justify-between items-center">
-            <h3 className="text-lg font-semibold">Replies</h3>
+            <h3 className="text-lg font-semibold text-black/90">Replies</h3>
             <button
               onClick={() => setReplyMode(false)}
-              className="mr-6 bg-white shadow-md shadow-gray-600 rounded-full p-1"
+              className="mr-6 bg-red-600 hover:bg-red-700 shadow-md shadow-gray-600 rounded-full p-1"
             >
-              <XIcon color="purple" />
+              <XIcon color="white" size={18} />
             </button>
           </div>
           <div className="mt-4 space-y-4 max-h-96 flex flex-col overflow-auto">
