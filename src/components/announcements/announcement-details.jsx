@@ -29,7 +29,6 @@ export function AnnouncementDetails({
   const date = dateTime.toDateString();
   const time = dateTime.toLocaleTimeString();
   const userData = useStore((state) => state.userData);
-  console.log(data);
   return (
     <Card className="shadow-md">
       <DetailsHeader group_id={data.group} date={date} />

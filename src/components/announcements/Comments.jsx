@@ -25,7 +25,6 @@ const Comments = () => {
   const setReplyMode = useStore((state) => state.setReplyMode);
   const commentId = useStore((state)=>state.commentId)
   const access_token = GetAccessToken()
-  console.log(access_token);
   useEffect(() => {
     if (ann_id) {
       const loadComment = async () => {

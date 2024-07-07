@@ -37,7 +37,11 @@ const CommentForm = () => {
     const fetchComment = async () => {
       try {
         const response = await fetch(
-          `http://127.0.0.1:8000/api/v1/announcement/comment/retrieve/${commentId}/`
+          `http://127.0.0.1:8000/api/v1/announcement/comment/retrieve/${commentId}/` ,{
+            headers:{
+              Authorization: `Bearer ${access_token}`
+            }
+          }
         );
 
         if (!response.ok) {
@@ -81,7 +85,7 @@ const CommentForm = () => {
             }),
           }
         );
-
+        
         if (!response.ok) {
           const data = await response.json();
           console.log(data);
@@ -90,7 +94,7 @@ const CommentForm = () => {
         const data = await response.json();
         setCommentFetch(!commentFetch);
         setEditCommentMode(false)
-
+      
         toast.success("Comment Posted");
         setText("");
       } catch (error) {
