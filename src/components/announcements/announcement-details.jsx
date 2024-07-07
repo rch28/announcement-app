@@ -29,7 +29,7 @@ export function AnnouncementDetails({
   const date = dateTime.toDateString();
   const time = dateTime.toLocaleTimeString();
   const userData = useStore((state) => state.userData);
-
+  console.log(data);
   return (
     <Card className="shadow-md">
       <DetailsHeader group_id={data.group} date={date} />
@@ -53,14 +53,14 @@ export function AnnouncementDetails({
           />
         )}
       </div>
-      <CardHeader>
+      <CardHeader className="p-4">
         <div className="flex justify-between items-center relative">
-          <CardTitle className="text-md md:text-xl lg:text-2xl xl:text-3xl">
+          <CardTitle className="text-md md:text-xl lg:text-2xl xl:text-3xl text-gray-800">
             {data?.title}
           </CardTitle>
-          {userData?.id === data?.admin && (
+          {userData?.id === data?.user && (
             <button
-              className="p-2  text-gray-500 bg-white shadow-md shadow-gray-700  rounded-full hover:bg-gray-200"
+              className="p-1  text-white bg-purple-700 shadow-md shadow-gray-700  rounded-full hover:bg-purple-900"
               onClick={() => setToggle((prev) => !prev)}
             >
               <EllipsisVertical size={24} />
@@ -78,23 +78,23 @@ export function AnnouncementDetails({
             </div>
           )}
         </div>
-        <AdminInfo admin_id={data?.admin} />
+        <AdminInfo admin_id={data?.user} />
       </CardHeader>
 
       <CardContent>
-        <p className="text-gray-500 dark:text-gray-400">{data?.description}</p>
+        <p className="text-gray-700 ">{data?.description}</p>
       </CardContent>
       <CardFooter className="flex flex-col items-start  sm:flex-row sm:items-center justify-between">
-        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-          <CalendarDaysIcon className="h-4 w-4" />
+        <div className="flex items-center gap-2 text-sm text-gray-700">
+          <CalendarDaysIcon className="h-4 w-4 text-purple-800" />
           <span>Created on {date}</span>
         </div>
-        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mt-2 md:mt-0">
-          <WalletIcon className="h-4 w-4" />
+        <div className="flex items-center gap-2 text-sm text-gray-700 mt-2 md:mt-0">
+          <WalletIcon className="h-4 w-4 text-purple-800" />
           <span>Paid</span>
         </div>
-        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mt-2 md:mt-0">
-          <GaugeIcon className="h-4 w-4" />
+        <div className="flex items-center gap-2 text-sm text-gray-700 mt-2 md:mt-0">
+          <GaugeIcon className="h-4 w-4 text-purple-800" />
           <span>Status: {data.status}</span>
         </div>
       </CardFooter>

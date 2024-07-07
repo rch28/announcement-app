@@ -17,8 +17,8 @@ const AdminInfo = ({ admin_id }) => {
     fetchData();
   }, [admin_id]);
   return (
-    <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 capitalize">
-      <UserIcon className="h-4 w-4" />
+    <div className="flex items-end gap-2  text-sm text-gray-800 font-semibold  capitalize">
+      <UserIcon className="p-0.5 text-purple-800" />
       <span>{userData?.first_name}</span>
       <span>{userData?.last_name}</span>
     </div>
