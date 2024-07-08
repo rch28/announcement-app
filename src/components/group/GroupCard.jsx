@@ -6,15 +6,71 @@ import { bgimg } from "../../../public";
 import JoinGroupButton from "./JoinGroupButton";
 import { useStore } from "@/stores/store";
 import Rating from "./Rating";
+import { useEffect, useState } from "react";
+import { GetAccessToken } from "@/index";
+
 const GroupCard = ({ data, groupAdminInfo }) => {
+  const [groupMembers, setGroupMembers] = useState([])
   const userAuthenticated = useStore((state) => state.userAuthenticated);
   const isGrupAdmin = useStore((state) => state.isGrupAdmin);
+  const setGroupAdmin = useStore((state)=>state.setGroupAdmin)
+  const groupAdmin = useStore((state)=>state.groupAdmin)
   const toggleCreateAnnouncement = useStore(
     (state) => state.toggleCreateAnnouncement
   );
   const setToggleCreateAnnouncement = useStore(
     (state) => state.setToggleCreateAnnouncement
   );
+  const access_token = GetAccessToken();
+
+  // fetch Group members
+  const fetchGroupMembers = async () => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_DB_BASE_URL}/group/${data?.group_id}/list/member/`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch group members");
+    }
+    const result = await response.json();
+    setGroupMembers(result);
+  };
+  // Admin Information
+  const fetchGroupAdmin = async () => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_DB_BASE_URL}/user/retrieve/${data?.admin}/`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch group admin");
+    }
+    const result = await response.json();
+    setGroupAdmin(result);
+    console.log(result);
+  };
+
+  useEffect(() => {
+    if (data?.group_id) {
+      fetchGroupMembers();
+    }
+
+    if (data?.admin) {
+      fetchGroupAdmin();
+    }
+    const res= groupMembers?.results?.some((member)=>member.user===groupAdmin?.username)
+  }, [data]);
   return (
     <>
       <div className="w-full ">
@@ -33,24 +89,21 @@ const GroupCard = ({ data, groupAdminInfo }) => {
                   {data?.name}
                 </h3>
                 <div>
-                  {
-                    data?.location &&(
-                      <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
-                        <span className="font-semibold"></span> {data?.location} Bharatpur, Chitwan Nepal
-                      </p>
-                    )
-                  }
+                  {data?.location && (
+                    <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
+                      <span className="font-semibold"></span> {data?.location}{" "}
+                      Bharatpur, Chitwan Nepal
+                    </p>
+                  )}
                 </div>
                 <div className="flex items-center gap-2">
                   {data?.group_type === "public" ? (
                     <p
-                      className="flex justify-center items-center gap-1"
+                      className="flex justify-center items-center gap-1 px-2 py-0.5 bg-purple-300 dark:bg-gray-800  rounded-full"
                       title="public"
                     >
-                      <Globe className="w-4 h-4 " />
-                      <span className="text-xs px-2 py-0.5 bg-purple-300 dark:bg-gray-800  rounded-full">
-                        Public
-                      </span>
+                      <Globe className="w-3 h-3 " />
+                      <span className="text-xs ">Public</span>
                     </p>
                   ) : (
                     <GlobeLock className="w-3 h-3 " />
@@ -60,7 +113,7 @@ const GroupCard = ({ data, groupAdminInfo }) => {
                   </div>
                   <Rating rating={data?.average_rating} />
                 </div>
-               
+
                 <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
                   {data?.description}
                 </p>
