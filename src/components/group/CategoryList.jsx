@@ -61,7 +61,7 @@ const CategoryList = () => {
             placeholder="Search groups..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="border border-gray-300 rounded-full px-4 py-2 outline-none w-full md:w-72 focus:ring-purple-500 focus:border-purple-500 dark:text-black"
+            className="border border-gray-300 rounded-full px-4 py-1.5 outline-none w-full md:w-72 focus:ring-purple-500 focus:border-purple-500 dark:text-black"
           />
           <button
             onClick={handleClick}
@@ -71,7 +71,7 @@ const CategoryList = () => {
           </button>
           <button
             onClick={handleClick}
-            className="bg-purple-700 text-sm text-white px-3 md:px-6 py-1 md:py-3 sm:hidden  rounded-full font-bold hover:bg-purple-900 text-nowrap"
+            className="bg-purple-700 text-sm text-white px-4 md:px-6 py- md:py-3 sm:hidden  rounded-full font-bold hover:bg-purple-900 text-nowrap"
           >
             New Group
           </button>
