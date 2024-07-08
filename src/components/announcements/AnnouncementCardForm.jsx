@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { fetchAllData } from "@/index";
+import { fetchAllData } from "../../index";
 
 export function AnnouncementCardForm({
   group_id,
@@ -107,7 +107,8 @@ export function AnnouncementCardForm({
     data.append("description", description);
     data.append("payment_method", paymentMethod);
     data.append("group", group);
-    data.append("admin", userId);
+    data.append("user", userId);
+    data.append("announcement_type", "public")
     const newPromise = new Promise(async (resolve, reject) => {
       const response = await fetch(
         `http://127.0.0.1:8000/api/v1/announcement/${
@@ -121,7 +122,6 @@ export function AnnouncementCardForm({
           body: data,
         }
       );
-
       if (response.ok) {
         const result = await response.json();
         setToggleCreateAnnouncement(false);
@@ -137,6 +137,7 @@ export function AnnouncementCardForm({
         resolve(result);
       } else {
         const result = await response.json();
+        console.log(result);
         reject(result);
       }
     });

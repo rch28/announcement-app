@@ -4,7 +4,7 @@ import { AnnouncementCardForm } from "@/components/announcements/AnnouncementCar
 import PopUpWrapper from "@/components/PopUpWrapper";
 import { Label } from "@/components/ui/label";
 import DeleteConfirm from "@/components/utils/DeleteConfirm";
-import { fetchAllData, fetchGroup, GetAccessToken } from "@/index";
+import { fetchAllData, fetchGroup, GetAccessToken } from "../../../../../index";
 import { useStore } from "@/stores/store";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";

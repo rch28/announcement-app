@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import { useSearchParams } from "next/navigation";
 import { useStore } from "@/stores/store";
 import toast from "react-hot-toast";
-import { GetAccessToken } from "@/index";
+import { GetAccessToken } from "../../index";
 import { XIcon } from "lucide-react";
 
 const CommentForm = () => {

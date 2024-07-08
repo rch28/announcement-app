@@ -2,7 +2,7 @@
 
 import GroupMember from "@/components/profile/dashboard/GroupMember";
 import { Label } from "@/components/ui/label";
-import { fetchAllData, fetchGroup } from "@/index";
+import { fetchAllData, fetchGroup } from "../../../../../index";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 

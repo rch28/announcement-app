@@ -2,7 +2,7 @@
 import { useStore } from "@/stores/store";
 import React, { useState } from "react";
 import DeleteConfirm from "../utils/DeleteConfirm";
-import { GetAccessToken } from "@/index";
+import { GetAccessToken } from "../../index";
 import { Edit2, ReplyIcon, Trash } from "lucide-react";
 import PopUpWrapper from "../PopUpWrapper";
 

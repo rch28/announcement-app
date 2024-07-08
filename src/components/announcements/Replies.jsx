@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { FetchUserData } from "@/index";
+import { FetchUserData } from "../../index";
 import UserComment from "./UserComment";
 import UserCommentProfile from "./UserCommentProfile";
 import Comment from "./Comment";

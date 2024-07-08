@@ -5,7 +5,7 @@ import PopUpWrapper from "@/components/PopUpWrapper";
 import GroupCard from "@/components/profile/dashboard/GroupCard";
 import DeleteConfirm from "@/components/utils/DeleteConfirm";
 import LeaveConfirm from "@/components/utils/LeaveConfirm";
-import { fetchAllData, GetAccessToken } from "@/index";
+import { fetchAllData, GetAccessToken } from "../../../../index";
 import { useStore } from "@/stores/store";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";

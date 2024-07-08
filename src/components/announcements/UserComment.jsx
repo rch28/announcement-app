@@ -1,5 +1,5 @@
 "use client";
-import { FetchUserData } from "@/index";
+import { FetchUserData } from "../../index";
 import CommentDropDown from "./CommentDropDown";
 import { EllipsisVertical, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";

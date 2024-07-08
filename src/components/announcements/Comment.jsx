@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { FetchUserData, getLoggedInUserData } from "@/index";
+import { FetchUserData, getLoggedInUserData } from "../../index";
 import { useStore } from "@/stores/store";
 import UserComment from "./UserComment";
 import UserCommentProfile from "./UserCommentProfile";

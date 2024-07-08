@@ -29,7 +29,7 @@ const GroupList = () => {
 
   const fetchGroup = async () => {
     const response = await fetch(
-      `http://127.0.0.1:8000/api/v1/group/list/?category=${selectedCategory}&?${
+      `${process.env.NEXT_PUBLIC_DB_BASE_URL}/group/list/?category=${selectedCategory}&?${
         next && "limit=10&offset=10"
       }`
     );

@@ -1,5 +1,5 @@
 "use client";
-import { FetchUserData } from "@/index";
+import { FetchUserData } from "../../index";
 import { UserIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 

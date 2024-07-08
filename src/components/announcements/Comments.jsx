@@ -5,7 +5,7 @@ import CommentForm from "./CommentForm";
 import Comment from "./Comment";
 import { useSearchParams } from "next/navigation";
 import { useStore } from "@/stores/store";
-import { fetchComments, GetAccessToken } from "@/index";
+import { fetchComments, GetAccessToken } from "../../index";
 import Replies from "./Replies";
 import { XIcon } from "lucide-react";
 import ReplyForm from "./ReplyForm";

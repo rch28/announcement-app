@@ -1,5 +1,5 @@
 "use client";
-import { GetAccessToken } from "@/index";
+import { GetAccessToken } from "../../index";
 import { useStore } from "@/stores/store";
 import { EnterIcon } from "@radix-ui/react-icons";
 import { XIcon } from "lucide-react";

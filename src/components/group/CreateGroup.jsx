@@ -3,7 +3,7 @@ import { useStore } from "@/stores/store";
 import Cookies from "js-cookie";
 import { XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { CardDescription } from "../ui/card";
 import { Label } from "../ui/label";
@@ -12,6 +12,15 @@ import { Textarea } from "../ui/textarea";
 
 const CreateGroup = ({ mode, data }) => {
   const router = useRouter();
+  // input refs
+  const groupNameRef = useRef(null)
+  const descRef=useRef(null)
+  const categoryRef=useRef(null)
+  const typeRef=useRef(null)
+  const imageRef=useRef(null)
+
+
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -39,22 +48,27 @@ const CreateGroup = ({ mode, data }) => {
     e.preventDefault();
     console.log(groupType);
     if (!name) {
+      groupNameRef.current.focus()
       toast.error("Group name is required");
       return;
     }
     if (!description) {
+      descRef.current.focus()
       toast.error("Group description is required");
       return;
     }
     if (category === "any" || category === "") {
+      categoryRef.current.focus()
       toast.error("Please select a category");
       return;
     }
     if(groupType === ""){
+      typeRef.current.focus()
       toast.error("Please select a group type")
       return;
     }
     if (!image && mode !== "edit") {
+      imageRef.current.focus()
       toast.error("Group image is required");
       return;
     }
@@ -66,7 +80,7 @@ const CreateGroup = ({ mode, data }) => {
     data.append("group_type", groupType)
     const newPromise = new Promise(async (resolve, reject) => {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/v1/group/${
+        `${process.env.NEXT_PUBLIC_DB_BASE_URL}/group/${
           mode === "edit" ? `update/${group_id}/` : "create/"
         }`,
         {
@@ -164,22 +178,24 @@ const CreateGroup = ({ mode, data }) => {
               <div className=" md:space-y-2">
                 <Label className="hidden md:flex " htmlFor="group_name">Group name</Label>
                 <Input
+                  ref={groupNameRef}
                   type="text"
                   name="group_name"
                   id="group_name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Enter group name"
-                  className="border border-gray-600 focus:border-purple-500 bg-white"
+                  className="border border-gray-600 focus:border-purple-700 bg-white"
                 />
               </div>
               <div className="">
                 <Label className="hidden md:flex " htmlFor="group_description">Description</Label>
                 <Textarea
+                  ref={descRef}
                   type="text"
                   name="group_description"
                   id="group_description"
-                  className="border border-gray-600 focus:border-purple-500  sm:h-full"
+                  className="border border-gray-600 focus:border-purple-700  sm:h-full"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Enter Group Description "
@@ -191,10 +207,11 @@ const CreateGroup = ({ mode, data }) => {
                 <Label className="hidden md:flex " htmlFor="category">Select Category</Label>
 
                 <select
+                  ref={categoryRef}
                   name="category"
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-500 rounded-md focus:outline-none text-sm font-medium appearance-none "
+                  className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-700 rounded-md focus:outline-none text-sm font-medium appearance-none "
                 >
                   {options.map((option) => (
                     <option
@@ -211,10 +228,11 @@ const CreateGroup = ({ mode, data }) => {
                 <Label className="hidden md:flex " htmlFor="groupType">Select Type</Label>
 
                 <select
+                  ref={typeRef}
                   name="groupType"
                   value={groupType}
                   onChange={(e) => setGroupType(e.target.value)}
-                  className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-500 rounded-md focus:outline-none text-sm font-medium appearance-none "
+                  className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-700 rounded-md focus:outline-none text-sm font-medium appearance-none "
                 >
                   {group_type.map((type) => (
                     <option
@@ -230,6 +248,7 @@ const CreateGroup = ({ mode, data }) => {
               <div className="">
                 <Label className="hidden md:flex " htmlFor="group_image ">Image</Label>
                 <input
+                  ref={imageRef}
                   type="file"
                   name="group_image"
                   id="group_image"

@@ -2,7 +2,7 @@
 import AnnouncementCard from "@/components/announcements/AnnouncementCard";
 import { AnnouncementCardForm } from "@/components/announcements/AnnouncementCardForm";
 import PopUpWrapper from "@/components/PopUpWrapper";
-import { fetchAllData, fetchGroup } from "@/index";
+import { fetchAllData, fetchGroup } from "../../../../index";
 import { useStore } from "@/stores/store";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";

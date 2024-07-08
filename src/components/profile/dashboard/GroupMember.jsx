@@ -1,5 +1,5 @@
 "use client";
-import { FetchUserData, getLoggedInUserData } from "@/index";
+import { FetchUserData, getLoggedInUserData } from "../../../index";
 import { DotsVerticalIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { useEffect, useState } from "react";
