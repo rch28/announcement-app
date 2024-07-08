@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { User } from "lucide-react";
+import { Globe, GlobeLock, Users } from "lucide-react";
 import { useStore } from "@/stores/store";
 
 function debounce(func, delay) {
@@ -26,10 +26,11 @@ const GroupList = () => {
   const [fetchTrigger, setFetchTrigger] = useState(0);
 
   // fetch group
-
   const fetchGroup = async () => {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_DB_BASE_URL}/group/list/?category=${selectedCategory}&?${
+      `${
+        process.env.NEXT_PUBLIC_DB_BASE_URL
+      }/group/list/?category=${selectedCategory}&?${
         next && "limit=10&offset=10"
       }`
     );
@@ -106,28 +107,45 @@ const GroupList = () => {
                       width={600}
                     />
                     <div className="grid gap-2">
-                      <h3 className="text-xl font-bold">{data?.name}</h3>
+                      <div className="flex gap-2 items-center">
+                        <div className="flex-1 flex gap-2 items-center">
+                          <h3 className=" text-lg md:text-xl font-bold">
+                            {data?.name}
+                          </h3>
+                          {data?.group_type === "public" ? (
+                            <p
+                              className="flex justify-center  items-end"
+                              title="public"
+                            >
+                              <Globe className="w-3 h-3 " />
+                            </p>
+                          ) : (
+                            <GlobeLock className="w-3 h-3 " />
+                          )}
+                        </div>
+
+                        <div className="bg-purple-300 flex items-center justify-end gap-2 px-2 rounded-full  dark:bg-slate-600">
+                          <Users className="w-3 h-3 " />
+                          <span className="text-sm">{data?.total_members}</span>
+                        </div>
+                      </div>
+
                       <p className="text-sm text-gray-500 dark:text-gray-200 line-clamp-3">
                         {data?.description}
                       </p>
-                      <div className="flex  text-sm">
-                        <div className="flex items-center gap-2 p-2 px-3 font-medium bg-gray-300 dark:bg-gray-700 text-black dark:text-white rounded-full">
-                          <User className="w-4 h-4 " />
-                          <span>{data?.total_members} members</span>
-                        </div>
-                      </div>
+                     
                     </div>
                   </div>
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2">
                       <div className="flex items-center gap-4">
-                        <div className="bg-purple-300 shadow-sm shadow-slate-200 dark:shadow-none rounded-full px-3 py-1 text-sm font-medium dark:bg-gray-800">
+                        <div className="bg-purple-300 shadow-sm shadow-slate-200 dark:shadow-none rounded-full px-3 py-1.5 text-sm font-medium dark:bg-gray-800 capitalize">
                           {data?.category}
                         </div>
                       </div>
                     </div>
 
-                    <button className="px-6 py-2 bg-purple-700 rounded-full  text-white font-bold hover:bg-purple-900">
+                    <button className="px-3 md:px-4 py-1.5 md:p-2  bg-purple-700 rounded-full  text-white font-bold hover:bg-purple-900 text-sm md:">
                       View Group
                     </button>
                   </div>
@@ -140,7 +158,7 @@ const GroupList = () => {
       {announcementGroup?.previous && !searchQuery && (
         <div className="flex justify-start  px-4 my-5">
           <button
-            className="bg-purple-700 text-white px-6 py-3  rounded-full font-bold hover:bg-purple-900"
+            className="bg-purple-700 text-white px-4 py-2 text-sm  rounded-full font-bold hover:bg-purple-900"
             onClick={() => setNext(!next)}
           >
             Previous
@@ -150,7 +168,7 @@ const GroupList = () => {
       {announcementGroup?.next && !searchQuery && (
         <div className="flex justify-end  px-4 my-5">
           <button
-            className="bg-purple-700 text-white px-6 py-3  rounded-full font-bold hover:bg-purple-900"
+            className="bg-purple-700 text-white px-4 py-2 text-sm  rounded-full font-bold hover:bg-purple-900"
             onClick={() => setNext(!next)}
           >
             Load More
