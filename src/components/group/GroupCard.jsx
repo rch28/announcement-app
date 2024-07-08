@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { User } from "lucide-react";
+import { Globe, GlobeLock, User } from "lucide-react";
 import Avatar from "react-avatar";
 import { bgimg } from "../../../public";
 import JoinGroupButton from "./JoinGroupButton";
@@ -29,15 +29,38 @@ const GroupCard = ({ data, groupAdminInfo }) => {
             />
             <div className="flex bg-white dark:bg-gray-950 flex-col gap-4 justify-between border border-gray-300  dark:border-none  p-2 sm:p-4 rounded-xl shadow-lg dark:shadow-md shadow-gray-500 dark:shadow-gray-900">
               <div className="flex flex-col gap-2 max-w-96 ">
-                <div className="flex items-center gap-4">
-                  <div className="bg-purple-600 rounded-full px-3 py-1 text-sm font-medium dark:bg-gray-800 text-white capitalize">
+                <h3 className=" text-2xl xs:text-3xl font-bold">
+                  {data?.name}
+                </h3>
+                <div>
+                  {
+                    data?.location &&(
+                      <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
+                        <span className="font-semibold"></span> {data?.location} Bharatpur, Chitwan Nepal
+                      </p>
+                    )
+                  }
+                </div>
+                <div className="flex items-center gap-2">
+                  {data?.group_type === "public" ? (
+                    <p
+                      className="flex justify-center items-center gap-1"
+                      title="public"
+                    >
+                      <Globe className="w-4 h-4 " />
+                      <span className="text-xs px-2 py-0.5 bg-purple-300 dark:bg-gray-800  rounded-full">
+                        Public
+                      </span>
+                    </p>
+                  ) : (
+                    <GlobeLock className="w-3 h-3 " />
+                  )}
+                  <div className="bg-purple-600 rounded-full px-3 py-1 text-xs font-medium dark:bg-gray-800 text-white capitalize">
                     {data?.category}
                   </div>
                   <Rating rating={data?.average_rating} />
                 </div>
-                <h3 className=" text-2xl xs:text-3xl font-bold">
-                  {data?.name}
-                </h3>
+               
                 <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
                   {data?.description}
                 </p>
