@@ -8,13 +8,15 @@ import { useStore } from "@/stores/store";
 import Rating from "./Rating";
 import { useEffect, useState } from "react";
 import { GetAccessToken } from "@/index";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const GroupCard = ({ data }) => {
-  const router = useRouter()
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const group_id = searchParams.get("group_id");
   const [groupMembers, setGroupMembers] = useState([]);
   const setGroupAdmin = useStore((state) => state.setGroupAdmin);
-  const role= useStore((state) => state.role);
+  const role = useStore((state) => state.role);
   const setRole = useStore((state) => state.setRole);
 
   const groupAdmin = useStore((state) => state.groupAdmin);
@@ -26,7 +28,7 @@ const GroupCard = ({ data }) => {
   );
   const userData = useStore((state) => state.userData);
   const access_token = GetAccessToken();
-  if(!access_token){
+  if (!access_token) {
     router.push("/auth/login");
   }
   // fetch Group members
@@ -46,6 +48,19 @@ const GroupCard = ({ data }) => {
     }
     const result = await response.json();
     setGroupMembers(result);
+    if (result?.results) {
+      const adminUser = result?.results?.find((user) => user.role === "admin");
+
+      if (adminUser.user === userData.username) {
+        setRole(adminUser.role);
+      } else {
+        const LoggedInUserRole = result?.results.find(
+          (user) => user.user === userData.username
+        );
+
+        setRole(LoggedInUserRole ? LoggedInUserRole.role : "guest");
+      }
+    }
   };
   // Admin Information
   const fetchGroupAdmin = async () => {
@@ -74,22 +89,8 @@ const GroupCard = ({ data }) => {
     if (data?.admin && access_token) {
       fetchGroupAdmin();
     }
-    if (groupMembers?.results) {
-      const adminUser = groupMembers?.results?.find(
-        (user) => user.role === "admin"
-      );
+  }, [role, data, group_id]);
 
-      if (adminUser.user === userData.username) {
-        setRole(adminUser.role);
-      } else {
-        const LoggedInUserRole = groupMembers?.results.find(
-          (user) => user.user === userData.username
-        );
-
-        setRole(LoggedInUserRole ? LoggedInUserRole.role : "guest");
-      }
-    }
-  }, [data,role]);
   return (
     <>
       <div className="w-full ">
@@ -174,7 +175,7 @@ const GroupCard = ({ data }) => {
                     </div>
                   </div>
                 )}
-                {role==="admin"? (
+                {role && role === "admin" && (
                   <div className="flex justify-end w-full">
                     <button
                       className="px-2 sm:px-4 py-2 bg-purple-600 rounded-full  text-white font-bold hover:bg-purple-700 text-xs md:text-sm   "
@@ -185,9 +186,8 @@ const GroupCard = ({ data }) => {
                       New Announcement
                     </button>
                   </div>
-                ) : (
-                  <JoinGroupButton />
                 )}
+                {role && role !== "admin" && <JoinGroupButton />}
               </div>
             </div>
           </div>
