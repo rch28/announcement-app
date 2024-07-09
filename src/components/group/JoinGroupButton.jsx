@@ -31,7 +31,7 @@ const JoinGroupButton = () => {
     setJoined(false);
     setToggle(false);
     const newPromise = new Promise(async (resolve, reject) => {
-      const response = await fetch(`http://127.0.0.1:8000/api/v1/group/join/`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_DB_BASE_URL}/group/join/`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${access_token}`,
@@ -58,7 +58,7 @@ const JoinGroupButton = () => {
   useEffect(() => {
     const checkJoined = async () => {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/v1/group/joined-by/user/?offset=${offset}`,
+        `${process.env.NEXT_PUBLIC_DB_BASE_URL}/v1/group/joined-by/user/?offset=${offset}`,
         {
           method: "GET",
           headers: {
@@ -85,7 +85,7 @@ const JoinGroupButton = () => {
     setJoined(true);
     const newPromise = new Promise(async (resolve, reject) => {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/v1/group/leave/`,
+        `${process.env.NEXT_PUBLIC_DB_BASE_URL}/group/leave/`,
         {
           method: "POST",
           headers: {
