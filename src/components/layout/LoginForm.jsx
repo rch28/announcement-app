@@ -3,11 +3,12 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Cookies from "js-cookie";
 import { useStore } from "@/stores/store";
 const LoginForm = () => {
   const router = useRouter();
+  const query = useSearchParams()
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -29,7 +30,7 @@ const LoginForm = () => {
     }
 
     const newPromise = new Promise(async (resolve, reject) => {
-      const response = await fetch("http://127.0.0.1:8000/api/v1/user/login/", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_DB_BASE_URL}/user/login/`, {
         method: "POST",
         body: JSON.stringify({ username, password }),
         headers: {
@@ -45,6 +46,12 @@ const LoginForm = () => {
           Cookies.set("access_token", result.access, { expires: 7 });
           Cookies.set("refresh_token", result.refresh, { expires: 7 });
           setUserLoggedIn(true);
+          const callbackUrl = query.get("callbackUrl");
+          if(callbackUrl){
+            router.push(callbackUrl);
+            resolve(result);
+            return;
+          }
           router.push("/");
         } else {
           // redirect to otp verify
