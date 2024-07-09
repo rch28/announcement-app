@@ -1,9 +1,10 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Globe, GlobeLock, Users } from "lucide-react";
 import { useStore } from "@/stores/store";
+import { GetAccessToken } from "@/index";
+import { useRouter } from "next/navigation";
 
 function debounce(func, delay) {
   let timer;
@@ -14,6 +15,7 @@ function debounce(func, delay) {
   };
 }
 const GroupList = () => {
+  const router = useRouter();
   const [ZeroGroup, setZeroGroup] = useState(false);
   const [next, setNext] = useState(false);
   const toggleCreateGroup = useStore((state) => state.toggleCreateGroup);
@@ -72,6 +74,24 @@ const GroupList = () => {
     return () => clearTimeout(timer);
   }, [searchQuery, inputDelay]);
 
+
+  const handleGroupClick = (data) => {
+    const accessToken = GetAccessToken();
+
+    if (!accessToken) {
+      const callbackUrl = `/groups/${data.name
+        .replace(/\s+/g, "-")
+        .toLowerCase()}?group_id=${data.group_id}&&category=${data.category}`;
+      router.push(`/auth/login?callbackUrl=${encodeURIComponent(callbackUrl)}`);
+    } else {
+      router.push(
+        `/groups/${data.name
+          .replace(/\s+/g, "-")
+          .toLowerCase()}?group_id=${data.group_id}&&category=${data.category}`
+      );
+    }
+  };
+
   return (
     <div className="px-6 md:px-0 min-h-96">
       {announcementGroup?.count === 0 && (
@@ -87,12 +107,8 @@ const GroupList = () => {
       <div className="md:grid grid-cols-2 gap-3">
         {announcementGroup?.results?.map((data) => {
           return (
-            <Link
-              href={`/groups/${data.name
-                .replace(/\s+/g, "-")
-                .toLowerCase()}?group_id=${data.group_id}&&category=${
-                data.category
-              }`}
+            <div
+              onClick={() => handleGroupClick(data)}
               key={data.group_id}
               className="max-w-xl p-4 "
             >
@@ -151,7 +167,7 @@ const GroupList = () => {
                   </div>
                 </div>
               </div>
-            </Link>
+            </div>
           );
         })}
       </div>
