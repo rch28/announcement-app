@@ -9,20 +9,21 @@ import Rating from "./Rating";
 import { useEffect, useState } from "react";
 import { GetAccessToken } from "@/index";
 
-const GroupCard = ({ data, groupAdminInfo }) => {
-  const [groupMembers, setGroupMembers] = useState([])
-  const userAuthenticated = useStore((state) => state.userAuthenticated);
-  const isGrupAdmin = useStore((state) => state.isGrupAdmin);
-  const setGroupAdmin = useStore((state)=>state.setGroupAdmin)
-  const groupAdmin = useStore((state)=>state.groupAdmin)
+const GroupCard = ({ data }) => {
+  const [groupMembers, setGroupMembers] = useState([]);
+  const setGroupAdmin = useStore((state) => state.setGroupAdmin);
+  const role= useStore((state) => state.role);
+  const setRole = useStore((state) => state.setRole);
+
+  const groupAdmin = useStore((state) => state.groupAdmin);
   const toggleCreateAnnouncement = useStore(
     (state) => state.toggleCreateAnnouncement
   );
   const setToggleCreateAnnouncement = useStore(
     (state) => state.setToggleCreateAnnouncement
   );
+  const userData = useStore((state) => state.userData);
   const access_token = GetAccessToken();
-
   // fetch Group members
   const fetchGroupMembers = async () => {
     const response = await fetch(
@@ -58,7 +59,6 @@ const GroupCard = ({ data, groupAdminInfo }) => {
     }
     const result = await response.json();
     setGroupAdmin(result);
-    console.log(result);
   };
 
   useEffect(() => {
@@ -69,8 +69,22 @@ const GroupCard = ({ data, groupAdminInfo }) => {
     if (data?.admin) {
       fetchGroupAdmin();
     }
-    const res= groupMembers?.results?.some((member)=>member.user===groupAdmin?.username)
-  }, [data]);
+    if (groupMembers?.results) {
+      const adminUser = groupMembers?.results?.find(
+        (user) => user.role === "admin"
+      );
+
+      if (adminUser.user === userData.username) {
+        setRole(adminUser.role);
+      } else {
+        const LoggedInUserRole = groupMembers?.results.find(
+          (user) => user.user === userData.username
+        );
+
+        setRole(LoggedInUserRole ? LoggedInUserRole.role : "guest");
+      }
+    }
+  }, [data,role]);
   return (
     <>
       <div className="w-full ">
@@ -92,7 +106,6 @@ const GroupCard = ({ data, groupAdminInfo }) => {
                   {data?.location && (
                     <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
                       <span className="font-semibold"></span> {data?.location}{" "}
-                      Bharatpur, Chitwan Nepal
                     </p>
                   )}
                 </div>
@@ -126,17 +139,19 @@ const GroupCard = ({ data, groupAdminInfo }) => {
                 </div>
               </div>
               <div className="flex justify-between items-center  lg:pr-4">
-                {groupAdminInfo !== undefined && (
+                {groupAdmin && (
                   <div className="flex items-center gap-2">
-                    {groupAdminInfo?.image ? (
+                    {groupAdmin?.profilepic ? (
                       <Image
-                        src={groupAdminInfo?.image}
+                        src={groupAdmin?.profilepic}
                         width={50}
                         height={50}
+                        alt="Group Admin Image"
+                        className="rounded-full p-0.5"
                       />
                     ) : (
                       <Avatar
-                        name={`${groupAdminInfo?.first_name} ${groupAdminInfo?.last_name}`}
+                        name={`${groupAdmin?.first_name} ${groupAdmin?.last_name}`}
                         size="50"
                         className="text-xs md:text-sm h-12 w-12"
                         round={true}
@@ -145,16 +160,16 @@ const GroupCard = ({ data, groupAdminInfo }) => {
                     )}
                     <div className="text-xs md:text-sm">
                       <p className="font-medium capitalize flex gap-2">
-                        <span>{groupAdminInfo?.first_name}</span>
+                        <span>{groupAdmin?.first_name}</span>
                         <span className="hidden md:flex">
-                          {groupAdminInfo?.last_name}
+                          {groupAdmin?.last_name}
                         </span>
                       </p>
                       <p className="text-gray-500 dark:text-gray-400">Admin</p>
                     </div>
                   </div>
                 )}
-                {isGrupAdmin && userAuthenticated ? (
+                {role==="admin"? (
                   <div className="flex justify-end w-full">
                     <button
                       className="px-2 sm:px-4 py-2 bg-purple-600 rounded-full  text-white font-bold hover:bg-purple-700 text-xs md:text-sm   "
