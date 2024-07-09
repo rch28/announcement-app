@@ -19,7 +19,7 @@ const ProfileToggleNav = () => {
     if (isLoggedIn) {
       const newPromise = new Promise(async (resolve, reject) => {
         const response = await fetch(
-          "http://127.0.0.1:8000/api/v1/user/logout/",
+          `${process.env.NEXT_PUBLIC_DB_BASE_URL}/user/logout/`,
           {
             method: "POST",
             headers: {
