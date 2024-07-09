@@ -8,9 +8,10 @@ import { useStore } from "@/stores/store";
 import Rating from "./Rating";
 import { useEffect, useState } from "react";
 import { GetAccessToken } from "@/index";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const GroupCard = ({ data }) => {
+  const router = useRouter()
   const [groupMembers, setGroupMembers] = useState([]);
   const setGroupAdmin = useStore((state) => state.setGroupAdmin);
   const role= useStore((state) => state.role);
@@ -26,7 +27,7 @@ const GroupCard = ({ data }) => {
   const userData = useStore((state) => state.userData);
   const access_token = GetAccessToken();
   if(!access_token){
-    redirect("/login");
+    router.push("/auth/login");
   }
   // fetch Group members
   const fetchGroupMembers = async () => {

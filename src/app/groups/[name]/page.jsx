@@ -14,7 +14,6 @@ const GroupPage = () => {
   const searchParams = useSearchParams();
   const group_id = searchParams.get("group_id");
   const [data, setData] = useState({});
-  const [groupAdminInfo, setGroupAdminInfo] = useState();
   const [announcmentData, setAnnouncmentData] = useState({});
 
   const access_token = Cookies.get("access_token");
@@ -33,26 +32,10 @@ const GroupPage = () => {
     const fetchGroup = async () => {
       try {
         const response = await fetch(
-          `http://127.0.0.1:8000/api/v1/group/retrieve/${group_id}/`
+          `${process.env.NEXT_PUBLIC_DB_BASE_URL}/group/retrieve/${group_id}/`
         );
         if (response.ok) {
           const result = await response.json();
-          
-          const res = await fetch(
-            `http://127.0.0.1:8000/api/v1/user/retrieve/${result?.admin}/`,
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${access_token}`,
-              },
-            }
-          );
-          if (res.ok) {
-            const result = await res.json();
-            setGroupAdmin(result);
-            setGroupAdminInfo(result);
-          }
           setData(result);
         }
       } catch (error) {
@@ -65,7 +48,7 @@ const GroupPage = () => {
     const fetchAnnouncement = async () => {
       try {
         const response = await fetch(
-          `http://127.0.0.1:8000/api/v1/announcement/list/group/${group_id}/?limit=3`,
+          `${process.env.NEXT_PUBLIC_DB_BASE_URL}/announcement/list/group/${group_id}/?limit=3`,
           {
             method: "GET",
             headers: {
@@ -86,7 +69,7 @@ const GroupPage = () => {
   }, [toggleCreateAnnouncement, group_id]);
   return (
     <div className="p-5">
-      <GroupCard data={data} groupAdminInfo={groupAdminInfo} />
+      <GroupCard data={data} />
       <div className="mt-10">
         <h1 className="text-2xl font-bold md:text-4xl">What we're about?</h1>
         <p className="py-4">{data?.description}</p>
