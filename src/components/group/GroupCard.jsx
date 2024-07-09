@@ -62,11 +62,11 @@ const GroupCard = ({ data }) => {
   };
 
   useEffect(() => {
-    if (data?.group_id) {
+    if (data?.group_id && access_token) {
       fetchGroupMembers();
     }
 
-    if (data?.admin) {
+    if (data?.admin && access_token) {
       fetchGroupAdmin();
     }
     if (groupMembers?.results) {
