@@ -17,7 +17,6 @@ const GroupPage = () => {
   const [announcmentData, setAnnouncmentData] = useState({});
 
   const access_token = Cookies.get("access_token");
-  const setGroupAdmin = useStore((state) => state.setGroupAdmin);
   const joined = useStore((state) => state.Joined);
   const toggleRating = useStore((state) => state.toggleRating);
   const toggleCreateGroup = useStore((state) => state.toggleCreateGroup);
