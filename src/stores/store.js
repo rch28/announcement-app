@@ -25,6 +25,10 @@ export const useStore = create((set)=>({
     searchQuery:"",
     setSearchQuery:(value)=>set({searchQuery:value}),
     
+    // user role
+    role:"",
+    setRole:(value)=>set({role:value}),
+    
     // group admin data
     groupAdmin:{},
     setGroupAdmin:(data)=>set({groupAdmin:data}),
