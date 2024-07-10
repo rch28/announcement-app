@@ -1,7 +1,7 @@
 "use client";
 import { useStore } from "@/stores/store";
 import Cookies from "js-cookie";
-import { XCircleIcon, XIcon } from "lucide-react";
+import { Check, XCircleIcon, XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
@@ -31,10 +31,7 @@ const CreateGroup = ({ mode, data }) => {
   const access_token = Cookies.get("access_token");
   const setToggleCreateGroup = useStore((state) => state.setToggleCreateGroup);
   const group_id = data?.group_id;
-  console.log(category);
-  console.log("custome", CustomeCategory);
 
-  const setAnnouncementGroup = useStore((state) => state.setAnnouncementGroup);
   const handleFileChange = async (e) => {
     if (!e.target.files[0].type.startsWith("image/")) {
       return;
@@ -46,9 +43,9 @@ const CreateGroup = ({ mode, data }) => {
       setName(data?.name);
       setDescription(data?.description);
       setCategory(data?.category);
+      setGroupType(data?.group_type);
     }
   }, [mode]);
-  console.log(createCategoryMode);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!name) {
@@ -87,8 +84,11 @@ const CreateGroup = ({ mode, data }) => {
     }
     let categoryId = null;
     if (createCategoryMode && CustomeCategory) {
-      const res = await CategorySelectOrCreate();
-      categoryId = res.id;
+      const isExist = checkExistingCategory(CustomeCategory);
+      if (!isExist) {
+        const res = await CategorySelectOrCreate();
+        categoryId = res.id;
+      }
     }
 
     const data = new FormData();
@@ -150,6 +150,19 @@ const CreateGroup = ({ mode, data }) => {
     });
   };
 
+  const checkExistingCategory = (value) => {
+    if (value && categoriesOptions?.results) {
+      const existingCategory = categoriesOptions?.results.find(
+        (category) => category.name === value
+      );
+      if (existingCategory) {
+        setCreateCategoryMode(false);
+        setCategory(existingCategory.id);
+        return true;
+      }
+    }
+  };
+
   const CategorySelectOrCreate = async () => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_DB_BASE_URL}/group/category/create/`,
@@ -164,7 +177,6 @@ const CreateGroup = ({ mode, data }) => {
     );
     if (response.ok) {
       const result = await response.json();
-      console.log(result);
       setCategory(result.id);
       setCreateCategoryMode(false);
       return result;
@@ -175,21 +187,6 @@ const CreateGroup = ({ mode, data }) => {
     }
   };
 
-  const options = [
-    { value: "any", label: "Select Category" },
-
-    { value: "web", label: "Web" },
-    { value: "network", label: "Network" },
-    { value: "cyber", label: "Cyber Security" },
-    { value: "cloud", label: "Cloud" },
-    { value: "art", label: "Art" },
-    { value: "food", label: "Food" },
-    { value: "entertainment", label: "Entertainment" },
-    { value: "health", label: "Health" },
-    { value: "lifestyle", label: "Lifestyle" },
-    { value: "sports", label: "Sports" },
-    { value: "travel", label: "Travel" },
-  ];
   const group_type = [
     { value: "", label: "Select Type" },
     { value: "public", label: "Public" },
@@ -197,9 +194,9 @@ const CreateGroup = ({ mode, data }) => {
   ];
   useEffect(() => {
     const fetchCategories = async () => {
-      if (category === "custom") {
-        CustomcategoryRef;
-        setCategory("");
+      if (category === "custome") {
+        setCustomeCategory("");
+        setCategory("")
         setCreateCategoryMode(true);
       }
       const response = await fetch(
@@ -294,14 +291,14 @@ const CreateGroup = ({ mode, data }) => {
                       value={CustomeCategory}
                       onChange={(e) => setCustomeCategory(e.target.value)}
                       placeholder="Enter New Category"
-                      className="border border-gray-600 focus:border-purple-700 bg-white"
+                      className="border border-gray-600 focus:border-purple-700 bg-white text-sm"
                     />
-                    {categoriesOptions?.count !== 0 && (
+                    {categoriesOptions?.results.Lentgh !== 0 && (
                       <span
-                        className="text-red-500 cursor-pointer absolute right-2 top-5"
+                        className="text-red-500 cursor-pointer absolute right-2 bottom-2 flex justify-center items-center "
                         onClick={() => setCreateCategoryMode(false)}
                       >
-                        <XCircleIcon />
+                        <XCircleIcon  />
                       </span>
                     )}
                   </>
@@ -326,7 +323,7 @@ const CreateGroup = ({ mode, data }) => {
                       </option>
                       <option
                         className="w-fit py-2 px-4 text-black"
-                        value={"custom"}
+                        value={"custome"}
                       >
                         Custom Option
                       </option>
