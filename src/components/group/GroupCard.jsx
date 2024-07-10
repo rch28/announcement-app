@@ -18,7 +18,6 @@ const GroupCard = ({ data }) => {
   const setGroupAdmin = useStore((state) => state.setGroupAdmin);
   const role = useStore((state) => state.role);
   const setRole = useStore((state) => state.setRole);
-
   const groupAdmin = useStore((state) => state.groupAdmin);
   const toggleCreateAnnouncement = useStore(
     (state) => state.toggleCreateAnnouncement
@@ -128,7 +127,8 @@ const GroupCard = ({ data }) => {
                     <GlobeLock className="w-3 h-3 " />
                   )}
                   <div className="bg-purple-600 rounded-full px-3 py-1 text-xs font-medium dark:bg-gray-800 text-white capitalize">
-                    {data?.category}
+                    {/* {data?.category} */}
+                    "Category"
                   </div>
                   <Rating rating={data?.average_rating} />
                 </div>
@@ -187,7 +187,7 @@ const GroupCard = ({ data }) => {
                     </button>
                   </div>
                 )}
-                {role && role !== "admin" && <JoinGroupButton />}
+                {role && role !== "admin" && <JoinGroupButton data={data} />}
               </div>
             </div>
           </div>
