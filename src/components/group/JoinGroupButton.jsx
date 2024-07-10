@@ -10,7 +10,7 @@ import PopUpWrapper from "../PopUpWrapper";
 import LeaveConfirm from "../utils/LeaveConfirm";
 import Link from "next/link";
 
-const JoinGroupButton = () => {
+const JoinGroupButton = ({data}) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [toggle, setToggle] = useState(false);
@@ -22,6 +22,8 @@ const JoinGroupButton = () => {
   const joined = useStore((state) => state.Joined);
   const setJoined = useStore((state) => state.setJoined);
   const [leaveGroupToggle, setLeaveGroupToggle] = useState(false)
+  console.log(data);
+  console.log(joined);
   const handleClick = async () => {
     if (!userAuthenticated) {
       toast.error("You need to login to join the group");
@@ -42,7 +44,6 @@ const JoinGroupButton = () => {
 
       if (response.ok) {
         const result = await response.json();
-        setJoined(true);
         resolve(result);
       } else {
         const result = await response.json();
@@ -56,30 +57,9 @@ const JoinGroupButton = () => {
     });
   };
   useEffect(() => {
-    const checkJoined = async () => {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_DB_BASE_URL}/v1/group/joined-by/user/?offset=${offset}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-          },
-        }
-      );
-      if (response.ok) {
-        const result = await response.json();
-        const isUserJoind = result?.results?.some(
-          (group) => group.group_id === groupId
-        );
-        if (isUserJoind) {
-          setJoined(true);
-        } else {
-          setOffset(offset + 10);
-          setJoined(false);
-        }
-      }
-    };
-    checkJoined();
+   if(data){
+    setJoined(data?.joined)
+   }
   }, []);
   const handleLeaveGroup = async () => {
     setJoined(true);
@@ -98,6 +78,7 @@ const JoinGroupButton = () => {
 
       if (response.ok) {
         const result = await response.json();
+        console.log(result);
         setJoined(false);
         setLeaveGroupToggle(false)
         resolve(result);
