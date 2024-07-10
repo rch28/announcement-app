@@ -31,7 +31,12 @@ const GroupPage = () => {
     const fetchGroup = async () => {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_DB_BASE_URL}/group/retrieve/${group_id}/`
+          `${process.env.NEXT_PUBLIC_DB_BASE_URL}/group/retrieve/${group_id}/`,{
+            method:"get",
+            headers:{
+              Authorization:`Bearer ${access_token}`
+            }
+          }
         );
         if (response.ok) {
           const result = await response.json();
