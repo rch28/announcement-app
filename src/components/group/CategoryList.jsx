@@ -52,6 +52,9 @@ const CategoryList = () => {
             onChange={(e) => setSelectedCategory(e.target.value)}
             className="w-full px-4 py-2 rounded-md font-semibold md:w-44 focus:outline-none bg-white text-gray-800 border border-gray-300 shadow-sm focus:border-purple-500 focus:shadow-sm"
           >
+            <option value="all" className="py-2 capitalize">
+              All Categories
+            </option>
             {categoryOptions.map((option) => (
               <option key={option.id} value={option.name} className="py-2 capitalize">
                 {option.name}
