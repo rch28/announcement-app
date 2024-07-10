@@ -127,8 +127,7 @@ const GroupCard = ({ data }) => {
                     <GlobeLock className="w-3 h-3 " />
                   )}
                   <div className="bg-purple-600 rounded-full px-3 py-1 text-xs font-medium dark:bg-gray-800 text-white capitalize">
-                    {/* {data?.category} */}
-                    "Category"
+                    {data?.category}
                   </div>
                   <Rating rating={data?.average_rating} />
                 </div>
