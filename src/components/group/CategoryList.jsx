@@ -29,7 +29,7 @@ const CategoryList = () => {
       );
       if (response.ok) {
         const result = await response.json();
-        setCategoriesOptions(result.results);
+        setCategoriesOptions(result);
       }
     };
     fetchCategories();
@@ -55,7 +55,7 @@ const CategoryList = () => {
             <option value="" className="py-2 capitalize">
               All Categories
             </option>
-            {categoryOptions.map((option) => (
+            {categoryOptions?.map((option) => (
               <option key={option.id} value={option.name} className="py-2 capitalize">
                 {option.name}
               </option>

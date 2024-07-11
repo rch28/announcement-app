@@ -16,7 +16,6 @@ function debounce(func, delay) {
 }
 const GroupList = () => {
   const router = useRouter();
-  const [ZeroGroup, setZeroGroup] = useState(false);
   const [next, setNext] = useState(false);
   const toggleCreateGroup = useStore((state) => state.toggleCreateGroup);
   const announcementGroup = useStore((state) => state.announcementGroup);
@@ -26,37 +25,19 @@ const GroupList = () => {
   const searchQuery = useStore((state) => state.searchQuery);
   const [inputDelay, setInputDelay] = useState(200);
   const [fetchTrigger, setFetchTrigger] = useState(0);
-
+  
   // fetch group
   const fetchGroup = async () => {
     const response = await fetch(
       `${
         process.env.NEXT_PUBLIC_DB_BASE_URL
-      }/group/list/?category=${selectedCategory}&?${
+      }/group/list/?q=${searchQuery}&?category=${selectedCategory}?${
         next && "limit=10&offset=10"
       }`
     );
     if (response.ok) {
       const result = await response.json();
-      if (searchQuery === "") {
-        setAnnouncementGroup(result);
-        return;
-      }
-      const filteredResult = {
-        ...result, // Copy original metadata
-        results: result.results.filter(
-          (group) =>
-            group.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            group.category.toLowerCase().includes(searchQuery.toLowerCase())
-        ),
-      };
-      setAnnouncementGroup(filteredResult);
-
-      if (filteredResult.results.length === 0) {
-        setZeroGroup(true);
-      } else {
-        setZeroGroup(false);
-      }
+      setAnnouncementGroup(result);
     }
   };
   useEffect(() => {
@@ -99,8 +80,8 @@ const GroupList = () => {
           No group yet!! Create New One
         </h3>
       )}
-      {ZeroGroup && (
-        <h3 className="p-3 bg-green-200 rounded-xl dark:text-black dark:bg-green-100">
+      {announcementGroup?.count===0 && (
+        <h3 className="p-3 mx-6 bg-green-200 rounded-xl dark:text-black dark:bg-green-100">
           No group found!!
         </h3>
       )}
