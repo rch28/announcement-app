@@ -31,7 +31,7 @@ const CreateGroup = ({ mode, data }) => {
   const access_token = Cookies.get("access_token");
   const setToggleCreateGroup = useStore((state) => state.setToggleCreateGroup);
   const group_id = data?.group_id;
-
+  console.log(categoriesOptions);
   const handleFileChange = async (e) => {
     if (!e.target.files[0].type.startsWith("image/")) {
       return;
@@ -293,7 +293,7 @@ const CreateGroup = ({ mode, data }) => {
                       placeholder="Enter New Category"
                       className="border border-gray-600 focus:border-purple-700 bg-white text-sm"
                     />
-                    {categoriesOptions?.results.Lentgh !== 0 && (
+                    {categoriesOptions?.length !== 0 && (
                       <span
                         className="text-red-500 cursor-pointer absolute right-2 bottom-2 flex justify-center items-center "
                         onClick={() => setCreateCategoryMode(false)}
@@ -327,7 +327,7 @@ const CreateGroup = ({ mode, data }) => {
                       >
                         Custom Option
                       </option>
-                      {categoriesOptions?.results?.map((option) => (
+                      {categoriesOptions?.map((option) => (
                         <option
                           className="w-fit py-2 px-4 text-black"
                           key={option.id}
