@@ -19,6 +19,7 @@ const GroupCard = ({ data }) => {
   const role = useStore((state) => state.role);
   const setRole = useStore((state) => state.setRole);
   const groupAdmin = useStore((state) => state.groupAdmin);
+  const [adminId, setAdminId] = useState("")
   const toggleCreateAnnouncement = useStore(
     (state) => state.toggleCreateAnnouncement
   );
@@ -49,6 +50,7 @@ const GroupCard = ({ data }) => {
     setGroupMembers(result);
     if (result?.results) {
       const adminUser = result?.results?.find((user) => user.role === "admin");
+      setAdminId(adminUser.user_id)
 
       if (adminUser.user === userData.username) {
         setRole(adminUser.role);
@@ -63,8 +65,11 @@ const GroupCard = ({ data }) => {
   };
   // Admin Information
   const fetchGroupAdmin = async () => {
+    if(!adminId){
+      return;
+    }
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_DB_BASE_URL}/user/retrieve/${data?.admin}/`,
+      `${process.env.NEXT_PUBLIC_DB_BASE_URL}/user/retrieve/${adminId}/`,
       {
         method: "GET",
         headers: {
