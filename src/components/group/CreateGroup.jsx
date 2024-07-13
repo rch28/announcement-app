@@ -8,9 +8,10 @@ import toast from "react-hot-toast";
 import { CardDescription } from "../ui/card";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import dynamic from "next/dynamic";
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+// import dynamic from "next/dynamic";
+// const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
+import ReactQuill from "react-quill";
 
 const CreateGroup = ({ mode, data }) => {
   const router = useRouter();
