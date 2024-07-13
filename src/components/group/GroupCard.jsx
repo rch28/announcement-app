@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { Globe, GlobeLock, User } from "lucide-react";
+import { Globe, GlobeLock, Lock, User } from "lucide-react";
 import Avatar from "react-avatar";
 import { bgimg } from "../../../public";
 import JoinGroupButton from "./JoinGroupButton";
@@ -129,7 +129,13 @@ const GroupCard = ({ data }) => {
                       <span className="text-xs ">Public</span>
                     </p>
                   ) : (
-                    <GlobeLock className="w-3 h-3 " />
+                    <p
+                      className="flex justify-center items-center gap-1 px-2 py-0.5 bg-purple-300 dark:bg-gray-800  rounded-full"
+                      title="public"
+                    >
+                      <Lock className="w-3 h-3 " />
+                      <span className="text-xs ">Private</span>
+                    </p>
                   )}
                   <div className="bg-purple-600 rounded-full px-3 py-1 text-xs font-medium dark:bg-gray-800 text-white capitalize">
                     {data?.category}
