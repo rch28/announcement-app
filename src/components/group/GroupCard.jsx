@@ -19,6 +19,8 @@ const GroupCard = ({ data }) => {
   const role = useStore((state) => state.role);
   const setRole = useStore((state) => state.setRole);
   const groupAdmin = useStore((state) => state.groupAdmin);
+  const Joined = useStore((state)=>state.Joined)
+  console.log(Joined);
   const [adminId, setAdminId] = useState("")
   const toggleCreateAnnouncement = useStore(
     (state) => state.toggleCreateAnnouncement
@@ -93,7 +95,7 @@ const GroupCard = ({ data }) => {
     if (data?.admin && access_token) {
       fetchGroupAdmin();
     }
-  }, [role, data, group_id]);
+  }, [role, data, group_id,Joined ]);
 
   return (
     <>

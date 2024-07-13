@@ -9,21 +9,20 @@ import { useStore } from "@/stores/store";
 import PopUpWrapper from "../PopUpWrapper";
 import LeaveConfirm from "../utils/LeaveConfirm";
 import Link from "next/link";
+import InvitecodeForm from "./InvitecodeForm";
 
-const JoinGroupButton = ({data}) => {
+const JoinGroupButton = ({ data }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [toggle, setToggle] = useState(false);
   const groupId = searchParams.get("group_id");
   const access_token = Cookies.get("access_token");
   const userAuthenticated = useStore((state) => state.userAuthenticated);
-  const [offset, setOffset] = useState(0);
 
   const joined = useStore((state) => state.Joined);
   const setJoined = useStore((state) => state.setJoined);
-  const [leaveGroupToggle, setLeaveGroupToggle] = useState(false)
-  console.log(data);
-  console.log(joined);
+  const [leaveGroupToggle, setLeaveGroupToggle] = useState(false);
+  const [invited, setInvited] = useState(false)
   const handleClick = async () => {
     if (!userAuthenticated) {
       toast.error("You need to login to join the group");
@@ -32,15 +31,22 @@ const JoinGroupButton = ({data}) => {
     }
     setJoined(false);
     setToggle(false);
+
     const newPromise = new Promise(async (resolve, reject) => {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_DB_BASE_URL}/group/join/`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ group: groupId ,role:"member"}),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_DB_BASE_URL}/group/join/`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            group: groupId,
+            role: "member",
+          }),
+        }
+      );
 
       if (response.ok) {
         const result = await response.json();
@@ -57,9 +63,9 @@ const JoinGroupButton = ({data}) => {
     });
   };
   useEffect(() => {
-   if(data){
-    setJoined(data?.joined)
-   }
+    if (data) {
+      setJoined(data?.joined);
+    }
   }, []);
   const handleLeaveGroup = async () => {
     setJoined(true);
@@ -80,7 +86,7 @@ const JoinGroupButton = ({data}) => {
         const result = await response.json();
         console.log(result);
         setJoined(false);
-        setLeaveGroupToggle(false)
+        setLeaveGroupToggle(false);
         resolve(result);
       } else {
         const result = await response.json();
@@ -95,6 +101,15 @@ const JoinGroupButton = ({data}) => {
   };
   return (
     <>
+    {
+      invited && (
+        <PopUpWrapper>
+          <div className="bg-white  px-4 py-2 rounded-lg">
+            <InvitecodeForm setInvited={setInvited} data={data}/>
+          </div>
+        </PopUpWrapper>
+      )
+    }
       {joined && userAuthenticated ? (
         <div className="flex justify-center items-center gap-1 md:gap-4 relative">
           <h3 className="px-2 py-1 text-xs  rounded-full  font-bold bg-purple-600 text-white">
@@ -109,23 +124,22 @@ const JoinGroupButton = ({data}) => {
           {toggle && (
             <div className="absolute  bottom-14 right-0 bg-white  border  border-gray-300 py-6 px-4 w-64 md:w-72 rounded-lg shadow-md shadow-gray-500  dark:bg-gray-950 ">
               <div className="flex flex-col gap-3">
-                <Link href={""} className="cursor-pointer bg-slate-200 dark:bg-slate-700 hover:bg-purple-600 dark:hover:bg-purple-600 hover:text-white p-3 rounded-md ">
+                <Link
+                  href={""}
+                  className="cursor-pointer bg-slate-200 dark:bg-slate-700 hover:bg-purple-600 dark:hover:bg-purple-600 hover:text-white p-3 rounded-md "
+                >
                   <CardUtil
                     title="View Members"
-                    icon={
-                      <Users className="h-5 w-5 " />
-                    }
+                    icon={<Users className="h-5 w-5 " />}
                   />
                 </Link>
                 <div
                   className="cursor-pointer bg-slate-200 dark:bg-slate-700 dark:hover:bg-red-600 hover:bg-red-600 p-3  rounded-md hover:text-white"
-                  onClick={()=>setLeaveGroupToggle(true)}
+                  onClick={() => setLeaveGroupToggle(true)}
                 >
                   <CardUtil
                     title={"Leave Group"}
-                    icon={
-                      <LogOut className="h-5 w-5 " />
-                    }
+                    icon={<LogOut className="h-5 w-5 " />}
                   />
                 </div>
               </div>
@@ -133,18 +147,29 @@ const JoinGroupButton = ({data}) => {
           )}
         </div>
       ) : (
-        <button
-          onClick={handleClick}
-          className="px-6 py-2 bg-purple-700 rounded-full  text-white font-bold hover:bg-purple-900"
-        >
-          Join Group
-        </button>
+        <>
+          {data?.group_type === "private" && (
+            <button
+              onClick={() => setInvited(true)}
+              className="px-6 py-2 bg-purple-700 rounded-full  text-white font-bold hover:bg-purple-900"
+            >
+              Join Group
+            </button>
+          )}
+          {data?.group_type === "public" && (
+            <button
+              onClick={handleClick}
+              className="px-6 py-2 bg-purple-700 rounded-full  text-white font-bold hover:bg-purple-900"
+            >
+              Join Group
+            </button>
+          )}
+        </>
       )}
 
-      {
-        leaveGroupToggle && (
-          <PopUpWrapper>
-            <LeaveConfirm title={"leave Group"} >
+      {leaveGroupToggle && (
+        <PopUpWrapper>
+          <LeaveConfirm title={"leave Group"}>
             <div className="flex gap-4">
               <button
                 onClick={() => setLeaveGroupToggle(!leaveGroupToggle)}
@@ -159,10 +184,9 @@ const JoinGroupButton = ({data}) => {
                 Leave
               </button>
             </div>
-            </LeaveConfirm>
-          </PopUpWrapper>
-        )
-      }
+          </LeaveConfirm>
+        </PopUpWrapper>
+      )}
     </>
   );
 };
