@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 
 import { Button } from "@/components/ui/button";
 import { XIcon } from "lucide-react";
@@ -19,21 +18,23 @@ import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { fetchAllData } from "../../index";
+import ReactQuill from "react-quill";
 
 export function AnnouncementCardForm({
   group_id,
   selectGroup,
   ann_data,
-  redirect
-
+  redirect,
+  group_name,
 }) {
   const [userJoinedGroup, setUserJoinedGroup] = useState([]);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("khalti");
   const [group, setGroup] = useState("");
+  const [announcemenType, setAnnouncemenType] = useState("");
+  const [announcement_visibility, setAnnouncement_visibility] = useState("");
   const [selected_group, setSelected_group] = useState({});
 
   const [imageChanged, setImageChanged] = useState(false);
@@ -44,6 +45,23 @@ export function AnnouncementCardForm({
   const userData = useStore((state) => state.userData);
   const userId = userData?.id;
   const router = useRouter();
+
+  const announcement_type = [
+    { value: "", label: "Select Type" },
+    { value: "event", label: "Event" },
+    { value: "news", label: "News" },
+    { value: "update", label: "Update" },
+    { value: "offer", label: "Offer" },
+    { value: "product launch", label: "Product Launch" },
+    { value: "training", label: "Training" },
+    { value: "bootcamp", label: "Bootcamp" },
+  ];
+  const announcementVisibility = [
+    { value: "", label: "Select Visibility" },
+    { value: "public", label: "Public" },
+    { value: "private", label: "Private" },
+  ];
+
   const handleFileChange = async (e) => {
     if (!e.target.files[0].type.startsWith("image/")) {
       return;
@@ -54,7 +72,7 @@ export function AnnouncementCardForm({
   useEffect(() => {
     const fetchData = async () => {
       const allData = await fetchAllData(
-        "http://127.0.0.1:8000/api/v1/group/joined-by/user/?limit=10&offset=0/"
+        `${process.env.NEXT_PUBLIC_DB_BASE_URL}/group/joined-by/user/?limit=10&offset=0/`
       );
       setUserJoinedGroup(allData);
     };
@@ -64,7 +82,6 @@ export function AnnouncementCardForm({
     if (ann_data) {
       setTitle(ann_data.title);
       setDescription(ann_data.description);
-      setPaymentMethod(ann_data.payment_method);
       setGroup(ann_data.group);
       setImage(ann_data.image);
       setImageChanged(false);
@@ -87,31 +104,40 @@ export function AnnouncementCardForm({
       toast.error("Title is required");
       return;
     }
-    if (!description) {
-      toast.error("Description is required");
-      return;
-    }
-    if (!paymentMethod) {
-      toast.error("Payment Method is required");
-      return;
-    }
     if (!group) {
       toast.error("Select the group");
+      return;
+    }
+    if (!announcemenType) {
+      toast.error("Select the announcement type");
+      return;
+    }
+    if (!image) {
+      toast.error("Image is required");
+      return;
+    }
+    if (!announcement_visibility) {
+      toast.error("Select the announcement visibility");
+      return;
+    }
+    if (!description) {
+      toast.error("Description is required");
       return;
     }
     const data = new FormData();
     if (imageChanged) {
       data.append("image", image);
     }
+
     data.append("title", title);
     data.append("description", description);
-    data.append("payment_method", paymentMethod);
     data.append("group", group);
     data.append("user", userId);
-    data.append("announcement_type", "public")
+    data.append("announcement_type", announcemenType);
+    data.append("announcement_visibility", announcement_visibility);
     const newPromise = new Promise(async (resolve, reject) => {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/v1/announcement/${
+        `${process.env.NEXT_PUBLIC_DB_BASE_URL}/announcement/${
           ann_data ? `update/${ann_data?.id}/` : "create/"
         }`,
         {
@@ -125,7 +151,7 @@ export function AnnouncementCardForm({
       if (response.ok) {
         const result = await response.json();
         setToggleCreateAnnouncement(false);
-        
+
         if (ann_data && redirect) {
           router.push(`/announcements/${title}?ann_id=${ann_data.id}`);
         }
@@ -190,19 +216,55 @@ export function AnnouncementCardForm({
                   className="border border-gray-600 focus:border-purple-500"
                 />
               </div>
-              <div className="md:space-y-2">
-                <Label htmlFor="description">Description</Label>
-                <Textarea
-                  id="description"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  placeholder="Enter announcement description"
-                  className="border border-gray-600 focus:border-purple-500  sm:h-full"
-                />
+              <div>
+                <Label className="" htmlFor="announcementType">
+                  Select Type
+                </Label>
+
+                <select
+                  // ref={typeRef}
+                  name="announcementType"
+                  value={announcemenType}
+                  onChange={(e) => setAnnouncemenType(e.target.value)}
+                  className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-700 rounded-md focus:outline-none text-sm font-medium appearance-none "
+                >
+                  {announcement_type.map((type) => (
+                    <option
+                      className="w-fit py-2 px-4 text-black"
+                      key={type.value}
+                      value={type.value}
+                    >
+                      {type.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <Label className="" htmlFor="announcementType">
+                  Select Visibility
+                </Label>
+
+                <select
+                  // ref={typeRef}
+                  name="announcementType"
+                  value={announcement_visibility}
+                  onChange={(e) => setAnnouncement_visibility(e.target.value)}
+                  className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-700 rounded-md focus:outline-none text-sm font-medium appearance-none "
+                >
+                  {announcementVisibility.map((type) => (
+                    <option
+                      className="w-fit py-2 px-4 text-black"
+                      key={type.value}
+                      value={type.value}
+                    >
+                      {type.label}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             <div className="flex flex-col gap-4">
-              {selectGroup && (
+              {selectGroup ? (
                 <div className="md:space-y-2">
                   <Label htmlFor="group-name">Select Group</Label>
 
@@ -225,8 +287,23 @@ export function AnnouncementCardForm({
                     ))}
                   </select>
                 </div>
+              ) : (
+                <>
+                  <div className="md:space-y-2">
+                    <Label htmlFor="group">Select Group</Label>
+                    <select
+                      name="group"
+                      id="group"
+                      value={group}
+                      className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-500 rounded-md focus:outline-none text-sm font-medium appearance-none  "
+                      disabled
+                    >
+                      <option>{group_name}</option>
+                    </select>
+                  </div>
+                </>
               )}
-              <div className="md:space-y-2">
+              {/* <div className="md:space-y-2">
                 <Label htmlFor="payment-method">Payment Method</Label>
 
                 <select
@@ -242,7 +319,7 @@ export function AnnouncementCardForm({
                   <option value="e-sewa">E-Sewa</option>
                   <option value="paypal">Fone-pay</option>
                 </select>
-              </div>
+              </div> */}
               <div className="">
                 <Label htmlFor="image">Image</Label>
                 <Input
@@ -253,6 +330,15 @@ export function AnnouncementCardForm({
                 />
               </div>
             </div>
+          </div>
+          <div className="md:space-y-2">
+            <Label htmlFor="description">Description</Label>
+            <ReactQuill
+              theme="snow"
+              value={description}
+              onChange={setDescription}
+              className="text-black  rounded-md border border-gray-600 min-h-16 max-h-40 overflow-auto scroll-mb-2 scroll-pb-6"
+            />
           </div>
         </CardContent>
         <CardFooter className="flex justify-end">
