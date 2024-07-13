@@ -408,7 +408,7 @@ const CreateGroup = ({ mode, data }) => {
               onChange={setDescription}
               placeholder="Enter group description"
               
-              className="text-black  rounded-md border border-gray-600"
+              className="text-black  rounded-md border border-gray-600 min-h-16 max-h-40 overflow-auto scroll-mb-2 scroll-pb-6"
             />
           </div>
           <div className="mt-4">
