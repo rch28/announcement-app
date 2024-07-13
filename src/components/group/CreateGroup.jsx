@@ -8,7 +8,9 @@ import toast from "react-hot-toast";
 import { CardDescription } from "../ui/card";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import { Textarea } from "../ui/textarea";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+import "react-quill/dist/quill.snow.css";
 
 const CreateGroup = ({ mode, data }) => {
   const router = useRouter();
@@ -53,11 +55,7 @@ const CreateGroup = ({ mode, data }) => {
       toast.error("Group name is required");
       return;
     }
-    if (!description) {
-      descRef.current.focus();
-      toast.error("Group description is required");
-      return;
-    }
+    
     if (!createCategoryMode) {
       if (category === "any" || category === "") {
         categoryRef.current.focus();
@@ -80,6 +78,13 @@ const CreateGroup = ({ mode, data }) => {
     if (!image && mode !== "edit") {
       imageRef.current.focus();
       toast.error("Group image is required");
+      return;
+    }
+    if (!description) {
+      if (descRef.current) {
+        descRef.current.focus();
+      }
+      toast.error("Group description is required");
       return;
     }
     let categoryId = null;
@@ -227,7 +232,7 @@ const CreateGroup = ({ mode, data }) => {
           <XIcon />
         </button>
       </div>
-      <div className="p-4">
+      <div className="p-4 pb-0">
         <h1 className="text-lg md:text-2xl  font-bold tracking-widest text-black">
           {mode === "edit" ? "Edit Your group" : "Create New Group"}
         </h1>
@@ -259,21 +264,29 @@ const CreateGroup = ({ mode, data }) => {
                   className="border border-gray-600 focus:border-purple-700 bg-white"
                 />
               </div>
-              <div className="">
-                <Label className="hidden md:flex " htmlFor="group_description">
-                  Description
-                </Label>
-                <Textarea
-                  ref={descRef}
-                  type="text"
-                  name="group_description"
-                  id="group_description"
-                  className="border border-gray-600 focus:border-purple-700  sm:h-full"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  placeholder="Enter Group Description "
-                />
-              </div>
+             <div>
+             <Label className="hidden md:flex " htmlFor="groupType">
+                Select Type
+              </Label>
+
+              <select
+                ref={typeRef}
+                name="groupType"
+                value={groupType}
+                onChange={(e) => setGroupType(e.target.value)}
+                className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-700 rounded-md focus:outline-none text-sm font-medium appearance-none "
+              >
+                {group_type.map((type) => (
+                  <option
+                    className="w-fit py-2 px-4 text-black"
+                    key={type.value}
+                    value={type.value}
+                  >
+                    {type.label}
+                  </option>
+                ))}
+              </select>
+             </div>
             </div>
             <div className="flex flex-col gap-4">
               <div className=" group md:space-y-2 relative">
@@ -362,29 +375,7 @@ const CreateGroup = ({ mode, data }) => {
                   </>
                 )}
               </div>
-              <div className=" group md:space-y-2">
-                <Label className="hidden md:flex " htmlFor="groupType">
-                  Select Type
-                </Label>
 
-                <select
-                  ref={typeRef}
-                  name="groupType"
-                  value={groupType}
-                  onChange={(e) => setGroupType(e.target.value)}
-                  className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-700 rounded-md focus:outline-none text-sm font-medium appearance-none "
-                >
-                  {group_type.map((type) => (
-                    <option
-                      className="w-fit py-2 px-4 text-black"
-                      key={type.value}
-                      value={type.value}
-                    >
-                      {type.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
               <div className="">
                 <Label className="hidden md:flex " htmlFor="group_image ">
                   Image
@@ -405,11 +396,25 @@ const CreateGroup = ({ mode, data }) => {
               </div>
             </div>
           </div>
+          <div className="">
+            <Label className="hidden md:flex " htmlFor="group_description">
+              Description
+            </Label>
+            <ReactQuill
+              ref={descRef}
+              theme="snow"
+              value={description}
+              onChange={setDescription}
+              placeholder="Enter group description"
+              
+              className="text-black  rounded-md border border-gray-600"
+            />
+          </div>
           <div className="mt-4">
             <div className="flex justify-end">
               <button
                 type="submit"
-                className="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300  font-bold rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center  "
+                className="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-purple-300  font-bold rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center  "
               >
                 {mode === "edit" ? "Update Group" : "Create Group"}
               </button>
