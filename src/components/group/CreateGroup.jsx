@@ -251,7 +251,7 @@ const CreateGroup = ({ mode, data }) => {
           <div className="grid gap-4 md:grid-cols-2 ">
             <div className="grid gap-4">
               <div className=" md:space-y-2">
-                <Label className="hidden md:flex " htmlFor="group_name">
+                <Label className="hidden md:flex text-white  " htmlFor="group_name">
                   Group name
                 </Label>
                 <Input
@@ -266,7 +266,7 @@ const CreateGroup = ({ mode, data }) => {
                 />
               </div>
              <div>
-             <Label className="hidden md:flex " htmlFor="groupType">
+             <Label className="hidden md:flex text-white  " htmlFor="groupType">
                 Select Type
               </Label>
 
@@ -293,7 +293,7 @@ const CreateGroup = ({ mode, data }) => {
               <div className=" group md:space-y-2 relative">
                 {createCategoryMode ? (
                   <>
-                    <Label className="hidden md:flex " htmlFor="CustomCategory">
+                    <Label className="hidden md:flex text-white  " htmlFor="CustomCategory">
                       Enter Category
                     </Label>
                     <Input
@@ -317,7 +317,7 @@ const CreateGroup = ({ mode, data }) => {
                   </>
                 ) : (
                   <>
-                    <Label className="hidden md:flex " htmlFor="category">
+                    <Label className="hidden md:flex text-white  " htmlFor="category">
                       Select Category
                     </Label>
 
@@ -378,7 +378,7 @@ const CreateGroup = ({ mode, data }) => {
               </div>
 
               <div className="">
-                <Label className="hidden md:flex " htmlFor="group_image ">
+                <Label className="hidden md:flex text-white  " htmlFor="group_image ">
                   Image
                 </Label>
                 <input
@@ -397,8 +397,8 @@ const CreateGroup = ({ mode, data }) => {
               </div>
             </div>
           </div>
-          <div className="">
-            <Label className="hidden md:flex " htmlFor="group_description">
+          <div className="md:space-y-2">
+            <Label className="hidden md:flex text-white  " htmlFor="group_description">
               Description
             </Label>
             <ReactQuill
