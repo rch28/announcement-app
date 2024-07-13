@@ -91,7 +91,7 @@ const GroupPage = () => {
       {/* Create an announcement */}
       {toggleCreateAnnouncement && (
         <PopUpWrapper>
-          <AnnouncementCardForm group_id={group_id} />
+          <AnnouncementCardForm group_id={group_id} group_name={data?.name} />
         </PopUpWrapper>
       )}
 
