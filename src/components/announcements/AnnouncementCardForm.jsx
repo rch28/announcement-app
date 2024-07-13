@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { XIcon } from "lucide-react";
 import { useStore } from "@/stores/store";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -27,6 +27,12 @@ export function AnnouncementCardForm({
   redirect,
   group_name,
 }) {
+  const titleRef = useRef(null)
+  const descriptionRef = useRef(null)
+  const imageRef = useRef(null)
+  const groupRef = useRef(null)
+  const typeRef = useRef(null)
+  const visibilityRef = useRef(null)
   const [userJoinedGroup, setUserJoinedGroup] = useState([]);
 
   const [title, setTitle] = useState("");
@@ -101,25 +107,32 @@ export function AnnouncementCardForm({
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!title) {
+      titleRef.current.focus()
       toast.error("Title is required");
       return;
     }
-    if (!group) {
-      toast.error("Select the group");
-      return;
-    }
+    
     if (!announcemenType) {
+      typeRef.current.focus()
       toast.error("Select the announcement type");
       return;
     }
-    if (!image) {
-      toast.error("Image is required");
-      return;
-    }
     if (!announcement_visibility) {
+      visibilityRef.current.focus()
       toast.error("Select the announcement visibility");
       return;
     }
+    if (!group) {
+      groupRef.current.focus()
+      toast.error("Select the group");
+      return;
+    }
+    if (!image) {
+      imageRef.current.focus()
+      toast.error("Image is required");
+      return;
+    }
+   
     if (!description) {
       toast.error("Description is required");
       return;
@@ -209,6 +222,7 @@ export function AnnouncementCardForm({
               <div className="md:space-y-2">
                 <Label htmlFor="title">Title</Label>
                 <Input
+                  ref={titleRef}
                   id="title"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
@@ -222,7 +236,7 @@ export function AnnouncementCardForm({
                 </Label>
 
                 <select
-                  // ref={typeRef}
+                  ref={typeRef}
                   name="announcementType"
                   value={announcemenType}
                   onChange={(e) => setAnnouncemenType(e.target.value)}
@@ -245,7 +259,7 @@ export function AnnouncementCardForm({
                 </Label>
 
                 <select
-                  // ref={typeRef}
+                  ref={visibilityRef}
                   name="announcementType"
                   value={announcement_visibility}
                   onChange={(e) => setAnnouncement_visibility(e.target.value)}
@@ -269,6 +283,7 @@ export function AnnouncementCardForm({
                   <Label htmlFor="group-name">Select Group</Label>
 
                   <select
+                    ref={groupRef}
                     name="group_name"
                     id="group_name "
                     className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-500 rounded-md focus:outline-none text-sm font-medium appearance-none  "
@@ -303,26 +318,10 @@ export function AnnouncementCardForm({
                   </div>
                 </>
               )}
-              {/* <div className="md:space-y-2">
-                <Label htmlFor="payment-method">Payment Method</Label>
-
-                <select
-                  name="payment_method"
-                  id="payment_method "
-                  className="block w-full px-4 py-2 text-gray-900 bg-white border border-gray-600 rounded-md focus:outline-none focus:border-purple-500 text-sm font-menium font-sans appearance-none "
-                  value={paymentMethod}
-                  onChange={(e) => setPaymentMethod(e.target.value)}
-                >
-                  <option value="khalti" className="py-4 rounded-lg">
-                    Khalti
-                  </option>
-                  <option value="e-sewa">E-Sewa</option>
-                  <option value="paypal">Fone-pay</option>
-                </select>
-              </div> */}
               <div className="">
                 <Label htmlFor="image">Image</Label>
                 <Input
+                  ref={imageRef}
                   id="image"
                   type="file"
                   onChange={handleFileChange}
