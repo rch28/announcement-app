@@ -76,7 +76,7 @@ const GroupList = () => {
   return (
     <div className="px-6 md:px-0 min-h-96">
       {announcementGroup?.count === 0 && (
-        <h3 className="p-3 bg-green-200 rounded-xl  dark:text-black dark:bg-green-100">
+        <h3 className="p-3 bg-green-200 rounded-xl mx-6 my-2  dark:text-black dark:bg-green-100">
           No group yet!! Create New One
         </h3>
       )}
