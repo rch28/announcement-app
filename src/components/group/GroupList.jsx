@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { Globe, GlobeLock, Users } from "lucide-react";
+import { Globe, Lock, Users } from "lucide-react";
 import { useStore } from "@/stores/store";
 import { GetAccessToken } from "@/index";
 import { useRouter } from "next/navigation";
@@ -117,7 +117,7 @@ const GroupList = () => {
                               <Globe className="w-3 h-3 " />
                             </p>
                           ) : (
-                            <GlobeLock className="w-3 h-3 " />
+                            <Lock className="w-3 h-3 " />
                           )}
                         </div>
 
