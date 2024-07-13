@@ -31,7 +31,7 @@ const CreateGroup = ({ mode, data }) => {
   const access_token = Cookies.get("access_token");
   const setToggleCreateGroup = useStore((state) => state.setToggleCreateGroup);
   const group_id = data?.group_id;
-  
+
   const handleFileChange = async (e) => {
     if (!e.target.files[0].type.startsWith("image/")) {
       return;
@@ -195,7 +195,7 @@ const CreateGroup = ({ mode, data }) => {
     const fetchCategories = async () => {
       if (category === "custome") {
         setCustomeCategory("");
-        setCategory("")
+        setCategory("");
         setCreateCategoryMode(true);
       }
       const response = await fetch(
@@ -297,7 +297,7 @@ const CreateGroup = ({ mode, data }) => {
                         className="text-red-500 cursor-pointer absolute right-2 bottom-2 flex justify-center items-center "
                         onClick={() => setCreateCategoryMode(false)}
                       >
-                        <XCircleIcon  />
+                        <XCircleIcon />
                       </span>
                     )}
                   </>
@@ -314,18 +314,17 @@ const CreateGroup = ({ mode, data }) => {
                       onChange={(e) => setCategory(e.target.value)}
                       className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-700 rounded-md focus:outline-none text-sm font-medium appearance-none "
                     >
-                      <option
-                        className="w-fit py-2 px-4 text-black"
-                        value={"any"}
-                      >
-                        Select Category
-                      </option>
-                      <option
-                        className="w-fit py-2 px-4 text-black"
-                        value={"custome"}
-                      >
-                        Custom Option
-                      </option>
+                      {mode !== "edit" && category==="" && (
+                        <>
+                          <option
+                            className="w-fit py-2 px-4 text-black"
+                            value={"any"}
+                          >
+                            Select Category
+                          </option>
+                        </>
+                      )}
+
                       {categoriesOptions?.map((option) => (
                         <option
                           className="w-fit py-2 px-4 text-black"
@@ -335,6 +334,14 @@ const CreateGroup = ({ mode, data }) => {
                           {option.name}
                         </option>
                       ))}
+                      {mode === "edit" && (
+                        <option
+                          className="w-fit py-2 px-4 text-black"
+                          value={"custome"}
+                        >
+                          Custom Option
+                        </option>
+                      )}
                     </select>
                   </>
                 )}
