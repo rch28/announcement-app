@@ -3,6 +3,7 @@ import AnnouncementCard from "@/components/announcements/AnnouncementCard";
 import { AnnouncementCardForm } from "@/components/announcements/AnnouncementCardForm";
 import CreateGroup from "@/components/group/CreateGroup";
 import GroupCard from "@/components/group/GroupCard";
+import RichTextDisplay from "@/components/layout/RichTextDisplay";
 import PopUpWrapper from "@/components/PopUpWrapper";
 import { useStore } from "@/stores/store";
 import Cookies from "js-cookie";
@@ -76,7 +77,9 @@ const GroupPage = () => {
       <GroupCard data={data} />
       <div className="mt-10">
         <h1 className="text-2xl font-bold md:text-4xl">What we're about?</h1>
-        <p className="py-4">{data?.description}</p>
+        <div className="py-4">
+          <RichTextDisplay html={data?.description} />
+         </div>
       </div>
 
       {/* Edit the group information */}
