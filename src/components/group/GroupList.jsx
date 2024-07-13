@@ -5,6 +5,7 @@ import { Globe, Lock, Users } from "lucide-react";
 import { useStore } from "@/stores/store";
 import { GetAccessToken } from "@/index";
 import { useRouter } from "next/navigation";
+import RichTextDisplay from "../layout/RichTextDisplay";
 
 function debounce(func, delay) {
   let timer;
@@ -127,9 +128,9 @@ const GroupList = () => {
                         </div>
                       </div>
 
-                      <p className="text-sm text-gray-500 dark:text-gray-200 line-clamp-3">
-                        {data?.description}
-                      </p>
+                      <div className="text-sm text-gray-500 dark:text-gray-200 line-clamp-3">
+                        <RichTextDisplay html={data?.description} />
+                      </div>
                      
                     </div>
                   </div>
