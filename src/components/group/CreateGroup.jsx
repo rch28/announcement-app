@@ -31,7 +31,7 @@ const CreateGroup = ({ mode, data }) => {
   const access_token = Cookies.get("access_token");
   const setToggleCreateGroup = useStore((state) => state.setToggleCreateGroup);
   const group_id = data?.group_id;
-  console.log(categoriesOptions);
+  
   const handleFileChange = async (e) => {
     if (!e.target.files[0].type.startsWith("image/")) {
       return;
@@ -162,7 +162,6 @@ const CreateGroup = ({ mode, data }) => {
       }
     }
   };
-
   const CategorySelectOrCreate = async () => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_DB_BASE_URL}/group/category/create/`,
@@ -210,7 +209,7 @@ const CreateGroup = ({ mode, data }) => {
       );
       if (response.ok) {
         const result = await response.json();
-        if (result.count === 0) {
+        if (result.length === 0) {
           setCreateCategoryMode(true);
         }
         setCategoriesOptions(result);
