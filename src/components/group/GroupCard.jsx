@@ -9,6 +9,7 @@ import Rating from "./Rating";
 import { useEffect, useState } from "react";
 import { GetAccessToken } from "@/index";
 import { useRouter, useSearchParams } from "next/navigation";
+import RichTextDisplay from "../layout/RichTextDisplay";
 
 const GroupCard = ({ data }) => {
   const router = useRouter();
@@ -145,9 +146,9 @@ const GroupCard = ({ data }) => {
                   <Rating rating={data?.average_rating} />
                 </div>
 
-                <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
-                  {data?.description}
-                </p>
+                <div className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
+                  <RichTextDisplay html={data?.description} />
+                </div>
                 <div className="flex items-center text-sm ">
                   <div className=" p-2 px-4 bg-purple-300 dark:bg-gray-800 flex gap-2 rounded-full">
                     <User className="w-4 h-4 text-purple-700 dark:text-gray-400" />
