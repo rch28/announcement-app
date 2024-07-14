@@ -1,6 +1,5 @@
 "use client";
 import AnnouncementCard from "@/components/announcements/AnnouncementCard";
-import { AnnouncementCardForm } from "@/components/announcements/AnnouncementCardForm";
 import CreateGroup from "@/components/group/CreateGroup";
 import GroupCard from "@/components/group/GroupCard";
 import RichTextDisplay from "@/components/layout/RichTextDisplay";
@@ -16,9 +15,9 @@ const GroupPage = () => {
   const group_id = searchParams.get("group_id");
   const [data, setData] = useState({});
   const [announcmentData, setAnnouncmentData] = useState({});
-
   const access_token = Cookies.get("access_token");
   const joined = useStore((state) => state.Joined);
+  const setJoined = useStore((state)=>state.setJoined)
   const toggleRating = useStore((state) => state.toggleRating);
   const toggleCreateGroup = useStore((state) => state.toggleCreateGroup);
   const toggleCreateAnnouncement = useStore(
@@ -41,6 +40,7 @@ const GroupPage = () => {
         );
         if (response.ok) {
           const result = await response.json();
+          setJoined(result?.joined)
           setData(result);
         }
       } catch (error) {
@@ -86,12 +86,6 @@ const GroupPage = () => {
       {toggleCreateGroup && (
         <PopUpWrapper>
           <CreateGroup mode="edit" data={data} />
-        </PopUpWrapper>
-      )}
-      {/* Create an announcement */}
-      {toggleCreateAnnouncement && (
-        <PopUpWrapper>
-          <AnnouncementCardForm group_id={group_id} group_name={data?.name} />
         </PopUpWrapper>
       )}
 
