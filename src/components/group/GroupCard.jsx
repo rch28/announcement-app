@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { Globe, GlobeLock, Lock, User } from "lucide-react";
+import { Globe, Lock, User } from "lucide-react";
 import Avatar from "react-avatar";
 import { bgimg } from "../../../public";
 import JoinGroupButton from "./JoinGroupButton";
@@ -22,14 +22,8 @@ const GroupCard = ({ data }) => {
   const setRole = useStore((state) => state.setRole);
   const groupAdmin = useStore((state) => state.groupAdmin);
   const Joined = useStore((state)=>state.Joined)
-  console.log(Joined);
   const [adminId, setAdminId] = useState("")
-  const toggleCreateAnnouncement = useStore(
-    (state) => state.toggleCreateAnnouncement
-  );
-  const setToggleCreateAnnouncement = useStore(
-    (state) => state.setToggleCreateAnnouncement
-  );
+
   const userData = useStore((state) => state.userData);
   const access_token = GetAccessToken();
   if (!access_token) {
