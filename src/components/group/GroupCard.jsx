@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { GetAccessToken } from "@/index";
 import { useRouter, useSearchParams } from "next/navigation";
 import RichTextDisplay from "../layout/RichTextDisplay";
+import Link from "next/link";
 
 const GroupCard = ({ data }) => {
   const router = useRouter();
@@ -190,14 +191,11 @@ const GroupCard = ({ data }) => {
                 )}
                 {role && role === "admin" && (
                   <div className="flex justify-end w-full">
-                    <button
+                    <Link href={`/announcements/create-new/?group_id=${data?.group_id}`}
                       className="px-2 sm:px-4 py-2 bg-purple-600 rounded-full  text-white font-bold hover:bg-purple-700 text-xs md:text-sm   "
-                      onClick={() =>
-                        setToggleCreateAnnouncement(!toggleCreateAnnouncement)
-                      }
                     >
                       New Announcement
-                    </button>
+                    </Link>
                   </div>
                 )}
                 {role && role !== "admin" && <JoinGroupButton data={data} />}
