@@ -9,7 +9,8 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 import { Button } from "@/components/ui/button";
 import { useStore } from "@/stores/store";
 import { useEffect, useRef, useState } from "react";
@@ -19,6 +20,7 @@ import { useRouter } from "next/navigation";
 import { fetchAllData } from "../../index";
 import ReactQuill from "react-quill";
 import { Textarea } from "../ui/textarea";
+import { InfoIcon } from "lucide-react";
 
 export function AnnouncementCardForm({
   group_id,
@@ -38,6 +40,7 @@ export function AnnouncementCardForm({
   const typeRef = useRef(null);
   const visibilityRef = useRef(null);
   const descriptionRef = useRef(null);
+  const [focusedField, setFocusedField] = useState(null);
   const [userJoinedGroup, setUserJoinedGroup] = useState([]);
 
   const [title, setTitle] = useState("");
@@ -207,6 +210,14 @@ export function AnnouncementCardForm({
       },
     });
   };
+  const fieldInfo = {
+    title: "Please enter a descriptive title for the announcement.",
+    contactName: "Enter the full name of the contact person.",
+    contactEmail: "Enter a valid email address for contact.",
+    location: "Enter the location of the event.",
+    image_description: "Enter a description for the image.",
+    date: "Enter a detailed description of the announcement.",
+  };
   return (
     <form
       action=""
@@ -226,54 +237,108 @@ export function AnnouncementCardForm({
         <CardContent className="grid">
           <div className="grid sm:grid-cols-2 sm:gap-4">
             <div className="grid gap-4 ">
-              <div className="md:space-y-2">
-                <Label htmlFor="title">Title *</Label>
+              <div className="md:space-y-2 relative">
+                {focusedField === "title" && titleRef.current && (
+                  <span
+                    className="absolute right-4"
+                    data-tooltip-id="title-tooltip"
+                    data-tooltip-content={fieldInfo.title}
+                    data-tooltip-place="top"
+                  >
+                    <InfoIcon className="h-5 w-5" />
+                  </span>
+                )}
+                <Label htmlFor="title" className="">
+                  Title *
+                </Label>
                 <Input
                   ref={titleRef}
                   id="title"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
+                  onFocus={() => setFocusedField("title")}
+                  onBlur={() => setFocusedField(null)}
                   placeholder="Enter announcement title"
                   className="border border-gray-600 focus:border-purple-500"
                 />
+                <Tooltip id="title-tooltip" />
               </div>
-              <div className="md:space-y-2">
+              <div className="md:space-y-2 relative">
+                {focusedField === "contactName" && contactNameRef.current && (
+                  <span
+                    className=" absolute right-4 z-50"
+                    data-tooltip-id="contactName-tooltip"
+                    data-tooltip-content={fieldInfo.contactName}
+                    data-tooltip-place="top-end"
+                  >
+                    <InfoIcon className="h-5 w-5" />
+                  </span>
+                )}
                 <Label htmlFor="contactName">Contact Name</Label>
                 <Input
                   ref={contactNameRef}
                   id="contactName"
                   value={contactName}
                   onChange={(e) => setContactName(e.target.value)}
+                  onFocus={() => setFocusedField("contactName")}
+                  onBlur={() => setFocusedField(null)}
                   placeholder="Enter contact information"
                   className="border border-gray-600 focus:border-purple-500"
                 />
+                <Tooltip id="contactName-tooltip" />
               </div>
-              <div className="md:space-y-2">
+              <div className="md:space-y-2 relative">
+                {focusedField === "contactEmail" && contactNameRef.current && (
+                  <span
+                    className=" absolute right-4 z-50"
+                    data-tooltip-id="contactEmail-tooltip"
+                    data-tooltip-content={fieldInfo.contactEmail}
+                    data-tooltip-place="top-end"
+                  >
+                    <InfoIcon className="h-5 w-5" />
+                  </span>
+                )}
                 <Label htmlFor="contactEmail">Contact Email</Label>
                 <Input
                   ref={contactEmailRef}
                   id="contactEmail"
                   value={contactEmail}
                   onChange={(e) => setContactEmail(e.target.value)}
+                  onFocus={() => setFocusedField("contactEmail")}
+                  onBlur={() => setFocusedField(null)}
                   placeholder="Enter Contact Email"
                   className="border border-gray-600 focus:border-purple-500"
                 />
+                <Tooltip id="contactEmail-tooltip" />
               </div>
-              <div className="md:space-y-2">
+              <div className="md:space-y-2 relative">
+                {focusedField === "location" && contactNameRef.current && (
+                  <span
+                    className=" absolute right-4 z-50"
+                    data-tooltip-id="location-tooltip"
+                    data-tooltip-content={fieldInfo.location}
+                    data-tooltip-place="top-end"
+                  >
+                    <InfoIcon className="h-5 w-5" />
+                  </span>
+                )}
                 <Label htmlFor="location">Event Location</Label>
                 <Input
                   ref={locationRef}
                   id="location"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
+                  onFocus={() => setFocusedField("location")}
+                  onBlur={() => setFocusedField(null)}
                   placeholder="Enter Event Location"
                   className="border border-gray-600 focus:border-purple-500"
                 />
+                <Tooltip id="location-tooltip" />
               </div>
             </div>
             <div className="grid gap-4">
               {selectGroup ? (
-                <div className="md:space-y-2">
+                <div className="md:space-y-2 relative z-0">
                   <Label htmlFor="group-name">Select Group</Label>
 
                   <select
@@ -298,7 +363,7 @@ export function AnnouncementCardForm({
                 </div>
               ) : (
                 <>
-                  <div className="md:space-y-2">
+                  <div className="md:space-y-2 relative">
                     <Label htmlFor="group">Select Group</Label>
                     <select
                       name="group"
@@ -312,7 +377,7 @@ export function AnnouncementCardForm({
                   </div>
                 </>
               )}
-              <div className="md:space-y-2">
+              <div className="md:space-y-2 relative">
                 <Label className="" htmlFor="announcementType">
                   Select Type
                 </Label>
@@ -335,7 +400,7 @@ export function AnnouncementCardForm({
                   ))}
                 </select>
               </div>
-              <div className="md:space-y-2">
+              <div className="md:space-y-2 relative">
                 <Label className="" htmlFor="announcementType">
                   Select Visibility
                 </Label>
@@ -358,44 +423,69 @@ export function AnnouncementCardForm({
                   ))}
                 </select>
               </div>
-              <div className="md:space-y-2">
+              <div className="md:space-y-2 relative">
+                {focusedField === "date" && contactNameRef.current && (
+                  <span
+                    className=" absolute right-4 z-50"
+                    data-tooltip-id="date-tooltip"
+                    data-tooltip-content={fieldInfo.date}
+                    data-tooltip-place="top-end"
+                  >
+                    <InfoIcon className="h-5 w-5" />
+                  </span>
+                )}
                 <Label htmlFor="date">Date</Label>
                 <Input
                   ref={dateRef}
                   id="date"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
+                  onFocus={() => setFocusedField("date")}
+                  onBlur={() => setFocusedField(null)}
                   placeholder="Enter date"
                   className="border border-gray-600 focus:border-purple-500"
                 />
+                <Tooltip id="date-tooltip" />
               </div>
-            
             </div>
           </div>
-          <div className="md:space-y-2 mt-4 grid md:flex  gap-4 ">
-            <div className="md:space-y-2 flex-1">
+          <div className="md:space-y-2 relative mt-4 grid md:flex  gap-4 ">
+            <div className="md:space-y-2 relative flex-1">
+              {focusedField === "imgDescription" && contactNameRef.current && (
+                <span
+                  className=" absolute right-4 z-50"
+                  data-tooltip-id="imgDescription-tooltip"
+                  data-tooltip-content={fieldInfo.image_description}
+                  data-tooltip-place="top-end"
+                >
+                  <InfoIcon className="h-5 w-5" />
+                </span>
+              )}
               <Label htmlFor="imageDescription">Image Description</Label>
               <Textarea
                 ref={imageDescriptionRef}
                 id="imageDescription"
                 value={imageDescription}
                 onChange={(e) => setImageDescription(e.target.value)}
+                onFocus={() => setFocusedField("imgDescription")}
+                onBlur={() => setFocusedField(null)}
                 placeholder="Enter Image Description"
                 className="border border-gray-600  focus:border-purple-500"
               />
+              <Tooltip id="imgDescription-tooltip" />
             </div>
             <div className="flex-1">
-                <Label htmlFor="image">Image</Label>
-                <Input
-                  ref={imageRef}
-                  id="image"
-                  type="file"
-                  onChange={handleFileChange}
-                  className="focus:border focus:border-purple-400 "
-                />
-              </div>
+              <Label htmlFor="image">Image</Label>
+              <Input
+                ref={imageRef}
+                id="image"
+                type="file"
+                onChange={handleFileChange}
+                className="focus:border focus:border-purple-400 "
+              />
+            </div>
           </div>
-          <div className="md:space-y-2 mt-2">
+          <div className="md:space-y-2 relative mt-2">
             <Label htmlFor="description">Description</Label>
             <ReactQuill
               theme="snow"
