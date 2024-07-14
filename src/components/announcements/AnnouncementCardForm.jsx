@@ -11,7 +11,6 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
 import { Button } from "@/components/ui/button";
-import { XIcon } from "lucide-react";
 import { useStore } from "@/stores/store";
 import { useEffect, useRef, useState } from "react";
 import Cookies from "js-cookie";
@@ -19,6 +18,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { fetchAllData } from "../../index";
 import ReactQuill from "react-quill";
+import { Textarea } from "../ui/textarea";
 
 export function AnnouncementCardForm({
   group_id,
@@ -27,22 +27,32 @@ export function AnnouncementCardForm({
   redirect,
   group_name,
 }) {
-  const titleRef = useRef(null)
-  const descriptionRef = useRef(null)
-  const imageRef = useRef(null)
-  const groupRef = useRef(null)
-  const typeRef = useRef(null)
-  const visibilityRef = useRef(null)
+  const titleRef = useRef(null);
+  const contactNameRef = useRef(null);
+  const contactEmailRef = useRef(null);
+  const locationRef = useRef(null);
+  const imageDescriptionRef = useRef(null);
+  const dateRef = useRef(null);
+  const imageRef = useRef(null);
+  const groupRef = useRef(null);
+  const typeRef = useRef(null);
+  const visibilityRef = useRef(null);
+  const descriptionRef = useRef(null);
   const [userJoinedGroup, setUserJoinedGroup] = useState([]);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
+  const [imageDescription, setImageDescription] = useState("");
+  const [contactName, setContactName] = useState("");
+  const [contactEmail, setContactEmail] = useState("");
+  const [location, setLocation] = useState("");
+  const [date, setDate] = useState("");
   const [group, setGroup] = useState("");
   const [announcemenType, setAnnouncemenType] = useState("");
   const [announcement_visibility, setAnnouncement_visibility] = useState("");
-  const [selected_group, setSelected_group] = useState({});
 
+  const [selected_group, setSelected_group] = useState({});
   const [imageChanged, setImageChanged] = useState(false);
   const setToggleCreateAnnouncement = useStore(
     (state) => state.setToggleCreateAnnouncement
@@ -107,32 +117,32 @@ export function AnnouncementCardForm({
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!title) {
-      titleRef.current.focus()
+      titleRef.current.focus();
       toast.error("Title is required");
       return;
     }
-    
+
     if (!announcemenType) {
-      typeRef.current.focus()
+      typeRef.current.focus();
       toast.error("Select the announcement type");
       return;
     }
     if (!announcement_visibility) {
-      visibilityRef.current.focus()
+      visibilityRef.current.focus();
       toast.error("Select the announcement visibility");
       return;
     }
     if (!group) {
-      groupRef.current.focus()
+      groupRef.current.focus();
       toast.error("Select the group");
       return;
     }
     if (!image) {
-      imageRef.current.focus()
+      imageRef.current.focus();
       toast.error("Image is required");
       return;
     }
-   
+
     if (!description) {
       toast.error("Description is required");
       return;
@@ -146,6 +156,11 @@ export function AnnouncementCardForm({
     data.append("description", description);
     data.append("group", group);
     data.append("user", userId);
+    data.append("contact_name", contactName);
+    data.append("contact_email", contactEmail);
+    data.append("location", location);
+    data.append("date", date);
+    data.append("image_description", imageDescription);
     data.append("announcement_type", announcemenType);
     data.append("announcement_visibility", announcement_visibility);
     const newPromise = new Promise(async (resolve, reject) => {
@@ -199,15 +214,7 @@ export function AnnouncementCardForm({
       encType="multipart/form-data"
       className="relative m-4 w-[90%] sm:w-auto "
     >
-      <Card className="w-full max-w-2xl rounded-xl shadow-md shadow-gray-500">
-        <button
-          onClick={() => {
-            setToggleCreateAnnouncement(false);
-          }}
-          className="flex justify-end absolute right-0 m-2 cursor-pointer "
-        >
-          <XIcon className="w-8 h-8 bg-white shadow-md shadow-gray-500 rounded-full text-red-500 cursor-pointer" />
-        </button>
+      <Card className="w-full  rounded-xl shadow-md shadow-gray-500">
         <CardHeader>
           <CardTitle> {ann_data ? "Edit" : "New"} Announcement</CardTitle>
           <CardDescription>
@@ -220,7 +227,7 @@ export function AnnouncementCardForm({
           <div className="grid sm:grid-cols-2 sm:gap-4">
             <div className="grid gap-4 ">
               <div className="md:space-y-2">
-                <Label htmlFor="title">Title</Label>
+                <Label htmlFor="title">Title *</Label>
                 <Input
                   ref={titleRef}
                   id="title"
@@ -230,54 +237,41 @@ export function AnnouncementCardForm({
                   className="border border-gray-600 focus:border-purple-500"
                 />
               </div>
-              <div>
-                <Label className="" htmlFor="announcementType">
-                  Select Type
-                </Label>
-
-                <select
-                  ref={typeRef}
-                  name="announcementType"
-                  value={announcemenType}
-                  onChange={(e) => setAnnouncemenType(e.target.value)}
-                  className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-700 rounded-md focus:outline-none text-sm font-medium appearance-none "
-                >
-                  {announcement_type.map((type) => (
-                    <option
-                      className="w-fit py-2 px-4 text-black"
-                      key={type.value}
-                      value={type.value}
-                    >
-                      {type.label}
-                    </option>
-                  ))}
-                </select>
+              <div className="md:space-y-2">
+                <Label htmlFor="contactName">Contact Name</Label>
+                <Input
+                  ref={contactNameRef}
+                  id="contactName"
+                  value={contactName}
+                  onChange={(e) => setContactName(e.target.value)}
+                  placeholder="Enter contact information"
+                  className="border border-gray-600 focus:border-purple-500"
+                />
               </div>
-              <div>
-                <Label className="" htmlFor="announcementType">
-                  Select Visibility
-                </Label>
-
-                <select
-                  ref={visibilityRef}
-                  name="announcementType"
-                  value={announcement_visibility}
-                  onChange={(e) => setAnnouncement_visibility(e.target.value)}
-                  className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-700 rounded-md focus:outline-none text-sm font-medium appearance-none "
-                >
-                  {announcementVisibility.map((type) => (
-                    <option
-                      className="w-fit py-2 px-4 text-black"
-                      key={type.value}
-                      value={type.value}
-                    >
-                      {type.label}
-                    </option>
-                  ))}
-                </select>
+              <div className="md:space-y-2">
+                <Label htmlFor="contactEmail">Contact Email</Label>
+                <Input
+                  ref={contactEmailRef}
+                  id="contactEmail"
+                  value={contactEmail}
+                  onChange={(e) => setContactEmail(e.target.value)}
+                  placeholder="Enter Contact Email"
+                  className="border border-gray-600 focus:border-purple-500"
+                />
+              </div>
+              <div className="md:space-y-2">
+                <Label htmlFor="location">Event Location</Label>
+                <Input
+                  ref={locationRef}
+                  id="location"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  placeholder="Enter Event Location"
+                  className="border border-gray-600 focus:border-purple-500"
+                />
               </div>
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="grid gap-4">
               {selectGroup ? (
                 <div className="md:space-y-2">
                   <Label htmlFor="group-name">Select Group</Label>
@@ -318,7 +312,79 @@ export function AnnouncementCardForm({
                   </div>
                 </>
               )}
-              <div className="">
+              <div className="md:space-y-2">
+                <Label className="" htmlFor="announcementType">
+                  Select Type
+                </Label>
+
+                <select
+                  ref={typeRef}
+                  name="announcementType"
+                  value={announcemenType}
+                  onChange={(e) => setAnnouncemenType(e.target.value)}
+                  className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-700 rounded-md focus:outline-none text-sm font-medium appearance-none "
+                >
+                  {announcement_type.map((type) => (
+                    <option
+                      className="w-fit py-2 px-4 text-black"
+                      key={type.value}
+                      value={type.value}
+                    >
+                      {type.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="md:space-y-2">
+                <Label className="" htmlFor="announcementType">
+                  Select Visibility
+                </Label>
+
+                <select
+                  ref={visibilityRef}
+                  name="announcementType"
+                  value={announcement_visibility}
+                  onChange={(e) => setAnnouncement_visibility(e.target.value)}
+                  className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-700 rounded-md focus:outline-none text-sm font-medium appearance-none "
+                >
+                  {announcementVisibility.map((type) => (
+                    <option
+                      className="w-fit py-2 px-4 text-black"
+                      key={type.value}
+                      value={type.value}
+                    >
+                      {type.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="md:space-y-2">
+                <Label htmlFor="date">Date</Label>
+                <Input
+                  ref={dateRef}
+                  id="date"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  placeholder="Enter date"
+                  className="border border-gray-600 focus:border-purple-500"
+                />
+              </div>
+            
+            </div>
+          </div>
+          <div className="md:space-y-2 mt-4 grid md:flex  gap-4 ">
+            <div className="md:space-y-2 flex-1">
+              <Label htmlFor="imageDescription">Image Description</Label>
+              <Textarea
+                ref={imageDescriptionRef}
+                id="imageDescription"
+                value={imageDescription}
+                onChange={(e) => setImageDescription(e.target.value)}
+                placeholder="Enter Image Description"
+                className="border border-gray-600  focus:border-purple-500"
+              />
+            </div>
+            <div className="flex-1">
                 <Label htmlFor="image">Image</Label>
                 <Input
                   ref={imageRef}
@@ -328,9 +394,8 @@ export function AnnouncementCardForm({
                   className="focus:border focus:border-purple-400 "
                 />
               </div>
-            </div>
           </div>
-          <div className="md:space-y-2">
+          <div className="md:space-y-2 mt-2">
             <Label htmlFor="description">Description</Label>
             <ReactQuill
               theme="snow"
