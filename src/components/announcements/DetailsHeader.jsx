@@ -14,7 +14,7 @@ const DetailsHeader = ({ date, group_id }) => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://127.0.0.1:8000/api/v1/group/retrieve/${group_id}/
+          `${process.env.NEXT_PUBLIC_DB_BASE_URL}/group/retrieve/${group_id}/
             `,
           {
             method: "GET",
@@ -38,13 +38,13 @@ const DetailsHeader = ({ date, group_id }) => {
   }, [group_id]);
 
   return (
-    <div className="bg-gray-100  px-4 py-4 rounded-t-lg ">
+    <div className="bg-purple-300  px-4 py-4 rounded-t-lg ">
       <div className="">
         <div className="flex items-center gap-3 text-2xl font-medium text-gray-700">
           <Users2Icon className="h-5 w-5 text-purple-800" />
-          <span>{groupInfo.name}</span>
+          <span className="font-semibold text-black">{groupInfo.name}</span>
         </div>
-        <div className=" items-center gap-2 text-sm text-gray-500  hidden">
+        <div className=" items-center gap-2 text-sm text-gray-500  hidden ">
           <CalendarDaysIcon className="h-4 w-4" />
           <span className="text-nowrap">{date} </span>
         </div>
