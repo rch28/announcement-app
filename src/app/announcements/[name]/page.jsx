@@ -1,9 +1,7 @@
 "use client";
 
 import { AnnouncementDetails } from "@/components/announcements/announcement-details";
-import { AnnouncementCardForm } from "@/components/announcements/AnnouncementCardForm";
 import Comments from "@/components/announcements/Comments";
-import PopUpWrapper from "@/components/PopUpWrapper";
 import { useStore } from "@/stores/store";
 import Cookies from "js-cookie";
 import { redirect, useSearchParams } from "next/navigation";
@@ -11,7 +9,6 @@ import { useEffect, useState } from "react";
 
 const AnnouncementPage = () => {
   const [announcmentData, setAnnouncmentData] = useState({});
-  const [toggleEdit, setToggleEdit] = useState(false);
   const [toggle, setToggle] = useState(false);
   const searchParams = useSearchParams();
   const ann_id = searchParams.get("ann_id");
@@ -52,7 +49,6 @@ const AnnouncementPage = () => {
         data={announcmentData}
         toggle={toggle}
         setToggle={setToggle}
-        setToggleEdit={setToggleEdit}
       />
 
       {/* announcement comment */}
