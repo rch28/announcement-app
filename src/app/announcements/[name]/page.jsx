@@ -26,7 +26,7 @@ const AnnouncementPage = () => {
     const fetchAnnouncement = async () => {
       try {
         const response = await fetch(
-          `http://127.0.0.1:8000/api/v1/announcement/retrieve/${ann_id}/`,
+          `${process.env.NEXT_PUBLIC_DB_BASE_URL}/announcement/retrieve/${ann_id}/`,
           {
             method: "GET",
             headers: {
@@ -54,21 +54,6 @@ const AnnouncementPage = () => {
         setToggle={setToggle}
         setToggleEdit={setToggleEdit}
       />
-
-      {/* Edit an announcement */}
-      {toggleCreateAnnouncement && toggleEdit && (
-        <PopUpWrapper>
-          <AnnouncementCardForm
-            ann_data={announcmentData}
-          />
-        </PopUpWrapper>
-      )}
-      {/* Create an announcement */}
-      {toggleCreateAnnouncement && !toggleEdit && (
-        <PopUpWrapper>
-          <AnnouncementCardForm selectGroup={true} />
-        </PopUpWrapper>
-      )}
 
       {/* announcement comment */}
 
