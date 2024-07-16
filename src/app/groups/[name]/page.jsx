@@ -102,16 +102,12 @@ const GroupPage = () => {
           <h1 className="text-3xl md:text-4xl font-bold py-6">
             Our Recent Announcements
           </h1>
-          <nav className="p-2 bg-white shadow-md shadow-gray-400 rounded-md my-2 dark:text-white dark:shadow-none">
-            <ul className="flex items-center gap-4">
-              <li className="p-2 bg-purple-200 rounded-md font-medium ">
-                public announcement
-              </li>
-              <li className="text-gray-700">
-                private announcement
-              </li>
-            </ul>
-          </nav>
+          <div className="my-2">
+              <h2 className="p-2 font-medium text-gray-700 ">
+                Public announcements
+              </h2>
+         
+          </div>
           <AnnouncementCard data={announcmentData?.results} />
           <div className="flex justify-end items-center">
             <Link
