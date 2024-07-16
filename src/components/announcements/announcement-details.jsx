@@ -18,12 +18,12 @@ import {
 } from "lucide-react";
 import { useStore } from "@/stores/store";
 import AnnSettingCard from "./AnnSettingCard";
+import RichTextDisplay from "../layout/RichTextDisplay";
 
 export function AnnouncementDetails({
   data,
   toggle,
   setToggle,
-  setToggleEdit,
 }) {
   const dateTime = new Date(data.created_at);
   const date = dateTime.toDateString();
@@ -54,7 +54,7 @@ export function AnnouncementDetails({
       </div>
       <CardHeader className="p-4">
         <div className="flex justify-between items-center relative">
-          <CardTitle className="text-md md:text-xl lg:text-2xl xl:text-3xl text-gray-800">
+          <CardTitle className="text-md md:text-xl lg:text-2xl xl:text-3xl text-gray-800 capitalize">
             {data?.title}
           </CardTitle>
           {userData?.id === data?.user && (
@@ -71,7 +71,6 @@ export function AnnouncementDetails({
               className={`absolute z-40 bottom-14 right-0  md:-right-96 bg-white shadow-md shadow-gray-600 p-4 rounded-lg w-88 }`}
             >
               <AnnSettingCard
-                setToggleEdit={setToggleEdit}
                 setToggle={setToggle}
               />
             </div>
@@ -81,7 +80,9 @@ export function AnnouncementDetails({
       </CardHeader>
 
       <CardContent>
-        <p className="text-gray-700 ">{data?.description}</p>
+        <p className="text-gray-700 ">
+          <RichTextDisplay html={data?.description} />
+        </p>
       </CardContent>
       <CardFooter className="flex flex-col items-start  sm:flex-row sm:items-center justify-between">
         <div className="flex items-center gap-2 text-sm text-gray-700">
