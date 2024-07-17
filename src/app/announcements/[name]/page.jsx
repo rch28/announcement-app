@@ -44,7 +44,7 @@ const AnnouncementPage = () => {
     fetchAnnouncement();
   }, [toggleCreateAnnouncement]);
   return (
-    <div className="w-full max-w-6xl mx-auto grid md:grid-cols-[1fr_350px] gap-6 p-4 relative">
+    <div className="w-full max-w-6xl mx-auto grid gap-6 p-4 relative">
       <AnnouncementDetails
         data={announcmentData}
         toggle={toggle}
