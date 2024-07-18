@@ -64,9 +64,9 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
         }
       </div>
       <div className="flex-[0.6] bg-primary rounded-md">
-        <CardHeader className="p-4">
-          <div className="flex justify-between items-center relative">
-            <CardTitle className="text-md md:text-xl lg:text-2xl xl:text-3xl text-gray-800 capitalize">
+        <CardHeader className="p-0 ">
+          <div className="flex justify-between items-center relative bg-purple-300  px-4 py-4 rounded-t-lg ">
+            <CardTitle className="text-md md:text-xl lg:text-2xl xl:text-3xl text-gray-800 capitalize ">
               {data?.title}
             </CardTitle>
             {userData?.id === data?.user && (
@@ -129,7 +129,7 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
           )}
           <div className="flex items-center gap-2 text-sm text-gray-700 mt-2 md:mt-0">
             <GaugeIcon className="h-4 w-4 text-purple-800" />
-            <span>Status: {data.status}</span>
+            <span className={`${data?.status==="active"?"":"text-red-600"}`}>Status: {data.status}</span>
           </div>
         </CardFooter>
       </div>
