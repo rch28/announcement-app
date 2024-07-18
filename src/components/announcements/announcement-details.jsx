@@ -31,7 +31,7 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
   const time = dateTime.toLocaleTimeString();
   const userData = useStore((state) => state.userData);
   return (
-    <Card className="shadow-md md:flex flex-row-reverse gap-4 bg-primary dark:bg-dark-primary border-none">
+    <Card className="shadow-md grid  md:flex flex-row-reverse gap-4 bg-primary dark:bg-dark-primary border-none">
       <div className="flex-[0.4]">
         <DetailsHeader group_id={data.group} date={date} />
         <div className="px-4">
@@ -65,7 +65,7 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
       </div>
       <div className="flex-[0.6] bg-primary rounded-md">
         <CardHeader className="p-0 ">
-          <div className="flex justify-between items-center relative bg-purple-300  px-4 py-4 rounded-t-lg ">
+          <div className="flex justify-between items-center relative md:bg-purple-300  md:p-4 md:rounded-t-lg ">
             <CardTitle className="text-md md:text-xl lg:text-2xl xl:text-3xl text-gray-800 capitalize ">
               {data?.title}
             </CardTitle>
