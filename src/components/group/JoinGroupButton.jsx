@@ -50,6 +50,7 @@ const JoinGroupButton = ({ data }) => {
 
       if (response.ok) {
         const result = await response.json();
+        setJoined(true)
         resolve(result);
       } else {
         const result = await response.json();
