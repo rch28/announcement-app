@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
+import ClientThemeProvider from "@/components/layout/UseInitialTheme";
 
 export const metadata = {
   title: "Announcement app",
@@ -11,34 +12,30 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const setInitialTheme = `
+  (function() {
+    const theme = localStorage.getItem('theme');
+    if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  })();
+`;
   return (
     <>
-    <html lang="en">
-      <body className={` bg-primary  dark:bg-dark-primary dark:text-white  `}>
-      <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                function setTheme(theme) {
-                  document.documentElement.className = theme;
-                  localStorage.setItem('theme', theme);
-                }
-                const theme = localStorage.getItem('theme');
-                if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                  setTheme('dark');
-                } else {
-                  setTheme('light');
-                }
-              })();
-            `,
-          }}
-        />
-        <Toaster />
-        <Navbar />
-        <div className="max-w-5xl mx-auto ">{children}</div>
-        <Footer />
-      </body>
-    </html>
+      <html lang="en">
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: setInitialTheme }} />
+      </head>
+        <body className={` bg-primary  dark:bg-dark-primary dark:text-white  `}>
+          <Toaster />
+          <ClientThemeProvider/>
+          <Navbar />
+          <div className="max-w-5xl mx-auto ">{children}</div>
+          <Footer />
+        </body>
+      </html>
     </>
   );
 }

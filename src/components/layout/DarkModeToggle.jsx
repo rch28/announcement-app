@@ -3,7 +3,7 @@ import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const DarkModeToggle = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
     const theme = localStorage.getItem("theme");
@@ -15,13 +15,14 @@ const DarkModeToggle = () => {
     } else {
       setIsDarkMode(false);
     }
-  }, []);
-
+  }, [isDarkMode]);
   const toggleDarkMode = () => {
     if (isDarkMode) {
       document.documentElement.classList.remove("dark");
+      document.documentElement.classList.add("light");
       localStorage.setItem("theme", "light");
     } else {
+      document.documentElement.classList.remove("light");
       document.documentElement.classList.add("dark");
       localStorage.setItem("theme", "dark");
     }

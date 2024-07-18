@@ -34,7 +34,7 @@ const Navbar = () => {
     setUserLoggedIn(true);
     const fetchUserData = async () => {
       const response = await fetch(
-        "http://127.0.0.1:8000/api/v1/user/details/",
+        `${process.env.NEXT_PUBLIC_DB_BASE_URL}/user/details/`,
         {
           method: "GET",
           headers: {
