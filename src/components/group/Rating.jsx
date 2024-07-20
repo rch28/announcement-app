@@ -28,7 +28,7 @@ const Rating = ({ rating }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "http://127.0.0.1:8000/api/v1/group/give/rating/",
+      `${process.env.NEXT_PUBLIC_DB_BASE_URL}/group/give/rating/`,
       {
         method: "POST",
         headers: {

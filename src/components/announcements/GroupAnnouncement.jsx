@@ -14,7 +14,7 @@ const GroupAnnouncement = ({ id, name }) => {
     const fetchAnnouncement = async () => {
       try {
         const response = await fetch(
-          `http://127.0.0.1:8000/api/v1/announcement/list/group/${id}/?limit=3/`,
+          `${process.env.NEXT_PUBLIC_DB_BASE_URL}/announcement/list/group/${id}/?limit=3/`,
           {
             method: "GET",
             headers: {

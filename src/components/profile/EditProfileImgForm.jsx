@@ -24,7 +24,7 @@ const EditProfileForm = ({ setToggle }) => {
     const formData = new FormData();
     formData.append("profilepic", file);
     const newPromise = new Promise(async (resolve, reject) => {
-      const respone = await fetch("http://127.0.0.1:8000/api/v1/user/update/", {
+      const respone = await fetch(`${process.env.NEXT_PUBLIC_DB_BASE_URL}/user/update/`, {
         method: "PATCH",
         headers: {
           authorization: `Bearer ${access_token}`,

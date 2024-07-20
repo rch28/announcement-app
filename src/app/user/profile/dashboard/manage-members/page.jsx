@@ -18,7 +18,7 @@ const ManageMembers = () => {
   useEffect(() => {
     const fetchGroup = async () => {
       const allData = await fetchAllData(
-        "http://127.0.0.1:8000/api/v1/group/joined-by/user/"
+        `${process.env.NEXT_PUBLIC_DB_BASE_URL}/group/joined-by/user/`
       );
       setUsersGroup(allData);
       if (gid) {

@@ -11,7 +11,7 @@ export async function getLoggedInUserData() {
   const access_token = GetAccessToken();
   try{
     const response = await fetch(
-      "http://127.0.0.1:8000/api/v1/user/details/",
+      `${process.env.NEXT_PUBLIC_DB_BASE_URL}/user/details/`,
       {
         method: "GET",
         headers: {
@@ -38,7 +38,7 @@ export async function FetchUserData(id) {
   const access_token = GetAccessToken();
   try {
     const response = await fetch(
-      `http://127.0.0.1:8000/api/v1/user/retrieve/${id}/
+      `${process.env.NEXT_PUBLIC_DB_BASE_URL}/user/retrieve/${id}/
         `,
       {
         method: "GET",
@@ -62,7 +62,7 @@ export async function fetchGroup(id) {
   const access_token = GetAccessToken();
   try {
     const response = await fetch(
-      `http://127.0.0.1:8000/api/v1/group/retrieve/${id}/
+      `${process.env.NEXT_PUBLIC_DB_BASE_URL}/group/retrieve/${id}/
         `,
       {
         method: "GET",

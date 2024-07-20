@@ -16,7 +16,7 @@ const CommentDropDown = ({ id, setToggleEdit }) => {
   const handleDeleteComment = async () => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/v1/announcement/comment/delete/${id}/`,
+        `${process.env.NEXT_PUBLIC_DB_BASE_URL}/announcement/comment/delete/${id}/`,
         {
           method: "DELETE",
           headers: {

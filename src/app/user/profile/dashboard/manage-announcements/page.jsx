@@ -34,7 +34,7 @@ const ManageAnnouncements = () => {
   useEffect(() => {
     const fetchUserCreatedGroup = async () => {
       const allData = await fetchAllData(
-        "http://127.0.0.1:8000/api/v1/group/created-by/user/"
+        `${process.env.NEXT_PUBLIC_DB_BASE_URL}/group/created-by/user/`
       );
       setUsersGroup(allData);
       if (gid) {
@@ -61,7 +61,7 @@ const ManageAnnouncements = () => {
         return;
       }
       const allData = await fetchAllData(
-        `http://127.0.0.1:8000/api/v1/announcement/list/group/${groupId}/`
+        `${process.env.NEXT_PUBLIC_DB_BASE_URL}/announcement/list/group/${groupId}/`
       );
       setAnnouncementList(allData);
     };
@@ -100,7 +100,7 @@ const ManageAnnouncements = () => {
     const newPromise = new Promise(async (resolve, reject) => {
       if (!ann_id) return;
       const response = await fetch(
-        `http://127.0.0.1:8000/api/v1/announcement/delete/${ann_id}/`,
+        `${process.env.NEXT_PUBLIC_DB_BASE_URL}/announcement/delete/${ann_id}/`,
         {
           method: "DELETE",
           headers: {

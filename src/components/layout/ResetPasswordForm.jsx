@@ -39,7 +39,7 @@ const ResetPasswordFrom = () => {
 
     const newPromise = new Promise(async (resolve, reject) => {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/v1/user/change/forgot/password/`,
+        `${process.env.NEXT_PUBLIC_DB_BASE_URL}/user/change/forgot/password/`,
         {
           method: "POST",
           body: JSON.stringify({ email, new_password: password }),

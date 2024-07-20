@@ -1,4 +1,4 @@
-const API_URL_BASE = "http://127.0.0.1:8000/api/v1/announcement";
+const API_URL_BASE = `${process.env.NEXT_PUBLIC_DB_BASE_URL}/announcement`;
 
 async function fetchAllComments(url) {
   let comments = [];

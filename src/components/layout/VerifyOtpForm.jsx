@@ -36,7 +36,7 @@ const VerifyOtpForm = () => {
     console.log(url);
     const newPromise = new Promise(async (resolve, reject) => {
       const res = await fetch(
-        `http://localhost:8000/api/v1/user/verify/${url}/otp/`,
+        `${process.env.NEXT_PUBLIC_DB_BASE_URL}/user/verify/${url}/otp/`,
         {
           method: "POST",
           headers: {

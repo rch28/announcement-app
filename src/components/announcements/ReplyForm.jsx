@@ -33,7 +33,7 @@ const ReplyForm = ({ parentId, setReplyToggle, replyToggle }) => {
     const fetchComment = async () => {
       try {
         const response = await fetch(
-          `http://127.0.0.1:8000/api/v1/announcement/comment/retrieve/${commentId}/`
+          `${process.env.NEXT_PUBLIC_DB_BASE_URL}/announcement/comment/retrieve/${commentId}/`
         );
 
         if (!response.ok) {
@@ -59,7 +59,7 @@ const ReplyForm = ({ parentId, setReplyToggle, replyToggle }) => {
     }
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/v1/announcement/${
+        `${process.env.NEXT_PUBLIC_DB_BASE_URL}/announcement/${
           editCommentMode ? `comment/update/${commentId}/` : "give/comment/"
         }`,
         {

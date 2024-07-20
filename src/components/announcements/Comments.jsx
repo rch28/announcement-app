@@ -51,7 +51,7 @@ const Comments = () => {
     const fetchComment = async () => {
       try {
         const data = await fetch(
-          `http://127.0.0.1:8000/api/v1/announcement/comment/retrieve/${commentId}/`,{
+          `${process.env.NEXT_PUBLIC_DB_BASE_URL}/announcement/comment/retrieve/${commentId}/`,{
             headers:{
               Authorization: `Bearer ${access_token}`
             }

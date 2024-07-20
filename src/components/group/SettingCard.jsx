@@ -20,7 +20,7 @@ const SettingCard = ({ setToggleSetting }) => {
   const handleDeleteGroup = () => {
     const newPromise = new Promise(async (resolve, reject) => {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/v1/group/delete/${groupId}/`,
+        `${process.env.NEXT_PUBLIC_DB_BASE_URL}/group/delete/${groupId}/`,
         {
           method: "DELETE",
           headers: {

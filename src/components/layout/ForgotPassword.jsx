@@ -28,7 +28,7 @@ const ForgotPassword = () => {
     }
     const newPromise = new Promise(async (resolve, reject) => {
       const res = await fetch(
-        "http://127.0.0.1:8000/api/v1/user/forgot/password/",
+        `${process.env.NEXT_PUBLIC_DB_BASE_URL}/user/forgot/password/`,
         {
           method: "POST",
           headers: {

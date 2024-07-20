@@ -20,7 +20,7 @@ const AnnSettingCard = ({ setToggle, setToggleEdit }) => {
   const handleDeleteGroup = () => {
     const newPromise = new Promise(async (resolve, reject) => {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/v1/announcement/delete/${ann_id}/`,
+        `${process.env.NEXT_PUBLIC_DB_BASE_URL}/announcement/delete/${ann_id}/`,
         {
           method: "DELETE",
           headers: {

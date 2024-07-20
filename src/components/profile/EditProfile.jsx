@@ -19,7 +19,7 @@ const EditProfile = ({setToggle}) => {
   useEffect(() => {
     const fetchUserData = async () => {
       const response = await fetch(
-        "http://127.0.0.1:8000/api/v1/user/details/",
+        `${process.env.NEXT_PUBLIC_DB_BASE_URL}/user/details/`,
         {
           method: "GET",
           headers: {
@@ -54,7 +54,7 @@ const EditProfile = ({setToggle}) => {
     }
 
     const newPromise = new Promise(async (resolve, reject) => {
-      const respone = await fetch("http://127.0.0.1:8000/api/v1/user/update/", {
+      const respone = await fetch(`${process.env.NEXT_PUBLIC_DB_BASE_URL}/user/update/`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

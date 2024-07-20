@@ -29,7 +29,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchGroup = async () => {
       const allData = await fetchAllData(
-        "http://127.0.0.1:8000/api/v1/group/created-by/user/"
+        `${process.env.NEXT_PUBLIC_DB_BASE_URL}/group/created-by/user/`
       );
       setData(allData);
     };
@@ -39,7 +39,7 @@ const Dashboard = () => {
     const fetchGroup = async () => {
       try {
         const allData = await fetchAllData(
-          "http://127.0.0.1:8000/api/v1/group/joined-by/user/"
+          `${process.env.NEXT_PUBLIC_DB_BASE_URL}/group/joined-by/user/`
         );
         setJoinedGroup(allData);
       } catch (error) {
@@ -60,7 +60,7 @@ const Dashboard = () => {
     if (groupData === null) return;
     const newPromise = new Promise(async (resolve, reject) => {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/v1/group/delete/${groupData?.group_id}/`,
+        `${process.env.NEXT_PUBLIC_DB_BASE_URL}/group/delete/${groupData?.group_id}/`,
         {
           method: "DELETE",
           headers: {
@@ -88,7 +88,7 @@ const Dashboard = () => {
     setLeaveToggle(true);
     const newPromise = new Promise(async (resolve, reject) => {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/v1/group/leave/`,
+        `${process.env.NEXT_PUBLIC_DB_BASE_URL}/group/leave/`,
         {
           method: "POST",
           headers: {

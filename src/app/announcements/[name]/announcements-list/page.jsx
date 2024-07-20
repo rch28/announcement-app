@@ -18,7 +18,7 @@ const AnnouncementListOfGroup = () => {
   useEffect(() => {
     const fetchData = async () => {
       const allData = await fetchAllData(
-        `http://127.0.0.1:8000/api/v1/announcement/list/group/${group_id}/`
+        `${process.env.NEXT_PUBLIC_DB_BASE_URL}/announcement/list/group/${group_id}/`
       );
       setAnnoucementData(allData);
       const groupData = await fetchGroup(group_id);
