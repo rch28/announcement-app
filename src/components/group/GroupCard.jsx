@@ -91,7 +91,7 @@ const GroupCard = ({ data }) => {
     if (data?.admin && access_token) {
       fetchGroupAdmin();
     }
-  }, [role, data, group_id,Joined ]);
+  }, [role, data, group_id,Joined , access_token]);
 
   return (
     <>

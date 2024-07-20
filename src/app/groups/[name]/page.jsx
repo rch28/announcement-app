@@ -20,9 +20,7 @@ const GroupPage = () => {
   const setJoined = useStore((state)=>state.setJoined)
   const toggleRating = useStore((state) => state.toggleRating);
   const toggleCreateGroup = useStore((state) => state.toggleCreateGroup);
-  const toggleCreateAnnouncement = useStore(
-    (state) => state.toggleCreateAnnouncement
-  );
+ 
   const userAuthentiated = useStore((state) => state.userAuthenticated);
   useEffect(() => {
     if (!group_id) {
@@ -48,7 +46,7 @@ const GroupPage = () => {
       }
     };
     fetchGroup();
-  }, [access_token, joined, toggleRating]);
+  }, [access_token, joined, toggleRating, group_id, setJoined]);
   useEffect(() => {
     const fetchAnnouncement = async () => {
       try {
@@ -71,12 +69,12 @@ const GroupPage = () => {
       }
     };
     fetchAnnouncement();
-  }, [toggleCreateAnnouncement, group_id]);
+  }, [ group_id,access_token]);
   return (
     <div className="p-5">
       <GroupCard data={data} />
       <div className="mt-10">
-        <h1 className="text-2xl font-bold md:text-4xl">What we're about?</h1>
+        <h1 className="text-2xl font-bold md:text-4xl">What we&apos;re about?</h1>
         <div className="py-4">
           <RichTextDisplay html={data?.description} />
          </div>

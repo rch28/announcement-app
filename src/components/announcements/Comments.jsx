@@ -67,7 +67,7 @@ const Comments = () => {
       }
     };
     fetchComment();
-  }, [commentId, replyMode, commentFetch]);
+  }, [commentId, replyMode, commentFetch, access_token]);
   return (
     <div className="border-t md:mt-12 border-gray-200 dark:border-gray-800 pt-6 md:border-t-0 ">
       {!replyMode && (

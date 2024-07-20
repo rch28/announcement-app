@@ -67,7 +67,7 @@ const JoinGroupButton = ({ data }) => {
     if (data) {
       setJoined(data?.joined);
     }
-  }, []);
+  }, [data,setJoined]);
   const handleLeaveGroup = async () => {
     setJoined(true);
     const newPromise = new Promise(async (resolve, reject) => {

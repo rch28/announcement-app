@@ -71,7 +71,7 @@ const UserComment = ({ userData, comment, replyMode }) => {
       setTimePassed(`Just now`);
     };
     calculateTimePassed();
-  }, [comment]);
+  }, [comment, differenceInMs, millisecondsInDay, millisecondsInHour, millisecondsInMinute, millisecondsInMonth, millisecondsInWeek, millisecondsInYear]);
   return (
     <>
       <div

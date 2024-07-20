@@ -35,7 +35,7 @@ const DetailsHeader = ({ date, group_id }) => {
     };
 
     fetchData();
-  }, [group_id]);
+  }, [access_token, group_id]);
 
   return (
     <div className="bg-purple-300  px-4 py-4 rounded-t-lg ">

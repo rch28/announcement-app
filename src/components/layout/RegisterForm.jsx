@@ -224,7 +224,7 @@ const RegisterForm = () => {
           {isError && !repeatPassword ? (
             <p className="text-red-500">Confirm Password is missing!!</p>
           ) : errMsg && passwordErr ? (
-            <p className="text-red-600 font-bold">"Confirm Password *"</p>
+            <p className="text-red-600 font-bold">Confirm Password *</p>
           ) : (
             "Confirm Password *"
           )}

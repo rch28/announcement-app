@@ -9,17 +9,17 @@ const Testimonial = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:px-3">
             {/* <!-- Testimonial Item --> */}
             <div className="bg-white px-6 py-8 rounded-lg shadow-md">
-                <p className="text-gray-700 mb-4">"Team App has transformed the way we collaborate. It's incredibly intuitive and user-friendly."</p>
+                <p className="text-gray-700 mb-4">Team App has transformed the way we collaborate. It&apos;s incredibly intuitive and user-friendly.</p>
                 <p className="text-gray-600">- John Doe, Team Leader</p>
             </div>
             {/* <!-- Testimonial Item --> */}
             <div className="bg-white px-6 py-8 rounded-lg shadow-md">
-                <p className="text-gray-700 mb-4">"I love how easy it is to communicate with my team members using Group Mail. It saves me so much time!"</p>
+                <p className="text-gray-700 mb-4">I love how easy it is to communicate with my team members using Group Mail. It saves me so much time!</p>
                 <p className="text-gray-600">- Jane Smith, Project Manager</p>
             </div>
             {/* <!-- Testimonial Item --> */}
             <div className="bg-white px-6 py-8 rounded-lg shadow-md">
-                <p className="text-gray-700 mb-4">"Task Assignment feature has helped us streamline our workflow and ensure that nothing falls through the cracks."</p>
+                <p className="text-gray-700 mb-4">Task Assignment feature has helped us streamline our workflow and ensure that nothing falls through the cracks.</p>
                 <p className="text-gray-600">- Michael Johnson, Developer</p>
             </div>
         </div>

@@ -11,7 +11,7 @@ const CreateNewAnnouncement = () => {
   const ann_id = searchParams.get("ann_id")
   const select_group= searchParams.get("select_group")
   const [groupData, setGroupData] = useState({})
-  const [announcmentData, setAnnouncmentData] = useState(null);
+  const [announcmentData, setAnnouncementData] = useState(null);
 
   const access_token = GetAccessToken()
   useEffect(() => {
@@ -30,7 +30,7 @@ const CreateNewAnnouncement = () => {
       };
       fetchGroup();
     }
-  }, [group_id]);
+  }, [group_id, access_token]);
 
   useEffect(()=>{
     
@@ -52,7 +52,7 @@ const CreateNewAnnouncement = () => {
             return;
           }
           const result = await response.json();
-          setAnnouncmentData(result);
+          setAnnouncementData(result);
         } catch (error) {
           console.log(error);
         }
@@ -60,7 +60,7 @@ const CreateNewAnnouncement = () => {
       fetchAnnouncement();
     }
 
-  },[edit, ann_id])
+  },[edit, ann_id, access_token])
 
   return (
     <div className="">

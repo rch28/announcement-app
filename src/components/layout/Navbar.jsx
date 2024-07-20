@@ -48,7 +48,7 @@ const Navbar = () => {
       }
     };
     fetchUserData();
-  }, [refreshToken, access_token]);
+  }, [refreshToken, access_token, setUserData, setUserLoggedIn]);
   return (
     <div className=" bg-white/80 dark:bg-black/90  sticky  top-0 z-50 ">
       <nav className=" border-b  border-gray-400/50  dark:border-gray-200/25 ">

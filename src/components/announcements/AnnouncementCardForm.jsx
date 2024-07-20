@@ -123,7 +123,7 @@ console.log(ann_data);
       );
       setSelected_group(filteredGroup);
     }
-  }, [group, selectGroup]);
+  }, [group, selectGroup ,userJoinedGroup]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!title) {

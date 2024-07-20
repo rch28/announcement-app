@@ -59,7 +59,7 @@ const CommentForm = () => {
     };
 
     fetchComment();
-  }, [editCommentMode, commentId]);
+  }, [editCommentMode, commentId ,access_token, ann_id]);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (text === "") {

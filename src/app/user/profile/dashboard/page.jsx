@@ -55,7 +55,8 @@ const Dashboard = () => {
       });
       setJoinedFilterdGroup(filterData);
     }
-  }, [JoinedGroup]);
+  }, [JoinedGroup, userData.id]);
+
   const handleDeleteGroup = () => {
     if (groupData === null) return;
     const newPromise = new Promise(async (resolve, reject) => {
@@ -143,7 +144,7 @@ const Dashboard = () => {
           <>
             {data?.length === 0 && (
               <div className="flex justify-between items-center bg-white text-black shadow-xl rounded-xl p-4">
-                <h1>You don't have Group!! Create One </h1>
+                <h1>You don&apos;t have Group!! Create One </h1>
                 <button
                   onClick={() => setToggleCreateGroup(true)}
                   className="px-6 py-2 bg-purple-600 rounded-xl  text-white font-bold hover:bg-purple-700"

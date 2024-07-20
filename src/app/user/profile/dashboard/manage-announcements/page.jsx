@@ -44,7 +44,7 @@ const ManageAnnouncements = () => {
       }
     };
     fetchUserCreatedGroup();
-  }, []);
+  }, [gid]);
 
   useEffect(() => {
     const fetchGroupData = async () => {
@@ -66,7 +66,7 @@ const ManageAnnouncements = () => {
       setAnnouncementList(allData);
     };
     fetchAnnouncementforGroup();
-  }, [groupId, toggleCreateAnnouncment,deleteToggle]);
+  }, [groupId, deleteToggle]);
 
   useEffect(() => {
     const fetchAnnouncement = async () => {
@@ -75,7 +75,7 @@ const ManageAnnouncements = () => {
       }
       try {
         const response = await fetch(
-          `http://127.0.0.1:8000/api/v1/announcement/retrieve/${ann_id}/`,
+          `${process.env.NEXT_PUBLIC_DB_BASE_URL}/announcement/retrieve/${ann_id}/`,
           {
             method: "GET",
             headers: {
@@ -94,7 +94,7 @@ const ManageAnnouncements = () => {
       }
     };
     fetchAnnouncement();
-  }, [ann_id, toggleCreateAnnouncment]);
+  }, [ann_id, access_token]);
 
   const handleDelete = () => {
     const newPromise = new Promise(async (resolve, reject) => {

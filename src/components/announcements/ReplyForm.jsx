@@ -51,7 +51,7 @@ const ReplyForm = ({ parentId, setReplyToggle, replyToggle }) => {
     };
 
     fetchComment();
-  }, [editCommentMode, commentId]);
+  }, [ann_id,editCommentMode, commentId]);
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
     if (!reply) {

@@ -33,7 +33,7 @@ const EditProfile = ({setToggle}) => {
       }
     };
     fetchUserData();
-  }, []);
+  }, [access_token, setUserData]);
   useEffect(() => {
     setfirst_name(userData.first_name || "");
     setlast_name(userData.last_name || "");

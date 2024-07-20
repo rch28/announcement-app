@@ -40,7 +40,7 @@ const GroupNav = () => {
         setIsGroupAdmin(false);
       }
     }
-  }, [uId, aId]);
+  }, [uId, aId, setIsGroupAdmin]);
   return (
     <>
       <nav className="flex flex-row md:gap-4 justify-between ">

@@ -33,7 +33,7 @@ const CategoryList = () => {
       }
     };
     fetchCategories();
-  }, []);
+  }, [access_token]);
   const handleClick = () => {
     if (userAuthenticated) {
       setToggleCreateGroup(!toggleCreateGroup);

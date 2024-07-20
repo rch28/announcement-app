@@ -42,7 +42,7 @@ const AnnouncementPage = () => {
       }
     };
     fetchAnnouncement();
-  }, [toggleCreateAnnouncement]);
+  }, [toggleCreateAnnouncement, ann_id, access_token]);
   return (
     <div className="w-full max-w-6xl mx-auto grid gap-6 p-4 relative">
       <AnnouncementDetails

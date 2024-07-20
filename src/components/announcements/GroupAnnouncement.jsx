@@ -30,7 +30,7 @@ const GroupAnnouncement = ({ id, name }) => {
       }
     };
     fetchAnnouncement();
-  }, [id]);
+  }, [id, access_token]);
 
   useEffect(() => {
     if (announcementList) {

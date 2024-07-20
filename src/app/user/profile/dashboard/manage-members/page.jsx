@@ -28,7 +28,7 @@ const ManageMembers = () => {
       }
     };
     fetchGroup();
-  }, []);
+  }, [gid]);
   useEffect(() => {
     if (groupId) {
       const GroupData = async () => {
