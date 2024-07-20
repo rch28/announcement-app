@@ -7,8 +7,9 @@ import Cookies from "js-cookie";
 import { useStore } from "@/stores/store";
 import toast from "react-hot-toast";
 import PopUpWrapper from "../PopUpWrapper";
+import Link from "next/link";
 
-const AnnSettingCard = ({ setToggle, setToggleEdit }) => {
+const AnnSettingCard = ({ setToggle , group_id }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [deleteToggle, setDeleteToggle] = useState(false);
@@ -44,16 +45,13 @@ const AnnSettingCard = ({ setToggle, setToggleEdit }) => {
       error: (data) => data.errors[0].detail || "Failed to delete announcement",
     });
   };
-  const handleEditAnn = () => {
-    setToggleEdit(true);
-    setToggleCreateAnnouncement(true);
-  };
+
   return (
     <div className="flex flex-col p-3 pt-0 gap-6 relative">
       <div>
         <div className="flex justify-end absolute right-0 -top-2">
           <button
-            className="p-1 flex justify-center items-center dark:text-gray-400 cursor-pointer text-red-500 bg-white shadow-sm shadow-gray-900 rounded-full hover:bg-red-200"
+            className="p-1 flex justify-center items-center  cursor-pointer text-red-500 bg-white shadow-sm shadow-gray-900 rounded-full hover:bg-red-500 hover:text-white"
             onClick={() => setToggle(false)}
           >
             <XIcon size={24} />
@@ -85,9 +83,8 @@ const AnnSettingCard = ({ setToggle, setToggleEdit }) => {
         </div>
       </div>
       <div className="flex flex-col gap-4">
-        <div
+        <Link href={`/announcements/create-new/?group_id=${group_id}&&edit=true&&ann_id=${ann_id}`}
           className="cursor-pointer hover:bg-green-600 hover:text-white p-3 rounded-md"
-          onClick={handleEditAnn}
         >
           <CardUtil
             title="Edit Announcement"
@@ -95,7 +92,7 @@ const AnnSettingCard = ({ setToggle, setToggleEdit }) => {
               <Edit className="h-5 w-5 " />
             }
           />
-        </div>
+        </Link>
 
         <div
           className="cursor-pointer hover:bg-red-600 hover:text-white p-3 rounded-md"

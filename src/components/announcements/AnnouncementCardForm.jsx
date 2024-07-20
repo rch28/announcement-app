@@ -64,7 +64,7 @@ export function AnnouncementCardForm({
   const userData = useStore((state) => state.userData);
   const userId = userData?.id;
   const router = useRouter();
-
+console.log(ann_data);
   const announcement_type = [
     { value: "", label: "Select Type" },
     { value: "event", label: "Event" },
@@ -104,6 +104,13 @@ export function AnnouncementCardForm({
       setGroup(ann_data.group);
       setImage(ann_data.image);
       setImageChanged(false);
+      setImageDescription(ann_data. image_description)
+      setAnnouncemenType(ann_data?.announcement_type)
+      setAnnouncement_visibility(ann_data?.announcement_visibility)
+      setContactEmail(ann_data?.contact_email)
+      setContactName(ann_data?.contact_name)
+      setLocation(ann_data?.location)
+      setDate(ann_data?.date)
     }
     if (group_id) {
       setGroup(group_id);

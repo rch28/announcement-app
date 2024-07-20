@@ -55,9 +55,9 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
           )}
         </div>
         {
-          data?.image_description && <div className="mt-4">
+          data?.image_description && <div className="mt-4 text-gray-800 bg-white rounded-md p-4">
           <h1 className="font-semibold ">Image Description</h1>
-          <p className="p-1  capitalize text-gray-800 bg-white rounded-md">
+          <p className="p-1  capitalize ">
             {data?.image_description}
           </p>
           </div>
@@ -65,7 +65,7 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
       </div>
       <div className="flex-[0.6] bg-primary rounded-md">
         <CardHeader className="p-0 ">
-          <div className="flex justify-between items-center relative md:bg-purple-300  md:p-4 md:rounded-t-lg ">
+          <div className="flex justify-between items-center relative md:bg-purple-300 px-4 py-2 md:p-4 md:rounded-t-lg ">
             <CardTitle className="text-md md:text-xl lg:text-2xl xl:text-3xl text-gray-800 capitalize ">
               {data?.title}
             </CardTitle>
@@ -74,7 +74,7 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
                 className="p-1  text-white bg-purple-700 shadow-md shadow-gray-700  rounded-full hover:bg-purple-900"
                 onClick={() => setToggle((prev) => !prev)}
               >
-                <EllipsisVertical size={24} />
+                <EllipsisVertical size={18} />
               </button>
             )}
             {/* Announcement Edit toggle */}
@@ -82,11 +82,11 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
               <div
                 className={`absolute z-40 right-0 top-0 bg-white shadow-md shadow-gray-600 p-4 rounded-lg w-88 }`}
               >
-                <AnnSettingCard setToggle={setToggle} />
+                <AnnSettingCard setToggle={setToggle} group_id={data?.group} />
               </div>
             )}
           </div>
-          <div className="flex items-center  gap-4">
+          <div className="flex items-center  gap-4 px-4 pb-1">
             <AdminInfo admin_id={data?.user} />
           </div>
         </CardHeader>
