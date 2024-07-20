@@ -9,8 +9,9 @@ const CreateNewAnnouncement = () => {
   const group_id = searchParams.get("group_id");
   const edit = searchParams.get("edit")
   const ann_id = searchParams.get("ann_id")
+  const select_group= searchParams.get("select_group")
   const [groupData, setGroupData] = useState({})
-  const [announcmentData, setAnnouncmentData] = useState({});
+  const [announcmentData, setAnnouncmentData] = useState(null);
 
   const access_token = GetAccessToken()
   useEffect(() => {
@@ -63,7 +64,7 @@ const CreateNewAnnouncement = () => {
 
   return (
     <div className="">
-      <AnnouncementCardForm group_id={group_id} group_name={groupData.name}  ann_data={announcmentData} />
+      <AnnouncementCardForm group_id={group_id} group_name={groupData.name}  ann_data={announcmentData} selectGroup={select_group} />
     </div>
   );
 };
