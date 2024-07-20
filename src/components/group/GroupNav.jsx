@@ -12,6 +12,7 @@ const GroupNav = () => {
   const [aId, setAId] = useState("");
   const searchParams = useSearchParams();
   const category = searchParams.get("category");
+  const group_id = searchParams.get("group_id");
   const userData = useStore((state) => state.userData);
   const groupAdmin = useStore((state) => state.groupAdmin);
   const isGrupAdmin = useStore((state) => state.isGrupAdmin);
@@ -70,7 +71,7 @@ const GroupNav = () => {
         {role==="moderator" && joined && userAuthenticated && (
           <div className="flex  justify-end items-center px-4 text-xs md:text-base">
             <Link
-              href={""}
+              href={`/announcements/create-new/?group_id=${group_id}`}
               className="px-3 md:px-6 text-sx md:text-sm py-2 bg-purple-600 shadow-sm shadow-purple-500 rounded-full  text-white font-bold hover:bg-purple-700"
             >
               New Announcement
