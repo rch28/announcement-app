@@ -1,15 +1,9 @@
 "use client";
-import { AnnouncementCardForm } from "@/components/announcements/AnnouncementCardForm";
-import GroupAnnouncement from "@/components/announcements/GroupAnnouncement";
-import PopUpWrapper from "@/components/PopUpWrapper";
-import { useStore } from "@/stores/store";
+
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 const AnnouncementPage = () => {
-  const toggleCreateAnnouncement = useStore(
-    (state) => state.toggleCreateAnnouncement
-  );
   const [GroupList, setGroupList] = useState([]);
   useEffect(() => {
     const fetchGroup = async () => {
@@ -54,12 +48,6 @@ const AnnouncementPage = () => {
           </div>
         ))}
       </div>
-      {toggleCreateAnnouncement && (
-        <PopUpWrapper>
-          <AnnouncementCardForm selectGroup={true} />
-
-        </PopUpWrapper>
-      )}
     </div>
   );
 };

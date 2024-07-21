@@ -4,7 +4,7 @@ import GroupMember from "@/components/profile/dashboard/GroupMember";
 import { Label } from "@/components/ui/label";
 import { fetchAllData, fetchGroup } from "../../../../../index";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 const ManageMembers = () => {
   const searchParams = useSearchParams();
@@ -82,4 +82,13 @@ const ManageMembers = () => {
   );
 };
 
-export default ManageMembers;
+
+const ManageMemberpage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ManageMembers/>
+    </Suspense>
+  )
+}
+
+export default ManageMemberpage

@@ -16,19 +16,13 @@ import { useStore } from "@/stores/store";
 import { useEffect, useRef, useState } from "react";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
-import { fetchAllData } from "../../index";
+import { useRouter, useSearchParams } from "next/navigation";
+import { fetchAllData, GetAccessToken } from "../../index";
 import ReactQuill from "react-quill";
 import { Textarea } from "../ui/textarea";
 import { InfoIcon } from "lucide-react";
 
-export function AnnouncementCardForm({
-  group_id,
-  selectGroup,
-  ann_data,
-  redirect,
-  group_name,
-}) {
+export default function AnnouncementCardForm() {
   const titleRef = useRef(null);
   const contactNameRef = useRef(null);
   const contactEmailRef = useRef(null);
@@ -42,6 +36,14 @@ export function AnnouncementCardForm({
   const descriptionRef = useRef(null);
   const [focusedField, setFocusedField] = useState(null);
   const [userJoinedGroup, setUserJoinedGroup] = useState([]);
+
+  const searchParams = useSearchParams();
+  const group_id = searchParams.get("group_id");
+  const edit = searchParams.get("edit");
+  const ann_id = searchParams.get("ann_id");
+  const selectGroup = searchParams.get("select_group");
+  const [groupData, setGroupData] = useState({});
+  const [ann_data, setAnnouncementData] = useState(null);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -64,7 +66,7 @@ export function AnnouncementCardForm({
   const userData = useStore((state) => state.userData);
   const userId = userData?.id;
   const router = useRouter();
-console.log(ann_data);
+  console.log(ann_data);
   const announcement_type = [
     { value: "", label: "Select Type" },
     { value: "event", label: "Event" },
@@ -98,19 +100,63 @@ console.log(ann_data);
     fetchData();
   }, [selectGroup]);
   useEffect(() => {
+    if (group_id) {
+      const fetchGroup = async () => {
+        try {
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_DB_BASE_URL}/group/retrieve/${group_id}/`
+          );
+          if (!response.ok) return;
+          const result = await response.json();
+          setGroupData(result);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      fetchGroup();
+    }
+  }, [group_id]);
+
+  useEffect(() => {
+    if (edit && ann_id) {
+      const fetchAnnouncement = async () => {
+        try {
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_DB_BASE_URL}/announcement/retrieve/${ann_id}/`,
+            {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${GetAccessToken()}`,
+              },
+            }
+          );
+          if (!response.ok) {
+            console.error("Something went wrong!!");
+            return;
+          }
+          const result = await response.json();
+          setAnnouncementData(result);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      fetchAnnouncement();
+    }
+  }, [edit, ann_id]);
+  useEffect(() => {
     if (ann_data) {
       setTitle(ann_data.title);
       setDescription(ann_data.description);
       setGroup(ann_data.group);
       setImage(ann_data.image);
       setImageChanged(false);
-      setImageDescription(ann_data. image_description)
-      setAnnouncemenType(ann_data?.announcement_type)
-      setAnnouncement_visibility(ann_data?.announcement_visibility)
-      setContactEmail(ann_data?.contact_email)
-      setContactName(ann_data?.contact_name)
-      setLocation(ann_data?.location)
-      setDate(ann_data?.date)
+      setImageDescription(ann_data.image_description);
+      setAnnouncemenType(ann_data?.announcement_type);
+      setAnnouncement_visibility(ann_data?.announcement_visibility);
+      setContactEmail(ann_data?.contact_email);
+      setContactName(ann_data?.contact_name);
+      setLocation(ann_data?.location);
+      setDate(ann_data?.date);
     }
     if (group_id) {
       setGroup(group_id);
@@ -123,7 +169,7 @@ console.log(ann_data);
       );
       setSelected_group(filteredGroup);
     }
-  }, [group, selectGroup ,userJoinedGroup]);
+  }, [group, selectGroup, userJoinedGroup]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!title) {
@@ -379,7 +425,7 @@ console.log(ann_data);
                       className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-500 rounded-md focus:outline-none text-sm font-medium appearance-none  "
                       disabled
                     >
-                      <option>{group_name}</option>
+                      <option>{groupData.name}</option>
                     </select>
                   </div>
                 </>

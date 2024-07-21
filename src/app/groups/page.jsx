@@ -1,6 +1,8 @@
 "use client"
+import dynamic from 'next/dynamic';
+
+const CreateGroup = dynamic(() => import('@/components/group/CreateGroup'), { ssr: false });
 import CategoryList from '@/components/group/CategoryList'
-import CreateGroup from '@/components/group/CreateGroup'
 import GroupList from '@/components/group/GroupList'
 import PopUpWrapper from '@/components/PopUpWrapper'
 import { useStore } from '@/stores/store'

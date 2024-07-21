@@ -4,8 +4,9 @@ import CreateGroup from "@/components/group/CreateGroup";
 import GroupCard from "@/components/group/GroupCard";
 import RichTextDisplay from "@/components/layout/RichTextDisplay";
 import PopUpWrapper from "@/components/PopUpWrapper";
+import { GetAccessToken } from "@/index";
 import { useStore } from "@/stores/store";
-import Cookies from "js-cookie";
+
 import Link from "next/link";
 import { redirect, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -15,7 +16,7 @@ const GroupPage = () => {
   const group_id = searchParams.get("group_id");
   const [data, setData] = useState({});
   const [announcmentData, setAnnouncmentData] = useState({});
-  const access_token = Cookies.get("access_token");
+  const access_token = GetAccessToken();
   const joined = useStore((state) => state.Joined);
   const setJoined = useStore((state)=>state.setJoined)
   const toggleRating = useStore((state) => state.toggleRating);

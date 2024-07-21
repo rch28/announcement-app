@@ -1,6 +1,9 @@
 "use client";
-import { AnnouncementCardForm } from "@/components/announcements/AnnouncementCardForm";
-import CreateGroup from "@/components/group/CreateGroup";
+import dynamic from 'next/dynamic';
+
+const CreateGroup = dynamic(() => import("@/components/group/CreateGroup"), { ssr: false });
+// import { AnnouncementCardForm } from "@/components/announcements/AnnouncementCardForm";
+
 import PopUpWrapper from "@/components/PopUpWrapper";
 import GroupCard from "@/components/profile/dashboard/GroupCard";
 import DeleteConfirm from "@/components/utils/DeleteConfirm";
@@ -22,9 +25,7 @@ const Dashboard = () => {
   const access_token = GetAccessToken();
   const toggleCreateGroup = useStore((state) => state.toggleCreateGroup);
   const setToggleCreateGroup = useStore((state) => state.setToggleCreateGroup);
-  const toggleCreateAnnouncement = useStore(
-    (state) => state.toggleCreateAnnouncement
-  );
+ 
   const userData = useStore((state) => state.userData);
   useEffect(() => {
     const fetchGroup = async () => {
@@ -239,11 +240,11 @@ const Dashboard = () => {
           <CreateGroup mode={"edit"} data={groupData} />
         </PopUpWrapper>
       )}
-      {toggleCreateAnnouncement && (
+      {/* {toggleCreateAnnouncement && (
         <PopUpWrapper>
           <AnnouncementCardForm group_id={groupData?.group_id} />
         </PopUpWrapper>
-      )}
+      )} */}
     </div>
   );
 };

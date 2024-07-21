@@ -1,6 +1,6 @@
 "use client";
 
-import { AnnouncementCardForm } from "@/components/announcements/AnnouncementCardForm";
+// import { AnnouncementCardForm } from "@/components/announcements/AnnouncementCardForm";
 import PopUpWrapper from "@/components/PopUpWrapper";
 import { Label } from "@/components/ui/label";
 import DeleteConfirm from "@/components/utils/DeleteConfirm";
@@ -8,7 +8,7 @@ import { fetchAllData, fetchGroup, GetAccessToken } from "../../../../../index";
 import { useStore } from "@/stores/store";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const ManageAnnouncements = () => {
@@ -109,7 +109,7 @@ const ManageAnnouncements = () => {
         }
       );
       if (response.ok) {
-        setDeleteToggle(false)
+        setDeleteToggle(false);
         resolve();
       } else {
         const result = await response.json();
@@ -209,7 +209,7 @@ const ManageAnnouncements = () => {
           </div>
         )}
       </div>
-      {toggleCreateAnnouncment && editMode && (
+      {/* {toggleCreateAnnouncment && editMode && (
         <PopUpWrapper>
           <AnnouncementCardForm ann_data={ann_data} redirect={false} />
         </PopUpWrapper>
@@ -218,7 +218,7 @@ const ManageAnnouncements = () => {
         <PopUpWrapper>
           <AnnouncementCardForm group_id={groupId} />
         </PopUpWrapper>
-      )}
+      )} */}
       {deleteToggle && (
         <PopUpWrapper>
           <DeleteConfirm title={"Delete Announcement"}>
@@ -243,4 +243,12 @@ const ManageAnnouncements = () => {
   );
 };
 
-export default ManageAnnouncements;
+const ManageAnnouncementsPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ManageAnnouncements />
+    </Suspense>
+  );
+};
+
+export default ManageAnnouncementsPage;
