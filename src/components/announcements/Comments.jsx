@@ -69,7 +69,7 @@ const Comments = () => {
     fetchComment();
   }, [commentId, replyMode, commentFetch, access_token]);
   return (
-    <div className="border-t md:mt-12 border-gray-200 dark:border-gray-800 pt-6 md:border-t-0 ">
+    <div className="border-t md:mt-6 border-gray-200 dark:border-gray-800 pt-6 md:border-t-0 ">
       {!replyMode && (
         <div className="bg-white dark:bg-primary p-4 rounded-md shadow dark:shadow-sm shadow-gray-400">
           <h3 className="text-lg font-semibold text-black">Comments</h3>
