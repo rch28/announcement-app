@@ -9,7 +9,7 @@ import SearchBar from "./SearchBar";
 import Image from "next/image";
 import { logo } from "../../../public";
 import { usePathname } from "next/navigation";
-import DarkModeToggle from "./DarkModeToggle";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const authenticated = useStore((state) => state.userAuthenticated);
@@ -104,7 +104,7 @@ const Navbar = () => {
               </li>
             </ul>
             <div>
-              <DarkModeToggle/>
+              <ThemeToggle/>
             </div>
             <p className="relative cursor-pointer">
               <span className="sm:hidden">
