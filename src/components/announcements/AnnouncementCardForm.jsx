@@ -59,9 +59,7 @@ export default function AnnouncementCardForm() {
 
   const [selected_group, setSelected_group] = useState({});
   const [imageChanged, setImageChanged] = useState(false);
-  const setToggleCreateAnnouncement = useStore(
-    (state) => state.setToggleCreateAnnouncement
-  );
+  
   const access_token = Cookies.get("access_token");
   const userData = useStore((state) => state.userData);
   const userId = userData?.id;
@@ -234,7 +232,6 @@ export default function AnnouncementCardForm() {
       );
       if (response.ok) {
         const result = await response.json();
-        setToggleCreateAnnouncement(false);
 
         if (ann_data && redirect) {
           router.push(`/announcements/${title}?ann_id=${ann_data.id}`);

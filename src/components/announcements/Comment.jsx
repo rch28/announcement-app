@@ -85,28 +85,28 @@ const Comment = ({ comment, replyMode }) => {
 
           {latestReply && (
             <div className="flex gap-2 items-center">
-              {repliedUser.profilepic && (
+              {repliedUser?.profilepic && (
                 <Avatar className="h-5 w-5 shadow-md shadow-gray-500 p-0.5">
                   <AvatarImage
                     alt="@shadcn"
-                    src={repliedUser.profilepic}
+                    src={repliedUser?.profilepic}
                     className="rounded-full"
                   />
                   <AvatarFallback>
-                    {repliedUser.first_name[0]}
-                    {repliedUser.last_name[0]}
+                    {repliedUser?.first_name[0]}
+                    {repliedUser?.last_name[0]}
                   </AvatarFallback>
                 </Avatar>
               )}
-              {!repliedUser.profilepic && (
+              {!repliedUser?.profilepic && (
                 <Avatar className="h-5 w-5 shadow-md shadow-gray-500">
                   <AvatarImage alt="@shadcn" src="/placeholder-user.jpg" />
                   <AvatarFallback>YS</AvatarFallback>
                 </Avatar>
               )}
               <p className="font-medium text-xs capitalize flex gap-1 items-center text-gray-900">
-                <span>{repliedUser.first_name}</span>
-                <span>{repliedUser.last_name}</span>
+                <span>{repliedUser?.first_name}</span>
+                <span>{repliedUser?.last_name}</span>
                 <span className="text-gray-700 line-clamp-1">
                   {latestReply?.comment}
                 </span>
