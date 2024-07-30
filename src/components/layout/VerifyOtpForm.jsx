@@ -3,16 +3,19 @@
 import { useStore } from "@/stores/store";
 import Cookies from "js-cookie";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const VerifyOtpForm = () => {
-  const searchParams = useSearchParams();
   const router = useRouter();
-  const username = searchParams.get("username");
-  const verifyFor = searchParams.get("verifyFor");
+  const [username, setUsername] = useState("")
+  const [verifyFor, setVerifyFor] = useState("")
   const [otp, setOtp] = useState("");
   const email= useStore((state)=>state.email)
+  useEffect(()=>{
+    setUsername(localStorage.getItem("username"))
+    setVerifyFor(localStorage.getItem("verifyFor"))
+  },[])
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -25,6 +28,11 @@ const VerifyOtpForm = () => {
       setOptErr("Please enter a valid otp");
       return;
     }
+    if(!username){
+      toast("Enter username and password")
+      router.push("/auth/login")
+      return;
+    }
 
     const url =
       verifyFor === "forgot-password"
@@ -33,7 +41,6 @@ const VerifyOtpForm = () => {
         ? "login"
         : null;
 
-    console.log(url);
     const newPromise = new Promise(async (resolve, reject) => {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_DB_BASE_URL}/user/verify/${url}/otp/`,
@@ -50,6 +57,8 @@ const VerifyOtpForm = () => {
         if (verifyFor === "login") {
           Cookies.set("access_token", data.access, { expires: 7 });
           Cookies.set("refresh_token", data.refresh, { expires: 7 });
+          localStorage.removeItem("username");
+          localStorage.removeItem("verifyFor");
             router.push("/")
         } else if (verifyFor === "forgot-password") {
           router.push(

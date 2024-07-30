@@ -55,8 +55,10 @@ const LoginForm = () => {
           router.push("/");
         } else {
           // redirect to otp verify
+          localStorage.setItem("username", username);
+          localStorage.setItem("verifyFor", "login");
           router.push(
-            `/auth/otp-verify?username=${username}&&verifyFor=login`
+            `/auth/otp-verify`
           );
         }
 
