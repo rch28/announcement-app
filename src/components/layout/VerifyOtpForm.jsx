@@ -1,6 +1,7 @@
 "use client";
 
 import { useStore } from "@/stores/store";
+import Cookies from "js-cookie";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -11,7 +12,6 @@ const VerifyOtpForm = () => {
   const username = searchParams.get("username");
   const verifyFor = searchParams.get("verifyFor");
   const [otp, setOtp] = useState("");
-  const [optErr, setOptErr] = useState("");
   const email= useStore((state)=>state.email)
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,7 +48,9 @@ const VerifyOtpForm = () => {
       const data = await res.json();
       if (res.ok) {
         if (verifyFor === "login") {
-            router.push("/auth/login")
+          Cookies.set("access_token", data.access, { expires: 7 });
+          Cookies.set("refresh_token", data.refresh, { expires: 7 });
+            router.push("/")
         } else if (verifyFor === "forgot-password") {
           router.push(
             `/auth/reset-password`
@@ -65,7 +67,6 @@ const VerifyOtpForm = () => {
         return data?.msg;
       },
       error: (data) => {
-        setOptErr(data.errors[0].detail);
         return data.errors[0].detail;
       },
     });
@@ -78,11 +79,6 @@ const VerifyOtpForm = () => {
       <h1 className="text-4xl font-bold text-center pb-10 text-gray-800 dark:text-white">
         Verify-Otp
       </h1>
-      {optErr && (
-        <p className="text-sm text-red-600 border border-red-300 px-4 py-2 rounded-xl bg-red-200 mb-6">
-          {optErr}
-        </p>
-      )}
 
       <div className="relative z-0 w-full mb-5 group">
         <input
