@@ -12,7 +12,6 @@ const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const [uNameErr, setuNameErr] = useState("");
 
   const setUserLoggedIn = useStore((state) => state.setUserLoggedIn);
 
@@ -56,7 +55,7 @@ const LoginForm = () => {
         } else {
           // redirect to otp verify
           localStorage.setItem("username", username);
-          localStorage.setItem("verifyFor", "login");
+          localStorage.setItem("action", "login");
           router.push(
             `/auth/otp-verify`
           );
@@ -65,9 +64,11 @@ const LoginForm = () => {
         resolve(result);
       } else {
         const result = await response.json();
+        console.log(result);
         if (result.errors.length > 0) {
           result.errors.forEach((error) => {
             setErrorMsg(error.detail);
+            reject(error.detail)
           });
         }
         reject(result);
@@ -76,7 +77,7 @@ const LoginForm = () => {
     toast.promise(newPromise, {
       loading: "Loading...",
       success: (data) => data?.msg,
-      error: "Login Failed!",
+      error: (err)=>err
     });
     setErrorMsg("");
   };
@@ -89,20 +90,12 @@ const LoginForm = () => {
       <h1 className="text-4xl font-bold text-center pb-10 text-gray-700 dark:text-white">
         Login
       </h1>
-      {errorMsg && (
-        <p className="text-red-500 border border-red-300 px-4 py-2 rounded-xl bg-red-200 mb-4">
-          {errorMsg}
-        </p>
-      )}
-      {uNameErr && (
-        <p className="text-red-500 border border-red-300 px-4 py-2 rounded-xl bg-red-200 mb-4">
-          {uNameErr}
-        </p>
-      )}
+     
 
       <div className="relative z-0 w-full mb-5 group">
         <input
           type="text"
+          autoComplete="off"
           name="floating_username"
           id="floating_username"
           className={`block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-400/80 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 ${
@@ -123,6 +116,7 @@ const LoginForm = () => {
       <div className="relative z-0 w-full mb-5 group">
         <input
           type="password"
+          autoComplete="off"
           name="floating_password"
           id="floating_password"
           className={`block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-400/80 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
