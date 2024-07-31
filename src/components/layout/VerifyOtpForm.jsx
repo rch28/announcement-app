@@ -3,19 +3,30 @@
 import { useStore } from "@/stores/store";
 import Cookies from "js-cookie";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
 const VerifyOtpForm = () => {
+  const otpRef= useRef(null)
   const router = useRouter();
   const [username, setUsername] = useState("")
   const [verifyFor, setVerifyFor] = useState("")
   const [otp, setOtp] = useState("");
-  const email= useStore((state)=>state.email)
+  const [email, setEmail] = useState("")
+  const [url, setUrl] = useState("")
+console.log(verifyFor, url);
+  // const email= useStore((state)=>state.email)
   useEffect(()=>{
     setUsername(localStorage.getItem("username"))
-    setVerifyFor(localStorage.getItem("verifyFor"))
-  },[])
+    const storedAction=localStorage.getItem("action")
+    setVerifyFor(storedAction)
+    if(storedAction==="login"){
+      setUrl("login")
+    }else if(storedAction==="reset"){
+      setUrl("forgot/password")
+    }
+    
+  },[router])
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -24,8 +35,15 @@ const VerifyOtpForm = () => {
       router.push("/auth/forgot-password")
       return;
     }
+    if(otp===""){
+      if(otpRef.current){
+        otpRef.current.focus()
+      }
+      toast.error("Enter opt")
+      return
+    }
     if (otp.length !== 6) {
-      setOptErr("Please enter a valid otp");
+      toast.error("Please enter a valid otp");
       return;
     }
     if(!username){
@@ -33,13 +51,7 @@ const VerifyOtpForm = () => {
       router.push("/auth/login")
       return;
     }
-
-    const url =
-      verifyFor === "forgot-password"
-        ? "forgot/password"
-        : verifyFor === "login"
-        ? "login"
-        : null;
+    
 
     const newPromise = new Promise(async (resolve, reject) => {
       const res = await fetch(
@@ -91,7 +103,9 @@ const VerifyOtpForm = () => {
 
       <div className="relative z-0 w-full mb-5 group">
         <input
+        ref={otpRef}
           type="text"
+          autoComplete="off"
           name="floating_otp"
           id="floating_otp"
           className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-400 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
