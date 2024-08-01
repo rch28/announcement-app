@@ -44,40 +44,52 @@ const RegisterForm = () => {
     }
 
     const newPromise = new Promise(async (resolve, reject) => {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_DB_BASE_URL}/user/register/`,
-        {
-          method: "POST",
-          body: JSON.stringify({
-            first_name: fName,
-            last_name: lName,
-            username,
-            email,
-            password,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_DB_BASE_URL}/user/register/`,
+          {
+            method: "POST",
+            body: JSON.stringify({
+              first_name: fName,
+              last_name: lName,
+              username,
+              email,
+              password,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (response.ok) {
+          router.push("/auth/login");
+          resolve();
+        } else {
+          const result = await response.json();
+          if (result?.errors?.length > 0) {
+            result.errors.forEach((error) => {
+              setErrMsg(error.detail)   
+              reject(error.detail);    
+              return      
+            });
+          }
+          reject(result);
         }
-      );
-      if (response.ok) {
-        router.push("/auth/login");
-        resolve();
-      } else {
-        const result = await response.json();
-        if (result?.errors?.length > 0) {
-          result.errors.forEach((error) => {
-            setErrMsg(error.detail)            
-          });
-        }
-        reject();
+      } catch (error) {
+        reject(error);  
+        
       }
     });
 
     toast.promise(newPromise, {
       loading: "Loading...",
-      success: "Successfully register!",
-      error: "Registration Failed!",
+      success: (data) => data?.msg,
+      error: (err) => {
+        if (err instanceof Error) {
+          return err.message;
+        }
+        return err;
+      },
     });
   };
   return (
