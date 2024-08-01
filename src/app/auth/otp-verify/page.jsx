@@ -13,7 +13,7 @@ const VerifyOtp = () => {
           </Suspense>
         </div>
         <div className="hidden md:flex flex-1">
-          <Image src={otpImg} height={300} width={400} priority alt="auth" />
+          <Image src={otpImg} height={300} width={400} priority alt="auth"  className="rounded-xl" />
         </div>
       </div>
     </div>

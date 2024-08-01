@@ -11,7 +11,7 @@ const ResetPassword = () => {
           <ResetPasswordFrom />
         </div>
         <div className=" hidden md:flex flex-1 justify-center">
-          <Image src={auth} height={400} width={400} priority alt="auth" />
+          <Image src={auth} height={400} width={400} priority alt="auth" className="rounded-xl" />
         </div>
       </div>
     </div>

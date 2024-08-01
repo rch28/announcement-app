@@ -9,7 +9,7 @@ const Register = () => {
       <div className=" flex justify-between gap-4">
         <RegisterForm/>
         <div className="hidden md:flex flex-1">
-          <Image src={auth} height={400} width={400} priority alt="auth" />
+          <Image src={auth} height={400} width={400} priority alt="auth"  className="rounded-xl"/>
         </div>
       </div>
     </div>
