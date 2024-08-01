@@ -10,17 +10,12 @@ const ForgotPassword = () => {
   const searchParams= useSearchParams()
   const fornewpassowrd=searchParams.get("fornewpassowrd")
   const [email, setEmail] = useState("");
-  const [errMsg, setErrMsg] = useState("");
-  const [isError, setIsError] = useState(false)
-  const setUserEmail= useStore((state)=>state.setEmail)
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email) {
-        setIsError(true)
-      setErrMsg("Email is Missing!!");
+        toast.error("Email is missing!!");
       return;
     }
-    setUserEmail(email)
     if(fornewpassowrd){
       router.push(`/auth/reset-password/`)
       toast("Enter your new password!!")
@@ -39,7 +34,10 @@ const ForgotPassword = () => {
       );
       const data = await res.json();
       if (res.ok) {
-        router.push(`/auth/forgot-password/otp-verify?verifyFor=forgot-password`)
+        localStorage.removeItem("username")
+        localStorage.setItem("email", email)
+        localStorage.setItem("action", "reset")
+        router.push(`/auth/forgot-password/otp-verify`)
         resolve(data);
       } else {
         reject(data);
@@ -50,10 +48,14 @@ const ForgotPassword = () => {
       success: (data) => {
         return data?.msg;
       },
-      error: (data) => {
-        setIsError(true)
-        setErrMsg(data.errors[0].detail);
-        return data.errors[0].detail;
+      error: (error) => {
+        if(error instanceof Error){
+          return error.message;
+        }else if (error.errors && error.errors.length > 0) {
+          return error.errors[0].detail;
+        } else {
+          return "An unexpected error occurred!!"
+        }
       },
     });
   };
@@ -65,17 +67,14 @@ const ForgotPassword = () => {
       <h1 className="text-4xl font-bold text-center pb-10 text-gray-800 dark:text-white">
         Forgot Password
       </h1>
-      {errMsg  &&(
-        <p className="text-sm text-red-600 border border-red-300 px-4 py-2 rounded-xl bg-red-200 mb-6">
-          {errMsg}
-        </p>
-      )}
+     
 
       <div className="relative z-0 w-full mb-5 group">
         <input
           type="email"
           name="floating_email"
           id="floating_email"
+          autoComplete="off"
           className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-400/80 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           placeholder=" "
           value={email}
@@ -85,11 +84,7 @@ const ForgotPassword = () => {
           htmlFor="floating_email"
           className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
         >
-          {isError && !email ? (
-            <p className="text-red-500">Email is missing!!</p>
-          ) : (
-            "Email address *"
-          )}
+          Email Address *
         </label>
       </div>
       <div className="flex justify-end">

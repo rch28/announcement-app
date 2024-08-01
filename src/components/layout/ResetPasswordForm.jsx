@@ -1,75 +1,99 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
-import { useStore } from "@/stores/store";
 const ResetPasswordFrom = () => {
+  const newPassRef = useRef(null);
+  const confPassRef = useRef(null);
   const router = useRouter();
-
+  const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPssword, setconfirmPssword] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
 
-
-  const email=useStore((state)=>state.email)
+  useEffect(() => {
+    const email = localStorage.getItem("email");
+    setemail(email);
+    if (!email) {
+      router.push("/auth/forgot-password");
+    }
+  }, [router]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setErrorMsg("");
-    if(!email){
-      toast("Enter yout email!!")
-      router.push("/auth/forgot-password?fornewpassowrd=true")
+    if (!password) {
+      newPassRef.current.focus();
+      toast.error("New password  Missing!!");
       return;
     }
-    if (!password || !confirmPssword) {
-      setErrorMsg("Password is Missing!!");
+    if (!confirmPssword) {
+      confPassRef.current.focus();
+      toast.error("Confirm your password!!");
       return;
     }
     if (password.length < 6 || confirmPssword.length < 6) {
-      setErrorMsg("Password must be atleast 6 characters long");
+      toast.error("Password must be atleast 6 characters long");
       return;
     }
     if (password !== confirmPssword) {
-      setErrorMsg("Password and Confirm password is not matching!!");
+      toast.error("Password and Confirm password is not matching!!");
       return;
     }
 
     const newPromise = new Promise(async (resolve, reject) => {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_DB_BASE_URL}/user/change/forgot/password/`,
-        {
-          method: "POST",
-          body: JSON.stringify({ email, new_password: password }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_DB_BASE_URL}/user/change/forgot/password/`,
+          {
+            method: "POST",
+            body: JSON.stringify({ email, new_password: password }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
-      if (response.ok) {
-        const result = await response.json();
-        router.push("/auth/login");
-
-        resolve(result);
-      } else {
-        const result = await response.json();
-        if (result.errors.length > 0) {
-          result.errors.forEach((error) => {
-            setErrorMsg(error.detail);
-          });
+        if (response.ok) {
+          const result = await response.json();
+          Cookies.set("access_token", result.access, { expires: 7 });
+          Cookies.set("refresh_token", result.refresh, { expires: 7 });
+          localStorage.removeItem("email");
+          localStorage.removeItem("action");
+          router.push("/auth/login");
+          resolve(result);
+        } else {
+          const result = await response.json();
+          if(result?.errors[0].attr==="email"){
+            reject("Email is required")
+            return
+          }
+          if(result?.errors[0].attr==="password"){
+            reject("Passowrd is required")
+            return
+          }
+         
+          reject(result);
         }
-        reject(result);
+      } catch (error) {
+        reject(error);
       }
     });
     toast.promise(newPromise, {
       loading: "Loading...",
       success: (data) => data?.msg,
-      error: (data) => data.errors[0].detail,
+      error: (error) => {
+        if (error instanceof Error) {
+          return error.message;
+        } else if (error.errors && error.errors.length > 0) {
+          return error.errors[0].detail;
+        } else {
+          return error
+        }
+      },
     });
-    setErrorMsg("");
   };
 
   return (
@@ -80,20 +104,14 @@ const ResetPasswordFrom = () => {
       <h1 className="text-4xl font-bold text-center pb-10 text-gray-700 dark:text-white">
         Change Password
       </h1>
-      {errorMsg && (
-        <p className="text-red-500 border border-red-300 px-4 py-2 rounded-xl bg-red-200 mb-4">
-          {errorMsg}
-        </p>
-      )}
 
       <div className="relative z-0 w-full mb-5 group">
         <input
+          ref={newPassRef}
           type="password"
           name="new_password"
           id="new_password"
-          className={`block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-400/80 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
-            errorMsg && !password && "focus:border-red-500 border-red-500/55"
-          } `}
+          className={`block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-400/80 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 peer `}
           placeholder=" "
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -108,14 +126,11 @@ const ResetPasswordFrom = () => {
 
       <div className="relative z-0 w-full mb-5 group">
         <input
+          ref={confPassRef}
           type="password"
           name="confirm_password"
           id="confirm_password"
-          className={`block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-400/80 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
-            errorMsg &&
-            !confirmPssword &&
-            "focus:border-red-500 border-red-500/55"
-          } `}
+          className={`block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-400/80 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`}
           placeholder=" "
           value={confirmPssword}
           onChange={(e) => setconfirmPssword(e.target.value)}

@@ -7,79 +7,91 @@ import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
 const VerifyOtpForm = () => {
-  const otpRef= useRef(null)
+  const otpRef = useRef(null);
   const router = useRouter();
-  const [username, setUsername] = useState("")
-  const [verifyFor, setVerifyFor] = useState("")
+  const [username, setUsername] = useState("");
+  const [action, setVerifyFor] = useState("");
   const [otp, setOtp] = useState("");
-  const [email, setEmail] = useState("")
-  const [url, setUrl] = useState("")
-console.log(verifyFor, url);
-  // const email= useStore((state)=>state.email)
-  useEffect(()=>{
-    setUsername(localStorage.getItem("username"))
-    const storedAction=localStorage.getItem("action")
-    setVerifyFor(storedAction)
-    if(storedAction==="login"){
-      setUrl("login")
-    }else if(storedAction==="reset"){
-      setUrl("forgot/password")
+  const [email, setEmail] = useState("");
+  const [url, setUrl] = useState("");
+  console.log(action, url);
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("email");
+    const storedUsername = localStorage.getItem("username");
+    const storedAction = localStorage.getItem("action");
+    if (storedEmail) {
+      setEmail(storedEmail);
     }
-    
-  },[router])
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+    setVerifyFor(storedAction);
+    if (storedAction === "login") {
+      setUrl("login");
+    } else if (storedAction === "reset") {
+      setUrl("forgot/password");
+    }
+  }, [router]);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if(!email && verifyFor==="forget-password"){
-      toast("Email is required")
-      router.push("/auth/forgot-password")
+
+    if (!email && action === "reset") {
+      toast("Email is required");
+      router.push("/auth/forgot-password");
       return;
     }
-    if(otp===""){
-      if(otpRef.current){
-        otpRef.current.focus()
+    if (otp === "") {
+      if (otpRef.current) {
+        otpRef.current.focus();
       }
-      toast.error("Enter opt")
-      return
+      toast.error("Enter opt");
+      return;
     }
     if (otp.length !== 6) {
       toast.error("Please enter a valid otp");
       return;
     }
-    if(!username){
-      toast("Enter username and password")
-      router.push("/auth/login")
+    if (!username && action === "login") {
+      toast("Enter username and password");
+      router.push("/auth/login");
       return;
     }
-    
 
     const newPromise = new Promise(async (resolve, reject) => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_DB_BASE_URL}/user/verify/${url}/otp/`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify( verifyFor==="login"?{username: username, otp: otp }:verifyFor==="forgot-password"&&{email:email,otp:otp}),
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_DB_BASE_URL}/user/verify/${url}/otp/`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(
+              action === "login"
+                ? { username: username, otp: otp }
+                : action === "reset" && { email: email, otp: otp }
+            ),
+          }
+        );
+        const data = await res.json();
+        if (res.ok) {
+          if (action === "login") {
+            Cookies.set("access_token", data.access, { expires: 7 });
+            Cookies.set("refresh_token", data.refresh, { expires: 7 });
+            localStorage.removeItem("username");
+            localStorage.removeItem("action");
+            router.push("/");
+          } else if (action === "reset") {
+            localStorage.setItem("email", email);
+            localStorage.removeItem("action");
+            router.push(`/auth/reset-password`);
+          }
+          resolve(data);
+        } else {
+          reject(data);
         }
-      );
-      const data = await res.json();
-      if (res.ok) {
-        if (verifyFor === "login") {
-          Cookies.set("access_token", data.access, { expires: 7 });
-          Cookies.set("refresh_token", data.refresh, { expires: 7 });
-          localStorage.removeItem("username");
-          localStorage.removeItem("verifyFor");
-            router.push("/")
-        } else if (verifyFor === "forgot-password") {
-          router.push(
-            `/auth/reset-password`
-          );
-        }
-        resolve(data);
-      } else {
-        reject(data);
+      } catch (error) {
+        reject(error);
       }
     });
     toast.promise(newPromise, {
@@ -87,14 +99,17 @@ console.log(verifyFor, url);
       success: (data) => {
         return data?.msg;
       },
-      error: (data) => {
-        return data.errors[0].detail;
+      error: (error) => {
+        if (error instanceof Error) {
+          return error.message;
+        }
+        return error.errors[0].detail;
       },
     });
   };
   return (
     <form
-      className=" flex-1 mx-auto border-2 p-4 rounded-lg shadow-lg shadow-gray-600 bg-white dark:shadow-md dark:bg-gray-950 dark:text-white dark:border dark:border-gray-500 dark:shadow-gray-700"
+      className=" flex-1 mx-auto border-2 p-4 rounded-xl shadow-lg shadow-gray-600 bg-white dark:shadow-md dark:bg-black dark:text-white dark:border dark:border-gray-500 dark:shadow-gray-700"
       onSubmit={handleSubmit}
     >
       <h1 className="text-4xl font-bold text-center pb-10 text-gray-800 dark:text-white">
@@ -103,19 +118,19 @@ console.log(verifyFor, url);
 
       <div className="relative z-0 w-full mb-5 group">
         <input
-        ref={otpRef}
+          ref={otpRef}
           type="text"
           autoComplete="off"
           name="floating_otp"
           id="floating_otp"
-          className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-400 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+          className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-400 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-purple-500 focus:outline-none focus:ring-0 focus:border-purple-600 peer"
           placeholder=" "
           value={otp}
           onChange={(e) => setOtp(e.target.value)}
         />
         <label
           htmlFor="floating_otp"
-          className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+          className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-purple-600 peer-focus:dark:text-purple-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
         >
           Otp
         </label>
@@ -123,7 +138,7 @@ console.log(verifyFor, url);
       <div className="flex justify-end">
         <button
           type="submit"
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          className=" disabled:bg-gray-500 disabled:text-white/75   p-2 rounded-full w-full  md:px-4 bg-purple-600 hover:bg-purple-700 font-bold font-serif text-sm cursor-pointer "
         >
           Verify Otp
         </button>
