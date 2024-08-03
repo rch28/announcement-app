@@ -47,7 +47,7 @@ const GroupList = () => {
     return () => {
       // Cleanup
     };
-  }, [toggleCreateGroup, next, selectedCategory, fetchTrigger, searchQuery, fetchGroup]);
+  }, [toggleCreateGroup, next, selectedCategory, fetchTrigger, searchQuery]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
