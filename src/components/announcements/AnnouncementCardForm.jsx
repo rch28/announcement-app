@@ -44,7 +44,7 @@ export default function AnnouncementCardForm() {
   const selectGroup = searchParams.get("select_group");
   const [groupData, setGroupData] = useState({});
   const [ann_data, setAnnouncementData] = useState(null);
-
+console.log(selectGroup);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
@@ -64,7 +64,7 @@ export default function AnnouncementCardForm() {
   const userData = useStore((state) => state.userData);
   const userId = userData?.id;
   const router = useRouter();
-  console.log(ann_data);
+
   const announcement_type = [
     { value: "", label: "Select Type" },
     { value: "event", label: "Event" },
@@ -233,7 +233,7 @@ export default function AnnouncementCardForm() {
       if (response.ok) {
         const result = await response.json();
 
-        if (ann_data && redirect) {
+        if (ann_data) {
           router.push(`/announcements/${title}?ann_id=${ann_data.id}`);
         }
         if (selectGroup) {
@@ -241,6 +241,7 @@ export default function AnnouncementCardForm() {
             `/groups/${selected_group?.name}?group_id=${selected_group?.group_id}`
           );
         }
+        router.push(`/groups/${groupData?.name}?group_id=${groupData?.group_id}`)
         resolve(result);
       } else {
         const result = await response.json();
