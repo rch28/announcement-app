@@ -305,6 +305,7 @@ export default function AnnouncementCardForm() {
                   ref={titleRef}
                   id="title"
                   value={title}
+                  autoComplete="off"
                   onChange={(e) => setTitle(e.target.value)}
                   onFocus={() => setFocusedField("title")}
                   onBlur={() => setFocusedField(null)}
@@ -329,6 +330,7 @@ export default function AnnouncementCardForm() {
                   ref={contactNameRef}
                   id="contactName"
                   value={contactName}
+                  autoComplete="off"
                   onChange={(e) => setContactName(e.target.value)}
                   onFocus={() => setFocusedField("contactName")}
                   onBlur={() => setFocusedField(null)}
@@ -353,6 +355,7 @@ export default function AnnouncementCardForm() {
                   ref={contactEmailRef}
                   id="contactEmail"
                   value={contactEmail}
+                  autoComplete="off"
                   onChange={(e) => setContactEmail(e.target.value)}
                   onFocus={() => setFocusedField("contactEmail")}
                   onBlur={() => setFocusedField(null)}
@@ -377,6 +380,7 @@ export default function AnnouncementCardForm() {
                   ref={locationRef}
                   id="location"
                   value={location}
+                  autoComplete="off"
                   onChange={(e) => setLocation(e.target.value)}
                   onFocus={() => setFocusedField("location")}
                   onBlur={() => setFocusedField(null)}
@@ -397,6 +401,7 @@ export default function AnnouncementCardForm() {
                     id="group_name "
                     className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-500 rounded-md focus:outline-none text-sm font-medium appearance-none  "
                     value={group}
+                    autoComplete="off"
                     onChange={(e) => setGroup(e.target.value)}
                   >
                     <option value="">Select group</option>
@@ -404,6 +409,7 @@ export default function AnnouncementCardForm() {
                       <option
                         key={group.group_id}
                         value={group.group_id}
+                        autoComplete="off"
                         className="text-black "
                       >
                         {group.name}
@@ -419,6 +425,7 @@ export default function AnnouncementCardForm() {
                       name="group"
                       id="group"
                       value={group}
+                      autoComplete="off"
                       className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-500 rounded-md focus:outline-none text-sm font-medium appearance-none  "
                       disabled
                     >
@@ -436,6 +443,7 @@ export default function AnnouncementCardForm() {
                   ref={typeRef}
                   name="announcementType"
                   value={announcemenType}
+                  autoComplete="off"
                   onChange={(e) => setAnnouncemenType(e.target.value)}
                   className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-700 rounded-md focus:outline-none text-sm font-medium appearance-none "
                 >
@@ -444,6 +452,7 @@ export default function AnnouncementCardForm() {
                       className="w-fit py-2 px-4 text-black"
                       key={type.value}
                       value={type.value}
+                      autoComplete="off"
                     >
                       {type.label}
                     </option>
@@ -459,6 +468,7 @@ export default function AnnouncementCardForm() {
                   ref={visibilityRef}
                   name="announcementType"
                   value={announcement_visibility}
+                  autoComplete="off"
                   onChange={(e) => setAnnouncement_visibility(e.target.value)}
                   className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-700 rounded-md focus:outline-none text-sm font-medium appearance-none "
                 >
@@ -467,6 +477,7 @@ export default function AnnouncementCardForm() {
                       className="w-fit py-2 px-4 text-black"
                       key={type.value}
                       value={type.value}
+                      autoComplete="off"
                     >
                       {type.label}
                     </option>
@@ -489,6 +500,7 @@ export default function AnnouncementCardForm() {
                   ref={dateRef}
                   id="date"
                   value={date}
+                  autoComplete="off"
                   onChange={(e) => setDate(e.target.value)}
                   onFocus={() => setFocusedField("date")}
                   onBlur={() => setFocusedField(null)}
@@ -516,6 +528,7 @@ export default function AnnouncementCardForm() {
                 ref={imageDescriptionRef}
                 id="imageDescription"
                 value={imageDescription}
+                autoComplete="off"
                 onChange={(e) => setImageDescription(e.target.value)}
                 onFocus={() => setFocusedField("imgDescription")}
                 onBlur={() => setFocusedField(null)}
@@ -540,6 +553,7 @@ export default function AnnouncementCardForm() {
             <ReactQuill
               theme="snow"
               value={description}
+              autoComplete="off"
               onChange={setDescription}
               className="text-black  rounded-md border border-gray-600 min-h-16 max-h-40 overflow-auto scroll-mb-2 scroll-pb-6"
             />

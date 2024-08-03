@@ -106,6 +106,7 @@ const ReplyForm = ({ parentId, setReplyToggle, replyToggle }) => {
           ref={inpRef}
           placeholder="Reply"
           value={reply}
+          autoComplete="off"
           onChange={(e) => setReply(e.target.value)}
           className={`block text-gray-900 ${
             replyToggle

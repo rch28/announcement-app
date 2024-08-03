@@ -99,6 +99,7 @@ const EditProfile = ({setToggle}) => {
               name="first_name"
               id="first_name"
               value={first_name}
+              autoComplete="off"
               onChange={(e) => setfirst_name(e.target.value)}
               className="border border-gray-400 focus:border-purple-500"
             />
@@ -112,6 +113,7 @@ const EditProfile = ({setToggle}) => {
               name="last_name"
               id="last_name"
               value={last_name}
+              autoComplete="off"
               onChange={(e) => setlast_name(e.target.value)}
               className="border border-gray-400 focus:border-purple-500"
             />
@@ -127,6 +129,7 @@ const EditProfile = ({setToggle}) => {
               name="username"
               id="username"
               value={username}
+              autoComplete="off"
               onChange={(e) => setUsername(e.target.value)}
               className="border border-gray-400 focus:border-purple-500"
             />
@@ -140,6 +143,7 @@ const EditProfile = ({setToggle}) => {
               name="phone_no"
               id="phone_no"
               value={phone_no}
+              autoComplete="off"
               onChange={(e) => setPhone_no(e.target.value)}
               className="border border-gray-400 focus:border-purple-500"
             />

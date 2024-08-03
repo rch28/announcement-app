@@ -92,6 +92,7 @@ const ChangePassword = () => {
           type="password"
           name="old_password"
           id="old_password"
+          autoComplete="off"
           className={`block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-400/80 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
             errorMsg && !oldPassword && "focus:border-red-500 border-red-500/55"
           } `}
@@ -111,6 +112,7 @@ const ChangePassword = () => {
           type="password"
           name="new_password"
           id="new_password"
+          autoComplete="off"
           className={`block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-400/80 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
             errorMsg && !password && "focus:border-red-500 border-red-500/55"
           } `}
