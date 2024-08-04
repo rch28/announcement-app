@@ -44,7 +44,7 @@ export default function AnnouncementCardForm() {
   const selectGroup = searchParams.get("select_group");
   const [groupData, setGroupData] = useState({});
   const [ann_data, setAnnouncementData] = useState(null);
-console.log(selectGroup);
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
@@ -241,7 +241,7 @@ console.log(selectGroup);
             `/groups/${selected_group?.name}?group_id=${selected_group?.group_id}`
           );
         }
-        router.push(`/groups/${groupData?.name}?group_id=${groupData?.group_id}`)
+        router.push(`/groups/${groupData?.name}?group_id=${groupData?.group_id}&&category=${groupData?.category}`)
         resolve(result);
       } else {
         const result = await response.json();
