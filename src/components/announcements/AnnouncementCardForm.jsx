@@ -394,7 +394,7 @@ export default function AnnouncementCardForm() {
             <div className="grid gap-4">
               {selectGroup ? (
                 <div className="md:space-y-2 relative z-0">
-                  <Label htmlFor="group-name">Select Group</Label>
+                  <Label htmlFor="group-name">Select Group *</Label>
 
                   <select
                     ref={groupRef}
@@ -421,7 +421,7 @@ export default function AnnouncementCardForm() {
               ) : (
                 <>
                   <div className="md:space-y-2 relative">
-                    <Label htmlFor="group">Select Group</Label>
+                    <Label htmlFor="group">Select Group *</Label>
                     <select
                       name="group"
                       id="group"
@@ -437,7 +437,7 @@ export default function AnnouncementCardForm() {
               )}
               <div className="md:space-y-2 relative">
                 <Label className="" htmlFor="announcementType">
-                  Select Type
+                  Select Type *
                 </Label>
 
                 <select
@@ -462,7 +462,7 @@ export default function AnnouncementCardForm() {
               </div>
               <div className="md:space-y-2 relative">
                 <Label className="" htmlFor="announcementType">
-                  Select Visibility
+                  Select Visibility *
                 </Label>
 
                 <select
@@ -550,7 +550,7 @@ export default function AnnouncementCardForm() {
             </div>
           </div>
           <div className="md:space-y-2 relative mt-2">
-            <Label htmlFor="description">Description</Label>
+            <Label htmlFor="description">Description *</Label>
             <ReactQuill
               theme="snow"
               value={description}

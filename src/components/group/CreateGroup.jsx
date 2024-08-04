@@ -11,6 +11,7 @@ import { Input } from "../ui/input";
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
+import GroupNav from "./GroupNav";
 // import ReactQuill from "react-quill";
 
 const CreateGroup = ({ mode, data }) => {
@@ -56,7 +57,7 @@ const CreateGroup = ({ mode, data }) => {
       toast.error("Group name is required");
       return;
     }
-    
+
     if (!createCategoryMode) {
       if (category === "any" || category === "") {
         categoryRef.current.focus();
@@ -217,12 +218,22 @@ const CreateGroup = ({ mode, data }) => {
         const result = await response.json();
         if (result.length === 0) {
           setCreateCategoryMode(true);
+          CustomcategoryRef.current.focus();
         }
         setCategoriesOptions(result);
       }
     };
     fetchCategories();
   }, [createCategoryMode, category, access_token]);
+  useEffect(() => {
+    if (groupNameRef.current) {
+      groupNameRef.current.focus();
+    }
+    if (CustomcategoryRef.current) {
+      CustomcategoryRef.current.focus();
+    }
+  }, [createCategoryMode]);
+ 
   return (
     <div className="bg-white mx-4  rounded-xl border-2  w-[90%] md:w-auto shadow-lg shadow-gray-500 relative z-20 p-4 dark:shadow-none">
       <div className="flex justify-end items-center  absolute right-4 top-2 ">
@@ -251,7 +262,10 @@ const CreateGroup = ({ mode, data }) => {
           <div className="grid gap-4 md:grid-cols-2 ">
             <div className="grid gap-4">
               <div className=" md:space-y-2">
-                <Label className="hidden md:flex text-white  " htmlFor="group_name">
+                <Label
+                  className="hidden md:flex text-black mt-2  "
+                  htmlFor="group_name"
+                >
                   Group name
                 </Label>
                 <Input
@@ -266,38 +280,44 @@ const CreateGroup = ({ mode, data }) => {
                   className="border border-gray-600 focus:border-purple-700 bg-white"
                 />
               </div>
-             <div>
-             <Label className="hidden md:flex text-white  " htmlFor="groupType">
-                Select Type
-              </Label>
+              <div>
+                <Label
+                  className="hidden md:flex text-black mt-2  "
+                  htmlFor="groupType"
+                >
+                  Group Type
+                </Label>
 
-              <select
-                ref={typeRef}
-                name="groupType"
-                value={groupType}
-                autocomplete="off"
-                onChange={(e) => setGroupType(e.target.value)}
-                className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-700 rounded-md focus:outline-none text-sm font-medium appearance-none "
-              >
-                {group_type.map((type) => (
-                  <option
-                    className="w-fit py-2 px-4 text-black"
-                    key={type.value}
-                    value={type.value}
-                    autocomplete="off"
-                  >
-                    {type.label}
-                  </option>
-                ))}
-              </select>
-             </div>
+                <select
+                  ref={typeRef}
+                  name="groupType"
+                  value={groupType}
+                  autocomplete="off"
+                  onChange={(e) => setGroupType(e.target.value)}
+                  className="block w-full px-4 mt-2 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-700 rounded-md focus:outline-none text-sm font-medium appearance-none "
+                >
+                  {group_type.map((type) => (
+                    <option
+                      className="w-fit py-2 px-4 text-black"
+                      key={type.value}
+                      value={type.value}
+                      autocomplete="off"
+                    >
+                      {type.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
             <div className="flex flex-col gap-4">
               <div className=" group md:space-y-2 relative">
                 {createCategoryMode ? (
                   <>
-                    <Label className="hidden md:flex text-white  " htmlFor="CustomCategory">
-                      Enter Category
+                    <Label
+                      className="hidden md:flex text-black mt-2  "
+                      htmlFor="CustomCategory"
+                    >
+                      New Category
                     </Label>
                     <Input
                       ref={CustomcategoryRef}
@@ -321,8 +341,11 @@ const CreateGroup = ({ mode, data }) => {
                   </>
                 ) : (
                   <>
-                    <Label className="hidden md:flex text-white  " htmlFor="category">
-                      Select Category
+                    <Label
+                      className="hidden md:flex text-black mt-2  "
+                      htmlFor="category"
+                    >
+                      Group Category
                     </Label>
 
                     <select
@@ -388,15 +411,18 @@ const CreateGroup = ({ mode, data }) => {
               </div>
 
               <div className="">
-                <Label className="hidden md:flex text-white  " htmlFor="group_image ">
-                  Image
+                <Label
+                  className="hidden md:flex text-black mt-2  "
+                  htmlFor="group_image "
+                >
+                  Group Image
                 </Label>
                 <input
                   ref={imageRef}
                   type="file"
                   name="group_image"
                   id="group_image"
-                  className="block  px-1 w-full text-sm text-gray-900 bg-transparent border-0  appearance-none  focus:outline-none focus:ring-0  peer file:mr-4 file:py-2 file:px-4
+                  className="block  mt-2 px-1 w-full text-sm text-gray-900 bg-transparent border-0  appearance-none  focus:outline-none focus:ring-0  peer file:mr-4 file:py-2 file:px-4 
             file:rounded-full file:border-0
             file:text-sm file:font-semibold rounded-md
             file:bg-violet-100 file:text-violet-700
@@ -408,7 +434,10 @@ const CreateGroup = ({ mode, data }) => {
             </div>
           </div>
           <div className="md:space-y-2">
-            <Label className="hidden md:flex text-white  " htmlFor="group_description">
+            <Label
+              className="hidden md:flex text-black mt-2  "
+              htmlFor="group_description"
+            >
               Description
             </Label>
             <ReactQuill
@@ -418,7 +447,6 @@ const CreateGroup = ({ mode, data }) => {
               autocomplete="off"
               onChange={setDescription}
               placeholder="Enter group description"
-              
               className="text-black  rounded-md border border-gray-600 min-h-16 max-h-40 overflow-auto scroll-mb-2 scroll-pb-6"
             />
           </div>
