@@ -86,15 +86,15 @@ const GroupList = () => {
           No group found!!
         </h3>
       )}
-      <div className="md:grid grid-cols-3 gap-3">
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 p-4 lg:gap-5">
         {announcementGroup?.results?.map((data) => {
           return (
             <div
               onClick={() => handleGroupClick(data)}
               key={data.group_id}
-              className="max-w-xl p-4 "
+              className="max-w-xl"
             >
-              <div className="border bg-white dark:bg-gray-950 border-gray-300 dark:border-none rounded-2xl md:hover:scale-105 transition-all ease-linear shadow-xl shadow-gray-400 dark:shadow-sm dark:shadow-gray-800   cursor-pointer p-4">
+              <div className="border bg-white dark:bg-gray-950 border-gray-300 dark:border-none rounded-2xl md:hover:scale-105  shadow-xl shadow-gray-400 dark:shadow-sm dark:shadow-gray-800   cursor-pointer p-4">
                 <div className="grid gap-6 ">
                   <div className="grid gap-4 ">
                     <Image
@@ -105,8 +105,8 @@ const GroupList = () => {
                       width={600}
                     />
                     <div className="grid gap-2">
-                      <div className="flex gap-2 items-center">
-                        <div className="flex-1 flex gap-2 items-center">
+                      <div className="flex gap-2 items-center md:flex-col md:items-start lg:flex-row lg:items-center">
+                        <div className="flex-1 flex  gap-2 items-center">
                           <h3 className=" text-lg md:text-xl font-bold">
                             {data?.name}
                           </h3>
@@ -143,7 +143,7 @@ const GroupList = () => {
                       </div>
                     </div>
 
-                    <button className="px-3 md:px-4 py-1.5 md:p-2  bg-purple-700 rounded-full  text-white font-bold hover:bg-purple-900 text-sm md:">
+                    <button className="px-3 md:px-4 py-1.5 md:p-2  bg-purple-700 rounded-full  text-white font-bold hover:bg-purple-900 text-xs md:">
                       View Group
                     </button>
                   </div>
