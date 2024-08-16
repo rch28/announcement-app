@@ -123,7 +123,7 @@ const Navbar = () => {
             ) : (
               <Link
                 href="/auth/login"
-                className="text-sm sm:text-lg font-bold tracking-wider  text-blue-600 dark:text-blue-500 hover:underline"
+                className=" rounded-full bg-purple-700   text-white hover:outline hover:outline-2 hover:outline-purple-600 hover:bg-white dark:hover:bg-black hover:shadow-md  hover:shadow-[0_10px_10px_rgb(255 255 255,0.5)] px-2 md:px-3 md:py-1  font-bold hover:text-purple-700  dark:hover:text-white text-sm font-serif tracking-wider "
               >
                 Login
               </Link>
