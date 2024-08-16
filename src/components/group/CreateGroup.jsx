@@ -9,10 +9,7 @@ import { CardDescription } from "../ui/card";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import dynamic from "next/dynamic";
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
-// import "react-quill/dist/quill.snow.css";
-import GroupNav from "./GroupNav";
-// import ReactQuill from "react-quill";
+const QuillEditor = dynamic(() => import('../layout/QuillEditor'), { ssr: false });
 
 const CreateGroup = ({ mode, data }) => {
   const router = useRouter();
@@ -233,7 +230,7 @@ const CreateGroup = ({ mode, data }) => {
       CustomcategoryRef.current.focus();
     }
   }, [createCategoryMode]);
- 
+
   return (
     <div className="bg-white mx-4  rounded-xl border-2  w-[90%] md:w-auto shadow-lg shadow-gray-500 relative z-20 p-4 dark:shadow-none">
       <div className="flex justify-end items-center  absolute right-4 top-2 ">
@@ -440,15 +437,9 @@ const CreateGroup = ({ mode, data }) => {
             >
               Description
             </Label>
-            <ReactQuill
-              ref={descRef}
-              theme="snow"
-              value={description}
-              autocomplete="off"
-              onChange={setDescription}
-              placeholder="Enter group description"
-              className="text-black  rounded-md border border-gray-600 min-h-16 max-h-40 overflow-auto scroll-mb-2 scroll-pb-6"
-            />
+            <div id="editor">
+            </div>
+            <QuillEditor value={description} onChange={setDescription}/>
           </div>
           <div className="mt-4">
             <div className="flex justify-end">

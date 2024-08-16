@@ -1,0 +1,17 @@
+.ql-toolbar {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .ql-toolbar .ql-formats {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .ql-toolbar .ql-formats > * {
+    margin: 2px; /* Add spacing between buttons */
+  }
+  
+  .ql-toolbar .ql-formats:first-of-type {
+    margin-bottom: 4px; /* Add space between rows */
+  }
