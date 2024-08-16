@@ -81,12 +81,12 @@ const GroupList = () => {
           No group yet!! Create New One
         </h3>
       )}
-      {announcementGroup?.count===0 && (
+      {announcementGroup?.count===0 && searchQuery && (
         <h3 className="p-3 mx-6 bg-green-200 rounded-xl dark:text-black dark:bg-green-100">
           No group found!!
         </h3>
       )}
-      <div className="md:grid grid-cols-2 gap-3">
+      <div className="md:grid grid-cols-3 gap-3">
         {announcementGroup?.results?.map((data) => {
           return (
             <div

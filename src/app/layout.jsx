@@ -3,6 +3,7 @@ import "./globals.css";
 
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { Style } from "@/lib/Style";
 
 
 export const metadata = {
@@ -27,7 +28,7 @@ export default function RootLayout({ children }) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: setInitialTheme }} />
       </head>
-        <body className={` bg-primary  dark:bg-dark-primary dark:text-white  `}>
+        <body className={` ${Style.primary} dark:text-white  `}>
           <Toaster />
           <Navbar />
           <div className="max-w-5xl mx-auto ">{children}</div>

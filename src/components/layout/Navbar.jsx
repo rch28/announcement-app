@@ -10,6 +10,7 @@ import Image from "next/image";
 import { logo } from "../../../public";
 import { usePathname } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
+import { Style } from "@/lib/Style";
 
 const Navbar = () => {
   const authenticated = useStore((state) => state.userAuthenticated);
@@ -50,7 +51,7 @@ const Navbar = () => {
     fetchUserData();
   }, [refreshToken, access_token, setUserData, setUserLoggedIn]);
   return (
-    <div className=" bg-white/80 dark:bg-black/90  sticky  top-0 z-50 ">
+    <div className={` ${Style.primary} sticky  top-0 z-50 `}>
       <nav className=" border-b  border-gray-400/50  dark:border-gray-200/25 ">
         <div className="flex  justify-between items-center max-w-5xl mx-auto p-2">
           <Link
