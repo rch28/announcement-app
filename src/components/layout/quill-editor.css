@@ -1,6 +1,7 @@
 .ql-toolbar {
     display: flex;
     flex-direction: column;
+    
   }
   
   .ql-toolbar .ql-formats {
@@ -14,4 +15,14 @@
   
   .ql-toolbar .ql-formats:first-of-type {
     margin-bottom: 4px; /* Add space between rows */
+  }
+
+  .ql-editor::before {
+    content: attr(data-placeholder); /* Use placeholder text */
+    color: #aaa; /* Set placeholder text color */
+    position: absolute; /* Position it absolutely */
+    left: 10px; /* Adjust left positioning */
+    top: 10px; /* Adjust top positioning */
+    pointer-events: none; /* Make sure it's not interactive */
+    font-style: italic; /* Style placeholder text */
   }

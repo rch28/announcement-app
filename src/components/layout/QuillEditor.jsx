@@ -60,7 +60,7 @@ const QuillEditor = ({ value, onChange, size }) => {
   style={{
     height:size
   }}
-   className={`text-black`  }/>;
+   className={`text-black dark:text-white`  }/>
 };
 
 export default QuillEditor;

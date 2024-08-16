@@ -278,7 +278,7 @@ export default function AnnouncementCardForm() {
       encType="multipart/form-data"
       className="relative m-4 w-[90%] sm:w-auto "
     >
-      <Card className="w-full  rounded-xl shadow-md shadow-gray-500">
+      <div className={`w-full  rounded-xl  bg-purple-300 dark:bg-gray-950 `}>
         <CardHeader>
           <CardTitle> {ann_data ? "Edit" : "New"} Announcement</CardTitle>
           <CardDescription>
@@ -313,7 +313,7 @@ export default function AnnouncementCardForm() {
                   onFocus={() => setFocusedField("title")}
                   onBlur={() => setFocusedField(null)}
                   placeholder="Enter announcement title"
-                  className="border border-gray-600 focus:border-purple-500"
+                  className="border border-gray-600 focus:border-purple-500 placeholder:text-gray-600 dark:placeholder:text-slate-300 dark:bg-transparent"
                 />
                 <Tooltip id="title-tooltip" />
               </div>
@@ -338,7 +338,7 @@ export default function AnnouncementCardForm() {
                   onFocus={() => setFocusedField("contactName")}
                   onBlur={() => setFocusedField(null)}
                   placeholder="Enter contact information"
-                  className="border border-gray-600 focus:border-purple-500"
+                  className="border border-gray-600 focus:border-purple-500 placeholder:text-gray-600 dark:placeholder:text-slate-300 dark:bg-transparent"
                 />
                 <Tooltip id="contactName-tooltip" />
               </div>
@@ -363,7 +363,7 @@ export default function AnnouncementCardForm() {
                   onFocus={() => setFocusedField("contactEmail")}
                   onBlur={() => setFocusedField(null)}
                   placeholder="Enter Contact Email"
-                  className="border border-gray-600 focus:border-purple-500"
+                  className="border border-gray-600 focus:border-purple-500 placeholder:text-gray-600 dark:placeholder:text-slate-300 dark:bg-transparent"
                 />
                 <Tooltip id="contactEmail-tooltip" />
               </div>
@@ -388,7 +388,7 @@ export default function AnnouncementCardForm() {
                   onFocus={() => setFocusedField("location")}
                   onBlur={() => setFocusedField(null)}
                   placeholder="Enter Event Location"
-                  className="border border-gray-600 focus:border-purple-500"
+                  className="border border-gray-600 focus:border-purple-500 placeholder:text-gray-600 dark:placeholder:text-slate-300 dark:bg-transparent"
                 />
                 <Tooltip id="location-tooltip" />
               </div>
@@ -402,7 +402,7 @@ export default function AnnouncementCardForm() {
                     ref={groupRef}
                     name="group_name"
                     id="group_name "
-                    className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-500 rounded-md focus:outline-none text-sm font-medium appearance-none  "
+                    className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-500 placeholder:text-gray-600 dark:placeholder:text-slate-300 dark:bg-transparent rounded-md focus:outline-none text-sm font-medium appearance-none  "
                     value={group}
                     autoComplete="off"
                     onChange={(e) => setGroup(e.target.value)}
@@ -429,7 +429,7 @@ export default function AnnouncementCardForm() {
                       id="group"
                       value={group}
                       autoComplete="off"
-                      className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-500 rounded-md focus:outline-none text-sm font-medium appearance-none  "
+                      className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-500 placeholder:text-gray-600 dark:placeholder:text-slate-300 dark:bg-transparent rounded-md focus:outline-none text-sm font-medium appearance-none  "
                       disabled
                     >
                       <option>{groupData.name}</option>
@@ -448,7 +448,7 @@ export default function AnnouncementCardForm() {
                   value={announcemenType}
                   autoComplete="off"
                   onChange={(e) => setAnnouncemenType(e.target.value)}
-                  className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-700 rounded-md focus:outline-none text-sm font-medium appearance-none "
+                  className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-700 placeholder:text-gray-600 dark:placeholder:text-slate-300 dark:bg-transparent rounded-md focus:outline-none text-sm font-medium appearance-none "
                 >
                   {announcement_type.map((type) => (
                     <option
@@ -473,7 +473,7 @@ export default function AnnouncementCardForm() {
                   value={announcement_visibility}
                   autoComplete="off"
                   onChange={(e) => setAnnouncement_visibility(e.target.value)}
-                  className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-700 rounded-md focus:outline-none text-sm font-medium appearance-none "
+                  className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-700 placeholder:text-gray-600 dark:placeholder:text-slate-300 dark:bg-transparent rounded-md focus:outline-none text-sm font-medium appearance-none "
                 >
                   {announcementVisibility.map((type) => (
                     <option
@@ -508,7 +508,7 @@ export default function AnnouncementCardForm() {
                   onFocus={() => setFocusedField("date")}
                   onBlur={() => setFocusedField(null)}
                   placeholder="Enter date"
-                  className="border border-gray-600 focus:border-purple-500"
+                  className="border border-gray-600 focus:border-purple-500 placeholder:text-gray-600 dark:placeholder:text-slate-300 dark:bg-transparent"
                 />
                 <Tooltip id="date-tooltip" />
               </div>
@@ -536,7 +536,7 @@ export default function AnnouncementCardForm() {
                 onFocus={() => setFocusedField("imgDescription")}
                 onBlur={() => setFocusedField(null)}
                 placeholder="Enter Image Description"
-                className="border border-gray-600  focus:border-purple-500"
+                className="border border-gray-600  focus:border-purple-500  placeholder:text-gray-600 dark:placeholder:text-slate-300 dark:bg-transparent"
               />
               <Tooltip id="imgDescription-tooltip" />
             </div>
@@ -547,7 +547,7 @@ export default function AnnouncementCardForm() {
                 id="image"
                 type="file"
                 onChange={handleFileChange}
-                className="focus:border focus:border-purple-400 "
+                className="focus:border focus:border-purple-400 placeholder:text-gray-600 dark:placeholder:text-slate-300 dark:bg-transparent dark:text-white"
               />
             </div>
           </div>
@@ -566,7 +566,7 @@ export default function AnnouncementCardForm() {
             Post Announcement
           </Button>
         </CardFooter>
-      </Card>
+      </div>
     </form>
   );
 }
