@@ -289,7 +289,7 @@ const CreateGroup = ({ mode, data }) => {
                   ref={typeRef}
                   name="groupType"
                   value={groupType}
-                  autocomplete="off"
+                  autoComplete="off"
                   onChange={(e) => setGroupType(e.target.value)}
                   className="block w-full px-4 mt-2 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-700 rounded-md focus:outline-none text-sm font-medium appearance-none "
                 >
@@ -298,7 +298,7 @@ const CreateGroup = ({ mode, data }) => {
                       className="w-fit py-2 px-4 text-black"
                       key={type.value}
                       value={type.value}
-                      autocomplete="off"
+                      autoComplete="off"
                     >
                       {type.label}
                     </option>
@@ -322,7 +322,7 @@ const CreateGroup = ({ mode, data }) => {
                       name="CustomCategory"
                       id="CustomCategory"
                       value={CustomeCategory}
-                      autocomplete="off"
+                      autoComplete="off"
                       onChange={(e) => setCustomeCategory(e.target.value)}
                       placeholder="Enter New Category"
                       className="border border-gray-600 focus:border-purple-700 bg-white text-sm"
@@ -349,7 +349,7 @@ const CreateGroup = ({ mode, data }) => {
                       ref={categoryRef}
                       name="category"
                       value={category}
-                      autocomplete="off"
+                      autoComplete="off"
                       onChange={(e) => setCategory(e.target.value)}
                       className="block w-full px-4 py-2 text-gray-500 bg-white border border-gray-600  focus:border-purple-700 rounded-md focus:outline-none text-sm font-medium appearance-none "
                     >
@@ -358,14 +358,14 @@ const CreateGroup = ({ mode, data }) => {
                           <option
                             className="w-fit py-2 px-4 text-black"
                             value={"any"}
-                            autocomplete="off"
+                            autoComplete="off"
                           >
                             Select Category
                           </option>
                           <option
                             className="w-fit py-2 px-4 text-black"
                             value={"custome"}
-                            autocomplete="off"
+                            autoComplete="off"
                           >
                             Custom Option
                           </option>
@@ -374,7 +374,7 @@ const CreateGroup = ({ mode, data }) => {
                               className="w-fit py-2 px-4 text-black"
                               key={option.id}
                               value={option.id}
-                              autocomplete="off"
+                              autoComplete="off"
                             >
                               {option.name}
                             </option>
@@ -388,7 +388,7 @@ const CreateGroup = ({ mode, data }) => {
                               className="w-fit py-2 px-4 text-black"
                               key={option.id}
                               value={option.id}
-                              autocomplete="off"
+                              autoComplete="off"
                             >
                               {option.name}
                             </option>
@@ -396,7 +396,7 @@ const CreateGroup = ({ mode, data }) => {
                           <option
                             className="w-fit py-2 px-4 text-black"
                             value={"custome"}
-                            autocomplete="off"
+                            autoComplete="off"
                           >
                             Custom Option
                           </option>
@@ -439,7 +439,7 @@ const CreateGroup = ({ mode, data }) => {
             </Label>
             <div id="editor">
             </div>
-            <QuillEditor value={description} onChange={setDescription}/>
+            <QuillEditor value={description} onChange={setDescription} size={100} />
           </div>
           <div className="mt-4">
             <div className="flex justify-end">

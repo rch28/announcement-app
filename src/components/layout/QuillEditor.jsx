@@ -23,7 +23,7 @@ const toolbarOptions = [
 
   // ['clean']                                         // remove formatting button
 ];
-const QuillEditor = ({ value, onChange }) => {
+const QuillEditor = ({ value, onChange, size }) => {
   const editorRef = useRef(null);
   const quillRef = useRef(null);
   useEffect(() => {
@@ -56,7 +56,11 @@ const QuillEditor = ({ value, onChange }) => {
     }
   }, [value]);
 
-  return <div ref={editorRef} style={{ height: '100px' }} className="text-black" />;
+  return <div ref={editorRef} 
+  style={{
+    height:size
+  }}
+   className={`text-black`  }/>;
 };
 
 export default QuillEditor;

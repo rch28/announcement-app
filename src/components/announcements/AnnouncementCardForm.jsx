@@ -18,7 +18,9 @@ import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { useRouter, useSearchParams } from "next/navigation";
 import { fetchAllData, GetAccessToken } from "../../index";
-import ReactQuill from "react-quill";
+import dynamic from "next/dynamic";
+const QuillEditor = dynamic(() => import('../layout/QuillEditor'), { ssr: false });
+
 import { Textarea } from "../ui/textarea";
 import { InfoIcon } from "lucide-react";
 
@@ -551,13 +553,7 @@ export default function AnnouncementCardForm() {
           </div>
           <div className="md:space-y-2 relative mt-2">
             <Label htmlFor="description">Description *</Label>
-            <ReactQuill
-              theme="snow"
-              value={description}
-              autoComplete="off"
-              onChange={setDescription}
-              className="text-black  rounded-md border border-gray-600 min-h-16 max-h-40 overflow-auto scroll-mb-2 scroll-pb-6"
-            />
+            <QuillEditor value={description} onChange={setDescription} size={400} />
           </div>
         </CardContent>
         <CardFooter className="flex justify-end">
