@@ -10,7 +10,7 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
-import "react-quill/dist/quill.snow.css";
+// import "react-quill/dist/quill.snow.css";
 import GroupNav from "./GroupNav";
 // import ReactQuill from "react-quill";
 

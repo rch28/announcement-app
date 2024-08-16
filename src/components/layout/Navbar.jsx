@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ProfileToggleNav from "./ProfileToggleNav";
 import { useStore } from "@/stores/store";
 import Cookies from "js-cookie";
@@ -11,15 +11,28 @@ import { logo } from "../../../public";
 import { usePathname } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
 import { Style } from "@/lib/Style";
+import {motion, useScroll,useMotionValueEvent} from 'framer-motion'
 
 const Navbar = () => {
+  const [hidden, setHidden] = useState(false);
+
   const authenticated = useStore((state) => state.userAuthenticated);
   const setUserLoggedIn = useStore((state) => state.setUserLoggedIn);
   const setUserData = useStore((state) => state.setUserData);
   const access_token = Cookies.get("access_token");
   const refreshToken = Cookies.get("refresh_token");
   const pathname = usePathname();
+  const { scrollY } = useScroll();
 
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious();
+    if (latest > previous && latest > 150) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+  });
 
   useEffect(() => {
     if (!access_token || !refreshToken) {
@@ -51,8 +64,12 @@ const Navbar = () => {
     fetchUserData();
   }, [refreshToken, access_token, setUserData, setUserLoggedIn]);
   return (
-    <div className={` ${Style.primary} sticky  top-0 z-50 `}>
-      <nav className=" border-b  border-gray-400/50  dark:border-gray-200/25 ">
+    <motion.nav 
+    variants={{ visible: { y: 0 }, hidden: { y: "-100%" } }}
+    animate={hidden ? "hidden" : "visible"}
+    transition={{ duration: 0.5, ease: "easeInOut" }}
+     className={` ${Style.primary} sticky  top-0 z-50 py-2   border-b  border-purple-500  dark:border-gray-200/25`}>
+ 
         <div className="flex  justify-between items-center max-w-5xl mx-auto p-2">
           <Link
             href="/"
@@ -131,8 +148,7 @@ const Navbar = () => {
             )}
           </div>
         </div>
-      </nav>
-    </div>
+    </motion.nav>
   );
 };
 
