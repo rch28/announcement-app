@@ -68,7 +68,7 @@ const Navbar = () => {
     variants={{ visible: { y: 0 }, hidden: { y: "-100%" } }}
     animate={hidden ? "hidden" : "visible"}
     transition={{ duration: 0.5, ease: "easeInOut" }}
-     className={` ${Style.primary} sticky  top-0 z-50 py-2   border-b  border-purple-500  dark:border-gray-200/25`}>
+     className={` ${Style.primary} sticky  top-0 z-50 py-2   border-b  border-purple-300  dark:border-gray-200/25`}>
  
         <div className="flex  justify-between items-center max-w-5xl mx-auto p-2">
           <Link
