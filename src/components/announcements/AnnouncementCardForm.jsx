@@ -313,7 +313,7 @@ export default function AnnouncementCardForm() {
                   onFocus={() => setFocusedField("title")}
                   onBlur={() => setFocusedField(null)}
                   placeholder="Enter announcement title"
-                  className="border border-gray-600 focus:border-purple-500 placeholder:text-gray-600 dark:placeholder:text-slate-300 dark:bg-transparent"
+                  className="border border-gray-600 focus:border-purple-500 dark:text-white placeholder:text-gray-600 dark:placeholder:text-slate-300 dark:bg-transparent"
                 />
                 <Tooltip id="title-tooltip" />
               </div>
@@ -338,7 +338,7 @@ export default function AnnouncementCardForm() {
                   onFocus={() => setFocusedField("contactName")}
                   onBlur={() => setFocusedField(null)}
                   placeholder="Enter contact information"
-                  className="border border-gray-600 focus:border-purple-500 placeholder:text-gray-600 dark:placeholder:text-slate-300 dark:bg-transparent"
+                  className="border border-gray-600 focus:border-purple-500 dark:text-white placeholder:text-gray-600 dark:placeholder:text-slate-300 dark:bg-transparent"
                 />
                 <Tooltip id="contactName-tooltip" />
               </div>
@@ -363,7 +363,7 @@ export default function AnnouncementCardForm() {
                   onFocus={() => setFocusedField("contactEmail")}
                   onBlur={() => setFocusedField(null)}
                   placeholder="Enter Contact Email"
-                  className="border border-gray-600 focus:border-purple-500 placeholder:text-gray-600 dark:placeholder:text-slate-300 dark:bg-transparent"
+                  className="border border-gray-600 focus:border-purple-500 dark:text-white placeholder:text-gray-600 dark:placeholder:text-slate-300 dark:bg-transparent"
                 />
                 <Tooltip id="contactEmail-tooltip" />
               </div>
@@ -388,7 +388,7 @@ export default function AnnouncementCardForm() {
                   onFocus={() => setFocusedField("location")}
                   onBlur={() => setFocusedField(null)}
                   placeholder="Enter Event Location"
-                  className="border border-gray-600 focus:border-purple-500 placeholder:text-gray-600 dark:placeholder:text-slate-300 dark:bg-transparent"
+                  className="border border-gray-600 focus:border-purple-500 dark:text-white placeholder:text-gray-600 dark:placeholder:text-slate-300 dark:bg-transparent"
                 />
                 <Tooltip id="location-tooltip" />
               </div>
@@ -508,7 +508,7 @@ export default function AnnouncementCardForm() {
                   onFocus={() => setFocusedField("date")}
                   onBlur={() => setFocusedField(null)}
                   placeholder="Enter date"
-                  className="border border-gray-600 focus:border-purple-500 placeholder:text-gray-600 dark:placeholder:text-slate-300 dark:bg-transparent"
+                  className="border border-gray-600 focus:border-purple-500 dark:text-white placeholder:text-gray-600 dark:placeholder:text-slate-300 dark:bg-transparent"
                 />
                 <Tooltip id="date-tooltip" />
               </div>

@@ -39,9 +39,9 @@ const AnnouncementCard = ({ data }) => {
 
                 <div className="grid gap-2">
                   <h3 className="text-xl font-bold">{announcement?.title}</h3>
-                  <p className="text-sm text-gray-700 dark:text-gray-400 line-clamp-3">
+                  <div className="text-sm text-gray-700 dark:text-gray-400 line-clamp-3">
                     <RichTextDisplay html={announcement?.description} />
-                  </p>
+                  </div>
                 </div>
               </div>
               <div className="flex justify-end">

@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import ProfileToggleNav from "./ProfileToggleNav";
 import { useStore } from "@/stores/store";
 import Cookies from "js-cookie";
-import { Bell, Moon, Sun } from "lucide-react";
 import SearchBar from "./SearchBar";
 import Image from "next/image";
 import { logo } from "../../../public";
@@ -12,6 +11,7 @@ import { usePathname } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
 import { Style } from "@/lib/Style";
 import {motion, useScroll,useMotionValueEvent} from 'framer-motion'
+import NoticicationComp from "./NoticicationComp";
 
 const Navbar = () => {
   const [hidden, setHidden] = useState(false);
@@ -124,17 +124,7 @@ const Navbar = () => {
             <div>
               <ThemeToggle/>
             </div>
-            <p className="relative cursor-pointer">
-              <span className="sm:hidden">
-                <Bell size={12} />
-              </span>
-              <span className="hidden sm:flex">
-                <Bell size={16} />
-              </span>
-              <span className="absolute -top-2 -right-2 text-[#FD0303] w-4 h-4 p-2 flex justify-center items-center rounded-full  text-sm">
-                9
-              </span>
-            </p>
+            <NoticicationComp/>
 
             {authenticated ? (
               <ProfileToggleNav />
