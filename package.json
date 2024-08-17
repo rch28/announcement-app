@@ -37,6 +37,7 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@types/dompurify": "^3.0.5",
     "eslint": "^8",
     "eslint-config-next": "14.2.1",
     "postcss": "^8",

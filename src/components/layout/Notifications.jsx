@@ -73,7 +73,7 @@ const Notifications = () => {
             const date = parseDate(notification.created_at)
 
             return(
-                <div  key={notification._id} className={`capitalize  p-2 ${!notification.read && "bg-slate-400 rounded-md my-1 text-sm" }`}>
+                <div  key={notification._id} className={`capitalize  p-2 ${!notification.read && "bg-slate-200 dark:bg-gray-700 rounded-md my-1 text-sm" }`}>
                   <Link href={`/notifications/${notification._id}`} className="flex items-start justify-between gap-4 font-medium">
                     <h1>{notification.message}</h1>
                     <p >

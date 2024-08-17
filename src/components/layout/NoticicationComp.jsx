@@ -19,7 +19,7 @@ const NoticicationComp = () => {
       </div>
 
       {toggleNotification && 
-      <div  className="absolute top-12 -right-6 shadow-md shadow-gray-800 dark:shadow-none bg-white p-4 rounded-md  text-black w-[276px] md:w-[340px]">
+      <div  className="absolute top-12 -right-6 shadow-md shadow-gray-800 dark:shadow-sm dark:shadow-slate-500 bg-white p-4 rounded-md dark:bg-gray-800 dark:text-white   text-black w-[276px] md:w-[340px]">
         <Notifications />
         </div>}
     </div>
