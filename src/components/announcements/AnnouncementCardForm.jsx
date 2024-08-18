@@ -242,8 +242,10 @@ export default function AnnouncementCardForm() {
           router.push(
             `/groups/${selected_group?.name}?group_id=${selected_group?.group_id}`
           );
+        }else{
+
+          router.push(`/groups/${groupData?.name}?group_id=${groupData?.group_id}&&category=${groupData?.category}`)
         }
-        router.push(`/groups/${groupData?.name}?group_id=${groupData?.group_id}&&category=${groupData?.category}`)
         resolve(result);
       } else {
         const result = await response.json();

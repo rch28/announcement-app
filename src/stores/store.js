@@ -71,7 +71,11 @@ export const useStore = create((set)=>({
     email:"",
     setEmail:(value)=>set({email:value}),
 
-    notify:false,
-    setNotify:(value)=>set({notify:value}),
+
+
+    // notification count
+    notificationCount : 0,
+    setNotificationCount:(value)=>set({notificationCount:value}),
+    
 
 }))
