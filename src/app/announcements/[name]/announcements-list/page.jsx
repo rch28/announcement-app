@@ -1,6 +1,6 @@
 "use client";
 import AnnouncementCard from "@/components/announcements/AnnouncementCard";
-import { AnnouncementCardForm } from "@/components/announcements/AnnouncementCardForm";
+import AnnouncementCardForm from "@/components/announcements/AnnouncementCardForm";
 import PopUpWrapper from "@/components/PopUpWrapper";
 import { fetchAllData, fetchGroup } from "../../../../index";
 import { useStore } from "@/stores/store";

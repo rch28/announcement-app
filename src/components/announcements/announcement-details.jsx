@@ -31,14 +31,14 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
   const time = dateTime.toLocaleTimeString();
   const userData = useStore((state) => state.userData);
   return (
-    <Card className="shadow-md grid  md:flex flex-row-reverse gap-4 bg-primary dark:bg-dark-primary border-none">
-      <div className="flex-[0.4]">
+    <Card className=" grid  md:flex flex-row-reverse gap-4 bg-transparent dark:bg-dark-primary border-none shadow-none">
+      <div className="flex-[0.4] shadow-md">
         <DetailsHeader group_id={data.group} date={date} />
-        <div className="px-4">
+        <div className=" bg-white rounded-b">
           {data?.image && (
             <Image
               alt={data?.title || "Announcement Image"}
-              className="aspect-[4/3] w-full rounded-t-lg object-cover"
+              className="aspect-[4/3] w-full rounded-b object-cover"
               height="240"
               src={data?.image}
               width="400"
@@ -47,7 +47,7 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
           {!data?.image && (
             <Image
               alt={data?.title || "Announcement Image"}
-              className="aspect-[4/3] w-full rounded-t-lg object-cover"
+              className="aspect-[4/3] w-full rounded-b object-cover"
               height="240"
               src={logo}
               width="400"
@@ -65,7 +65,7 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
       </div>
       <div className="flex-[0.6] bg-primary rounded-md">
         <CardHeader className="p-0 ">
-          <div className="flex justify-between items-center relative md:bg-purple-300 px-4 py-2 md:p-4 md:rounded-t-lg ">
+          <div className="flex justify-between items-center relative md:bg-purple-100 px-4 py-2 md:p-4 md:rounded-t-lg ">
             <CardTitle className="text-md md:text-xl lg:text-2xl xl:text-3xl text-gray-800 capitalize ">
               {data?.title}
             </CardTitle>
@@ -94,7 +94,7 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
         <CardContent>
           <div className="text-gray-700  ">
             <RichTextDisplay html={data?.description} />
-            <div className="bg-purple-200 mt-2 rounded-md p-2">
+            <div className="bg-purple-100 mt-2 rounded-md p-2">
               {data?.location && <h2>  Location : {data?.location}</h2>}
               <h2 className="capitalize">Type :{data?.announcement_type}</h2>
               {data?.date && <h2>  Date :{data?.date}</h2>}

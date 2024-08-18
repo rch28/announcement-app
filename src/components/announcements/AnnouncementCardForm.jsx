@@ -240,7 +240,7 @@ export default function AnnouncementCardForm() {
         }
         if (selectGroup) {
           router.push(
-            `/groups/${selected_group?.name}?group_id=${selected_group?.group_id}`
+            `/groups/${selected_group?.name}?group_id=${selected_group?.group_id}&&category=${selected_group?.category}`
           );
         }else{
 

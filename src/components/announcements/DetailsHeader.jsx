@@ -38,7 +38,7 @@ const DetailsHeader = ({ date, group_id }) => {
   }, [access_token, group_id]);
 
   return (
-    <div className="bg-purple-300  px-4 py-4 rounded-t-lg ">
+    <div className="bg-purple-100  px-4 py-4 rounded-t-lg ">
       <div className="">
         <div className="flex items-center gap-3 text-2xl font-medium text-gray-700">
           <Users2Icon className="h-5 w-5 text-purple-800" />
