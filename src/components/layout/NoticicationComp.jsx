@@ -69,8 +69,8 @@ const NotificationComp = () => {
         <span className="hidden sm:flex">
           <Bell size={16} />
         </span>
-        <span className="absolute -top-2 -right-2 text-[#FD0303] w-4 h-4 p-2 flex justify-center items-center rounded-full text-sm">
-          {notificationCount}
+        <span className="absolute -top-3 -right-3  bg-[#FD0303] text-white w-5 h-5 flex justify-center items-center rounded-full text-xs">
+          {notificationCount>0 && notificationCount<10?notificationCount:"9+"}
         </span>
       </div>
 
