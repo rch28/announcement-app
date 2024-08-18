@@ -9,7 +9,9 @@ import { CardDescription } from "../ui/card";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import dynamic from "next/dynamic";
-const QuillEditor = dynamic(() => import('../layout/QuillEditor'), { ssr: false });
+const QuillEditor = dynamic(() => import("../layout/QuillEditor"), {
+  ssr: false,
+});
 
 const CreateGroup = ({ mode, data }) => {
   const router = useRouter();
@@ -437,9 +439,13 @@ const CreateGroup = ({ mode, data }) => {
             >
               Description
             </Label>
-            <div id="editor">
+            <div  className="text-black ">
+              <QuillEditor
+                value={description}
+                onChange={setDescription}
+                size={100}
+              />
             </div>
-            <QuillEditor value={description} onChange={setDescription} size={100} />
           </div>
           <div className="mt-4">
             <div className="flex justify-end">

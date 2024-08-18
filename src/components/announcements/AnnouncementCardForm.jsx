@@ -280,7 +280,7 @@ export default function AnnouncementCardForm() {
       encType="multipart/form-data"
       className="relative m-4 w-[90%] sm:w-auto "
     >
-      <div className={`w-full  rounded-xl  bg-purple-300 dark:bg-gray-950 `}>
+      <div className={`w-full  rounded-xl  bg-purple-50 dark:bg-gray-950 `}>
         <CardHeader>
           <CardTitle> {ann_data ? "Edit" : "New"} Announcement</CardTitle>
           <CardDescription>
@@ -549,13 +549,13 @@ export default function AnnouncementCardForm() {
                 id="image"
                 type="file"
                 onChange={handleFileChange}
-                className="focus:border focus:border-purple-400 placeholder:text-gray-600 dark:placeholder:text-slate-300 dark:bg-transparent dark:text-white"
+                className=" dark:border-gray-600 focus:border focus:border-purple-400 placeholder:text-gray-600 dark:placeholder:text-slate-300 dark:bg-transparent dark:text-white"
               />
             </div>
           </div>
           <div className="md:space-y-2 relative mt-2">
             <Label htmlFor="description">Description *</Label>
-            <QuillEditor value={description} onChange={setDescription} size={400} />
+            <QuillEditor value={description} onChange={setDescription} size={300} />
           </div>
         </CardContent>
         <CardFooter className="flex justify-end">
