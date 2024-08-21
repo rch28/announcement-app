@@ -16,10 +16,8 @@ const NotificationComp = () => {
   const [notifications, setNotifications] = useState([]);
   const userData = useStore((state) => state.userData);
   const userAuthenticated = useStore((state)=>state.userAuthenticated)
-  console.log(userAuthenticated);
   useEffect(() => {
     const userId = userData?.id;
-    console.log(userId);
     const fetchNotifications = async () => {
       try {
         const response = await fetch(
