@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "@types/dompurify": "^3.0.5",
+    "@types/react": "^18.3.4",
     "@types/sockjs-client": "^1.5.4",
     "eslint": "^8",
     "eslint-config-next": "14.2.1",
