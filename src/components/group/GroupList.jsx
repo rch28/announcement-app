@@ -32,8 +32,8 @@ const GroupList = () => {
     const response = await fetch(
       `${
         process.env.NEXT_PUBLIC_DB_BASE_URL
-      }/group/list/?q=${searchQuery}&?category=${selectedCategory}?${
-        next && "limit=10&offset=10"
+      }/group/list/?name=${searchQuery}&category=${selectedCategory}${
+        next ? "limit=10&offset=10" : ""
       }`
     );
     if (response.ok) {

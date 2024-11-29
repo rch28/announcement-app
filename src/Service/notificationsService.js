@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 export function connectToWebSocket(userId, onMessageReceived) {
     if (!userId) {
         console.error('User ID is required to connect to WebSocket.');
@@ -5,7 +7,7 @@ export function connectToWebSocket(userId, onMessageReceived) {
     }
 
     // Directly use the base URL for WebSocket connections
-    const socketUrl = `ws://127.0.0.1:8000/ws/notification/${userId}/`;
+    const socketUrl = `${process.env.NEXT_PUBLIC_SOCKET_URL}/notification/${userId}/?authorization=Bearer ${Cookies.get("access_token")}`;
     console.log("Attempting to connect to WebSocket at:", socketUrl);
     
     const socket = new WebSocket(socketUrl);
