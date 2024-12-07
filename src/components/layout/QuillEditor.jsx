@@ -35,7 +35,9 @@ const QuillEditor = ({ value, onChange, size }) => {
       const cursorPosition = selection ? selection.index : 0;
 
       // Create a new Delta from the HTML value
-      const delta = editor.clipboard.convert(value);
+      // Ensure value is a valid string
+      const safeValue = value || ""; // Default to empty string if undefined
+      const delta = editor.clipboard.convert(safeValue);
 
       // Update the editor content
       editor.updateContents(delta, 'silent');
