@@ -22,14 +22,14 @@ const Notifications = ({ notifications }) => {
           const date = parseDate(notification.created_at);
           return (
             <div
-              key={notification._id}
+              key={notification.id}
               className={`capitalize p-2 ${
                 !notification.read &&
                 "bg-slate-200 dark:bg-gray-700 rounded-md my-1 text-sm"
               }`}
             >
               <Link
-                href={`/notifications/${notification._id}`}
+                href={`/notifications/${notification.id}`}
                 className="flex items-start justify-between gap-4 font-medium"
               >
                 <h1>{notification.message}</h1>

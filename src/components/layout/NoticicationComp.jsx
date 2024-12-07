@@ -21,7 +21,7 @@ const NotificationComp = () => {
     const fetchNotifications = async () => {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_DB_BASE_URL}/notification/list/`,
+          `${process.env.NEXT_PUBLIC_DB_BASE_URL}/notification/list/?limit=10000`,
           {
             method: "GET",
             headers: {
@@ -32,7 +32,7 @@ const NotificationComp = () => {
         if (!response.ok) throw new Error("Something went wrong!!");
 
         const data = await response.json();
-        setNotifications(data);
+        setNotifications(data.results);
         setNotificationCount(data.length);
       } catch (error) {
         console.error("Error fetching notifications:", error);
