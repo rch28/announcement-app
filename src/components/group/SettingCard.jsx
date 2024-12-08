@@ -17,9 +17,7 @@ const SettingCard = ({ setToggleSetting }) => {
   const groupId = searchParams.get("group_id");
   const access_token = Cookies.get("access_token");
   const setToggleCreateGroup = useStore((state) => state.setToggleCreateGroup);
-  const [triggerPayment, setTriggerPayment] = useState(false);
-  const [clientSecret, setClientSecret] = useState("");
-  const [dpmCheckerLink, setDpmCheckerLink] = useState("");
+
   const handleDeleteGroup = () => {
     const newPromise = new Promise(async (resolve, reject) => {
       const response = await fetch(
@@ -47,35 +45,6 @@ const SettingCard = ({ setToggleSetting }) => {
       error: (data) => data.errors[0].detail || "Failed to delete group",
     });
   };
-
-  useEffect(() => {
-    if (!triggerPayment) return;
-    // Create PaymentIntent as soon as the page loads
-    fetch(`${process.env.NEXT_PUBLIC_DB_BASE_URL}/payment/initiate/`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ group_id: groupId }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setClientSecret(data.clientSecret);
-        // [DEV] For demo purposes only
-        setDpmCheckerLink(data.dpmCheckerLink);
-      });
-  }, [triggerPayment,groupId]);
-
-  // Redirect when dpmCheckerLink is set
-  useEffect(() => {
-    if (dpmCheckerLink) {
-      window.location.href = dpmCheckerLink; // Redirect to the link
-    }
-  }, [dpmCheckerLink]);
-
-  const appearance = {
-    theme: 'stripe',
-  };
-  // Enable the skeleton loader UI for optimal loading.
-  const loader = 'auto';
 
   const handleEditGroup = () => {
     setToggleCreateGroup(true);
@@ -118,15 +87,21 @@ const SettingCard = ({ setToggleSetting }) => {
           </Link>
         </div>
         <div 
-          className="cursor-pointer hover:bg-purple-600 hover:text-white rounded-md p-3 " 
-          onClick={() => setTriggerPayment(true)}
+          className="cursor-pointer hover:bg-purple-600 hover:text-white rounded-md p-3 "
         >
-          <CardUtil
-            title="Update to Premium"
-            icon={
-              <CircleDollarSign className="  mr-2" size={20} />
-            }
-          />
+          <Link href={{
+            pathname: "/payment/checkout",
+            query: {
+              group_id: groupId,
+            },
+          }}>
+            <CardUtil
+              title="Upgrade to Premium"
+              icon={
+                <CircleDollarSign className="  mr-2" size={20} />
+              }
+            />
+          </Link>
         </div>
       </div>
       <div className="flex flex-col gap-2">

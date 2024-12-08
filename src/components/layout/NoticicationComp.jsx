@@ -33,7 +33,7 @@ const NotificationComp = () => {
 
         const data = await response.json();
         setNotifications(data.results);
-        setNotificationCount(data.length);
+        setNotificationCount(data.results.length);        
       } catch (error) {
         console.error("Error fetching notifications:", error);
       }
@@ -71,7 +71,7 @@ const NotificationComp = () => {
         </span>
         {
           userAuthenticated && <span className="absolute -top-3 -right-3  bg-[#FD0303] text-white w-5 h-5 flex justify-center items-center rounded-full text-xs">
-          {notificationCount>0 && notificationCount<10?notificationCount:"9+"}
+          {notificationCount>=0 && notificationCount<10?notificationCount:"9+"}
         </span>
         }
       </div>
