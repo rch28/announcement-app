@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSearchParams } from "next/navigation";
-
+import { GetAccessToken } from "@/index";
 import CheckoutForm from "@/components/payment/checkoutForm"; // Adjust the path as necessary
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
@@ -16,6 +16,7 @@ export default function CheckoutPage() {
   const [dpmCheckerLink, setDpmCheckerLink] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const access_token=GetAccessToken()
 
   useEffect(() => {
     const initiatePayment = async () => {
@@ -24,8 +25,11 @@ export default function CheckoutPage() {
           `${process.env.NEXT_PUBLIC_DB_BASE_URL}/payment/initiate/`,
           {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ group_id: groupId }),
+            headers: { 
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${access_token}`
+            },
+            body: JSON.stringify({ group: groupId }),
           }
         );
 
@@ -44,16 +48,13 @@ export default function CheckoutPage() {
     };
 
     initiatePayment();
-  }, [groupId]);
+  }, [groupId,access_token]);
 
   const appearance = {
     theme: "stripe",
   };
 
   const loader = "auto";
-  console.log(stripePromise);
-  console.log(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
-  
 
   return (
     <div>
