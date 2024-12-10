@@ -54,12 +54,14 @@ export default function CheckoutForm({dpmCheckerLink}) {
     <>
       <form id="payment-form" onSubmit={handleSubmit}>
 
-        <PaymentElement id="payment-element" options={paymentElementOptions} />
-        <button disabled={isLoading || !stripe || !elements} id="submit">
-          <span id="button-text">
-            {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
-          </span>
+        <div className="w-1/2 mx-auto">
+          <PaymentElement id="payment-element" options={paymentElementOptions} />
+        <button disabled={isLoading || !stripe || !elements} id="submit" className="bg-purple-600 w-full rounded cursor-pointer mx-auto my-10 px-5 py-3 text-center block">
+          <p id="button-text" className="text-white font-bold">
+            {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now $4.59"}
+          </p>
         </button>
+        </div>
         {/* Show any error or success messages */}
         {message && <div id="payment-message">{message}</div>}
       </form>
