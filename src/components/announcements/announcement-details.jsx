@@ -20,16 +20,53 @@ import {
   Lock,
   Type,
   WalletIcon,
+  ThumbsUp,
+  ThumbsDown,
 } from "lucide-react";
 import { useStore } from "@/stores/store";
 import AnnSettingCard from "./AnnSettingCard";
 import RichTextDisplay from "../layout/RichTextDisplay";
+import { useEffect, useState } from "react";
 
 export function AnnouncementDetails({ data, toggle, setToggle }) {
   const dateTime = new Date(data.created_at);
   const date = dateTime.toDateString();
   const time = dateTime.toLocaleTimeString();
   const userData = useStore((state) => state.userData);
+  const [like,setLike] = useState(false);
+  cosnt [dislike,setDislike] = useState(false);
+  const [likeDislikeClicked,setLikeDislikeClicked] = useState(false)
+
+  useEffect(()=>{
+    if (likeDislikeClicked === false){
+      return
+    }
+
+    const likeDislikeAnnouncement = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_DB_BASE_URL}/announcement/like/`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+          }
+        );
+        if (!response.ok) {
+          console.log("Something went wrong!!");
+          return;
+        }
+        const result = await response.json();
+        setLike(result?.like);
+        setDislike(result?.dislike);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    likeDislikeAnnouncement();
+  })
+  
   return (
     <Card className=" grid  md:flex flex-row-reverse gap-4 bg-transparent dark:bg-dark-primary border-none shadow-none">
       <div className="flex-[0.4] shadow-md">
@@ -106,10 +143,26 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
             <CalendarDaysIcon className="h-4 w-4 text-purple-800" />
             <span>Created on {date}</span>
           </div>
-          {/* <div className="flex items-center gap-2 text-sm text-gray-700 mt-2 md:mt-0">
-            <WalletIcon className="h-4 w-4 text-purple-800" />
-            <span>Paid</span>
-          </div> */}
+          <div className="flex items-center gap-2 text-sm text-gray-700 mt-2 md:mt-0">
+            <ThumbsUp 
+              className="h-4 w-4 text-purple-800" onClick={() => {
+                setLikeDislikeClicked(true);
+                setLike(true);
+                setDislike(false);
+              }}
+            />
+            <span>{data?.like} Like</span>
+          </div>
+          <div className="flex items-center gap-2 text-sm text-gray-700 mt-2 md:mt-0">
+            <ThumbsDown 
+              className="h-4 w-4 text-purple-800" onClick={() => {
+                setLikeDislikeClicked(true);
+                setLike(false);
+                setDislike(true);
+              }}
+            />
+            <span>{data?.dislike} Dislike</span>
+          </div>
           {data?.announcement_visibility === "public" ? (
             <p
               className="flex items-center gap-2 text-sm text-gray-700 mt-2 md:mt-0"
@@ -127,10 +180,10 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
               <span className="">Private</span>
             </p>
           )}
-          <div className="flex items-center gap-2 text-sm text-gray-700 mt-2 md:mt-0">
+          {/* <div className="flex items-center gap-2 text-sm text-gray-700 mt-2 md:mt-0">
             <GaugeIcon className="h-4 w-4 text-purple-800" />
             <span className={`${data?.status==="active"?"":"text-red-600"}`}>Status: {data.status}</span>
-          </div>
+          </div> */}
         </CardFooter>
       </div>
     </Card>
