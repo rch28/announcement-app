@@ -6,6 +6,7 @@ import {
   CardFooter,
   Card,
 } from "@/components/ui/card";
+import Cookies from "js-cookie";
 import Image from "next/image";
 import DetailsHeader from "./DetailsHeader";
 import { logo } from "../../../public";
@@ -33,14 +34,14 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
   const date = dateTime.toDateString();
   const time = dateTime.toLocaleTimeString();
   const userData = useStore((state) => state.userData);
-  const [like,setLike] = useState(false);
-  cosnt [dislike,setDislike] = useState(false);
+  const access_token = Cookies.get("access_token");
+  const [like,setLike] = useState(data?.user_liked);
+  const [dislike,setDislike] = useState(data?.user_disliked);
   const [likeDislikeClicked,setLikeDislikeClicked] = useState(false)
 
+  console.log(data);
+
   useEffect(()=>{
-    if (likeDislikeClicked === false){
-      return
-    }
 
     const likeDislikeAnnouncement = async () => {
       try {
@@ -50,7 +51,9 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
             method: "POST",
             headers: {
               Authorization: `Bearer ${access_token}`,
+              'Content-Type': 'application/json'
             },
+            body: JSON.stringify({ announcement: data?.id, user: userData?.id, like: like, dislike: dislike })
           }
         );
         if (!response.ok) {
@@ -58,14 +61,19 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
           return;
         }
         const result = await response.json();
-        setLike(result?.like);
-        setDislike(result?.dislike);
+        console.log(result);
+        
       } catch (error) {
         console.log(error);
       }
     };
-    likeDislikeAnnouncement();
-  })
+    // Call the function only when necessary
+    if (likeDislikeClicked) {
+      likeDislikeAnnouncement();
+      setLikeDislikeClicked(false); // Reset flag after call
+    }
+
+  },[data,userData,likeDislikeClicked,access_token,like,dislike])
   
   return (
     <Card className=" grid  md:flex flex-row-reverse gap-4 bg-transparent dark:bg-dark-primary border-none shadow-none">
@@ -133,43 +141,45 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
             <RichTextDisplay html={data?.description} />
             <div className="bg-purple-100 mt-2 rounded-md p-2">
               {data?.location && <h2>  Location : {data?.location}</h2>}
-              <h2 className="capitalize">Type :{data?.announcement_type}</h2>
+              <h2 className="capitalize ">Type :{data?.announcement_type}</h2>
               {data?.date && <h2>  Date :{data?.date}</h2>}
             </div>
           </div>
         </CardContent>
         <CardFooter className="flex flex-col items-start  sm:flex-row sm:items-center justify-between">
           <div className="flex items-center gap-2 text-sm text-gray-700">
-            <CalendarDaysIcon className="h-4 w-4 text-purple-800" />
-            <span>Created on {date}</span>
+            <CalendarDaysIcon className="h-6 w-6 text-purple-800" />
+            <span className="text-base">Created on {date}</span>
           </div>
-          <div className="flex items-center gap-2 text-sm text-gray-700 mt-2 md:mt-0">
-            <ThumbsUp 
-              className="h-4 w-4 text-purple-800" onClick={() => {
-                setLikeDislikeClicked(true);
-                setLike(true);
-                setDislike(false);
-              }}
-            />
-            <span>{data?.like} Like</span>
+          <div 
+            className="flex items-center gap-2 text-sm cursor-pointer text-gray-700 mt-2 md:mt-0" 
+            onClick={() => {
+              setLike(!like);
+              setDislike(false);
+              setLikeDislikeClicked(true);
+            }}
+          >
+          <ThumbsUp className={`h-6 w-6 ${like ? 'fill-current text-purple-600' : ''}`}/>
+            <span className="text-base">{data?.likes} Like</span>
           </div>
-          <div className="flex items-center gap-2 text-sm text-gray-700 mt-2 md:mt-0">
-            <ThumbsDown 
-              className="h-4 w-4 text-purple-800" onClick={() => {
-                setLikeDislikeClicked(true);
-                setLike(false);
-                setDislike(true);
-              }}
-            />
-            <span>{data?.dislike} Dislike</span>
+          <div 
+            className="flex items-center gap-2 text-sm cursor-pointer text-gray-700 mt-2 md:mt-0" 
+            onClick={() => {
+              setLikeDislikeClicked(true);
+              setDislike(!dislike);
+              setLike(false);
+            }}
+          >
+          <ThumbsDown className={`h-6 w-6 ${dislike ? 'fill-current text-purple-600' : ''}`}/>
+            <span className="text-base">{data?.dislikes} Dislike</span>
           </div>
           {data?.announcement_visibility === "public" ? (
             <p
               className="flex items-center gap-2 text-sm text-gray-700 mt-2 md:mt-0"
               title="public"
             >
-              <Globe className="w-3 h-3 " />
-              <span className="">Public</span>
+              <Globe className="w-5 h-5 " />
+              <span className="text-base">Public</span>
             </p>
           ) : (
             <p
@@ -177,7 +187,7 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
               title="public"
             >
               <Lock className="w-3 h-3 " />
-              <span className="">Private</span>
+              <span className="text-base">Private</span>
             </p>
           )}
           {/* <div className="flex items-center gap-2 text-sm text-gray-700 mt-2 md:mt-0">
