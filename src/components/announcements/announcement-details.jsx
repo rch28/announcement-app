@@ -45,23 +45,31 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
 
   const handleLikeDislike = (isLike) => {
     if (isLike) {
-      setLike(true);
-      setDislike(false);
+      // User clicked "like"
+      setTotalLike((prev) => (like ? prev - 1 : prev + 1));
+      setTotalDislike((prev) => (dislike ? prev - 1 : prev));
+      setLike(!like); // Toggle like
+      setDislike(false); // Reset dislike
     } else {
-      setDislike(true);
-      setLike(false);
+      // User clicked "dislike"
+      setTotalDislike((prev) => (dislike ? prev - 1 : prev + 1));
+      setTotalLike((prev) => (like ? prev - 1 : prev));
+      setDislike(!dislike); // Toggle dislike
+      setLike(false); // Reset like
     }
+  
     setLikeDislikeClicked(true);
-  };
+  };  
 
-  useEffect(()=>{
+  useEffect(() => {
+    setLike(data?.user_liked);
+    setTotalLike(data?.likes);
+    setDislike(data?.user_disliked);
+    setTotalDislike(data?.dislikes);
+  }, [data]);
 
-    setLike(data?.user_liked)
-    setTotalLike(data?.likes)
-    setDislike(data?.user_disliked)
-    setTotalDislike(data?.dislikes)
-
-    const likeDislikeAnnouncement = async () => {
+  useEffect(() => {
+    const likeDislikeAnnouncement = async (likePayload, dislikePayload) => {
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_DB_BASE_URL}/announcement/like/`,
@@ -69,33 +77,34 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
             method: "POST",
             headers: {
               Authorization: `Bearer ${access_token}`,
-              'Content-Type': 'application/json'
+              "Content-Type": "application/json",
             },
-            body: JSON.stringify({ announcement: data?.id, user: userData?.id, like: like, dislike: dislike })
+            body: JSON.stringify({
+              announcement: data?.id,
+              user: userData?.id,
+              like: likePayload,
+              dislike: dislikePayload,
+            }),
           }
         );
+  
         if (!response.ok) {
           console.log("Something went wrong!!");
           return;
         }
+  
         const result = await response.json();
         console.log(result);
-        setLike(result?.like)
-        setDislike(result?.dislike)
-        
       } catch (error) {
         console.log(error);
       }
     };
-    // Call the function only when necessary
+  
     if (likeDislikeClicked) {
-      likeDislikeAnnouncement();
-      setLikeDislikeClicked(false); // Reset flag after call
-      setLike(like)
-      setDislike(dislike)
+      likeDislikeAnnouncement(like, dislike); // Pass the latest state values
+      setLikeDislikeClicked(false);
     }
-
-  },[data,userData,likeDislikeClicked,access_token,like,dislike])
+  }, [likeDislikeClicked, access_token, data, userData, like, dislike]);
   
   return (
     <Card className=" grid  md:flex flex-row-reverse gap-4 bg-transparent dark:bg-dark-primary border-none shadow-none">
