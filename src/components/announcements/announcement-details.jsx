@@ -37,11 +37,29 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
   const access_token = Cookies.get("access_token");
   const [like,setLike] = useState(data?.user_liked);
   const [dislike,setDislike] = useState(data?.user_disliked);
+  const [totalLikes, setTotalLike] = useState(data?.likes)
+  const [totalDislikes, setTotalDislike] = useState(data?.dislikes)
   const [likeDislikeClicked,setLikeDislikeClicked] = useState(false)
 
   console.log(data);
 
+  const handleLikeDislike = (isLike) => {
+    if (isLike) {
+      setLike(true);
+      setDislike(false);
+    } else {
+      setDislike(true);
+      setLike(false);
+    }
+    setLikeDislikeClicked(true);
+  };
+
   useEffect(()=>{
+
+    setLike(data?.user_liked)
+    setTotalLike(data?.likes)
+    setDislike(data?.user_disliked)
+    setTotalDislike(data?.dislikes)
 
     const likeDislikeAnnouncement = async () => {
       try {
@@ -62,6 +80,8 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
         }
         const result = await response.json();
         console.log(result);
+        setLike(result?.like)
+        setDislike(result?.dislike)
         
       } catch (error) {
         console.log(error);
@@ -71,6 +91,8 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
     if (likeDislikeClicked) {
       likeDislikeAnnouncement();
       setLikeDislikeClicked(false); // Reset flag after call
+      setLike(like)
+      setDislike(dislike)
     }
 
   },[data,userData,likeDislikeClicked,access_token,like,dislike])
@@ -153,25 +175,17 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
           </div>
           <div 
             className="flex items-center gap-2 text-sm cursor-pointer text-gray-700 mt-2 md:mt-0" 
-            onClick={() => {
-              setLike(!like);
-              setDislike(false);
-              setLikeDislikeClicked(true);
-            }}
+            onClick={() => handleLikeDislike(true)}
           >
           <ThumbsUp className={`h-6 w-6 ${like ? 'fill-current text-purple-600' : ''}`}/>
-            <span className="text-base">{data?.likes} Like</span>
+            <span className="text-base">{totalLikes} Like</span>
           </div>
           <div 
             className="flex items-center gap-2 text-sm cursor-pointer text-gray-700 mt-2 md:mt-0" 
-            onClick={() => {
-              setLikeDislikeClicked(true);
-              setDislike(!dislike);
-              setLike(false);
-            }}
+            onClick={() => handleLikeDislike(false)}
           >
           <ThumbsDown className={`h-6 w-6 ${dislike ? 'fill-current text-purple-600' : ''}`}/>
-            <span className="text-base">{data?.dislikes} Dislike</span>
+            <span className="text-base">{totalDislikes} Dislike</span>
           </div>
           {data?.announcement_visibility === "public" ? (
             <p
