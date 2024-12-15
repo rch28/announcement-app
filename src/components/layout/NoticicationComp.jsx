@@ -41,13 +41,12 @@ const NotificationComp = () => {
 
     fetchNotifications();
     if (userId) {
-     const socket= connectToWebSocket(userId, (notification) => {
-        setNotifications((prevNotifications) => [
-          notification,
-          ...prevNotifications,
-        ]);
-        setNotificationCount((count) => count + 1);
-        console.log("object");
+      const socket = connectToWebSocket(userId, (notification) => {
+        setNotifications((prevNotifications) => {
+          const updatedNotifications = [notification, ...prevNotifications];
+          setNotificationCount(updatedNotifications.length); // Ensure count matches length of notifications
+          return updatedNotifications;
+        });
       });
       return () => {
         disconnectWebSocket(socket);

@@ -20,16 +20,116 @@ const Notifications = ({ notifications }) => {
       <ul>
         {notifications?.map((notification) => {
           let date = new Date(notification.created_at);
-          const currentDate = new Date(); // Current date and time
-          
-          if (date.toISOString().split('T')[0] > currentDate.toISOString().split('T')[0]) {
-            // If the date is in the future, keep the date (YYYY-MM-DD)
-            date = date.toISOString().split('T')[0];
+          // Validate the date
+          if (isNaN(date.getTime())) {
+            console.error("Invalid date format:", notification.created_at);
+            date = null; // Or handle gracefully by setting a default value
           } else {
-            // If the date is today or earlier, keep the time (HH:MM:SS)
-            date = date.toTimeString().split(' ')[0];
+            const currentDate = new Date(); // Current date and time
+
+            if (date.toISOString().split('T')[0] > currentDate.toISOString().split('T')[0]) {
+              // If the date is in the future, keep the date (YYYY-MM-DD)
+              date = date.toISOString().split('T')[0];
+            } else {
+              // If the date is today or earlier, keep the time (HH:MM:SS)
+              date = date.toTimeString().split(' ')[0];
+            }
+
+            console.log("Formatted Date or Time:", date);
           }
+
+          let message = "";
+          let link = "";
           
+          switch (notification.type) {
+            case "group_join":
+
+              if(notification.group){
+                message = `A member left the group: ${notification.group.name}`;
+                link = `group/${notification.group.name}?group_id=${notification.group.id}&category=${notification.group.category}`;
+              } else {
+                message = "A member left the group";
+                link = "#"
+              }
+              break;
+
+            case "group_leave":
+
+              if(notification.group){
+                message = `A member left the group: ${notification.group.name}`;
+                link = `group/${notification.group.name}?group_id=${notification.group.id}&category=${notification.group.category}`;
+              } else {
+                message = "A member left the group";
+                link = "#"
+              }
+
+              break;
+
+            case "announcement_create":
+
+              if(notification.group){
+                message = `New annonucement in group: ${notification.group.name}`;
+                link = `group/${notification.group.name}?group_id=${notification.group.id}&category=${notification.group.category}`;
+              } else {
+                message = "A new announcement on group";
+                link = "#"
+              }
+
+              break;
+
+            case "announcement_update":
+              
+              if(notification.announcement){
+                message = `Annonucement: ${notification.announcement.title} Updated`;
+                link = `announcements/${notification.announcement.title}?ann_id=${notification.announcement.id}`;
+              } else {
+                message = "Announcement updated";
+                link = "#"
+              }
+
+              break;
+
+            case "announcement_comment_create":
+              
+              if(notification.announcement){
+                message = `New comment: ${notification.announcement.title}`;
+                link = `announcements/${notification.announcement.slug}?ann_id=${notification.announcement.id}`;
+              } else {
+                message = "New comment on the announcement";
+                link = "#"
+              }
+
+              break;
+
+            case "announcement_like":
+                
+                if(notification.announcement){
+                  message = `New Like: ${notification.announcement.title}`;
+                  link = `announcements/${notification.announcement.slug}?ann_id=${notification.announcement.id}`;
+                } else {
+                  message = "New like on the announcement";
+                  link = "#"
+                }
+
+                break;
+
+            case "announcement_unlike":
+              
+              if(notification.announcement){
+                message = `Dislike: ${notification.announcement.title}`;
+                link = `announcements/${notification.announcement.slug}?ann_id=${notification.announcement.id}`;
+              } else {
+                message = "Dislike on the announcement";
+                link = "#"
+              }
+
+              break;
+
+            default:
+              message = "Notification received.";
+              break;
+          }
+
           return (
             <div
               key={notification.id}
@@ -39,30 +139,11 @@ const Notifications = ({ notifications }) => {
               }`}
             >
               <Link
-                href={`/notifications/${notification.id}`}
+                href={link}
                 className="flex items-start justify-between gap-4 font-medium"
               >
                 <h1>
-                  {(() => {
-                    switch (notification.type) {
-                      case "group_join":
-                        return "New member joined the group!";
-                      case "group_leave":
-                        return "A member left the group.";
-                      case "announcement_create":
-                        return "New annonucement";
-                      case "announcement_update":
-                        return "Announcement updated";
-                      case "announcement_comment_create":
-                        return "New comment on the announcement";
-                      case "announcement_like":
-                          return "New like on the announcement";
-                      case "announcement_dislike":
-                        return "Dislike on the announcement";
-                      default:
-                        return "Notification received.";
-                    }
-                  })()}
+                  {message}
                 </h1>
                 <p>
                   <DotsHorizontalIcon />
