@@ -1,14 +1,13 @@
-'use client'
+'use client';
 
-import { MemberChart } from "@/components/analytics/MemberChart";
+import MemberChart from "@/components/analytics/MemberChart";
 
-
-const GroupAnalyticsPage = ()=>{
-    return(
-        <div>
-            <MemberChart />
-        </div>
-    )
-}
+const GroupAnalyticsPage = () => {
+  return (
+    <div>
+      <MemberChart />
+    </div>
+  );
+};
 
 export default GroupAnalyticsPage;
