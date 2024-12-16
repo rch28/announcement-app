@@ -33,7 +33,7 @@ const NotificationComp = () => {
 
         const data = await response.json();
         setNotifications(data.results);
-        setNotificationCount(data.results.length);        
+        setNotificationCount(data.results.filter((n) => !n.read).length);        
       } catch (error) {
         console.error("Error fetching notifications:", error);
       }
@@ -44,7 +44,7 @@ const NotificationComp = () => {
       const socket = connectToWebSocket(userId, (notification) => {
         setNotifications((prevNotifications) => {
           const updatedNotifications = [notification, ...prevNotifications];
-          setNotificationCount(updatedNotifications.length); // Ensure count matches length of notifications
+          setNotificationCount(updatedNotifications.filter((n) => !n.read).length);
           return updatedNotifications;
         });
       });

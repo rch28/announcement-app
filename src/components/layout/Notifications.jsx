@@ -1,6 +1,8 @@
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import moment from "moment";
 import Link from "next/link";
+import { GetAccessToken } from "@/index";
+import { useStore } from "@/stores/store";
 
 const parseDate = (dateString) => {
   const createdAt = moment(dateString, moment.ISO_8601);
@@ -14,6 +16,38 @@ const parseDate = (dateString) => {
 };
 
 const Notifications = ({ notifications }) => {
+
+  const setNotificationCount = useStore((state) => state.setNotificationCount);
+
+  const handleReadNotification = async (notificationId)=>{
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_DB_BASE_URL}/notification/${notificationId}/update/`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${GetAccessToken()}`
+        },
+        body: JSON.stringify({
+          read: true,
+        }),
+      });
+      if (!response.ok) throw new Error("Something went wrong!!");
+
+      // Update the notifications list locally
+      setNotifications((prevNotifications) =>
+        prevNotifications.map((notification) =>
+          notification.id === notificationId ? { ...notification, read: true } : notification
+        )
+      );
+
+      // Update the notification count
+      setNotificationCount((prevCount) => Math.max(prevCount - 1, 0));
+
+    } catch (error) {
+      console.error('Error updating notification:', error);
+    }
+  }
+
   return (
     <div className="w-full max-h-96 overflow-auto px-2">
       <h1 className="text-xl font-semibold">Notifications</h1>
@@ -27,15 +61,13 @@ const Notifications = ({ notifications }) => {
           } else {
             const currentDate = new Date(); // Current date and time
 
-            if (date.toISOString().split('T')[0] > currentDate.toISOString().split('T')[0]) {
+            if (date.toISOString().split('T')[0] < currentDate.toISOString().split('T')[0]) {
               // If the date is in the future, keep the date (YYYY-MM-DD)
               date = date.toISOString().split('T')[0];
             } else {
               // If the date is today or earlier, keep the time (HH:MM:SS)
               date = date.toTimeString().split(' ')[0];
             }
-
-            console.log("Formatted Date or Time:", date);
           }
 
           let message = "";
@@ -46,7 +78,7 @@ const Notifications = ({ notifications }) => {
 
               if(notification.group){
                 message = `A member left the group: ${notification.group.name}`;
-                link = `group/${notification.group.name}?group_id=${notification.group.id}&category=${notification.group.category}`;
+                link = `groups/${notification.group.name}?group_id=${notification.group.id}&category=${notification.group.category}`;
               } else {
                 message = "A member left the group";
                 link = "#"
@@ -57,7 +89,7 @@ const Notifications = ({ notifications }) => {
 
               if(notification.group){
                 message = `A member left the group: ${notification.group.name}`;
-                link = `group/${notification.group.name}?group_id=${notification.group.id}&category=${notification.group.category}`;
+                link = `groups/${notification.group.name}?group_id=${notification.group.id}&category=${notification.group.category}`;
               } else {
                 message = "A member left the group";
                 link = "#"
@@ -69,7 +101,7 @@ const Notifications = ({ notifications }) => {
 
               if(notification.group){
                 message = `New annonucement in group: ${notification.group.name}`;
-                link = `group/${notification.group.name}?group_id=${notification.group.id}&category=${notification.group.category}`;
+                link = `groups/${notification.group.name}?group_id=${notification.group.group_id}&category=${notification.group.category}`;
               } else {
                 message = "A new announcement on group";
                 link = "#"
@@ -141,6 +173,11 @@ const Notifications = ({ notifications }) => {
               <Link
                 href={link}
                 className="flex items-start justify-between gap-4 font-medium"
+                onClick={()=>{
+                  if (notification.read === false){
+                    handleReadNotification(notification.id);
+                  }
+                }}
               >
                 <h1>
                   {message}
