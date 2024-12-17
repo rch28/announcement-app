@@ -12,29 +12,22 @@ const data = {
   labels: ['January', 'February', 'March', 'April', 'May'],
   datasets: [
     {
-      label: 'Member Join',
+      label: 'Comment',
       data: [65, 59, 80, 81, 56],
       fill: false,
       borderColor: 'rgb(5, 155, 255, 1)',
       tension: 0.1,
-    },
-    {
-      label: 'Member leave',
-      data: [55, 49, 70, 71, 46],
-      fill: false,
-      borderColor: 'rgb(243, 64, 57, 1)',
-      tension: 0.1,
-    },
+    }
   ],
 };
 
-const MemberChart = () => {
+const CommentChart = () => {
   return (
-    <div className='w-[500px] h-fit shadow-2xl p-10 rounded-lg'>
-      <h1 className='text-center font-bold text-xl'>Group Member Status</h1>
-      <Line data={data} />
+    <div className='w-[500px] h-full shadow-2xl p-10 rounded-lg'>
+      <h1 className='text-center font-bold text-xl'>Group Rate Status</h1>
+      <Line data={data} className='h-full'/>
     </div>
   );
 };
 
-export default MemberChart; // Default export
+export default CommentChart;
