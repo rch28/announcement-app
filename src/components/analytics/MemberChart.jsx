@@ -30,7 +30,7 @@ const data = {
 
 const MemberChart = () => {
   return (
-    <div className='w-[500px] h-fit shadow-2xl p-10 rounded-lg'>
+    <div className='w-[500px] h-fit shadow-custom-all p-10 rounded-xl'>
       <h1 className='text-center font-bold text-xl'>Group Member Status</h1>
       <Line data={data} />
     </div>

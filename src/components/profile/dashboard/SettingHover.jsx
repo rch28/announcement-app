@@ -6,6 +6,7 @@ import {
   NotebookTextIcon,
   UserPlus,
   Users2,
+  ChartBarIncreasing,
 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
@@ -63,6 +64,17 @@ const SettingHover = ({ group, SetGroupData, mode }) => {
               title="Manage Members"
               icon={
                 <UserPlus className="h-4 w-4  " />
+              }
+            />
+          </Link>
+          <Link 
+            href={`/analytics/group/?group_id=${group.group_id}`}
+            className="cursor-pointer hover:bg-purple-700 group text-black hover:text-white p-2 rounded-md"
+          >
+            <CardUtil
+              title="Analytics"
+              icon={
+                <ChartBarIncreasing className="h-4 w-4"/>
               }
             />
           </Link>

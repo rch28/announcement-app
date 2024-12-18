@@ -21,6 +21,9 @@ module.exports = {
         'dark-secondary':'#0e0e11 ',
         'dark-tertiary':'#3f3f46',
       },
+      boxShadow: {
+        'custom-all': '0 5px 15px -5px rgba(0, 0, 0, 0.15), 0 -5px 15px -5px rgba(0, 0, 0, 0.15), 5px 0 15px -5px rgba(0, 0, 0, 0.15), -5px 0 15px -5px rgba(0, 0, 0, 0.15)',
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
