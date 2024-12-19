@@ -3,6 +3,7 @@ import moment from "moment";
 import Link from "next/link";
 import { GetAccessToken } from "@/index";
 import { useStore } from "@/stores/store";
+import { useRouter } from "next/navigation";
 
 const parseDate = (dateString) => {
   const createdAt = moment(dateString, moment.ISO_8601);
@@ -18,6 +19,9 @@ const parseDate = (dateString) => {
 const Notifications = ({ notifications }) => {
 
   const setNotificationCount = useStore((state) => state.setNotificationCount);
+  const trigger = useStore((state) => state.trigger);
+  const setTrigger = useStore((state) => state.setTrigger);
+  const navigate = useRouter()
 
   const handleReadNotification = async (notificationId)=>{
     try {
@@ -78,7 +82,7 @@ const Notifications = ({ notifications }) => {
 
               if(notification.group){
                 message = `A member left the group: ${notification.group.name}`;
-                link = `groups/${notification.group.name}?group_id=${notification.group.id}&category=${notification.group.category}`;
+                link = `/groups/${notification.group.name}?group_id=${notification.group.id}&category=${notification.group.category}`;
               } else {
                 message = "A member left the group";
                 link = "#"
@@ -89,7 +93,7 @@ const Notifications = ({ notifications }) => {
 
               if(notification.group){
                 message = `A member left the group: ${notification.group.name}`;
-                link = `groups/${notification.group.name}?group_id=${notification.group.id}&category=${notification.group.category}`;
+                link = `/groups/${notification.group.name}?group_id=${notification.group.id}&category=${notification.group.category}`;
               } else {
                 message = "A member left the group";
                 link = "#"
@@ -101,7 +105,7 @@ const Notifications = ({ notifications }) => {
 
               if(notification.group){
                 message = `New annonucement in group: ${notification.group.name}`;
-                link = `groups/${notification.group.name}?group_id=${notification.group.group_id}&category=${notification.group.category}`;
+                link = `/groups/${notification.group.name}?group_id=${notification.group.group_id}&category=${notification.group.category}`;
               } else {
                 message = "A new announcement on group";
                 link = "#"
@@ -113,7 +117,7 @@ const Notifications = ({ notifications }) => {
               
               if(notification.announcement){
                 message = `Annonucement: ${notification.announcement.title} Updated`;
-                link = `announcements/${notification.announcement.title}?ann_id=${notification.announcement.id}`;
+                link = `/announcements/${notification.announcement.title}?ann_id=${notification.announcement.id}`;
               } else {
                 message = "Announcement updated";
                 link = "#"
@@ -125,7 +129,7 @@ const Notifications = ({ notifications }) => {
               
               if(notification.announcement){
                 message = `New comment: ${notification.announcement.title}`;
-                link = `announcements/${notification.announcement.slug}?ann_id=${notification.announcement.id}`;
+                link = `/announcements/${notification.announcement.title}?ann_id=${notification.announcement.id}`;
               } else {
                 message = "New comment on the announcement";
                 link = "#"
@@ -137,7 +141,7 @@ const Notifications = ({ notifications }) => {
                 
                 if(notification.announcement){
                   message = `New Like: ${notification.announcement.title}`;
-                  link = `announcements/${notification.announcement.slug}?ann_id=${notification.announcement.id}`;
+                  link = `/announcements/${notification.announcement.title}?ann_id=${notification.announcement.id}`;
                 } else {
                   message = "New like on the announcement";
                   link = "#"
@@ -149,7 +153,7 @@ const Notifications = ({ notifications }) => {
               
               if(notification.announcement){
                 message = `Dislike: ${notification.announcement.title}`;
-                link = `announcements/${notification.announcement.slug}?ann_id=${notification.announcement.id}`;
+                link = `/announcements/${notification.announcement.title}?ann_id=${notification.announcement.id}`;
               } else {
                 message = "Dislike on the announcement";
                 link = "#"
@@ -170,13 +174,14 @@ const Notifications = ({ notifications }) => {
                 "bg-slate-200 dark:bg-gray-700 rounded-md my-1 text-sm"
               }`}
             >
-              <Link
-                href={link}
+              <button
                 className="flex items-start justify-between gap-4 font-medium"
                 onClick={()=>{
                   if (notification.read === false){
+                    setTrigger(!trigger);
                     handleReadNotification(notification.id);
                   }
+                  navigate.push(link);
                 }}
               >
                 <h1>
@@ -185,7 +190,7 @@ const Notifications = ({ notifications }) => {
                 <p>
                   <DotsHorizontalIcon />
                 </p>
-              </Link>
+              </button>
               <p className="font-semibold">{date}</p>
             </div>
           );

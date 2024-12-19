@@ -12,6 +12,8 @@ import {
 const NotificationComp = () => {
   const [toggleNotification, setToggleNotification] = useState(false);
   const notificationCount = useStore((state) => state.notificationCount);
+  const trigger = useStore((state) => state.trigger);
+  const setTrigger = useStore((state) => state.setTrigger);
   const setNotificationCount = useStore((state) => state.setNotificationCount);
   const [notifications, setNotifications] = useState([]);
   const userData = useStore((state) => state.userData);
@@ -52,7 +54,7 @@ const NotificationComp = () => {
         disconnectWebSocket(socket);
       };
     }
-  }, [userData, setNotificationCount]);
+  }, [userData, setNotificationCount,trigger,setTrigger]);
 
  
 

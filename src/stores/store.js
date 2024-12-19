@@ -76,6 +76,9 @@ export const useStore = create((set)=>({
     // notification count
     notificationCount : 0,
     setNotificationCount:(value)=>set({notificationCount:value}),
+
     
+    trigger : false,
+    setTrigger:(value)=>set({trigger:value}),
 
 }))
