@@ -53,7 +53,7 @@ const Notifications = ({ notifications }) => {
   }
 
   return (
-    <div className="w-full max-h-96 overflow-auto px-2">
+    <div className="w-full max-h-96 overflow-y-auto px-2">
       <h1 className="text-xl font-semibold">Notifications</h1>
       <ul>
         {notifications?.map((notification) => {
@@ -187,9 +187,9 @@ const Notifications = ({ notifications }) => {
                 <h1>
                   {message}
                 </h1>
-                <p>
+                {/* <p>
                   <DotsHorizontalIcon />
-                </p>
+                </p> */}
               </button>
               <p className="font-semibold">{date}</p>
             </div>
