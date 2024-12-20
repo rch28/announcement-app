@@ -1,5 +1,5 @@
 import { Bell } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Notifications from "./Notifications";
 
 import { useStore } from "@/stores/store";
@@ -17,7 +17,24 @@ const NotificationComp = () => {
   const setNotificationCount = useStore((state) => state.setNotificationCount);
   const [notifications, setNotifications] = useState([]);
   const userData = useStore((state) => state.userData);
-  const userAuthenticated = useStore((state)=>state.userAuthenticated)
+  const userAuthenticated = useStore((state) => state.userAuthenticated);
+
+  const compRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (compRef.current && !compRef.current.contains(event.target)) {
+        setToggleNotification(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   useEffect(() => {
     const userId = userData?.id;
     const fetchNotifications = async () => {
@@ -35,7 +52,7 @@ const NotificationComp = () => {
 
         const data = await response.json();
         setNotifications(data.results);
-        setNotificationCount(data.results.filter((n) => !n.read).length);        
+        setNotificationCount(data.results.filter((n) => !n.read).length);
       } catch (error) {
         console.error("Error fetching notifications:", error);
       }
@@ -54,12 +71,10 @@ const NotificationComp = () => {
         disconnectWebSocket(socket);
       };
     }
-  }, [userData, setNotificationCount,trigger,setTrigger]);
-
- 
+  }, [userData, setNotificationCount, trigger, setTrigger]);
 
   return (
-    <div className="relative">
+    <div className="relative" ref={compRef}>
       <div
         className="relative cursor-pointer"
         onClick={() => setToggleNotification(!toggleNotification)}
@@ -70,14 +85,16 @@ const NotificationComp = () => {
         <span className="hidden sm:flex">
           <Bell size={16} />
         </span>
-        {
-          userAuthenticated && <span className="absolute -top-3 -right-3  bg-[#FD0303] text-white w-5 h-5 flex justify-center items-center rounded-full text-xs">
-          {notificationCount>=0 && notificationCount<10?notificationCount:"9+"}
-        </span>
-        }
+        {userAuthenticated && (
+          <span className="absolute -top-3 -right-3 bg-[#FD0303] text-white w-5 h-5 flex justify-center items-center rounded-full text-xs">
+            {notificationCount >= 0 && notificationCount < 10
+              ? notificationCount
+              : "9+"}
+          </span>
+        )}
       </div>
 
-      {toggleNotification && userAuthenticated  && (
+      {toggleNotification && userAuthenticated && (
         <div className="absolute top-12 -right-6 shadow-md shadow-gray-800 dark:shadow-sm dark:shadow-slate-500 bg-white p-4 rounded-md dark:bg-gray-800 dark:text-white text-black w-[276px] md:w-[340px]">
           <Notifications notifications={notifications} />
         </div>

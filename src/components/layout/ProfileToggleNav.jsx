@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { profile } from "../../../public";
 import Link from "next/link";
 import { useStore } from "@/stores/store";
@@ -15,6 +15,24 @@ const ProfileToggleNav = () => {
   const userData = useStore((state) => state.userData);
   const refresh_token = Cookies.get("refresh_token");
   const access_token = Cookies.get("access_token");
+
+  const compRef = useRef(null);
+  
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (compRef.current && !compRef.current.contains(event.target)) {
+          setToggle(false);
+        }
+      };
+  
+      document.addEventListener("mousedown", handleClickOutside);
+  
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, []);
+
+
   const habdleLogout = async () => {
     if (isLoggedIn) {
       const newPromise = new Promise(async (resolve, reject) => {
@@ -48,7 +66,7 @@ const ProfileToggleNav = () => {
     }
   };
   return (
-    <div className="rounded-full">
+    <div className="rounded-full" ref={compRef}>
       <div
         className="cursor-pointer   text-center  text-gray-500 text-sm  rounded-md "
         onClick={() => setToggle(!toggle)}
