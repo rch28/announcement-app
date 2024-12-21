@@ -10,7 +10,7 @@ const data = {
   labels: ['January', 'February', 'March', 'April', 'May'],
   datasets: [
     {
-      label: 'Comment',
+      label: 'Announcement Impression Country',
       data: [65, 59, 80, 81, 56],
       fill: false,
       borderColor: 'rgb(5, 155, 255, 1)',
@@ -19,13 +19,13 @@ const data = {
   ],
 };
 
-const CommentChart = () => {
+const AnnouncementImpressionCountry = () => {
   return (
-    <div className='w-full h-fit shadow-custom-all p-10 rounded-xl'>
-      <h1 className='text-center font-bold text-xl'>Comments</h1>
-      <Line data={data} className='h-full'/>
+    <div className='w-[500px] h-fit shadow-custom-all p-10 rounded-xl'>
+      <h1 className='text-center font-bold text-xl'>Announcement Impression Country</h1>
+      <Line data={data} />
     </div>
   );
 };
 
-export default CommentChart;
+export default AnnouncementImpressionCountry;

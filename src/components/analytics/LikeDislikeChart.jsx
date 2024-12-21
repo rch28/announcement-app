@@ -19,7 +19,7 @@ const LikeDislikeChart = () => {
   };
 
   return (
-    <div className='w-[500px] h-fit shadow-2xl p-10 rounded-lg'>
+    <div className='w-full h-fit shadow-custom-all p-10 rounded-xl'>
       <h1 className='text-center font-bold text-xl'>Like/Dislike Ratio</h1>
       <Pie data={data} />
     </div>
