@@ -130,14 +130,14 @@ export function AnnouncementDetails({ data, toggle, setToggle }) {
             />
           )}
         </div>
-        {
+        {/* {
           data?.image_description && <div className="mt-4 text-gray-800 bg-white rounded-md p-4">
           <h1 className="font-semibold ">Image Description</h1>
           <p className="p-1  capitalize ">
             {data?.image_description}
           </p>
           </div>
-        }
+        } */}
       </div>
       <div className="flex-[0.6] bg-primary rounded-md">
         <CardHeader className="p-0 ">

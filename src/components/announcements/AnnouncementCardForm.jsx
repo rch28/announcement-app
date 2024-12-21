@@ -528,7 +528,7 @@ export default function AnnouncementCardForm() {
                   <InfoIcon className="h-5 w-5" />
                 </span>
               )}
-              <Label htmlFor="imageDescription">Image Description</Label>
+              {/* <Label htmlFor="imageDescription">Image Description</Label>
               <Textarea
                 ref={imageDescriptionRef}
                 id="imageDescription"
@@ -540,7 +540,7 @@ export default function AnnouncementCardForm() {
                 placeholder="Enter Image Description"
                 className="border border-gray-600  focus:border-purple-500  placeholder:text-gray-600 dark:placeholder:text-slate-300 dark:bg-transparent"
               />
-              <Tooltip id="imgDescription-tooltip" />
+              <Tooltip id="imgDescription-tooltip" /> */}
             </div>
             <div className="flex-1">
               <Label htmlFor="image">Image</Label>
