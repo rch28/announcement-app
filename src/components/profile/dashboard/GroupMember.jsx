@@ -77,7 +77,7 @@ const GroupMember = ({ member, admin_id, onRoleChange }) => {
                     defaultValue={member.role}
                     onChange={handleRoleChange}
                   >
-                    <option value="admin">Admin</option>
+                    {/* <option value="admin">Admin</option> */}
                     <option value="moderator">Moderator</option>
                     <option value="member">Member</option>
                   </select>

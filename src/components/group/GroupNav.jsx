@@ -21,7 +21,10 @@ const GroupNav = () => {
   const userAuthenticated = useStore((state) => state.userAuthenticated);
   const joined = useStore((state) => state.Joined);
   const role = useStore((state)=>state.role)
- 
+  console.log(userData);
+  console.log(groupAdmin);
+  console.log(isGrupAdmin);
+  
   useEffect(() => {
     if (userData) {
       setuId(userData.id);

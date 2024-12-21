@@ -48,7 +48,7 @@ const GroupCard = ({ data }) => {
     setGroupMembers(result);
     if (result?.results) {
       const adminUser = result?.results?.find((user) => user.role === "admin");
-      setAdminId(userData.id)
+      setAdminId(adminUser.user.id)
 
       if (adminUser.user === userData.username) {
         setRole(adminUser.role);
