@@ -364,13 +364,13 @@ const CreateGroup = ({ mode, data }) => {
                           >
                             Select Category
                           </option>
-                          <option
+                          {/* <option
                             className="w-fit py-2 px-4 text-black"
                             value={"custome"}
                             autoComplete="off"
                           >
                             Custom Option
-                          </option>
+                          </option> */}
                           {categoriesOptions?.map((option) => (
                             <option
                               className="w-fit py-2 px-4 text-black"
@@ -395,13 +395,13 @@ const CreateGroup = ({ mode, data }) => {
                               {option.name}
                             </option>
                           ))}
-                          <option
+                          {/* <option
                             className="w-fit py-2 px-4 text-black"
                             value={"custome"}
                             autoComplete="off"
                           >
                             Custom Option
-                          </option>
+                          </option> */}
                         </>
                       )}
                     </select>

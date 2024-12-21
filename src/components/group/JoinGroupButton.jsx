@@ -126,7 +126,7 @@ const JoinGroupButton = ({ data }) => {
             <div className="absolute  bottom-14 right-0 bg-white  border  border-gray-300 py-6 px-4 w-64 md:w-72 rounded-lg shadow-md shadow-gray-500  dark:bg-gray-950 ">
               <div className="flex flex-col gap-3">
                 <Link
-                  href={""}
+                  href={`/user/profile/dashboard/manage-members?group_id=${data.group_id}`}
                   className="cursor-pointer bg-slate-200 dark:bg-slate-700 hover:bg-purple-600 dark:hover:bg-purple-600 hover:text-white p-3 rounded-md "
                 >
                   <CardUtil
