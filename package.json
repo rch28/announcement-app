@@ -21,6 +21,7 @@
     "chart.js": "^4.4.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
     "dompurify": "^3.1.6",
     "framer-motion": "^11.3.28",
     "js-cookie": "^3.0.5",
