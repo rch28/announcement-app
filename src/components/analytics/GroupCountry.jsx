@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -64,7 +64,7 @@ const GroupImpressionCountry = ({ group_id }) => {
     labels: data.map((item) => capitalizeFirstLetter(item.label)),
     datasets: [
       {
-        label: `${selectedFilter} Data`,
+        label: `${selectedFilter}`,
         data: data.map((item) => item.count),
         backgroundColor: "rgba(5, 155, 255, 1)",
       },

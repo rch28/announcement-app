@@ -19,7 +19,7 @@ const GroupAnalyticsPage = () => {
         <MemberChart group_id={group_id} />
         <RatingChart group_id={group_id} />
       </div>
-      <AnnouncementList />
+      <AnnouncementList group_id={group_id} />
     </div>
   );
 };

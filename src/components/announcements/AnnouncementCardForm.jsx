@@ -18,8 +18,14 @@ import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { useRouter, useSearchParams } from "next/navigation";
 import { fetchAllData, GetAccessToken } from "../../index";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import dynamic from "next/dynamic";
-const QuillEditor = dynamic(() => import('../layout/QuillEditor'), { ssr: false });
+const QuillEditor = dynamic(() => import('../layout/QuillEditor'), {
+  ssr: false,
+  loading: () => <p>Loading...</p>, // Optional loading component
+});
+
 
 import { Textarea } from "../ui/textarea";
 import { InfoIcon } from "lucide-react";
@@ -500,16 +506,18 @@ export default function AnnouncementCardForm() {
                     <InfoIcon className="h-5 w-5" />
                   </span>
                 )}
-                <Label htmlFor="date">Date</Label>
+                <label htmlFor="date">Date</label>
                 <Input
                   ref={dateRef}
                   id="date"
+                  type="date"
                   value={date}
                   autoComplete="off"
                   onChange={(e) => setDate(e.target.value)}
                   onFocus={() => setFocusedField("date")}
                   onBlur={() => setFocusedField(null)}
                   placeholder="Enter date"
+                  min={new Date().toISOString().split("T")[0]}
                   className="border border-gray-600 focus:border-purple-500 dark:text-white placeholder:text-gray-600 dark:placeholder:text-slate-300 dark:bg-transparent"
                 />
                 <Tooltip id="date-tooltip" />
@@ -542,7 +550,7 @@ export default function AnnouncementCardForm() {
               />
               <Tooltip id="imgDescription-tooltip" /> */}
             </div>
-            <div className="flex-1">
+            <div className="w-full">
               <Label htmlFor="image">Image</Label>
               <Input
                 ref={imageRef}
