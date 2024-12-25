@@ -108,9 +108,6 @@ const GroupImpression = ({group_id}) => {
     };
   };
 
-  console.log(data);
-  
-
   return (
     <div className="w-[500px] h-fit shadow-custom-all p-10 rounded-xl">
       <div className="flex justify-between items-center mb-6">
