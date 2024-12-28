@@ -138,7 +138,7 @@ const GroupCard = ({ data }) => {
                   <div className="bg-purple-600 rounded-full px-3 py-1 text-xs font-medium dark:bg-gray-800 text-white capitalize">
                     {data?.category}
                   </div>
-                  <Rating rating={data?.average_rating} />
+                  <Rating rating={data?.average_rating} user_rated={data?.rated_group} user_rating={data?.rating} />
                 </div>
 
                 <div className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
