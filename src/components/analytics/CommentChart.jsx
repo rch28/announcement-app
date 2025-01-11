@@ -9,19 +9,6 @@ const Line = dynamic(() => import('react-chartjs-2').then((mod) => mod.Line), {
   ssr: false,
 });
 
-const data = {
-  labels: ['January', 'February', 'March', 'April', 'May'],
-  datasets: [
-    {
-      label: 'Comment',
-      data: [65, 59, 80, 81, 56],
-      fill: false,
-      borderColor: 'rgb(5, 155, 255, 1)',
-      tension: 0.1,
-    }
-  ],
-};
-
 const CommentChart = ({ann_id}) => {
   const [selectedFilter, setSelectedFilter] = useState('this_week');
   const [data,setData] = useState([]);
@@ -127,7 +114,7 @@ const CommentChart = ({ann_id}) => {
   return (
     <div className="w-[500px] h-fit shadow-custom-all p-10 rounded-xl">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="font-bold text-lg">Announcement Impression</h1>
+        <h1 className="font-bold text-lg">Announcement Comment</h1>
         <div className="ml-auto">
           <select
             id="filter"

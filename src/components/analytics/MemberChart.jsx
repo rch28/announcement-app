@@ -62,7 +62,6 @@ const MemberChart = ({ group_id }) => {
   };
 
   const getFilteredData = () => {
-    if (!chartData) return { labels: [], datasets: [] };
 
     const filteredJoinData = filterData(chartData.join_count, selectedFilter);
     const filteredLeaveData = filterData(chartData.leave_count, selectedFilter);
