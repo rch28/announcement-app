@@ -68,7 +68,7 @@ export default function CheckoutPage() {
             stripe={stripePromise}
             options={{ clientSecret, appearance, loader }}
           >
-            <CheckoutForm dpmCheckerLink={dpmCheckerLink} />
+            <CheckoutForm dpmCheckerLink={dpmCheckerLink} groupId={groupId}/>
           </Elements>
         )
       )}

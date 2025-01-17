@@ -22,7 +22,7 @@ function PaymentStatusPopup({ message, onClose }) {
   );
 }
 
-export default function CheckoutForm({ dpmCheckerLink }) {
+export default function CheckoutForm({ dpmCheckerLink, groupId }) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -42,7 +42,7 @@ export default function CheckoutForm({ dpmCheckerLink }) {
     const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: "http://localhost:3000/analytics/group",
+        return_url: `http://localhost:3000/analytics/group?group_id=${groupId}`,
       },
       redirect: "if_required", // Prevent immediate redirection
     });
